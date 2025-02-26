@@ -9,8 +9,15 @@ export default {
   theme: {
     extend: {
       colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
+        primary: "#27445D",
+        lightGray: "#FAFAFA",
+        charcoalGray: "#5C5757",
+        lightGrayShade: "#D9D9D9",
+        // background: "var(--background)",
+        // foreground: "var(--foreground)",
+      },
+      fontFamily: {
+        roboto: ["var(--font-roboto)", "sans-serif"],
       },
     },
   },

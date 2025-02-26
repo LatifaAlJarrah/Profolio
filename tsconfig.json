@@ -1,3 +1,32 @@
+// {
+//   "compilerOptions": {
+//     "target": "ES2017",
+//     "lib": ["dom", "dom.iterable", "esnext"],
+//     "allowJs": true,
+//     "skipLibCheck": true,
+//     "strict": true,
+//     "noEmit": true,
+//     "esModuleInterop": true,
+//     "module": "esnext",
+//     "moduleResolution": "bundler",
+//     "resolveJsonModule": true,
+//     "isolatedModules": true,
+//     "jsx": "preserve",
+//     "incremental": true,
+//     "plugins": [
+//       {
+//         "name": "next"
+//       }
+//     ],
+//     "baseUrl": ".",
+//     "paths": {
+//       "@/*": ["./src/*"],
+//       "@components/*": ["./src/app/components/*"]
+//     },
+//   },
+//   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src"],
+//   "exclude": ["node_modules"]
+// }
 {
   "compilerOptions": {
     "target": "ES2017",
@@ -18,10 +47,28 @@
         "name": "next"
       }
     ],
+    "baseUrl": ".",
+    // "paths": {
+    //   "@/*": ["src/*"],
+    //   "@components/*": ["src/app/components/*"],
+    //   "@assets/*": ["src/app/assets/*"],
+    //   "@assets/icons": ["src/app/assets/icons"],
+    //   "@assets/images": ["src/app/assets/images"]
+    // }
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["src/*"],
+      "@components/*": ["src/app/components/*"],
+      "@assets/*": ["src/app/assets/*"],
+      "@icons/*": ["src/app/assets/icons/*"],
+      "@images/*": ["src/app/assets/images/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    "src"
+  ],
   "exclude": ["node_modules"]
 }
