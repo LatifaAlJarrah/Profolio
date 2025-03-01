@@ -108,3 +108,119 @@ export default function Modal({
     </div>
   );
 }
+
+// import { createPortal } from "react-dom";
+// import { useEffect, useState } from "react";
+// import Link from "next/link";
+// import Logo from "../logo/Logo";
+// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// import { faFacebook, faGoogle } from "@fortawesome/free-brands-svg-icons";
+// import { faEnvelope, faKey, faTimes } from "@fortawesome/free-solid-svg-icons";
+
+// interface ModalProps {
+//   isOpen: boolean;
+//   onClose: () => void;
+//   buttonName: string;
+//   description: string;
+// }
+
+// export default function Modal({
+//   isOpen,
+//   onClose,
+//   buttonName,
+//   description,
+// }: ModalProps) {
+//   const [mounted, setMounted] = useState(false);
+
+//   useEffect(() => {
+//     setMounted(true);
+//   }, []);
+
+//   if (!mounted || !isOpen) return null;
+
+//   return createPortal(
+//     <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-[100]">
+//       <div className="bg-white p-8 rounded-lg shadow-lg max-w-md w-full">
+//         <button
+//           onClick={onClose}
+//           className="absolute top-4 right-6 text-2xl text-gray-600"
+//         >
+//           <FontAwesomeIcon icon={faTimes} />
+//         </button>
+
+//         <div className="flex flex-col items-center mt-4">
+//           <Logo />
+//           <h2 className="text-sm font-normal my-4 text-gray-700">
+//             {description}
+//           </h2>
+//         </div>
+
+//         <form>
+//           <div className="mb-4">
+//             <div className="relative">
+//               <input
+//                 type="email"
+//                 className="w-full p-3 pr-12 rounded-md border border-gray-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-primary"
+//                 required
+//                 placeholder="Enter Your Email"
+//               />
+//               <FontAwesomeIcon
+//                 icon={faEnvelope}
+//                 className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5"
+//               />
+//             </div>
+//           </div>
+
+//           <div className="mb-4">
+//             <div className="relative">
+//               <input
+//                 type="password"
+//                 className="w-full p-3 pr-12 rounded-md border border-gray-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-primary"
+//                 required
+//                 placeholder="Enter Your Password"
+//               />
+//               <FontAwesomeIcon
+//                 icon={faKey}
+//                 className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5"
+//               />
+//             </div>
+//           </div>
+
+//           <button
+//             type="submit"
+//             className="w-full bg-primary text-white p-3 rounded-md my-4"
+//           >
+//             {buttonName}
+//           </button>
+//         </form>
+
+//         <div className="flex items-center justify-center space-x-4 my-4 w-full">
+//           <div className="h-px w-full bg-gray-300"></div>
+//           <p className="text-gray-500">OR</p>
+//           <div className="h-px w-full bg-gray-300"></div>
+//         </div>
+
+//         <div className="w-full flex flex-col space-y-3">
+//           <Link
+//             href="https://accounts.google.com"
+//             className="flex items-center justify-center p-3 border rounded-md shadow-md text-gray-600 hover:bg-gray-100"
+//           >
+//             <FontAwesomeIcon icon={faGoogle} className="w-5 h-5 mr-2" />
+//             Continue With Google
+//           </Link>
+//           <Link
+//             href="https://facebook.com"
+//             className="flex items-center justify-center p-3 border rounded-md shadow-md text-gray-600 hover:bg-gray-100"
+//           >
+//             <FontAwesomeIcon
+//               icon={faFacebook}
+//               className="w-5 h-5 text-blue-600 mr-2"
+//             />
+//             Continue With Facebook
+//           </Link>
+//         </div>
+//       </div>
+//     </div>,
+//     document.body
+//   );
+// }

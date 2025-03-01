@@ -3,9 +3,10 @@ import Link from "next/link";
 
 interface NavbarListProps {
   type: string;
+  className?: string;
 }
 
-const NavbarList: React.FC<NavbarListProps> = ({type}) => {
+const NavbarList: React.FC<NavbarListProps> = ({ type, className}) => {
   const navLinks = [
     { name: "Home", path: "/" },
     { name: "Template", path: "/templates" },
@@ -14,12 +15,13 @@ const NavbarList: React.FC<NavbarListProps> = ({type}) => {
   ];
 
   return (
-    <ul className="flex space-x-10 w-[541px] h-[23px] text-center">
+    <ul className={`flex ${className}`}>
       {navLinks.map((link, index) => (
         <li
           key={index}
-          // className="flex hover:text-primary cursor-pointer"
-          className={`flex ${type == "nav" ? "hover:text-primary" : "hover:text-black"} cursor-pointer`}
+          className={`cursor-pointer ${
+            type === "nav" ? "hover:text-primary" : "hover:text-black"
+          }`}
         >
           <Link href={link.path}>{link.name}</Link>
         </li>
