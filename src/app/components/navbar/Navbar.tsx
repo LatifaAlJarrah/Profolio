@@ -7,7 +7,7 @@ import NavbarList from "../list/NavbarList";
 import Modal from "../auth/Modal";
 
 interface NavbarProps {
-  type: string;
+  type?: string;
   className?: string;
 }
 
@@ -115,7 +115,7 @@ export default function Navbar({
 
         <NavbarList
           type="sidebar"
-          className="flex-col space-y-6 mt-12 text-xl"
+          className="flex-col space-y-6 mt-12 text-lg"
           onClick={() => setIsSidebarOpen(false)}
         />
 

@@ -13,7 +13,7 @@
 //     name: "Sophia Garcia",
 //     role: "Content Creator",
 //     feedback:
-//       "These templates have been a game-changer! I built my makeup website in no time, despite having no programming background. It's been a major source of income for me, and I couldn't be happier with this website. Thank you!",
+//       "These templates have been a game-changer! I built my makeup website in no time, despite having no programming background. It's been a major source of income for me, and I couldn't be happier with this website. Thank you! Thank you! Thank you! Thank you! Thank you! ",
 //     image: Sophia,
 //   },
 // ];
@@ -22,22 +22,23 @@
 //   return (
 //     <section className="py-10 text-center">
 //       <h2 className="text-2xl font-bold mb-6">What Our Clients Say ?</h2>
-//       <div className="flex justify-evenly space-x-4">
+//       <div className="flex justify-center space-x-16">
 //         {clients.map((client, index) => (
-//           <div
-//             key={index}
-//             className="bg-white p-6 rounded-lg shadow-lg max-w-sm"
-//           >
-//             <Image
-//               src={client.image}
-//               alt={client.name}
-//               className="rounded-full mx-auto"
-//               width={136}
-//               height={136}
-//             />
-//             <h3 className="font-bold mt-4">{client.name}</h3>
-//             <p className="text-sm text-gray-500">{client.role}</p>
-//             <p className="mt-2">{client.feedback}</p>
+//           <div key={index} className="relative">
+//             <div className="absolute inset-0 bg-primary rounded-lg transform rotate-6 w-full h-full -z-10"></div>
+
+//             <div className="bg-white p-6 rounded-lg shadow-lg max-w-sm relative z-10">
+//               <Image
+//                 src={client.image}
+//                 alt={client.name}
+//                 className="rounded-full mx-auto"
+//                 width={80}
+//                 height={80}
+//               />
+//               <h3 className="font-bold mt-4">{client.name}</h3>
+//               <p className="text-sm text-gray-500">{client.role}</p>
+//               <p className="mt-2">{client.feedback}</p>
+//             </div>
 //           </div>
 //         ))}
 //       </div>
@@ -68,14 +69,13 @@ const clients = [
 
 const ClientReviews = () => {
   return (
-    <section className="py-10 text-center">
+    <section className="py-10 text-center px-4">
       <h2 className="text-2xl font-bold mb-6">What Our Clients Say ?</h2>
-      <div className="flex justify-center space-x-16">
+      <div className="flex flex-col md:flex-row justify-center space-y-8 md:space-y-0 md:space-x-16">
         {clients.map((client, index) => (
           <div key={index} className="relative">
-            <div className="absolute inset-0 bg-primary rounded-lg transform rotate-6 w-full h-full -z-10"></div>
-
-            <div className="bg-white p-6 rounded-lg shadow-lg max-w-sm relative z-10">
+            <div className="absolute inset-0 bg-primary rounded-lg transform rotate-6 -z-10"></div>
+            <div className="bg-white p-6 rounded-lg shadow-lg max-w-sm max-h-sm relative z-10">
               <Image
                 src={client.image}
                 alt={client.name}

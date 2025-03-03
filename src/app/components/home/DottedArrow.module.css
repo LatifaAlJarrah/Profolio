@@ -1,0 +1,9 @@
+/* Arrow.module.css (if using CSS modules) */
+.dashedLine {
+  border-bottom: 2px dashed black; /* Creates the dashed line */
+  width: 100px; /* Adjust the length as needed */
+  transform: rotate(20deg); /* Adjust rotation as needed */
+  /* Add more styling for the curve here if needed (e.g., using border-radius) */
+    border-radius: 50%; /* Adjust for the curve */
+
+}
