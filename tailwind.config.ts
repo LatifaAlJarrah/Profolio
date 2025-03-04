@@ -14,6 +14,7 @@ export default {
         charcoalGray: "#5C5757",
         lightGrayShade: "#D9D9D9",
         lightGrayShade2: "#E8E8E8",
+        yellow: "#FFDB58",
         // background: "var(--background)",
         // foreground: "var(--foreground)",
       },
