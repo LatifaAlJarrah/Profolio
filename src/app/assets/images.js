@@ -16,7 +16,8 @@ import FishPlatter from "@assets/images/resturantMenu/fish-platter.png";
 import SeaFood from "@assets/images/resturantMenu/seafood.png";
 import Goulash from "@assets/images/resturantMenu/goulash.png";
 import SweetBerry from "@assets/images/resturantMenu/sweetBerry.png";
-
+import ResturantBG from "@assets/images/resturantMenu/bgResturant.jpg"
+import ResturantBg from "@assets/images/resturantMenu/bgResturant.jpg"
 export {
   Sophia,
   John,
@@ -32,5 +33,7 @@ export {
   FishPlatter,
   SeaFood,
   Goulash,
-  SweetBerry
+  SweetBerry,
+  ResturantBG,
+  ResturantBg
 };

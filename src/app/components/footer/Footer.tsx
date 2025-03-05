@@ -1,5 +1,10 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFacebook, faInstagram, faGithub, faGoogle } from "@fortawesome/free-brands-svg-icons";
+import {
+  faFacebook,
+  faInstagram,
+  faGithub,
+  faGoogle,
+} from "@fortawesome/free-brands-svg-icons";
 
 import Logo from "../logo/Logo";
 import NavbarList from "../list/NavbarList";
@@ -9,6 +14,7 @@ import Link from "next/link";
 interface FooterProps {
   className?: string;
 }
+
 const Footer = ({ className = "flex-row space-x-10" }: FooterProps) => {
   return (
     <footer className="bg-primary text-white justify-between py-4 px-12 text-center">

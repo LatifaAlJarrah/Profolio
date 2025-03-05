@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import Image, { StaticImageData } from "next/image";
+import { Roboto } from "next/font/google";
 import {
   StuffedPaper,
   Halloumi,
@@ -57,7 +58,6 @@ const menuItems: { [key: string]: MenuItem[] } = {
   desserts: [],
 };
 
-import { Roboto } from "next/font/google";
 const roboto = Roboto({
   weight: "400",
   subsets: ["latin"],
@@ -67,7 +67,7 @@ export default function MenuSection() {
   const [activeCategory, setActiveCategory] = useState("appetizers");
 
   return (
-    <section className="py-16 bg-black text-white text-center">
+    <section className="py-16 text-white text-center">
       <h2 className="text-4xl tracking-widest mb-8">OUR MENU</h2>
 
       {/* Category Tabs */}
@@ -82,7 +82,7 @@ export default function MenuSection() {
               className={`px-6 py-2 rounded-lg transition ${
                 activeCategory === category
                   ? "bg-yellow text-black"
-                  : "bg-gray-800 text-white"
+                  : " text-white bg-white bg-opacity-15"
               }`}
             >
               {category === "appetizers"
@@ -102,7 +102,7 @@ export default function MenuSection() {
         {menuItems[activeCategory].map((item: MenuItem, index: number) => (
           <div
             key={index}
-            className="bg-gray-900 w-[250px] rounded-lg overflow-hidden"
+            className="bg-white bg-opacity-10 w-[250px] rounded-lg overflow-hidden"
           >
             <Image
               src={item.img}
