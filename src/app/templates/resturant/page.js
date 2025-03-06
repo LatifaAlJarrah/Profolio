@@ -1,7 +1,7 @@
 import React from 'react'
 import Resturant from '@/app/components/templates/resturant/Resturant';
 export const metadata = {
-  title: "Templates",
+  title: "Resturant Template",
 };
 
 const page = () => {

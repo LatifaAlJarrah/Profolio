@@ -13,11 +13,16 @@ import StuffedPaper from "@assets/images/resturantMenu/stuffed-peppers.png";
 import Eggplant from "@assets/images/resturantMenu/eggplant.png";
 import ImamBayildi from "@assets/images/resturantMenu/imam-bayildi.png";
 import FishPlatter from "@assets/images/resturantMenu/fish-platter.png";
-import SeaFood from "@assets/images/resturantMenu/seafood.png";
-import Goulash from "@assets/images/resturantMenu/goulash.png";
-import SweetBerry from "@assets/images/resturantMenu/sweetBerry.png";
-import ResturantBG from "@assets/images/resturantMenu/bgResturant.jpg"
-import ResturantBg from "@assets/images/resturantMenu/bgResturant.jpg"
+import SeaFood from "@assets/images/resturantMenu/seafood.jpg";
+import Goulash from "@assets/images/resturantMenu/goulash.jpg";
+import SweetBerry from "@assets/images/resturantMenu/sweetBerry.jpg";
+import ResturantBg from "@assets/images/resturantMenu/bgResturant.jpg";
+
+import DentistLogoo from "@assets/images/dentist/logo.png";
+import BackgroundDentelle from "@assets/images/dentist/backgroundDent.png";
+import DrSarah from "@assets/images/dentist/drSarah.png";
+import HollywoodSmile from "@assets/images/dentist/HollywoodSmile.jpeg";
+
 export {
   Sophia,
   John,
@@ -34,6 +39,9 @@ export {
   SeaFood,
   Goulash,
   SweetBerry,
-  ResturantBG,
-  ResturantBg
+  ResturantBg,
+  DentistLogoo,
+  BackgroundDentelle,
+  DrSarah,
+  HollywoodSmile
 };
