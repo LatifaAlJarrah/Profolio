@@ -15,7 +15,7 @@ const sedan = Sedan({
 
 interface ResturantHeaderProps {
   headerTextSize?: string;
-  descriptionTextSize?: "A Culinary Experience Crafted with Passion and Fresh Ingredients";
+  descriptionTextSize?: string;
 }
 
 export default function ResturantHeader({

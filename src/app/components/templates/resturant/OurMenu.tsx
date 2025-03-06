@@ -63,7 +63,7 @@ const roboto = Roboto({
   subsets: ["latin"],
 });
 
-export default function MenuSection() {
+export default function OurMenu() {
   const [activeCategory, setActiveCategory] = useState("appetizers");
 
   return (
