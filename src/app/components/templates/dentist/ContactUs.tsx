@@ -22,9 +22,9 @@ const ContactUs = () => {
         className={`${roboto.className} flex justify-between items-center text-center px-5`}
       >
         <div>
-          <p className={`text-black text-2xl`}>To book an appointment</p>
+          <p className={`text-black lg:text-2xl`}>To book an appointment</p>
         </div>
-        <div className="hidden md:block h-36 w-[1px] bg-lightGrayShade2"></div>
+        <div className="hidden lg:block h-36 w-[1px] bg-lightGrayShade2"></div>
         <div className="flex flex-col gap-8">
           <div className="flex items-center space-x-2">
             <Link
@@ -53,7 +53,7 @@ const ContactUs = () => {
             <span>Facebook Name</span>
           </div>
         </div>
-        <div className="hidden md:block h-36 w-[1px] bg-lightGrayShade2"></div>
+        <div className="hidden lg:block h-36 w-[1px] bg-lightGrayShade2"></div>
         <div className="flex flex-col gap-8">
           <div className="flex items-center space-x-2">
             <Link
@@ -82,7 +82,7 @@ const ContactUs = () => {
             <span className="underline">dr.williams@brightsmiledental.com</span>
           </div>
         </div>
-        <div className="hidden md:block h-36 w-[1px] bg-lightGrayShade2"></div>
+        <div className="hidden lg:block h-36 w-[1px] bg-lightGrayShade2"></div>
         <div className="flex items-center space-x-2">
           <Link
             href="https://facebook.com"

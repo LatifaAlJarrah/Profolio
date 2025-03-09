@@ -21,7 +21,14 @@ import ResturantBg from "@assets/images/resturantMenu/bgResturant.jpg";
 import DentistLogoo from "@assets/images/dentist/logo.png";
 import BackgroundDentelle from "@assets/images/dentist/backgroundDent.png";
 import DrSarah from "@assets/images/dentist/drSarah.png";
+
 import HollywoodSmile from "@assets/images/dentist/HollywoodSmile.jpeg";
+import TeethWhitening from "@assets/images/dentist/teeth.jpeg";
+import Fillings from "@assets/images/dentist/teeth3.jpeg";
+
+import Emilly from "@assets/images/dentist/emilly.jpeg";
+import Ahmad from "@assets/images/dentist/ahmad.jpeg";
+import Vector from "@assets/images/dentist/Vector.png";
 
 export {
   Sophia,
@@ -43,5 +50,10 @@ export {
   DentistLogoo,
   BackgroundDentelle,
   DrSarah,
-  HollywoodSmile
+  HollywoodSmile,
+  TeethWhitening,
+  Fillings,
+  Emilly,
+  Ahmad,
+  Vector
 };
