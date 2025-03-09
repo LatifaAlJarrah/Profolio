@@ -12,7 +12,7 @@ const namdhinggo = Namdhinggo({
 const Header = () => {
   return (
     <div
-      className={`${namdhinggo.className} lg:w-1/2 md:w-full flex flex-col lg:items-start md:items-center text-center md:text-left pt-28 pl-24`}
+      className={`${namdhinggo.className} lg:w-1/2 md:w-full flex flex-col items-start text-left pt-28 pl-24`}
     >
       <p className="text-5xl text-white mb-4">
         Because Every Smile Tells A Story, We&apos;re Here To Help Yours Shine

@@ -15,6 +15,12 @@ import Orthodontic from "@assets/icons/dentist/orthodontic.png";
 import Trainer from "@assets/icons/dentist/trainer.png";
 import Veneers from "@assets/icons/dentist/veneers.png";
 import Teeth from "@assets/icons/dentist/teeth.png";
+
+import DentalPractice from "@assets/icons/dentist/dentalPractice.jpeg"
+import DentalVeneers from "@assets/icons/dentist/dentalVeneers.jpeg";
+import PerfectSmile from "@assets/icons/dentist/perfectSmile.jpeg";
+import VeneersShow from "@assets/icons/dentist/veneersShow.jpeg";
+
 export {
   Error,
   Growth,
@@ -31,5 +37,9 @@ export {
   Orthodontic,
   Trainer,
   Veneers,
-  Teeth
+  Teeth,
+  DentalPractice,
+  DentalVeneers,
+  PerfectSmile,
+  VeneersShow
 };
