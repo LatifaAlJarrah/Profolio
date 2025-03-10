@@ -1,46 +1,3 @@
-// import React from "react";
-
-// import Image from "next/image";
-// import { HollywoodSmile } from "@/app/assets/images";
-
-// import { Roboto } from "next/font/google";
-// const roboto = Roboto({
-//   weight: "400",
-//   subsets: ["latin"],
-// });
-
-// const Card = () => {
-//   return (
-//     <div className="flex items-center justify-between rounded-xl bg-white w-1/2">
-//       <div>
-//         <Image src={HollywoodSmile} alt="HollywoodSmile" />
-//       </div>
-//       <div>
-//         <p className="text-2xl">Hollywood Smile</p>
-//         <p className="text-charcoalGray text-xl">
-//           The patient had discoloration and misalignment of the teeth, They were
-//           treated with a Hollywood Smile using cosmetic veneers (either veneers
-//           or lumineers) to achieve a bright and harmonious smile.
-//         </p>
-//       </div>
-//     </div>
-//   );
-// };
-// const Portfolio = () => {
-//   return (
-//     <section className={`${roboto.className} bg-white`}>
-//       <h2 className="text-center my-8 text-4xl tracking-widest">
-//         PORTFOLIO & TESTIMONIALS
-//       </h2>
-//       <div className="flex ">
-//         <Card />
-//         <Card />
-//       </div>
-//     </section>
-//   );
-// };
-
-// export default Portfolio;
 "use client";
 
 import { useState } from "react";
@@ -58,7 +15,6 @@ import {
   Fillings,
   Emilly,
   Ahmad,
-  Vector,
 } from "@/app/assets/images";
 
 import { Roboto } from "next/font/google";
@@ -109,12 +65,12 @@ function Testimonials() {
   ];
 
   return (
-    <div className="mx-auto py-12 px-4 w-full">
-      <div className="flex lg:flex-row md:flex-col sm:flex-col justify-center items-center gap-6">
+    <div className="mx-auto py-12 px-8 md:px-4 w-full">
+      <div className="flex flex-col lg:flex-row justify-center items-center text-center md:text-left gap-6">
         {testimonials.map((testimonial, index) => (
           <div
             key={index}
-            className="relative bg-white shadow-lg rounded-full p-6 md:w-[65%] sm:w-[50%] flex items-center overflow-hidden"
+            className="relative bg-white shadow-lg rounded-full p-6 w-full md:w-[65%] flex flex-col sm:flex-row items-center overflow-hidden"
           >
             <div className="rounded-full overflow-hidden shrink-0 w-52 h-52">
               <Image
@@ -125,11 +81,11 @@ function Testimonials() {
             </div>
 
             {/* Testimonial Content */}
-            <div className="ml-6 flex-1">
-              <h3 className="lg:text-lg md:text-base sm:text-base">
+            <div className="flex-1 p-6">
+              <h3 className="text-base lg:text-lg">
                 {testimonial.name}
               </h3>
-              <p className="text-[#4E4E4E] lg:text-base md:text-sm sm:text-sm mt-2 leading-relaxed">
+              <p className="text-[#4E4E4E] text-sm lg:text-base mt-2 leading-relaxed">
                 {testimonial.quote}
               </p>
             </div>
@@ -175,7 +131,9 @@ export default function Portfolio() {
                     className="h-full object-cover rounded-2xl w-1/2"
                   />
                   <div className="p-6 w-1/2 flex flex-col">
-                    <h3 className="lg:text-2xl md:text-lg sm:text-lg">{item.title}</h3>
+                    <h3 className="lg:text-2xl md:text-lg sm:text-lg">
+                      {item.title}
+                    </h3>
                     <p className="lg:text-xl md:text-base sm:text-base text-charcoalGray my-8">
                       {item.description}
                     </p>

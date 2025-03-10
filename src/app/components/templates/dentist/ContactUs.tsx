@@ -17,15 +17,18 @@ const roboto = Roboto({
 
 const ContactUs = () => {
   return (
-    <section className="absolute top-[603px] left-1/2 transform -translate-x-1/2 shadow-lg rounded-lg p-4 w-[90%] z-10 bg-[#F6FBFF]">
+    <section className="absolute top-[87%] left-1/2 transform -translate-x-1/2 shadow-lg rounded-lg p-4 w-[90%] z-10 bg-[#F6FBFF]">
       <div
-        className={`${roboto.className} flex justify-between items-center text-center px-5`}
+        className={`${roboto.className} flex flex-col lg:flex-row justify-between items-center text-center px-5 space-y-5`}
       >
         <div>
           <p className={`text-black lg:text-2xl`}>To book an appointment</p>
         </div>
+
         <div className="hidden lg:block h-36 w-[1px] bg-lightGrayShade2"></div>
-        <div className="flex flex-col gap-8">
+        <div className=" block lg:hidden border border-lightGrayShade2 my-4 w-full"></div>
+
+        <div className="flex lg:flex-col md:flex-row sm:flex-row gap-8">
           <div className="flex items-center space-x-2">
             <Link
               href="https://instagram.com"
@@ -53,8 +56,11 @@ const ContactUs = () => {
             <span>Facebook Name</span>
           </div>
         </div>
+        <div className=" block lg:hidden border border-lightGrayShade2 my-4 w-full"></div>
+
         <div className="hidden lg:block h-36 w-[1px] bg-lightGrayShade2"></div>
-        <div className="flex flex-col gap-8">
+
+        <div className="flex lg:flex-col md:flex-row sm:flex-row gap-8">
           <div className="flex items-center space-x-2">
             <Link
               href="https://facebook.com"
@@ -82,7 +88,11 @@ const ContactUs = () => {
             <span className="underline">dr.williams@brightsmiledental.com</span>
           </div>
         </div>
+
+        <div className=" block lg:hidden border border-lightGrayShade2 my-4 w-full"></div>
+
         <div className="hidden lg:block h-36 w-[1px] bg-lightGrayShade2"></div>
+
         <div className="flex items-center space-x-2">
           <Link
             href="https://facebook.com"
