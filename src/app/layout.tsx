@@ -2,12 +2,10 @@ import type { Metadata } from "next";
 import { Roboto } from "next/font/google";
 import "./globals.css";
 
-import Navbar from "@components/navbar/Navbar";
-import Footer from '@components/footer/Footer'
 const roboto = Roboto({
   subsets: ["latin"],
-  weight: "400", 
-  variable: "--font-roboto", 
+  weight: "400",
+  variable: "--font-roboto",
 });
 
 export const metadata: Metadata = {
@@ -22,11 +20,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${roboto.variable}`}>
-      <body className="font-roboto">
-        <Navbar />
-        {children}
-        {/* <Footer /> */}
-      </body>
+      <body className="font-roboto">{children}</body>
     </html>
   );
 }
