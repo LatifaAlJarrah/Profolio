@@ -16,10 +16,24 @@ import Trainer from "@assets/icons/dentist/trainer.png";
 import Veneers from "@assets/icons/dentist/veneers.png";
 import Teeth from "@assets/icons/dentist/teeth.png";
 
-import DentalPractice from "@assets/icons/dentist/dentalPractice.jpeg"
+import DentalPractice from "@assets/icons/dentist/dentalPractice.jpeg";
 import DentalVeneers from "@assets/icons/dentist/dentalVeneers.jpeg";
 import PerfectSmile from "@assets/icons/dentist/perfectSmile.jpeg";
 import VeneersShow from "@assets/icons/dentist/veneersShow.jpeg";
+
+import CompanyLogo from "@assets/icons/company/companyLogo.png";
+import DoneIcone from "@assets/icons/company/done.png";
+import Customer from "@assets/icons/company/customer-satisfication.png";
+import Calender from "@assets/icons/company/calender.png";
+import TeamWork from "@assets/icons/company/team-work.png";
+
+import WebDesign from "@assets/icons/company/web-design.png";
+import UxDesign from "@assets/icons/company/ux.png";
+import Interface from "@assets/icons/company/interface.png";
+import SearchOptimization from "@assets/icons/company/search-optimization.png";
+import CustumizationIcon from "@assets/icons/company/custimization.png";
+import Chatbot from "@assets/icons/company/chatbot.png";
+import Analystic from "@assets/icons/company/analystics.png";
 
 export {
   Error,
@@ -41,5 +55,17 @@ export {
   DentalPractice,
   DentalVeneers,
   PerfectSmile,
-  VeneersShow
+  VeneersShow,
+  CompanyLogo,
+  DoneIcone,
+  Customer,
+  Calender,
+  TeamWork,
+  WebDesign,
+  UxDesign,
+  Interface,
+  SearchOptimization,
+  CustumizationIcon,
+  Chatbot,
+  Analystic,
 };

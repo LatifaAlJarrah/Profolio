@@ -10,17 +10,20 @@ const navbarList = [
 ];
 interface NavbarListProps {
   className?: string;
+  onClick?: () => void;
 }
 
-const NavbarList = ({ className }: NavbarListProps) => {
+const NavbarList = ({ className, onClick }: NavbarListProps) => {
   return (
     <nav className="w-3/4">
       <ul
-        className={`flex space-x-16 text-black text-xl items-start ${className} `}
+        className={`flex gap-12 text-black text-xl items-start ${className} `}
       >
         {navbarList.map((item, index) => (
           <Link key={index} href={item.link}>
-            <li>{item.name}</li>
+            <li className="hover:text-[#58ADEB]" onClick={onClick}>
+              {item.name}
+            </li>
           </Link>
         ))}
       </ul>

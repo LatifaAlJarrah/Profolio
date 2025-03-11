@@ -51,9 +51,9 @@ const ImageGrid = () => {
 
 const Blog = () => {
   return (
-    <section className={`${roboto.className}`}>
+    <section className={`${roboto.className} bg-[#FAFAFA] py-8`}>
       <div className="relative mx-auto">
-        <h2 className="text-center my-8 text-4xl tracking-widest">BLOG</h2>
+        <h2 className="text-center text-4xl tracking-widest">BLOG</h2>
         <div className="flex flex-col lg:flex-row items-center justify-between">
           <div className="w-full lg:w-1/2 grid-cols-1">
             <ImageGrid />

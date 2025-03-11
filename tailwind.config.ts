@@ -15,6 +15,8 @@ export default {
         lightGrayShade: "#D9D9D9",
         lightGrayShade2: "#E8E8E8",
         yellow: "#FFDB58",
+        navyBlue: "#27445D", 
+
         // background: "var(--background)",
         // foreground: "var(--foreground)",
       },

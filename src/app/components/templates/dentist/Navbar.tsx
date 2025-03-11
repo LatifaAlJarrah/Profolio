@@ -1,18 +1,3 @@
-// import React from "react";
-
-// import NavbarList from "./NavbarList";
-// import DentistLogo from "./DentistLogo";
-
-// export default function Nabvbar() {
-//   return (
-//     <nav
-//       className="w-full bg-white flex items-center z-50 shadow-lg px-16"
-//     >
-//       <DentistLogo />
-//       <NavbarList />
-//     </nav>
-//   );
-// }
 "use client";
 import React, { useState, useEffect, useRef } from "react";
 import NavbarList from "./NavbarList";
@@ -26,8 +11,8 @@ interface NavbarProps {
 export default function Navbar({
   className = "flex-row space-x-10",
 }: NavbarProps) {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const sidebarRef = useRef<HTMLDivElement>(null);
 
   // إخفاء السايدبار عند النقر خارجها
@@ -73,7 +58,9 @@ export default function Navbar({
 
       {/* Desktop Navbar */}
       <div className="hidden lg:flex lg:flex-row lg:items-center lg:justify-between lg:w-4/5">
-        <NavbarList className={className} />
+        <NavbarList
+          className={className}
+        />
       </div>
 
       {/* Overlay عند فتح القائمة */}
@@ -97,7 +84,7 @@ export default function Navbar({
 
         <NavbarList
           className="flex-col space-y-6 mt-12 text-lg"
-          // onClick={() => setIsSidebarOpen(false)}
+          onClick={() => setIsSidebarOpen(false)}
         />
       </div>
     </nav>

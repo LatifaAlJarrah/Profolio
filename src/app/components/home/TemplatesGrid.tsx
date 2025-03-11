@@ -1,5 +1,9 @@
 import React from "react";
+
 import ResturantHeader from "../templates/resturant/ResturantHeader";
+import Header from "../templates/dentist/Header";
+
+import Link from "next/link";
 
 interface TemplatesGridProps {
   headerTextSize?: string;
@@ -9,14 +13,14 @@ export default function TemplatesGrid({
   headerTextSize = "text-2xl",
 }: TemplatesGridProps) {
   const templates = [
-    { name: "Restaurant", Component: ResturantHeader },
-    { name: "Restaurant", Component: ResturantHeader },
-    { name: "Restaurant", Component: ResturantHeader },
-    { name: "Restaurant", Component: ResturantHeader },
-    { name: "Restaurant", Component: ResturantHeader },
-    { name: "Restaurant", Component: ResturantHeader },
-    { name: "Restaurant", Component: ResturantHeader },
-    { name: "Restaurant", Component: ResturantHeader },
+    { href: "/templates/resturant", name: "Restaurant", Component: ResturantHeader },
+    { href: "/templates/resturant", name: "Restaurant", Component: ResturantHeader },
+    { href: "/templates/resturant", name: "Restaurant", Component: ResturantHeader },
+    { href: "/templates/resturant", name: "Restaurant", Component: ResturantHeader },
+    { href: "/templates/dentist", name: "Dentist", Component: Header },
+    { href: "/templates/dentist", name: "Dentist", Component: Header },
+    { href: "/templates/dentist", name: "Dentist", Component: Header },
+    { href: "/templates/dentist", name: "Dentist", Component: Header },
   ];
 
   return (
@@ -26,16 +30,18 @@ export default function TemplatesGrid({
         {templates.map((item, index) => {
           const TemplateComponent = item.Component;
           return (
-            <div key={index}>
-              <div className="relative h-[300px] w-[350px] rounded-md shadow-md flex flex-col items-center justify-center overflow-hidden">
-                <div className="w-full h-full flex items-center justify-center">
-                  <TemplateComponent
-                    headerTextSize={headerTextSize}
-                  />
+            <Link href={item.href} key={index}>
+              <div>
+                <div className="relative h-[300px] w-[350px] rounded-md shadow-md flex flex-col items-center justify-center overflow-hidden">
+                  <div className="w-full h-full flex items-center justify-center">
+                    <TemplateComponent headerTextSize={headerTextSize} />
+                  </div>
                 </div>
+                <p className="text-black text-xl mt-2 text-center">
+                  {item.name}
+                </p>
               </div>
-              <p className="text-black text-xl mt-2 text-center">{item.name}</p>
-            </div>
+            </Link>
           );
         })}
       </div>
