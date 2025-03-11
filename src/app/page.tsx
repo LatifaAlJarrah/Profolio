@@ -1,10 +1,9 @@
-import HomePage from "@components/home/Home";
-
+import { redirect } from "next/navigation";
 
 export const metadata = {
   title: "Home | My Portfolio",
 };
 
 export default function Home() {
-  return <HomePage />;
+  return redirect("/home");;
 }

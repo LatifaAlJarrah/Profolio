@@ -70,7 +70,7 @@ function Testimonials() {
         {testimonials.map((testimonial, index) => (
           <div
             key={index}
-            className="relative bg-white shadow-lg rounded-full p-6 w-full md:w-[65%] flex flex-col sm:flex-row items-center overflow-hidden"
+            className="relative shadow-lg rounded-full p-6 w-full md:w-[65%] flex flex-col sm:flex-row items-center overflow-hidden"
           >
             <div className="rounded-full overflow-hidden shrink-0 w-52 h-52">
               <Image
@@ -82,9 +82,7 @@ function Testimonials() {
 
             {/* Testimonial Content */}
             <div className="flex-1 p-6">
-              <h3 className="text-base lg:text-lg">
-                {testimonial.name}
-              </h3>
+              <h3 className="text-base lg:text-lg">{testimonial.name}</h3>
               <p className="text-[#4E4E4E] text-sm lg:text-base mt-2 leading-relaxed">
                 {testimonial.quote}
               </p>
@@ -100,7 +98,7 @@ export default function Portfolio() {
   const [activeIndex, setActiveIndex] = useState(0);
 
   return (
-    <section className={`${roboto.className}`}>
+    <section className={`${roboto.className} bg-[#FAFAFA]`}>
       <div className="relative mx-auto p-4 ">
         <h2 className="text-center my-8 text-4xl tracking-widest">
           PORTFOLIO & TESTIMONIALS
@@ -121,7 +119,7 @@ export default function Portfolio() {
             {testimonials.map((item, index) => (
               <SwiperSlide key={index}>
                 <div
-                  className={`rounded-lg shadow-md flex items-center justify-between h-[450px] bg-white p-2 ${
+                  className={`rounded-lg shadow-md flex items-center justify-between h-[450px] p-2 ${
                     index === activeIndex ? "border-2 border-[#58ADEB]" : ""
                   }`}
                 >

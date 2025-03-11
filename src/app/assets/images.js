@@ -30,6 +30,24 @@ import Emilly from "@assets/images/dentist/emilly.jpeg";
 import Ahmad from "@assets/images/dentist/ahmad.jpeg";
 import Vector from "@assets/images/dentist/Vector.png";
 
+import Company from "@assets/images/company/company.jpeg";
+import OfficeCulture from "@assets/images/company/officeCulture.jpeg";
+import SwiftCommerce from "@assets/images/company/swiftcommerce.jpeg";
+import ContentGenerator from "@assets/images/company/generatecontent.jpeg";
+import Seo from "@assets/images/company/seo.jpeg";
+import Influncer from "@assets/images/company/influncer.jpeg";
+import Travel from "@assets/images/company/travel.jpeg";
+import AdOptimizer from "@assets/images/company/adoptimizer.jpeg";
+import PoweredChatbot from "@assets/images/company/poweredchatbot.jpeg";
+import TaskManagement from "@assets/images/company/taskmanagement.jpeg";
+
+import James from "@assets/images/company/team/jamescarter.jpeg";
+import Emily from "@assets/images/company/team/emily.jpeg";
+import Michael from "@assets/images/company/team/michael.jpeg";
+import David from "@assets/images/company/team/david.jpeg";
+import SophiaMiller from "@assets/images/company/team/sophia.png";
+import Daniel from "@assets/images/company/team/daniel.jpeg";
+
 export {
   Sophia,
   John,
@@ -55,5 +73,21 @@ export {
   Fillings,
   Emilly,
   Ahmad,
-  Vector
+  Vector,
+  Company,
+  OfficeCulture,
+  SwiftCommerce,
+  ContentGenerator,
+  Seo,
+  Influncer,
+  Travel,
+  AdOptimizer,
+  PoweredChatbot,
+  TaskManagement,  
+  James,
+  Emily,
+  Michael,
+  David,
+  SophiaMiller,
+  Daniel,
 };
