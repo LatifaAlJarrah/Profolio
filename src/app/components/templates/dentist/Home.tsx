@@ -8,15 +8,13 @@ import Portfolio from "./Portfolio";
 import Blog from "./Blog";
 import Footer from "./Footer";
 
-
 const Home = () => {
   return (
-  <div >
+    <div>
       <Navbar />
       <section id="home">
         <Header />
       </section>
-      {/* <ContactUs /> */}
       <section id="about">
         <AboutMe />
       </section>

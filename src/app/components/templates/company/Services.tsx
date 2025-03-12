@@ -9,6 +9,7 @@ import {
   CustumizationIcon,
   Chatbot,
   Analystic,
+  ContentCreator,
 } from "@/app/assets/icons";
 
 const services = [
@@ -50,7 +51,7 @@ const services = [
   {
     title: "Marketing Task Automation",
     description: "such as post scheduling and email campaigns.",
-    icon: Analystic,
+    icon: ContentCreator,
   },
 ];
 
@@ -62,7 +63,7 @@ const roboto = Roboto({
 
 const Services = () => {
   return (
-    <section className={`${roboto.className} bg-[#F3F3EE] px-20`}>
+    <section className={`${roboto.className} bg-[#F3F3EE] px-20 py-10`}>
       <h2 className="mb-8 text-3xl uppercase font-medium">
         <span className="text-navyBlue">n</span>exora services
       </h2>
@@ -71,7 +72,7 @@ const Services = () => {
         {services.map((service, index) => (
           <div
             key={index}
-            className="flex flex-col items-center text-center bg-white shadow-lg rounded-[100px] px-8 pb-8 hover:shadow-2xl transition duration-300"
+            className="flex flex-col items-center text-center bg-white shadow-lg rounded-[100px] px-8 pb-8 hover:shadow-2xl transition duration-300 h-72"
           >
             <div className="w-24 h-24 mb-4 bg-navyBlue rounded-full flex items-center text-center justify-center border-[10px] border-[#F3F3EE]">
               <Image

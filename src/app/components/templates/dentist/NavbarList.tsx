@@ -15,7 +15,7 @@ interface NavbarListProps {
 
 const NavbarList = ({ className, onClick }: NavbarListProps) => {
   return (
-    <nav className="w-3/4">
+    <div className="w-3/4">
       <ul
         className={`flex gap-12 text-black text-xl items-start ${className} `}
       >
@@ -27,7 +27,7 @@ const NavbarList = ({ className, onClick }: NavbarListProps) => {
           </Link>
         ))}
       </ul>
-    </nav>
+    </div>
   );
 };
 
