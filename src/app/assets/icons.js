@@ -34,7 +34,12 @@ import SearchOptimization from "@assets/icons/company/search-optimization.png";
 import CustumizationIcon from "@assets/icons/company/custimization.png";
 import Chatbot from "@assets/icons/company/chatbot.png";
 import Analystic from "@assets/icons/company/analystics.png";
+import ContentCreator from "@assets/icons/company/content-creator.png";
 
+import Facbook from "@assets/icons/company/iconfacebook.png";
+import Insta from "@assets/icons/company/iconinsta.png";
+import Apple from "@assets/icons/company/isonapple.png";
+import Gmail from "@assets/icons/company/icongmail.png";
 export {
   Error,
   Growth,
@@ -68,4 +73,9 @@ export {
   CustumizationIcon,
   Chatbot,
   Analystic,
+  ContentCreator,
+  Facbook,
+  Insta,
+  Apple,
+  Gmail
 };

@@ -48,6 +48,10 @@ import David from "@assets/images/company/team/david.jpeg";
 import SophiaMiller from "@assets/images/company/team/sophia.png";
 import Daniel from "@assets/images/company/team/daniel.jpeg";
 
+import Programmer from "@assets/images/programmer/programmer.png";
+import BackgroundCircule from "@assets/images/programmer/Ellipse 13.png";
+import ProgrammingBg from "@assets/images/programmer/programmingBG.jpeg";
+
 export {
   Sophia,
   John,
@@ -90,4 +94,7 @@ export {
   David,
   SophiaMiller,
   Daniel,
+  Programmer,
+  BackgroundCircule,
+  ProgrammingBg
 };

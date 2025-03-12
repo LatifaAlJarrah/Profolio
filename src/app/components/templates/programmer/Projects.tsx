@@ -21,18 +21,25 @@ interface ProjectProps {
 
 const projects: { [key: string]: ProjectProps[] } = {
   All: [
+    { name: "React Portfolio Website", img: SwiftCommerce },
+    { name: "Potography Portfolio Website", img: ContentGenerator },
+    { name: "E-commerce Application", img: Seo },
+    { name: "Food Ordering Application", img: Influncer },
+    { name: "React Firebase Template", img: Travel },
+    { name: "Full-stack Roadmap", img: AdOptimizer },
+  ],
+  Web: [
     { name: "Swift Commerce", img: SwiftCommerce },
     { name: "AI Content Generator", img: ContentGenerator },
     { name: "SEO Genius", img: Seo },
     { name: "Influencer Connect", img: Influncer },
+  ],
+  Mobile: [
     { name: "Travel Agency - Landing Page Design", img: Travel },
     { name: "AdOptimizer 360", img: AdOptimizer },
     { name: "AI-Powered Chatbot", img: PoweredChatbot },
     { name: "Task Management App Design", img: TaskManagement },
   ],
-  Programming: [],
-  "Artificial Intelligence (AI)": [],
-  Marketing: [],
 };
 
 const roboto = Roboto({ weight: "400", subsets: ["latin"] });
@@ -41,7 +48,7 @@ export default function Projects() {
   const [activeCategory, setActiveCategory] = useState("All");
 
   return (
-    <section className="px-20 py-5">
+    <section className="px-20 py-5 text-white">
       <h2 className="text-4xl mb-8">PROJECTS</h2>
 
       {/* 🔹 أزرار التصنيفات */}
@@ -52,7 +59,7 @@ export default function Projects() {
             onClick={() => setActiveCategory(category)}
             className={`px-10 py-2 rounded-3xl transition ${
               activeCategory === category
-                ? "text-white bg-navyBlue"
+                ? "text-[#497D74] border-[3px] border-[#497D74]"
                 : " text-[#454545] border-[2px] border-charcoalGray"
             }`}
           >
@@ -62,7 +69,7 @@ export default function Projects() {
       </div>
 
       {/* 🔹 عرض المشاريع */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {projects[activeCategory].length > 0 ? (
           projects[activeCategory].map((item: ProjectProps, index: number) => (
             <div
