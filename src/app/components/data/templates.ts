@@ -1,29 +1,26 @@
-import ResturantHeader from "../templates/resturant/ResturantHeader";
-import Header from "../templates/dentist/Header";
-
+import Resturant from "../templates/resturant/Resturant";
+import Home from "../templates/dentist/Home";
+import StartUpCompany from "../templates/company/StartUpCompany";
+import Programmer from "../templates/programmer/Home";
 export const templates = [
   {
-    href: "/templates/resturant",
     name: "Restaurant",
-    Component: ResturantHeader,
+    Component: Resturant,
   },
   {
-    href: "/templates/resturant",
-    name: "Restaurant",
-    Component: ResturantHeader,
+    name: "Start Up Company",
+    Component: StartUpCompany,
   },
   {
-    href: "/templates/resturant",
-    name: "Restaurant",
-    Component: ResturantHeader,
+    name: "Programmer",
+    Component: Programmer,
   },
   {
-    href: "/templates/resturant",
     name: "Restaurant",
-    Component: ResturantHeader,
+    Component: Resturant,
   },
-  { href: "/templates/dentist", name: "Dentist", Component: Header },
-  { href: "/templates/dentist", name: "Dentist", Component: Header },
-  { href: "/templates/dentist", name: "Dentist", Component: Header },
-  { href: "/templates/dentist", name: "Dentist", Component: Header },
+  { name: "Dentist", Component: Home },
+  { name: "Dentist", Component: Home },
+  { name: "Dentist", Component: Home },
+  { name: "Dentist", Component: Home },
 ];

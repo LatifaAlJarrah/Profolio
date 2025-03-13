@@ -1,76 +1,3 @@
-// "use client";
-// import React from "react";
-// import dynamic from "next/dynamic";
-
-// const AnimatedNumbers = dynamic(
-//   () => {
-//     return import("react-animated-numbers");
-//   },
-//   { ssr: false }
-// );
-
-// const achievementsList = [
-//   {
-//     id: 0,
-//     metric: "Projects",
-//     value: "100",
-//     postfix: "+",
-//   },
-//   {
-//     id: 1,
-//     prefix: "~",
-//     metric: "Users",
-//     value: "100,000",
-//   },
-//   {
-//     id: 2,
-//     metric: "Awards",
-//     value: "7",
-//   },
-//   {
-//     id: 3,
-//     metric: "Years",
-//     value: "5",
-//   },
-// ];
-
-// const AchievementsSection = () => {
-//   return (
-//     <div className="py-8 px-4 xl:gap-16 sm:py-16 xl:px-16">
-//       <div className="sm:border-[#33353F] sm:border rounded-md py-8 px-16 flex flex-col sm:flex-row items-center justify-between">
-//         {achievementsList.map((achievement, index) => {
-//           return (
-//             <div
-//               key={index}
-//               className="flex flex-col items-center justify-center mx-4 my-4 sm:my-0"
-//             >
-//               <h2 className="text-white text-4xl font-bold flex flex-row">
-//                 {achievement.prefix}
-//                 <AnimatedNumbers
-//                   includeComma
-//                   animateToNumber={parseInt(achievement.value)}
-//                   locale="en-US"
-//                   className="text-white text-4xl font-bold"
-//                   configs={(_, index) => {
-//                     return {
-//                       mass: 1,
-//                       friction: 100,
-//                       tensions: 140 * (index + 1),
-//                     };
-//                   }}
-//                 />
-//                 {achievement.postfix}
-//               </h2>
-//               <p className="text-[#ADB7BE] text-base">{achievement.metric}</p>
-//             </div>
-//           );
-//         })}
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default AchievementsSection;
 "use client";
 import React from "react";
 import dynamic from "next/dynamic";
@@ -80,10 +7,10 @@ const AnimatedNumbers = dynamic(() => import("react-animated-numbers"), {
 });
 
 const achievementsList = [
-  { id: 0, metric: "Projects", value: "100", postfix: "+" },
-  { id: 1, prefix: "~", metric: "Users", value: "100000" },
-  { id: 2, metric: "Awards", value: "7" },
-  { id: 3, metric: "Years", value: "5" },
+  { id: 1, metric: "Projects", value: "100", postfix: "+" },
+  { id: 2, prefix: "~", metric: "Users", value: "100000" },
+  { id: 3, metric: "Awards", value: "7" },
+  { id: 4, metric: "Years", value: "5" },
 ];
 
 const AchievementsSection = () => {
@@ -92,18 +19,18 @@ const AchievementsSection = () => {
       <div className="sm:border-[#33353F] sm:border rounded-md py-8 px-16 flex flex-col sm:flex-row items-center justify-between">
         {achievementsList.map((achievement) => (
           <div
-            key={achievement.id}
+            key={achievement.id} // ✅ مفتاح فريد للعنصر الرئيسي
             className="flex flex-col items-center justify-center my-4 sm:my-0"
           >
             <h2 className="text-white text-4xl font-bold flex flex-row">
               {achievement.prefix}
               <AnimatedNumbers
+                key={`animated-${achievement.id}`} // ✅ إعطاء مفتاح فريد لـ AnimatedNumbers
                 includeComma
                 animateToNumber={parseInt(achievement.value)}
                 locale="en-US"
                 className="text-white text-4xl font-bold"
                 configs={(_, index) => ({
-                  key: `animated-number-${index}`, // ✅ إضافة مفتاح فريد
                   mass: 1,
                   friction: 100,
                   tensions: 140 * (index + 1),

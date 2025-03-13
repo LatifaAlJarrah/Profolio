@@ -10,12 +10,12 @@ const TAB_DATA = [
     id: "skills",
     content: (
       <ul className="list-disc pl-2">
-        <li>Node.js</li>
-        <li>Express</li>
-        <li>PostgreSQL</li>
-        <li>Sequelize</li>
-        <li>JavaScript</li>
-        <li>React</li>
+        <li id="0">Node.js</li>
+        <li id="1">Express</li>
+        <li id="2">PostgreSQL</li>
+        <li id="3">Sequelize</li>
+        <li id="4">JavaScript</li>
+        <li id="5">React</li>
       </ul>
     ),
   },
@@ -24,8 +24,8 @@ const TAB_DATA = [
     id: "education",
     content: (
       <ul className="list-disc pl-2">
-        <li>Fullstack Academy of Code</li>
-        <li>University of California, Santa Cruz</li>
+        <li id="0">Fullstack Academy of Code</li>
+        <li id="1">University of California, Santa Cruz</li>
       </ul>
     ),
   },
@@ -34,8 +34,8 @@ const TAB_DATA = [
     id: "certifications",
     content: (
       <ul className="list-disc pl-2">
-        <li>AWS Cloud Practitioner</li>
-        <li>Google Professional Cloud Developer</li>
+        <li id="0">AWS Cloud Practitioner</li>
+        <li id="1">Google Professional Cloud Developer</li>
       </ul>
     ),
   },

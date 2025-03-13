@@ -12,7 +12,7 @@ import Image from "next/image";
 import { ResturantBg } from "@/app/assets/images";
 
 interface resturantProps {
-  descriptionTextSize: string;
+  descriptionTextSize?: string;
 }
 
 const Resturant = ({descriptionTextSize = "A Culinary Experience Crafted with Passion and Fresh Ingredients"}: resturantProps) => {
