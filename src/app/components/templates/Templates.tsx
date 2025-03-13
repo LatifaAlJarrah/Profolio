@@ -11,6 +11,7 @@
 "use client";
 import { templates } from "../data/templates"; // استيراد البيانات
 import Link from "next/link";
+
 const TemplatesPage = () => {
   return (
     <div className="py-8 text-center px-20">
@@ -19,7 +20,7 @@ const TemplatesPage = () => {
         {templates.map((item, index) => {
           const TemplateComponent = item.Component;
           return (
-            <Link href={item.href} key={index}>
+            <Link href={`/controltemplate?template=${item.name}`} key={index}>
               <div className="relative rounded-md shadow-md flex flex-col items-center justify-center overflow-hidden h-96">
                 <div className="flex items-center justify-center">
                   <TemplateComponent />

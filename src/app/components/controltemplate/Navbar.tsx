@@ -10,9 +10,9 @@ import { Backword, Forward } from "@assets/icons";
 const Navbar = () => {
   return (
     <nav className="flex items-center justify-between py-2 px-8 bg-gray-100">
-      <div>
+      <Link href="/templates">
         <FontAwesomeIcon icon={faArrowLeft} className="w-6 h-6 text-black" />
-      </div>
+      </Link>
       <div className="flex space-x-3">
         <Link href="">
           <Image src={Backword} alt="backword" className="w-6 h-6" />
