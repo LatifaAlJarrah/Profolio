@@ -59,7 +59,8 @@ export default function Projects() {
             onClick={() => setActiveCategory(category)}
             className={`px-10 py-2 rounded-3xl transition ${
               activeCategory === category
-                ? "text-[#497D74] border-[3px] border-[#497D74]"
+                ? // ? "text-[#497D74] border-[3px] border-[#497D74]"
+                  "bg-gradient-to-r from-[#497D74] to-[#2F4F4F] text-transparent bg-clip-text"
                 : " text-[#454545] border-[2px] border-charcoalGray"
             }`}
           >

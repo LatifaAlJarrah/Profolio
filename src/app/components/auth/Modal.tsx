@@ -36,11 +36,11 @@ const Modal = forwardRef<HTMLDivElement, ModalProps>(
             >
               <button
                 onClick={onClose}
-                className="float-right text-2xl font-bold"
+                className="float-right text-2xl font-bold text-red-600"
               >
                 &times;
               </button>
-              <div className=" justify-center items-center flex flex-col my-10">
+              <div className=" justify-center items-center flex flex-col my-10 mt-20">
                 <Logo />
                 <h2 className="text-sm font-normal my-4 text-charcoalGray">
                   {description}

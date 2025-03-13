@@ -1,10 +1,10 @@
 import React from 'react'
 
-import Portfolio from '@/app/components/templates/programmer/Portfolio';
+import Home from '@/app/components/templates/programmer/Home';
 
 const page = () => {
   return (
-    <Portfolio />
+    <Home />
   )
 }
 

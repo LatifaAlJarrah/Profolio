@@ -73,14 +73,14 @@ export default function TeamSection() {
       >
         {teamMembers.map((member, index) => (
           <SwiperSlide key={index} className="flex justify-center">
-            <div className="bg-white p-5 rounded-[200px] shadow-lg text-center w-60 h-96 flex flex-col justify-between">
+            <div className="bg-white p-5 rounded-full shadow-lg text-center w-60 h-96 flex flex-col justify-between">
               <div>
                 <Image
                   src={member.img}
                   alt={member.name}
-                  width={200}
-                  height={200}
-                  className="w-24 h-24 mx-auto rounded-full object-cover border-4 border-gray-300"
+                  width={100}
+                  height={100}
+                  className="w-[150px] h-[150px] mx-auto rounded-full object-cover border-4 border-gray-300"
                 />
 
                 <h3 className="text-2xl font-semibold mt-4">{member.name}</h3>
@@ -89,15 +89,15 @@ export default function TeamSection() {
               <div className="flex justify-center gap-3 text-white">
                 <FontAwesomeIcon
                   icon={faInstagram}
-                  className="w-8 h-8 bg-[#5C5757] rounded-full p-1"
+                  className="w-7 h-7 bg-[#5C5757] rounded-full p-2"
                 />
                 <FontAwesomeIcon
                   icon={faBehance}
-                  className="w-8 h-8 bg-[#5C5757] rounded-full p-1"
+                  className="w-7 h-7 bg-[#5C5757] rounded-full p-2"
                 />
                 <FontAwesomeIcon
                   icon={faGithub}
-                  className="w-8 h-8 bg-[#5C5757] rounded-full p-1"
+                  className="w-7 h-7 bg-[#5C5757] rounded-full p-2"
                 />
               </div>
             </div>

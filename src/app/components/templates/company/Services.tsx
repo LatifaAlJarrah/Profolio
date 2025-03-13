@@ -74,7 +74,7 @@ const Services = () => {
             key={index}
             className="flex flex-col items-center text-center bg-white shadow-lg rounded-[100px] px-8 pb-8 hover:shadow-2xl transition duration-300 h-72"
           >
-            <div className="w-24 h-24 mb-4 bg-navyBlue rounded-full flex items-center text-center justify-center border-[10px] border-[#F3F3EE]">
+            <div className="w-24 h-24 mb-4 bg-navyBlue rounded-full flex items-center text-center justify-center border-[15px] border-[#F3F3EE]">
               <Image
                 src={service.icon}
                 alt={service.title}

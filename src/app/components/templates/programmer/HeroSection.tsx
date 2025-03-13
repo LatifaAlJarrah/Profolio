@@ -1,71 +1,79 @@
+"use client";
 import React from "react";
-
 import Image from "next/image";
+import { TypeAnimation } from "react-type-animation";
+import { motion } from "framer-motion";
+import Link from "next/link";
 import { Programmer } from "@/app/assets/images";
-
-import { Palanquin_Dark, Roboto } from "next/font/google";
+import { Palanquin_Dark } from "next/font/google";
 const palanquin = Palanquin_Dark({
   weight: "400",
   subsets: ["latin"],
 });
 
-const roboto = Roboto({
-  weight: "400",
-  subsets: ["latin"],
-});
 const HeroSection = () => {
   return (
-    <section className="grid grid-cols-12 justify-center text-left">
-      <div
-        className={`${palanquin.className} col-span-6 flex flex-col justify-center`}
-      >
-        <p className="text-white text-6xl">
-          <span className="bg-gradient-to-r from-[#497D74] to-[#2F4F4F] text-transparent bg-clip-text">
-            Hello , I&apos;m <br />
-          </span>
-          Zayn Haddad |
-        </p>
-        <p className="text-base text-[#555555] mt-12 mb-40">
-          A full-stack web developer passionate about building interactive and
-          responsive applications, with experience in JavaScript, React,
-          Node.js, PostgreSQL,
-        </p>
-        <div className={`${roboto.className} text-xl text-white`}>
-          <button className="bg-gradient-to-r from-[#497D74] to-[#2F4F4F] py-3 px-12 rounded-full">
-            Hire Me
-          </button>
-        </div>
-      </div>
-      <div className="col-span-6 justify-end">
-        <div className="relative h-screen flex items-center justify-center text-white">
-          <div className="absolute w-[600px] h-[660px] bg-[#497D74] rounded-full opacity-20 blur-2xl"></div>
-          <Image
-            src={Programmer}
-            alt="programmer"
-            className="z-10"
-            height={600}
-          />
-        </div>
-      </div>
-      <div
-        className={`${roboto.className} col-span-12 grid grid-cols-4 border border-[#E8E8E821] border-opacity-20 text-white text-center py-4`}
-      >
-        <div>
-          <p className="font-semibold text-4xl">100+</p>
-          <p className="text-lg">projects</p>
-        </div>
-        <div>
-          <p className="font-semibold text-4xl">~100</p>
-          <p className="text-lg">users</p>
-        </div>
-        <div>
-          <p className="font-semibold text-4xl">7</p>
-          <p className="text-lg">awards</p>
-        </div>
-        <div>
-          <p className="font-semibold text-4xl">5</p>
-          <p className="text-lg">Years</p>
-        </div>
+    <section className="lg:py-16">
+      <div className="grid grid-cols-1 sm:grid-cols-12">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.5 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.5 }}
+          className="col-span-8 place-self-center text-center sm:text-left justify-self-start"
+        >
+          <h1
+            className={`${palanquin.className} text-white mb-4 text-4xl sm:text-5xl lg:text-8xl lg:leading-normal font-extrabold`}
+          >
+            <span className="bg-gradient-to-r from-[#497D74] to-[#2F4F4F] text-transparent bg-clip-text">
+              Hello, I&apos;m{" "}
+            </span>
+            <br></br>
+            <TypeAnimation
+              sequence={[
+                "Zayn Haddad",
+                1000,
+                "Web Developer",
+                1000,
+                "Mobile Developer",
+                1000,
+                "UI/UX Designer",
+                1000,
+              ]}
+              wrapper="span"
+              speed={50}
+              repeat={Infinity}
+            />
+          </h1>
+          <p className="text-[#ADB7BE] text-base sm:text-lg mb-6 lg:text-xl">
+            A full-stack web developer passionate about building interactive and
+            responsive applications, with experience in JavaScript, React,
+            Node.js, PostgreSQL,
+          </p>
+          <div>
+            <Link
+              href="/#contact"
+              className="px-6 inline-block py-3 w-full sm:w-fit rounded-full mr-4 bg-gradient-to-br from-[#497D74] to-[#2F4F4F] text-white"
+            >
+              Hire Me
+            </Link>
+          </div>
+        </motion.div>
+        <motion.div
+          initial={{ opacity: 0, scale: 0.5 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.5 }}
+          className="col-span-4 place-self-center mt-4 lg:mt-0"
+        >
+          <div className="rounded-full w-[250px] h-[250px] lg:w-[400px] lg:h-[400px] relative ">
+            <Image
+              src={Programmer}
+              alt="hero image"
+              className="absolute transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
+              width={400}
+              height={400}
+            />
+          </div>
+        </motion.div>
       </div>
     </section>
   );
