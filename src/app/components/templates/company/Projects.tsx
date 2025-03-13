@@ -30,7 +30,12 @@ const projects: { [key: string]: ProjectProps[] } = {
     { name: "AI-Powered Chatbot", img: PoweredChatbot },
     { name: "Task Management App Design", img: TaskManagement },
   ],
-  Programming: [],
+  Programming: [
+    { name: "Swift Commerce", img: SwiftCommerce },
+    { name: "AI Content Generator", img: ContentGenerator },
+    { name: "SEO Genius", img: Seo },
+    { name: "Influencer Connect", img: Influncer },
+  ],
   "Artificial Intelligence (AI)": [],
   Marketing: [],
 };
