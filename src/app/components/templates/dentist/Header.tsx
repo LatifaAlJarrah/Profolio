@@ -19,10 +19,9 @@ const Header = () => {
       <Image
         src={BackgroundDentelle}
         alt="Background"
-        layout="fill"
-        objectFit="cover"
+        fill
         priority
-        className="absolute top-0 left-0 -z-10 object-[70%_center]"
+        className="absolute top-0 left-0 -z-10 object-[70%_center] object-cover"
       />
       <div className="lg:w-1/2 md:text-justify">
         <p className="text-5xl text-white mb-4">

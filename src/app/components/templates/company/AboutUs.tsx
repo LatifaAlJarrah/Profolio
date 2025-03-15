@@ -16,7 +16,7 @@ const roboto = Roboto({
 
 const AboutUs = () => {
   return (
-    <section className={`${roboto.className} py-16 mx-auto`}>
+    <section className={`${roboto.className} py-16 px-20`} id="about">
       <div className="grid grid-cols-12 items-center gap-8">
         <h2 className="col-span-12 text-3xl font-medium text-black mb-10">
           ABOUT US

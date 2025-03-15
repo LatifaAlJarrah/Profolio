@@ -63,7 +63,10 @@ const roboto = Roboto({
 
 const Services = () => {
   return (
-    <section className={`${roboto.className} bg-[#F3F3EE] px-20 py-10`}>
+    <section
+      className={`${roboto.className} bg-[#F3F3EE] px-20 py-10`}
+      id="services"
+    >
       <h2 className="mb-8 text-3xl uppercase font-medium">
         <span className="text-navyBlue">n</span>exora services
       </h2>

@@ -13,6 +13,19 @@ import StuffedPaper from "@assets/images/resturantMenu/stuffed-peppers.png";
 import Eggplant from "@assets/images/resturantMenu/eggplant.png";
 import ImamBayildi from "@assets/images/resturantMenu/imam-bayildi.png";
 import FishPlatter from "@assets/images/resturantMenu/fish-platter.png";
+import Chocolate from "@assets/images/resturantMenu/chocolate.jpeg";
+import MilleFeuille from "@assets/images/resturantMenu/Mille-Feuille.jpeg";
+import Macarons from "@assets/images/resturantMenu/Macarons.jpeg";
+import PumpkinSoup from "@assets/images/resturantMenu/Pumpkin & Apple Soup.jpeg";
+import TomatoSoup from "@assets/images/resturantMenu/tomatosoup.jpeg";
+import VinaigretteSalad from "@assets/images/resturantMenu/VinaigretteSalad.jpeg";
+import OlivierSalad from "@assets/images/resturantMenu/Olivier Salad.jpeg";
+import GoatCheeseSalad from "@assets/images/resturantMenu/Goat Cheese Salad.jpeg";
+import RibeyeSteak from "@assets/images/resturantMenu/Ribeye Steak.jpeg";
+import LambChops from "@assets/images/resturantMenu/Lamb Chops.jpeg";
+import PrimeSteak from "@assets/images/resturantMenu/Prime Steak Tartare.jpeg";
+import TomahawkSteak from "@assets/images/resturantMenu/Tomahawk Steak.jpeg";
+import TunaTartare from "@assets/images/resturantMenu/Tuna Tartare.jpeg";
 import SeaFood from "@assets/images/resturantMenu/seafood.jpg";
 import Goulash from "@assets/images/resturantMenu/goulash.jpg";
 import SweetBerry from "@assets/images/resturantMenu/sweetBerry.jpg";
@@ -65,6 +78,19 @@ export {
   Eggplant,
   ImamBayildi,
   FishPlatter,
+  Chocolate,
+  MilleFeuille,
+  Macarons,
+  PumpkinSoup,
+  TomatoSoup,
+  OlivierSalad,
+  VinaigretteSalad,
+  GoatCheeseSalad,
+  TunaTartare,
+  TomahawkSteak,
+  PrimeSteak,
+  LambChops,
+  RibeyeSteak,
   SeaFood,
   Goulash,
   SweetBerry,

@@ -32,7 +32,7 @@ const FontAwesome = ({ icon }: FontAwesomeProps) => {
   return (
     <FontAwesomeIcon
       icon={icon}
-      className="text-gray-600 text-xl cursor-pointer bg-transparent w-36 h-8"
+      className="text-gray-600 text-xl cursor-pointer bg-transparent"
     />
   );
 };
@@ -71,7 +71,7 @@ const Sidebar = () => {
           <ColorPicker defaultColor="#000000" />
         </div>
         <div className="flex justify-between mt-2 space-x-2">
-          <FontAwesome icon={faAlignLeft} />
+          <FontAwesome icon={faAlignLeft}/>
           <FontAwesome icon={faAlignCenter} />
           <FontAwesome icon={faAlignRight} />
 

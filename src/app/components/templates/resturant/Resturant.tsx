@@ -15,15 +15,16 @@ interface resturantProps {
   descriptionTextSize?: string;
 }
 
-const Resturant = ({descriptionTextSize = "A Culinary Experience Crafted with Passion and Fresh Ingredients"}: resturantProps) => {
+const Resturant = ({
+  descriptionTextSize = "A Culinary Experience Crafted with Passion and Fresh Ingredients",
+}: resturantProps) => {
   return (
     <div className="relative min-h-screen">
       <Image
         src={ResturantBg}
         alt="Background"
-        layout="fill"
-        objectFit="cover"
-        className="absolute top-0 left-0 -z-10"
+        fill
+        className="absolute top-0 left-0 -z-10 object-cover"
       />
       <ResturantNavbar />
       <section id="home">

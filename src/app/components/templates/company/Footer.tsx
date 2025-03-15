@@ -9,7 +9,7 @@ const urbanist = Urbanist({
 
 const Footer = () => {
   return (
-    <footer className="items-center grid grid-cols-11 bg-[#F3F3EE] px-8">
+    <footer className="items-center grid grid-cols-11 bg-[#F3F3EE] px-20">
       <div className="col-span-3">
         <LogoCompany />
       </div>

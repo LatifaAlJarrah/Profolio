@@ -1,12 +1,7 @@
 "use client";
 import { useState } from "react";
 import Image from "next/image";
-import {
-    Facbook,
-    Insta,
-    Apple,
-    Gmail
-} from "@/app/assets/icons";
+import { Facbook, Insta, Apple, Gmail } from "@/app/assets/icons";
 
 export default function ContactSection() {
   const [formData, setFormData] = useState({
@@ -28,7 +23,7 @@ export default function ContactSection() {
   };
 
   return (
-    <div className="px-8 bg-[#FAFAFA]">
+    <section className="px-20 bg-[#FAFAFA]" id="contact">
       {/* Left Side - Contact Info */}
       <h2 className="text-3xl font-bold mb-4">CONTACT US</h2>
       <div className="grid grid-cols-12 justify-between items-center h-full py-5">
@@ -94,7 +89,7 @@ export default function ContactSection() {
             </div>
           </div>
         </div>
-      
+
         {/* Right Side - Contact Form */}
         <div className="col-span-12 lg:col-span-6 lg:col-start-7 mt-0 sm:mt-8 h-full">
           <h2 className="text-3xl font-medium mb-4">
@@ -154,6 +149,6 @@ export default function ContactSection() {
           </form>
         </div>
       </div>
-    </div>
+    </section>
   );
 }
