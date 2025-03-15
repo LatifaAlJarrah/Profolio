@@ -42,27 +42,21 @@ export default function RandomlyChef() {
             <Image
               src={Goulash}
               alt="Goulash"
-              width={250}
-              height={300}
-              className="rounded-lg shadow-lg object-cover w-full h-full"
+              className="rounded-lg shadow-lg object-cover w-[250px] h-[350px]"
             />
           </div>
           <div className="absolute top-10 left-[342px] rotate-12 w-[250px] h-[265px]">
             <Image
               src={SeaFood}
               alt="SeaFood"
-              width={250}
-              height={400}
-              className="rounded-lg shadow-lg object-cover w-full h-full"
+              className="rounded-lg shadow-lg object-cover w-[250px] h-[265px]"
             />
           </div>
           <div className="absolute top-80 left-[280px] rotate-12 w-[250px] h-[265px]">
             <Image
               src={SweetBerry}
               alt="SweetBerry"
-              width={250}
-              height={400}
-              className="rounded-lg shadow-lg object-cover w-full h-full"
+              className="rounded-lg shadow-lg object-cover w-[250px] h-[265px]"
             />
           </div>
         </div>

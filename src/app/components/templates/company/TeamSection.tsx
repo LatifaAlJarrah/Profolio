@@ -56,7 +56,7 @@ const teamMembers = [
 
 export default function TeamSection() {
   return (
-    <div className="py-10 bg-[#FAFAFA] px-10">
+    <section className="px-20 py-10 bg-[#FAFAFA]" id="team">
       <h2 className="text-3xl font-bold text-center mb-6">OUR TEAM</h2>
       <Swiper
         slidesPerView={5} // عرض 5 صور في نفس الوقت
@@ -104,6 +104,6 @@ export default function TeamSection() {
           </SwiperSlide>
         ))}
       </Swiper>
-    </div>
+    </section>
   );
 }

@@ -29,10 +29,9 @@ export default function ResturantHeader({
         {/* استخدم absolute inset-0 لتغطية العنصر بالكامل */}
         <Image
           src={ResturantHero}
-          layout="fill"
-          objectFit="cover"
+          fill
           alt="Hero background"
-          className="-z-10"
+          className="-z-10 object-cover"
         />
         <div className="absolute inset-0 bg-black opacity-50"></div>{" "}
         {/* طبقة شفافة */}

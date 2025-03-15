@@ -4,7 +4,7 @@ import AboutSection from "./AboutSection";
 import ProjectsSection from "./ProjectsSection";
 import EmailSection from "./EmailSection";
 import Footer from "./Footer";
-import AchievementsSection from "./AchievementsSection";
+import AchievementsSection from "./AchievementsSection"
 
 export default function Home() {
   return (

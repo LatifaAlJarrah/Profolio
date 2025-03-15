@@ -12,14 +12,16 @@ const roboto = Roboto({
 
 const Header = () => {
   return (
-    <section className="min-h-screen text-white grid grid-cols-12 text-center">
+    <section
+      className="relative min-h-screen text-white grid grid-cols-12 text-center"
+      id="home"
+    >
       <Image
         src={Company}
         alt="company"
-        layout="fill"
-        objectFit="cover"
-        priority
-        className="absolute top-0 left-0 -z-10"
+        fill
+        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+        className="absolute top-0 left-0 -z-10 object-cover"
       />
       <div className="absolute inset-0 bg-black -z-10 opacity-60"></div>
 

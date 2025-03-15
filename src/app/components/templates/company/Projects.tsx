@@ -32,12 +32,18 @@ const projects: { [key: string]: ProjectProps[] } = {
   ],
   Programming: [
     { name: "Swift Commerce", img: SwiftCommerce },
+    { name: "Travel Agency - Landing Page Design", img: Travel },
+    { name: "Task Management App Design", img: TaskManagement },
+  ],
+  "Artificial Intelligence (AI)": [
     { name: "AI Content Generator", img: ContentGenerator },
+    { name: "AI-Powered Chatbot", img: PoweredChatbot },
+  ],
+  Marketing: [
     { name: "SEO Genius", img: Seo },
     { name: "Influencer Connect", img: Influncer },
+    { name: "AdOptimizer 360", img: AdOptimizer },
   ],
-  "Artificial Intelligence (AI)": [],
-  Marketing: [],
 };
 
 const roboto = Roboto({ weight: "400", subsets: ["latin"] });
@@ -46,7 +52,7 @@ export default function Projects() {
   const [activeCategory, setActiveCategory] = useState("All");
 
   return (
-    <section className="px-20 py-5">
+    <section className="px-20 py-5" id="projects">
       <h2 className="text-4xl mb-8">PROJECTS</h2>
 
       {/* 🔹 أزرار التصنيفات */}
@@ -79,8 +85,8 @@ export default function Projects() {
                 <Image
                   src={item.img}
                   alt={item.name}
-                  layout="fill"
-                  objectFit="cover"
+                  fill
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   className="object-cover rounded-t-lg object-[70%top] transition-all duration-500 ease-in-out scale-100 group-hover:scale-110"
                 />
               </div>
