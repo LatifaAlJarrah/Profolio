@@ -10,26 +10,15 @@ import Footer from "./Footer";
 
 const Home = () => {
   return (
-    <div>
+    <main>
       <Navbar />
-      <section id="home">
-        <Header />
-      </section>
-      <section id="about">
-        <AboutMe />
-      </section>
-      <section id="services">
-        <Services />
-      </section>
-      <section id="portfolio">
-        <Portfolio />
-      </section>
-      <section id="blog">
-        <Blog />
-      </section>
-
+      <Header />
+      <AboutMe />
+      <Services />
+      <Portfolio />
+      <Blog />
       <Footer />
-    </div>
+    </main>
   );
 };
 

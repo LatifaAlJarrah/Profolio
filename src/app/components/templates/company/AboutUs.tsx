@@ -8,15 +8,9 @@ import {
     TeamWork
 } from "@/app/assets/icons";
 
-import { Roboto } from "next/font/google";
-const roboto = Roboto({
-  weight: "400",
-  subsets: ["latin"],
-});
-
 const AboutUs = () => {
   return (
-    <section className={`${roboto.className} py-16 px-20`} id="about">
+    <section className={`py-16 px-20 font-roboto`} id="about">
       <div className="grid grid-cols-12 items-center gap-8">
         <h2 className="col-span-12 text-3xl font-medium text-black mb-10">
           ABOUT US

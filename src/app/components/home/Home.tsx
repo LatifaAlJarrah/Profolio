@@ -7,12 +7,12 @@ import ClientReviews from "./ClientReviews"
 
 export default function Home() {
   return (
-    <div>
+    <main>
       <HeroSection />
       <TemplatesGrid />
       <WhyUs />
       <HowItWorks />
       <ClientReviews />
-    </div>
+    </main>
   );
 }

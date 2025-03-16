@@ -55,16 +55,10 @@ const services = [
   },
 ];
 
-import { Roboto } from "next/font/google";
-const roboto = Roboto({
-  weight: "400",
-  subsets: ["latin"],
-});
-
 const Services = () => {
   return (
     <section
-      className={`${roboto.className} bg-[#F3F3EE] px-20 py-10`}
+      className={`font-roboto bg-[#F3F3EE] px-20 py-10`}
       id="services"
     >
       <h2 className="mb-8 text-3xl uppercase font-medium">

@@ -2,12 +2,6 @@ import React from "react";
 import Image from "next/image";
 import { SeaFood, Goulash, SweetBerry } from "@/app/assets/images";
 
-import { Roboto } from "next/font/google";
-const roboto = Roboto({
-  weight: "400",
-  subsets: ["latin"],
-});
-
 const chefSpecials = [
   {
     name: "Cassoulet",
@@ -35,7 +29,7 @@ export default function RandomlyChef() {
         RANDOMLY CHEF
       </h2>
       <div
-        className={`${roboto.className} flex flex-col md:flex-row justify-between items-center`}
+        className={`font-roboto flex flex-col md:flex-row justify-between items-center`}
       >
         <div className="relative w-full md:w-1/2 h-[620px] flex items-center justify-center overflow-hidden">
           <div className="absolute top-15 left-10 rotate-12 w-[250px] h-[350px]">

@@ -1,7 +1,6 @@
 "use client";
 import React, { useState } from "react";
 import Image, { StaticImageData } from "next/image";
-import { Roboto } from "next/font/google";
 import {
   SwiftCommerce,
   ContentGenerator,
@@ -46,8 +45,6 @@ const projects: { [key: string]: ProjectProps[] } = {
   ],
 };
 
-const roboto = Roboto({ weight: "400", subsets: ["latin"] });
-
 export default function Projects() {
   const [activeCategory, setActiveCategory] = useState("All");
 
@@ -56,7 +53,7 @@ export default function Projects() {
       <h2 className="text-4xl mb-8">PROJECTS</h2>
 
       {/* 🔹 أزرار التصنيفات */}
-      <div className={`${roboto.className} flex justify-center space-x-4 mb-6`}>
+      <div className={`font-roboto flex justify-center space-x-4 mb-6`}>
         {Object.keys(projects).map((category) => (
           <button
             key={category}

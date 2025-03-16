@@ -96,12 +96,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFacebook, faInstagram } from "@fortawesome/free-brands-svg-icons";
 import { faPhone, faEnvelope } from "@fortawesome/free-solid-svg-icons";
 
-import { Urbanist } from "next/font/google";
-const urbanist = Urbanist({
-  weight: "400",
-  subsets: ["latin"],
-});
-
 interface footerProps {
   className?: string;
 }
@@ -162,7 +156,7 @@ const Footer = ({ className = "" }: footerProps) => {
       </div>
 
       <div className="border border-[#55555580] opacity-50 my-4"></div>
-      <p className={`${urbanist.className} mt-4 text-2xl text-[#989898]`}>
+      <p className={`font-urbanist mt-4 text-2xl text-[#989898]`}>
         &copy; 2025 Dentelle. All Rights Reserved.
       </p>
     </footer>

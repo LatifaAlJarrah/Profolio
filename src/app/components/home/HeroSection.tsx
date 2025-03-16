@@ -2,18 +2,11 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import HeroImage from "@assets/images/hero-image.png";
-import { Lora } from "next/font/google";
-
-const lora = Lora({
-  subsets: ["latin"],
-  weight: ["400", "700"],
-  display: "swap",
-});
 
 export default function HeroSection() {
   return (
     <section
-      className={`${lora.className} flex flex-col md:flex-row justify-between items-center px-4 md:px-12 py-8 bg-lightGray my-8`}
+      className={`font-lora flex flex-col md:flex-row justify-between items-center px-4 md:px-12 py-8 bg-lightGray my-8`}
     >
       <div className="max-w-3xl text-center md:text-left">
         <h1 className="text-3xl md:text-5xl leading-tight md:leading-10">

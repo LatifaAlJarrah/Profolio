@@ -5,16 +5,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFacebook, faInstagram } from "@fortawesome/free-brands-svg-icons";
 import { faPhone } from "@fortawesome/free-solid-svg-icons";
 
-import { Roboto } from "next/font/google";
-const roboto = Roboto({
-  weight: "400",
-  subsets: ["latin"],
-});
-
 export default function ContactUs() {
   return (
     <section
-      className={`${roboto.className}bg-black bg-opacity-20 text-white py-16 px-6 md:px-16`}
+      className={`font-roboto bg-black bg-opacity-20 text-white py-16 px-6 md:px-16`} id="contact"
     >
       <h2 className="text-4xl text-center tracking-widest mb-12">CONTACT US</h2>
 
