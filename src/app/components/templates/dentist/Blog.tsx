@@ -8,12 +8,6 @@ import {
   VeneersShow,
 } from "@/app/assets/icons";
 
-import { Roboto } from "next/font/google";
-const roboto = Roboto({
-  weight: "400",
-  subsets: ["latin"],
-});
-
 const ImageGrid = () => {
   return (
     <div className="grid grid-cols-2 gap-x-4 sm:gap-x-12 gap-y-4 max-w-md mx-auto mt-10">
@@ -51,7 +45,7 @@ const ImageGrid = () => {
 
 const Blog = () => {
   return (
-    <section className={`${roboto.className} bg-[#FAFAFA] py-8`}>
+    <section className={`font-roboto bg-[#FAFAFA] py-8`} id="blog">
       <div className="relative mx-auto">
         <h2 className="text-center text-4xl tracking-widest">BLOG</h2>
         <div className="flex flex-col lg:flex-row items-center justify-between">

@@ -3,13 +3,6 @@ import Navbar from "./Navbar";
 import Image from "next/image";
 import { Company } from "@/app/assets/images";
 
-import { Roboto } from "next/font/google";
-const roboto = Roboto({
-  weight: "400",
-  subsets: ["latin"],
-});
-
-
 const Header = () => {
   return (
     <section
@@ -30,7 +23,7 @@ const Header = () => {
       </div>
 
       <div
-        className={`${roboto.className} col-span-10 col-start-2 flex flex-col items-center text-center`}
+        className={`font-roboto col-span-10 col-start-2 flex flex-col items-center text-center`}
       >
         <p className="text-5xl font-bold max-w-4xl">
           Innovative Programming and AI for Smarter Marketing

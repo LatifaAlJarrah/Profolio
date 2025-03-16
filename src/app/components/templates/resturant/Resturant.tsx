@@ -11,15 +11,9 @@ import Footer from "./Footer";
 import Image from "next/image";
 import { ResturantBg } from "@/app/assets/images";
 
-interface resturantProps {
-  descriptionTextSize?: string;
-}
-
-const Resturant = ({
-  descriptionTextSize = "A Culinary Experience Crafted with Passion and Fresh Ingredients",
-}: resturantProps) => {
+const Resturant = () => {
   return (
-    <div className="relative min-h-screen">
+    <main className="relative min-h-screen">
       <Image
         src={ResturantBg}
         alt="Background"
@@ -27,21 +21,13 @@ const Resturant = ({
         className="absolute top-0 left-0 -z-10 object-cover"
       />
       <ResturantNavbar />
-      <section id="home">
-        <ResturantHeader descriptionTextSize={descriptionTextSize} />
-      </section>
-      <section id="about">
-        <AboutResturant />
-      </section>
-      <section id="menu">
-        <OurMenu />
-      </section>
+      <ResturantHeader />
+      <AboutResturant />
+      <OurMenu />
       <RandomlyChef />
-      <section id="contact">
-        <ContactUs />
-      </section>
+      <ContactUs />
       <Footer />
-    </div>
+    </main>
   );
 };
 

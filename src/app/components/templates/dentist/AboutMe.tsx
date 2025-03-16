@@ -3,16 +3,11 @@ import React from "react";
 import Image from "next/image";
 import { DrSarah } from "@/app/assets/images";
 
-import { Roboto } from "next/font/google";
-const roboto = Roboto({
-  weight: "400",
-  subsets: ["latin"],
-});
-
 export default function AboutMe() {
   return (
     <section
-      className={`${roboto.className} text-black text-center mt-40 mb-12 bg-[#FAFAFA]`}
+      className={`font-roboto text-black text-center mt-40 mb-12 bg-[#FAFAFA]`}
+      id="about"
     >
       <h2 className="text-4xl tracking-widest mt-4">ABOUT ME</h2>
       <div className="mt-8 flex flex-col md:flex-row justify-center items-center gap-8 px-6 text-start">

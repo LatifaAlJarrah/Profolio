@@ -9,7 +9,7 @@ import Footer from "./Footer";
 
 const StartUpCompany = () => {
   return (
-    <div className="grid grid-cols-12 ">
+    <main className="grid grid-cols-12 ">
       <div className="col-span-12 ">
         <Header />
         <AboutUs />
@@ -19,7 +19,7 @@ const StartUpCompany = () => {
         <ContactSection />
         <Footer />
       </div>
-    </div>
+    </main>
   );
 };
 

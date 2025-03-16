@@ -1,7 +1,6 @@
 "use client";
 import React, { useState } from "react";
 import Image, { StaticImageData } from "next/image";
-import { Roboto } from "next/font/google";
 import {
   StuffedPaper,
   Halloumi,
@@ -154,21 +153,16 @@ const menuItems: { [key: string]: MenuItem[] } = {
   ],
 };
 
-const roboto = Roboto({
-  weight: "400",
-  subsets: ["latin"],
-});
-
 export default function OurMenu() {
   const [activeCategory, setActiveCategory] = useState("appetizers");
 
   return (
-    <section className="py-16 text-white text-center">
+    <section className="py-16 text-white text-center" id="menu">
       <h2 className="text-4xl tracking-widest mb-8">OUR MENU</h2>
 
       {/* Category Tabs */}
       <div
-        className={` ${roboto.className} flex justify-center space-x-4 mb-6`}
+        className={`font-roboto flex justify-center space-x-4 mb-6`}
       >
         {["appetizers", "soupsSalads", "mainCourses", "desserts"].map(
           (category) => (

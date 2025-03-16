@@ -17,12 +17,6 @@ import {
   Ahmad,
 } from "@/app/assets/images";
 
-import { Roboto } from "next/font/google";
-const roboto = Roboto({
-  weight: "400",
-  subsets: ["latin"],
-});
-
 const testimonials = [
   {
     id: 1,
@@ -98,7 +92,7 @@ export default function Portfolio() {
   const [activeIndex, setActiveIndex] = useState(0);
 
   return (
-    <section className={`${roboto.className} bg-[#FAFAFA]`}>
+    <section className={`font-roboto bg-[#FAFAFA]`} id="portfolio">
       <div className="relative mx-auto p-4 ">
         <h2 className="text-center my-8 text-4xl tracking-widest">
           PORTFOLIO & TESTIMONIALS

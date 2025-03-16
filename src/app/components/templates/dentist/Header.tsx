@@ -1,19 +1,14 @@
 import React from "react";
-import { Namdhinggo } from "next/font/google";
 import Image from "next/image";
 import { BackgroundDentelle } from "@/app/assets/images";
 
 import ContactUs from "./ContactUs";
 
-const namdhinggo = Namdhinggo({
-  subsets: ["latin"],
-  weight: "400",
-});
-
 const Header = () => {
   return (
-    <div
-      className={`${namdhinggo.className} relative min-h-screen flex flex-col items-start justify-center text-center px-8 lg:pl-16 w-full sm:h-auto`}
+    <header
+      className={`font-namdhinggo relative min-h-screen flex flex-col items-start justify-center text-center px-8 lg:pl-16 w-full sm:h-auto`}
+      id="home"
     >
       <div className="absolute inset-0 bg-gradient-to-l from-black/40 via-black/20 to-transparent -z-10"></div>
       <Image
@@ -35,7 +30,7 @@ const Header = () => {
         </p>
       </div>
       <ContactUs />
-    </div>
+    </header>
   );
 };
 

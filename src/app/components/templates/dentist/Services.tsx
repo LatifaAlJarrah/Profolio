@@ -57,18 +57,10 @@ const services = [
   },
 ];
 
-import { Roboto } from "next/font/google";
-const roboto = Roboto({
-  weight: "400",
-  subsets: ["latin"],
-});
-
 const Services = () => {
   return (
-    <section className={`${roboto.className} bg-white`}>
-      <h2 className="text-center mb-8 text-4xl tracking-widest">
-        SERVICES
-      </h2>
+    <section className={`font-roboto bg-white`} id="services">
+      <h2 className="text-center mb-8 text-4xl tracking-widest">SERVICES</h2>
 
       {/* Grid layout for services */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 px-6">

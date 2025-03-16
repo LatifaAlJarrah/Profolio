@@ -14,7 +14,7 @@ const NavbarList: React.FC<NavbarListProps> = ({
 }) => {
   const navLinks = [
     { name: "Home", path: "/" },
-    { name: "Template", path: "/templates" },
+    { name: "Templates", path: "/templates" },
     { name: "Your Projects", path: "/projects" },
     { name: "Blog", path: "/blog" },
   ];
