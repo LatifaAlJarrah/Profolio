@@ -10,10 +10,11 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary: {
-          DEFAULT: "hsl(var(--primary))",
-          foreground: "hsl(var(--primary-foreground))",
-        },
+        // primary: {
+        //   DEFAULT: "hsl(var(--primary))",
+        //   foreground: "hsl(var(--primary-foreground))",
+        // },
+        primary: "#27445D",
         primarydev: "#1c1c22",
         accent: {
           DEFAULT: "#00ff99",
@@ -72,6 +73,12 @@ export default {
         sm: "calc(var(--radius) - 4px)",
       },
     },
+    screens: {
+      sm: '640px',
+      md: '768px',
+      lg: '960px',
+      xl: '1200px'
+    }
   },
   plugins: [require("tailwindcss-animate")],
 } satisfies Config;
