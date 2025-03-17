@@ -1,129 +1,114 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-/* 
-@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Righteous&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
-
-@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Righteous&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap'); */
-
-/* :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-} */
 
 body {
-  font-family: 'Roboto', Helvetica, sans-serif;
+  font-family: "Roboto", Helvetica, sans-serif;
 }
 
 @font-face {
-  font-family: 'ShowcardGothic';
-  src: url('/fonts/ShowcardGothic.ttf') format('truetype');
+  font-family: "ShowcardGothic";
+  src: url("/fonts/ShowcardGothic.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
-  font-family: 'Righteous';
-  src: url('/fonts/Righteous-Regular.ttf') format('truetype');
+  font-family: "Righteous";
+  src: url("/fonts/Righteous-Regular.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
-  font-family: 'Lora';
-  src: url('/fonts/Lora.ttf') format('truetype');
+  font-family: "Lora";
+  src: url("/fonts/Lora.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
-  font-family: 'DancingScript';
-  src: url('/fonts/DancingScript.ttf');
+  font-family: "DancingScript";
+  src: url("/fonts/DancingScript.ttf");
   font-weight: 700;
   font-style: italic;
 }
 
 @font-face {
-  font-family: 'Urbanist';
-  src: url('/fonts/Urbanist.ttf');
+  font-family: "Urbanist";
+  src: url("/fonts/Urbanist.ttf");
   font-weight: 400;
   font-style: normal;
 }
 
 @font-face {
-  font-family: 'Inter';
-  src: url('/fonts/Inter.ttf');
+  font-family: "Inter";
+  src: url("/fonts/Inter.ttf");
   font-weight: 700;
 }
 
 @font-face {
-  font-family: 'Agbalumo';
-  src: url('/fonts/Agbalumo.ttf');
+  font-family: "Agbalumo";
+  src: url("/fonts/Agbalumo.ttf");
   font-weight: 400;
 }
 
 @font-face {
-  font-family: 'Namdhinggo';
-  src: url('/fonts/Namdhinggo.ttf');
+  font-family: "Namdhinggo";
+  src: url("/fonts/Namdhinggo.ttf");
   font-weight: 400;
 }
 @font-face {
-  font-family: 'Sedan';
-  src: url('/fonts/Sedan-Regular.ttf');
+  font-family: "Sedan";
+  src: url("/fonts/Sedan-Regular.ttf");
   font-weight: 400;
 }
 @font-face {
-  font-family: 'JetBrainsMono';
-  src: url('/fonts/JetBrainsMono.ttf');
+  font-family: "JetBrainsMono";
+  src: url("/fonts/JetBrainsMono.ttf");
   font-weight: 100, 200, 300, 400, 500, 600, 700, 800;
 }
 
 .font-showcard {
-  font-family: 'ShowcardGothic', sans-serif;
+  font-family: "ShowcardGothic", sans-serif;
 }
 
 .font-righteous {
-  font-family: 'Righteous';
+  font-family: "Righteous";
 }
 
 .font-lora {
-  font-family: 'Lora';
+  font-family: "Lora";
 }
 
 .font-dancing {
-  font-family: 'DancingScript';
+  font-family: "DancingScript";
 }
 
 .font-urbanist {
-  font-family: 'Urbanist';
+  font-family: "Urbanist";
 }
 
 .font-inter {
-  font-family: 'Inter';
+  font-family: "Inter";
 }
 
 .font-agbalumo {
-  font-family: 'Agbalumo';
+  font-family: "Agbalumo";
 }
 
 .font-namdhinggo {
-  font-family: 'Namdhinggo';
+  font-family: "Namdhinggo";
 }
 
 .font-sedan {
-  font-family: 'Sedan';
+  font-family: "Sedan";
 }
 
 .font-jetBrainsMono {
-  font-family: 'JetBrainsMono';
+  font-family: "JetBrainsMono";
 }
+
 /* AboutResturant.module.css */
 .container {
   position: relative;
@@ -213,10 +198,19 @@ body {
 ---break--- */
 
 @layer base {
-  * {
-    @apply border-border;
+  .h1 {
+    @apply text-[48px] xl:text-[80px] leading-[1.1] font-semibold;
   }
-  body {
-    @apply bg-background text-foreground;
+  .h2 {
+    @apply text-[36px] xl:text-[48px] leading-[1.1] font-semibold;
+  }
+  .h3 {
+    @apply text-[20px] xl:text-[24px] leading-[1.1] font-semibold;
+  }
+  .text-outline {
+    -webkit-text-stroke: 1px #ffffff;
+  }
+  .text-outline-hover {
+    -webkit-text-stroke: 1px #0f9;
   }
 }
