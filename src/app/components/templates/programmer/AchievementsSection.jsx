@@ -1,113 +1,57 @@
 "use client";
 import React from "react";
-import dynamic from "next/dynamic";
 
-const AnimatedNumbers = dynamic(() => import("react-animated-numbers"), {
-  ssr: false,
-});
-
-const achievementsList = [
-  { metric: "Projects", value: "100", postfix: "+" },
-  { prefix: "~", metric: "Users", value: "100000" },
-  { metric: "Awards", value: "7" },
-  { metric: "Years", value: "5" },
+import CountUp from "react-countup";
+const stats = [
+  {
+    num: 100,
+    text: "Projects",
+  },
+  {
+    num: 1000,
+    text: "Users",
+  },
+  {
+    num: 7,
+    text: "Awards",
+  },
+  {
+    num: 5,
+    text: "Years",
+  },
 ];
 
-const AchievementsSection = () => {
+const Stats = () => {
   return (
-    <div className="py-8 px-4 xl:gap-16 sm:py-16 xl:px-16">
-      <div className="sm:border-[#33353F] sm:border rounded-md py-8 px-16 flex flex-col sm:flex-row items-center justify-between">
-        {achievementsList.map((achievement, index) => (
-          <div
-            key={index} // ✅ مفتاح فريد للعنصر الرئيسي
-            className="flex flex-col items-center justify-center my-4 sm:my-0"
-          >
-            <h2 className="text-white text-4xl font-bold flex flex-row">
-              {achievement.prefix}
-              <AnimatedNumbers
-                key={`animated-${index}`} // ✅ Use `index` as a fallback key
-                includeComma
-                animateToNumber={parseInt(achievement.value)}
-                locale="en-US"
-                className="text-white text-4xl font-bold"
-                configs={(_, index) => ({
-                  mass: 1,
-                  friction: 100,
-                  tensions: 140 * (index + 1),
-                })}
-              />
-              {achievement.postfix}
-            </h2>
-            <p className="text-[#ADB7BE] text-base">{achievement.metric}</p>
-          </div>
-        ))}
+    <section className="mt-10 pb-12 xl:pt-0 xl:pb-0">
+      <div className="container mx-auto sm:border-[#33353F] sm:border rounded-md px-12 py-8">
+        <div className="flex flex-wrap gap-6 max-w-[80vw] xl:max-w-none">
+          {stats.map((item, index) => {
+            return (
+              <div
+                key={index}
+                className="flex-1 flex gap-4 items-center justify-center xl:justify-start"
+              >
+                <CountUp
+                  end={item.num}
+                  duration={5}
+                  delay={2}
+                  className="text-4xl xl:text-6xl font-extrabold text-white/80"
+                />
+                <p
+                  className={`${
+                    item.text.length < 15 ? "max-w-[100px]" : "max-w-[150px]"
+                  } leading-snug text-white/80`}
+                >
+                  {item.text}
+                </p>
+              </div>
+            );
+          })}
+        </div>
       </div>
-    </div>
+    </section>
   );
 };
 
-export default AchievementsSection;
-// "use client";  +++++++++++++++ tsx ++++===
-// import React, { memo } from "react";
-// import dynamic from "next/dynamic";
-
-// const AnimatedNumbers = dynamic(() => import("react-animated-numbers"), {
-//   ssr: false,
-// });
-
-// // Define a TypeScript type for achievements
-// interface Achievement {
-//   metric: string;
-//   value: number;
-//   prefix?: string;
-//   postfix?: string;
-// }
-
-// // Memoized Achievement Item to prevent unnecessary re-renders
-// const AchievementItem = memo(
-//   ({ achievement }: { achievement: Achievement }) => {
-//     return (
-//       <div
-//         className="flex flex-col items-center justify-center my-4 sm:my-0"
-//       >
-//         <h2 className="text-white text-4xl font-bold flex flex-row">
-//           {achievement.prefix}
-//           <AnimatedNumbers
-//             key={achievement.metric} // ✅ Added unique key here
-//             includeComma
-//             animateToNumber={achievement.value}
-//             locale="en-US"
-//             className="text-white text-4xl font-bold"
-//           />
-//           {achievement.postfix}
-//         </h2>
-//         <p className="text-[#ADB7BE] text-base">{achievement.metric}</p>
-//       </div>
-//     );
-//   }
-// );
-
-// // Add a display name for debugging
-// AchievementItem.displayName = "AchievementItem";
-
-// // Achievement data
-// const achievementsList: Achievement[] = [
-//   { metric: "Projects", value: 100, postfix: "+" },
-//   { prefix: "~", metric: "Users", value: 100000 },
-//   { metric: "Awards", value: 7 },
-//   { metric: "Years", value: 5 },
-// ];
-
-// const AchievementsSection = () => {
-//   return (
-//     <div className="py-8 px-4 xl:gap-16 sm:py-16 xl:px-16">
-//       <div className="sm:border-[#33353F] sm:border rounded-md py-8 px-16 flex flex-col sm:flex-row items-center justify-between">
-//         {achievementsList.map((achievement) => (
-//           <AchievementItem key={achievement.metric} achievement={achievement} /> // ✅ Unique key
-//         ))}
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default AchievementsSection;
+export default Stats;

@@ -4,11 +4,13 @@ import AboutSection from "./AboutSection";
 import ProjectsSection from "./ProjectsSection";
 import EmailSection from "./EmailSection";
 import Footer from "./Footer";
-import AchievementsSection from "./AchievementsSection"
+import AchievementsSection from "./AchievementsSection";
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col bg-[#121212] px-20 container">
+    <main
+      className="flex min-h-screen flex-col bg-[#121212] px-20"
+    >
       <Navbar />
       <div className="container mt-24 mx-auto py-4">
         <HeroSection />
