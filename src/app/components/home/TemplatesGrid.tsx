@@ -4,11 +4,8 @@ import Link from "next/link";
 import { useRouter } from "next/navigation"; // Import useRouter
 import { templates } from "../data/templates";
 
-interface TemplatesGridProps {
-  headerTextSize?: string;
-}
-
-export default function TemplatesGrid({}: TemplatesGridProps) {
+import Image from "next/image";
+export default function TemplatesGrid() {
   const router = useRouter(); // Initialize the router
 
   return (
@@ -16,7 +13,6 @@ export default function TemplatesGrid({}: TemplatesGridProps) {
       <h2 className="text-2xl font-semibold">Templates</h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 mt-6">
         {templates.slice(4).map((item, index) => {
-          const TemplateComponent = item.Component;
           return (
             <div key={index}>
               <div
@@ -26,7 +22,13 @@ export default function TemplatesGrid({}: TemplatesGridProps) {
                 } // Use router.push
               >
                 <div className="w-full h-full flex items-center justify-center">
-                  <TemplateComponent />
+                  <Image
+                    src={item.link as string}
+                    alt={item.name || "Template Image"}
+                    width={350}
+                    height={300}
+                    className="w-full h-full object-cover"
+                  />
                 </div>
               </div>
               <p className="text-black text-xl mt-2 text-center">{item.name}</p>

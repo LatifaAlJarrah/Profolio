@@ -19,7 +19,7 @@ const HeroSection = () => {
           initial={{ opacity: 0, scale: 0.5 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.5 }}
-          className="col-span-8 place-self-center text-center sm:text-left justify-self-start"
+          className="col-span-8 place-self-center text-center sm:text-left justify-self-start order-2 md:order-none"
         >
           <h1
             className={`${palanquin.className} text-white mb-4 text-4xl sm:text-5xl lg:text-8xl lg:leading-normal font-extrabold`}
@@ -62,14 +62,14 @@ const HeroSection = () => {
           initial={{ opacity: 0, scale: 0.5 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.5 }}
-          className="col-span-4 place-self-center mt-4 lg:mt-0"
+          className="col-span-4 place-self-center mt-4 lg:mt-0 order-1 md:order-none"
         >
-          <div className="rounded-full w-[250px] h-[250px] lg:w-[400px] lg:h-[400px] relative ">
+          <div className="rounded-full w-[250px] h-[250px] lg:w-[400px] lg:h-[400px] relative">
             <Image
               src={Programmer}
               alt="hero image"
-              width={400}
-              height={400}
+              // width={400}
+              // height={400}
               priority
               className="absolute transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
             />

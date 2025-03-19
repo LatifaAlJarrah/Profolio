@@ -17,7 +17,7 @@ const MainEditor = ({
   children,
 }: MainEditorProps) => {
   return (
-    <main className={`flex-grow p-4`}>
+    <main className={`flex-grow`}>
       {children ? children : <p>No template selected</p>}
     </main>
   );

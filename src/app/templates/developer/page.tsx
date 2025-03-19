@@ -1,12 +1,3 @@
-// import React from 'react'
-// import Developer from "@components/templates/developer/Developer"
-// const page = () => {
-//   return (
-//     <Developer />
-//   )
-// }
-
-// export default page
 import { Button } from "@/components/ui/button";
 import Photo from "@/components/ui/Photo";
 import Social from "@/components/ui/Social";
