@@ -11,7 +11,7 @@ interface LayoutProps {
 export default function Layout({ children }: LayoutProps) {
   return (
     <html lang="en">
-      <body className="bg-primarydev text-white font-jetBrainsMono leading-loose px-20">
+      <body className="bg-primarydev text-white font-jetBrainsMono leading-loose px-48">
         <Header />
         <StairTransition />
         <PageTransition>{children}</PageTransition>
