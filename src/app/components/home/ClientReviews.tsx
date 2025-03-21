@@ -20,13 +20,13 @@ const clients = [
 
 const ClientReviews = () => {
   return (
-    <section className="py-10 text-center px-4">
+    <section className="py-10 text-center px-4 mb-6">
       <h2 className="text-2xl font-bold mb-6">What Our Clients Say ?</h2>
       <div className="flex flex-col md:flex-row justify-center space-y-8 md:space-y-0 md:space-x-16">
         {clients.map((client, index) => (
           <div key={index} className="relative">
             <div className="absolute inset-0 bg-primary rounded-lg transform rotate-6 -z-10"></div>
-            <div className="bg-white p-6 rounded-lg shadow-lg max-w-sm max-h-sm relative z-10">
+            <div className="bg-white p-6 rounded-lg shadow-lg max-w-sm max-h-sm relative z-10 h-[400px]">
               <Image
                 src={client.image}
                 alt={client.name}

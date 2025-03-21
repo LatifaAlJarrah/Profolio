@@ -4,12 +4,10 @@ import StairTransition from "@/components/StairTransition";
 
 export default function Layout({ children }) {
   return (
-    <html lang="en">
-      <body className="bg-primarydev text-white font-jetBrainsMono leading-loose px-48">
-        <Header />
-        <StairTransition />
-        <PageTransition>{children}</PageTransition>
-      </body>
-    </html>
+    <div className="bg-primarydev text-white font-jetBrainsMono leading-loose px-48">
+      <Header />
+      <StairTransition />
+      <PageTransition>{children}</PageTransition>
+    </div>
   );
 }

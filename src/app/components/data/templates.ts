@@ -9,7 +9,7 @@ export const templates = [
     title: "Restaurant Website",
     name: "Restaurant",
     Component: Resturant,
-    link: "/assets/cover-resturant.png",
+    link: "/assets/resturant-cover.png",
   },
   {
     name: "Dental Clinic Website",
