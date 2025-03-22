@@ -10,7 +10,7 @@ const TemplatesPage = () => {
   return (
     <div className="py-8 text-center px-20">
       <h2 className="text-3xl font-bold text-black">All Templates</h2>
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mt-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
               {templates.map((item, index) => {
                 return (
                   <div key={index}>

@@ -1,3 +1,4 @@
+import React from "react";
 import Image from "next/image";
 import { Sophia, John } from "@/app/assets/images";
 
@@ -30,9 +31,9 @@ const ClientReviews = () => {
               <Image
                 src={client.image}
                 alt={client.name}
-                className="rounded-full mx-auto"
                 width={80}
                 height={80}
+                className="rounded-full mx-auto w-auto"
               />
               <h3 className="font-bold mt-4">{client.name}</h3>
               <p className="text-sm text-gray-500">{client.role}</p>

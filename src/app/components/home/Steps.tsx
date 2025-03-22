@@ -8,7 +8,7 @@ const AnimatedDashedArrow = () => {
   const isInView = useInView(ref, { amount: 0.3 });
 
   return (
-    <div ref={ref} className="flex justify-center items-center my-10">
+    <div ref={ref} className="hidden lg:flex justify-center items-center my-10">
       <motion.svg
         width="250"
         height="140"
