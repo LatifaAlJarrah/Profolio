@@ -21,7 +21,7 @@ const clients = [
 
 const ClientReviews = () => {
   return (
-    <section className="py-10 text-center px-4 mb-6">
+    <section className="py-10 text-center px-10 mb-6">
       <h2 className="text-2xl font-bold mb-6">What Our Clients Say ?</h2>
       <div className="flex flex-col md:flex-row justify-center space-y-8 md:space-y-0 md:space-x-16">
         {clients.map((client, index) => (
