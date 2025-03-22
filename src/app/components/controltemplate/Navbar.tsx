@@ -7,7 +7,10 @@ import Image from "next/image";
 
 import { Backword, Forward } from "@assets/icons";
 
-const Navbar = () => {
+interface NavbarProps {
+  projectName: string;
+}
+const Navbar = ({projectName}: NavbarProps) => {
   return (
     <nav className="flex items-center justify-between py-2 px-8 bg-gray-100">
       <Link href="/templates">
@@ -28,6 +31,7 @@ const Navbar = () => {
         <button className="bg-primary text-white  w-[123px] h-[35px] border border-primary rounded-lg text-lg">
           Publish
         </button>
+        <p className="text-[#9A9A9A] p-2 w-56 border-[2px] rounded-md">{projectName}</p>
       </div>
     </nav>
   );

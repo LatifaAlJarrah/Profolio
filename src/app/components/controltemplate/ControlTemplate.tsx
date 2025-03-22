@@ -14,7 +14,7 @@ const ControlTemplate = () => {
 
   return (
     <div className="flex flex-col h-screen">
-      <Navbar />
+      <Navbar projectName={templateName || "Default Project"} />
       <div className="flex flex-grow">
         <Sidebar />
         <MainEditor>
