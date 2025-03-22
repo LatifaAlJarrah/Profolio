@@ -13,7 +13,7 @@ export default function WhyUs() {
       <h2 className="text-2xl font-semibold text-left mb-12">
         Templates
       </h2>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 cursor-pointer">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 gap-y-20 lg:gap-y-0 cursor-pointer">
         {templates.slice(1, 5).map((item, index) => (
           <div
             key={index}

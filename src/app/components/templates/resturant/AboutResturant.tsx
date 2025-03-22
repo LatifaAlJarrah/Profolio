@@ -6,7 +6,7 @@ import ResturantLogo from "./ResturantLogo";
 export default function AboutResturant() {
   return (
     <section
-      className={`font-roboto text-white py-16 text-center`}
+      className={`font-roboto text-white py-16 text-center px-10 lg:px-0`}
       id="about"
     >
       <h2 className="text-4xl tracking-widest">ABOUT US</h2>

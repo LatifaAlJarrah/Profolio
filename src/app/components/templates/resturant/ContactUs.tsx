@@ -12,7 +12,7 @@ export default function ContactUs() {
     >
       <h2 className="text-4xl text-center tracking-widest mb-12">CONTACT US</h2>
 
-      <div className="flex flex-col md:flex-row items-center justify-between md:space-x-5">
+      <div className="flex flex-col md:flex-row items-center justify-between md:space-x-5 space-y-10 lg:space-y-0">
         <div className="flex flex-col items-center lg:w-1/2">
           <p className="text-gray-400">Social Media</p>
           <div className="flex lg:flex-row items-center justify-around space-x-4 w-full lg:mt-14 md:mt-6 md:flex-col md:gap-8">

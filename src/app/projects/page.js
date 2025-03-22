@@ -5,12 +5,12 @@ import { TiPlus } from "react-icons/ti";
 const projects = [
   {
     name: "Restaurant Website",
-    source: "/assets/cover-resturant.png",
+    source: "/assets/resturant-cover.png",
     alt: "Restaurant Website",
   },
   {
     name: "Dental Clinic Website",
-    source: "/assets/cover-dental.png",
+    source: "/assets/dental-cover.png",
     alt: "Dental Clinic Website",
   },
 ];
