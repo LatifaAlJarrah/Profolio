@@ -1,5 +1,7 @@
-import React from 'react'
-import ControlTemplate from '../components/controltemplate/ControlTemplate'
+import React from "react";
+import { Suspense } from "react";
+
+import ControlTemplate from "../components/controltemplate/ControlTemplate";
 
 export const metadata = {
   title: "Control Template",
@@ -7,8 +9,10 @@ export const metadata = {
 
 const page = () => {
   return (
-    <ControlTemplate />
-  )
-}
+    <Suspense fallback={<div>Loading...</div>}>
+      <ControlTemplate />
+    </Suspense>
+  );
+};
 
-export default page
+export default page;
