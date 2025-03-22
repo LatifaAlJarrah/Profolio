@@ -63,7 +63,7 @@ const BlogSection = () => {
       </header>
 
       {/* Educational Articles Section */}
-      <section className="mt-10 px-20 lg:px-0 max-w-7xl mx-auto">
+      <section className="mt-10 px-6 lg:px-0 max-w-7xl mx-auto">
         <h2 className="text-2xl font-semibold mb-4">Educational Articles</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
           {educationalArticles.map((article, index) => (
@@ -87,7 +87,7 @@ const BlogSection = () => {
       </section>
 
       {/* Blog Updates & Announcements */}
-      <section className="mt-10 px-20 lg:px-0 max-w-7xl mx-auto">
+      <section className="mt-10 px-6 lg:px-0 max-w-7xl mx-auto">
         <h2 className="text-2xl font-semibold mb-4">
           Blog Updates & Announcements
         </h2>
@@ -112,7 +112,7 @@ const BlogSection = () => {
       </section>
 
       {/* How It Works Section */}
-      <section className="mt-10 px-20 lg:px-0 max-w-7xl mx-auto">
+      <section className="mt-10 px-6 lg:px-0 max-w-7xl mx-auto">
         <h2 className="text-2xl font-semibold mb-4">How It Works?</h2>
         <div className="flex justify-center">
           <div className="bg-[#F3F3F3] w-full lg:w-1/2 h-[500px] flex items-center justify-center rounded-md mb-10">
