@@ -18,7 +18,7 @@ const ControlTemplate = () => {
       <div className="flex flex-grow">
         <Sidebar />
         <MainEditor>
-          {selectedTemplate ? (
+          {selectedTemplate?.Component ? (
             <selectedTemplate.Component />
           ) : (
             <p>Template not found</p>
