@@ -14,30 +14,30 @@ export const templates = [
   {
     name: "Dental Clinic Website",
     Component: Home,
-    link: "/assets/cover-dental.png",
+    link: "/assets/dental-cover.png",
   },
   {
     name: "Programmer Website",
     Component: Programmer,
-    link: "/assets/cover-programmer.png",
+    link: "/assets/programmer-cover.png",
   },
   {
     name: "StartUp Company Website",
     Component: StartUpCompany,
-    link: "/assets/cover-company.png",
+    link: "/assets/company-cover.png",
   },
   {
-    name: "software developer website",
+    name: "Software Developer Website",
     Component: Layout,
     link: "/assets/developer-cover.png",
   },
   {
-    name: "software developer website",
+    name: "Software Developer Website",
     Component: Layout,
     link: "/assets/developer-cover.png",
   },
   {
-    name: "software developer website",
+    name: "Software Developer Website",
     Component: Layout,
     link: "/assets/developer-cover.png",
   },

@@ -21,7 +21,7 @@ export default function WhyUs() {
       <h2 className="text-2xl font-semibold text-center mb-12 md:mb-20">
         Why Us?
       </h2>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-x-6 gap-y-16 lg:gap-y-6">
         {features.map((feature, index) => (
           <div
             key={index}
