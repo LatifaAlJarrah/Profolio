@@ -1,29 +1,9 @@
 "use client";
 import React, { useState } from "react";
-import Image, { StaticImageData } from "next/image";
-import {
-  StuffedPaper,
-  Halloumi,
-  FishPlatter,
-  ImamBayildi,
-  Eggplant,
-  Chocolate,
-  MilleFeuille,
-  Macarons,
-  PumpkinSoup,
-  TomatoSoup,
-  OlivierSalad,
-  VinaigretteSalad,
-  GoatCheeseSalad,
-  TunaTartare,
-  TomahawkSteak,
-  PrimeSteak,
-  LambChops,
-  RibeyeSteak,
-} from "@/app/assets/images";
+import Image from "next/image";
 
 interface MenuItem {
-  img: StaticImageData;
+  img:  string;
   name: string;
   description: string;
   price: string;
@@ -34,33 +14,33 @@ const menuItems: { [key: string]: MenuItem[] } = {
     {
       name: "Grilled Halloumi With Honey",
       price: "5$",
-      img: Halloumi,
+      img: "/assets/images/resturantMenu/halloumi.png",
       description: "Grilled Halloumi Cheese With Honey And Pistachios",
     },
     {
       name: "Stuffed Peppers",
       price: "7$",
-      img: StuffedPaper,
+      img: "/assets/images/resturantMenu/stuffed-peppers.png",
       description:
         "Jalapeño And Sweet Peppers Stuffed With Goat And Lamb Cheese",
     },
     {
       name: "Smoked Fish Platter",
       price: "15$",
-      img: FishPlatter,
+      img: "/assets/images/resturantMenu/fish-platter.png",
       description: "A Selection Of Smoked Salmon And Whitefish",
     },
     {
       name: "Imam Bayildi",
       price: "10$",
-      img: ImamBayildi,
+      img: "/assets/images/resturantMenu/imam-bayildi.png",
       description:
         "Slow-Cooked Eggplant With Tomatoes, Sweet Peppers, And Garlic.",
     },
     {
       name: "Eggplant Rolls",
       price: "5$",
-      img: Eggplant,
+      img: "/assets/images/resturantMenu/eggplant.png",
       description:
         "Rolled Eggplant Stuffed With Creamy Cheese, Labneh, And Walnuts.",
     },
@@ -69,32 +49,32 @@ const menuItems: { [key: string]: MenuItem[] } = {
     {
       name: "Pumpkin & Apple Soup",
       price: "10$",
-      img: PumpkinSoup,
+      img: "/assets/images/resturantMenu/pumpkin-and-apple-soup.jpeg",
       description: "A creamy soup made with pumpkin and apples.",
     },
     {
       name: "Tomato Soup",
       price: "7$",
-      img: TomatoSoup,
+      img: "/assets/images/resturantMenu/tomatosoup.jpeg",
       description:
         " Fresh tomatoes, onion, garlic, olive oil, vegetable broth, heavy cream",
     },
     {
       name: "Vinaigrette Salad",
       price: "5$",
-      img: VinaigretteSalad,
+      img: "/assets/images/resturantMenu/VinaigretteSalad.jpeg",
       description: "A mix of beets, beans, potatoes, and pickles.",
     },
     {
       name: "Olivier Salad",
       price: "6$",
-      img: OlivierSalad,
+      img: "/assets/images/resturantMenu/olivier-salad.jpeg",
       description: "Beef, carrots, peas, eggs, potatoes, and pickles.",
     },
     {
       name: "Goat Cheese Salad",
       price: "5$",
-      img: GoatCheeseSalad,
+      img: "/assets/images/resturantMenu/goat-cheese-salad.jpeg",
       description: "Fresh tomatoes with goat cheese and cream cheese.",
     },
   ],
@@ -102,31 +82,31 @@ const menuItems: { [key: string]: MenuItem[] } = {
     {
       name: "Ribeye Steak",
       price: "15$",
-      img: RibeyeSteak,
+      img: "/assets/images/resturantMenu/ribeye-steak.jpeg",
       description: "Grilled ribeye steak",
     },
     {
       name: "Prime Steak Tartare",
       price: "12$",
-      img: PrimeSteak,
+      img: "/assets/images/resturantMenu/prime-steak.jpeg",
       description: "Finely minced raw beef with spices and fresh ingredients",
     },
     {
       name: "Tuna Tartare",
       price: "10$",
-      img: TunaTartare,
+      img: "/assets/images/resturantMenu/tuna-tartare.jpeg",
       description: "Finely minced raw tuna with spices and fresh ingredients",
     },
     {
       name: "Tomahawk Steak",
       price: "17$",
-      img: TomahawkSteak,
+      img: "/assets/images/resturantMenu/tomahawk-steak.jpeg",
       description: "Grilled bone-in tomahawk steak",
     },
     {
       name: "Lamb Chops",
       price: "15$",
-      img: LambChops,
+      img: "/assets/images/resturantMenu/lamb-chops.jpeg",
       description: "Grilled lamb chops with special seasonings.",
     },
   ],
@@ -134,19 +114,19 @@ const menuItems: { [key: string]: MenuItem[] } = {
     {
       name: "Molten Lava Cake",
       price: "5$",
-      img: Chocolate,
+      img: "/assets/images/resturantMenu/chocolate.jpeg",
       description: "Warm chocolate cake with a gooey center",
     },
     {
-      name: "Mille-Feuille",
+      name: "Mille Feuille",
       price: "5$",
-      img: MilleFeuille,
+      img: "/assets/images/resturantMenu/mille-feuille.jpeg",
       description: "Layers of puff pastry filled with vanilla cream",
     },
     {
       name: "Macarons",
       price: "4$",
-      img: Macarons,
+      img: "/assets/images/resturantMenu/macarons.jpeg",
       description:
         "Famous almond-based French cookies with various fillings such as chocolate, vanilla",
     },
@@ -157,7 +137,7 @@ export default function OurMenu() {
   const [activeCategory, setActiveCategory] = useState("appetizers");
 
   return (
-    <section className="py-16 text-white text-center" id="menu">
+    <section className="py-16 text-white text-center px-10 lg:px-0" id="menu">
       <h2 className="text-4xl tracking-widest mb-8">OUR MENU</h2>
 
       {/* Category Tabs */}
@@ -197,6 +177,8 @@ export default function OurMenu() {
             <Image
               src={item.img}
               alt={item.name}
+              width={250}
+              height={270}
               className="w-full h-[270px] object-cover"
             />
 
