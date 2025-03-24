@@ -87,7 +87,7 @@ export default function Navbar({
 
       {/* Desktop Navbar */}
       <div className="hidden lg:flex lg:flex-row lg:items-center lg:justify-between lg:w-4/5">
-        <NavbarList type="nav" className={className}/>
+        <NavbarList type="nav" className={className} />
         <div className="flex gap-4">
           <LogInButton onClick={() => handleOpenModal("login")} />
           <SignUpButton onClick={() => handleOpenModal("signup")} />

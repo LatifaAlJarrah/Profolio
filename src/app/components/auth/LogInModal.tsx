@@ -21,4 +21,5 @@ export default function LoginModal({
       description={description}
     />
   );
-}import React from "react";
+}
+import React from "react";

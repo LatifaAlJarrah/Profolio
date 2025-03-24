@@ -15,19 +15,15 @@ interface NavbarListProps {
 
 const NavbarList = ({ className, onClick }: NavbarListProps) => {
   return (
-    <div className="w-3/4">
-      <ul
-        className={`flex gap-12 text-black text-xl items-start ${className} `}
-      >
-        {navbarList.map((item, index) => (
-          <Link key={index} href={item.link}>
-            <li className="hover:text-[#58ADEB]" onClick={onClick}>
-              {item.name}
-            </li>
-          </Link>
-        ))}
-      </ul>
-    </div>
+    <ul className={`flex gap-12 text-black text-xl items-start ${className} `}>
+      {navbarList.map((item, index) => (
+        <Link key={index} href={item.link}>
+          <li className="hover:text-[#58ADEB]" onClick={onClick}>
+            {item.name}
+          </li>
+        </Link>
+      ))}
+    </ul>
   );
 };
 

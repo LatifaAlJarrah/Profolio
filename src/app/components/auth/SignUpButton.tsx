@@ -7,7 +7,10 @@ interface SignUpButtonProps {
   className?: string;
   onClick?: () => void;
 }
-export default function SignUpButton({ className, onClick }: SignUpButtonProps) {
+export default function SignUpButton({
+  className,
+  onClick,
+}: SignUpButtonProps) {
   const [isSignupModalOpen, setSignupModalOpen] = useState(false);
 
   return (
