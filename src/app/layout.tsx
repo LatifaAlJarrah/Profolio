@@ -20,7 +20,7 @@ export default function RootLayout({
     <html lang="en">
       <body>
         {!isTemplatePage && <Navbar />}
-        <main>{children}</main>
+        <main> {children}</main>
         {!isTemplatePage && <Footer />}
       </body>
     </html>

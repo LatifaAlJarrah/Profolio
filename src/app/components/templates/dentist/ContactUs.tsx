@@ -28,7 +28,7 @@ const ContactUs = () => {
         <div className="hidden lg:block h-36 w-[1px] bg-lightGrayShade2"></div>
         <div className=" block lg:hidden border border-lightGrayShade2 my-4 w-full"></div>
 
-        <div className="flex lg:flex-col md:flex-row sm:flex-row gap-8">
+        <div className="flex lg:flex-col gap-8">
           <div className="flex items-center space-x-2">
             <Link
               href="https://instagram.com"
@@ -60,7 +60,7 @@ const ContactUs = () => {
 
         <div className="hidden lg:block h-36 w-[1px] bg-lightGrayShade2"></div>
 
-        <div className="flex lg:flex-col md:flex-row sm:flex-row gap-8">
+        <div className="flex lg:flex-col gap-8">
           <div className="flex items-center space-x-2">
             <Link
               href="https://facebook.com"

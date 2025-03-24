@@ -137,7 +137,7 @@ export default function OurMenu() {
   const [activeCategory, setActiveCategory] = useState("appetizers");
 
   return (
-    <section className="py-16 text-white text-center px-10 lg:px-0" id="menu">
+    <section className="py-16 text-white text-center px-10" id="menu">
       <h2 className="text-4xl tracking-widest mb-8">OUR MENU</h2>
 
       {/* Category Tabs */}
