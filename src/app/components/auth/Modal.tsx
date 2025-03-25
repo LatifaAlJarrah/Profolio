@@ -1,6 +1,5 @@
 "use client";
-import React, { forwardRef } from "react";
-import Link from "next/link";
+import React from "react";
 import Logo from "../logo/Logo";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFacebook, faGithub } from "@fortawesome/free-brands-svg-icons";
@@ -10,22 +9,12 @@ import { login } from "@/lib/actions/auth";
 interface ModalProps {
   isOpen?: boolean;
   onClose?: () => void;
-  buttonName?: string | null;
-  description?: string | null;
-  type?: string;
+  buttonName?: string;
+  description?: string;
+  type: "login" | "signup";
 }
 
-const Modal = forwardRef<HTMLDivElement, ModalProps>(
-  (
-    {
-      isOpen,
-      onClose,
-      buttonName = "Submit", // قيمة افتراضية
-      description = "Please enter your details", // قيمة افتراضية
-      type = "login", // قيمة افتراضية
-    },
-    ref
-  ) => {
+export default function Modal ({ isOpen, onClose, buttonName, description, type }:ModalProps) {
     if (!isOpen) return null;
 
     return (
@@ -33,7 +22,6 @@ const Modal = forwardRef<HTMLDivElement, ModalProps>(
         {type && (
           <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
             <div
-              ref={ref}
               className="bg-white p-12 rounded-lg shadow-lg w-full max-w-md"
             >
               <button
@@ -85,16 +73,14 @@ const Modal = forwardRef<HTMLDivElement, ModalProps>(
                   {buttonName}
                 </button>
               </form>
+
               <div className="flex items-center justify-center space-x-6 w-full">
-                <div className="h-px w-full bg-lightGrayShade"></div>{" "}
-                {/* Left horizontal line */}
+                <div className="h-px w-full bg-lightGrayShade"></div>
                 <p className="text-gray-400">OR</p>
-                <div className="h-px w-full bg-lightGrayShade"></div>{" "}
-                {/* Right horizontal line */}
+                <div className="h-px w-full bg-lightGrayShade"></div>
               </div>
 
               <div className="mt-4 text-center flex flex-col">
-                {/* Continue With Google */}
                 <button
                   className="w-full p-2 rounded shadow-[0_4px_4px_#D8D8D8] my-2"
                   onClick={() => login()}
@@ -105,19 +91,13 @@ const Modal = forwardRef<HTMLDivElement, ModalProps>(
                     className="w-6 h-6 text-charcoalGray float-right"
                   />
                 </button>
-
-                <Link
-                  href="https://facebook.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-full p-2 rounded shadow-[0_4px_4px_#D8D8D8] my-2"
-                >
+                <button className="w-full p-2 rounded shadow-[0_4px_4px_#D8D8D8] my-2">
                   Continue With Facebook
                   <FontAwesomeIcon
                     icon={faFacebook}
                     className="w-6 h-6 text-blue-600 float-right"
                   />
-                </Link>
+                </button>
               </div>
             </div>
           </div>
@@ -125,8 +105,3 @@ const Modal = forwardRef<HTMLDivElement, ModalProps>(
       </>
     );
   }
-);
-
-Modal.displayName = "Modal"; // إضافة displayName لتجنب تحذيرات React
-
-export default Modal;
