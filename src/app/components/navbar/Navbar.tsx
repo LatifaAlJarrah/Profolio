@@ -1,10 +1,255 @@
+// "use client";
+// import React, { useState, useEffect, useRef } from "react";
+
+// import SignUpButton from "../auth/SignUpButton";
+// import LogInButton from "../auth/LogInButton";
+
+// import Logo from "../logo/Logo";
+// import NavbarList from "../list/NavbarList";
+
+// import Modal from "../auth/Modal";
+
+// import { useSession } from "next-auth/react";
+// import { login, logout } from "@/lib/actions/auth";
+// import { usePathname } from "next/navigation";
+// import Image from "next/image";
+
+// interface NavbarProps {
+//   type?: string;
+//   className?: string;
+// }
+
+// export default function Navbar({
+//   className = "flex-row space-x-10",
+// }: NavbarProps) {
+//   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+//   const [isModalOpen, setIsModalOpen] = useState(false);
+//   const [modalType, setModalType] = useState<"signup" | "login">("login");
+
+//   const sidebarRef = useRef<HTMLDivElement>(null);
+//   const modalRef = useRef<HTMLDivElement>(null);
+
+//   const { data: session } = useSession();
+
+//   const pathname = usePathname();
+//   const isTemplatePage =
+//     pathname.startsWith("/templates/") ||
+//     pathname.startsWith("/controltemplate");
+
+//   if (isTemplatePage) return null;
+
+//   const handleOpenModal = (type: "signup" | "login") => {
+//     setIsSidebarOpen(false);
+//     setModalType(type);
+//     setIsModalOpen(true);
+//   };
+
+//   // إخفاء السايدبار عند النقر خارجها
+//   useEffect(() => {
+//     const handleClickOutside = (event: MouseEvent) => {
+//       if (
+//         sidebarRef.current &&
+//         !sidebarRef.current.contains(event.target as Node)
+//       ) {
+//         setIsSidebarOpen(false);
+//       }
+//     };
+
+//     document.addEventListener("mousedown", handleClickOutside);
+//     return () => {
+//       document.removeEventListener("mousedown", handleClickOutside);
+//     };
+//   }, []);
+
+//   // إخفاء المودال عند النقر خارجها
+//   useEffect(() => {
+//     const handleClickOutside = (event: MouseEvent) => {
+//       if (
+//         modalRef.current &&
+//         !modalRef.current.contains(event.target as Node)
+//       ) {
+//         setIsModalOpen(false);
+//       }
+//     };
+
+//     document.addEventListener("mousedown", handleClickOutside);
+//     return () => {
+//       document.removeEventListener("mousedown", handleClickOutside);
+//     };
+//   }, []);
+
+//   return (
+//     <nav className="flex justify-between py-4 px-12 bg-lightGray relative">
+//       <Logo />
+//       <button
+//         onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+//         className="lg:hidden text-primary focus:outline-none"
+//       >
+//         <svg
+//           className="w-6 h-6"
+//           fill="none"
+//           stroke="currentColor"
+//           viewBox="0 0 24 24"
+//           xmlns="http://www.w3.org/2000/svg"
+//         >
+//           <path
+//             strokeLinecap="round"
+//             strokeLinejoin="round"
+//             strokeWidth="2"
+//             d="M4 6h16M4 12h16m-7 6h7"
+//           ></path>
+//         </svg>
+//       </button>
+
+//       {/* Desktop Navbar */}
+//       <div className="hidden lg:flex lg:flex-row lg:items-center lg:justify-between lg:w-4/5">
+//         <NavbarList type="nav" className={className} />
+
+//         <div className="flex gap-4 text-center justify-center items-center">
+//           {session?.user ? (
+//             <>
+//               <Image
+//                 src={session.user.image!}
+//                 alt="Avatar"
+//                 className="w-10 h-10 rounded-full"
+//                 width={48}
+//                 height={48}
+//               />
+//               <span>{session.user.name}</span>
+//               <button onClick={logout} className="bg-red-500 px-4 py-2 rounded text-white">
+//                 Logout
+//               </button>
+//             </>
+//           ) : (
+//             <>
+//               <LogInButton onClick={() => handleOpenModal("login")} />
+//               <SignUpButton onClick={() => handleOpenModal("signup")} />
+//             </>
+//           )}
+//         </div>
+//       </div>
+
+//       {/* Overlay عند فتح القائمة */}
+//       {isSidebarOpen && (
+//         <div className="fixed inset-0 bg-black bg-opacity-50 z-40"></div>
+//       )}
+
+//       {/* Drawer Menu (Sidebar) */}
+//       <div
+//         ref={sidebarRef}
+//         className={`fixed top-0 right-0 h-full w-64 bg-white shadow-lg transition-transform transform z-50 flex flex-col justify-between px-6 py-6 ${
+//           isSidebarOpen ? "translate-x-0" : "translate-x-full"
+//         }`}
+//       >
+//         <button
+//           onClick={() => setIsSidebarOpen(false)}
+//           className="absolute top-4 right-4 text-gray-600"
+//         >
+//           ✖
+//         </button>
+
+//         <NavbarList
+//           type="sidebar"
+//           className="flex-col space-y-6 mt-12 text-lg"
+//           onClick={() => setIsSidebarOpen(false)}
+//         />
+
+//         <div className="flex flex-col gap-4 pb-6">
+//           {session?.user ? (
+//             <>
+//               <Image
+//                 src={session.user.image!}
+//                 alt="Avatar"
+//                 className="w-10 h-10 rounded-full"
+//                 width={48}
+//                 height={48}
+//               />
+//               <span>{session.user.name}</span>
+//               <button onClick={logout} className="bg-red-500 px-4 py-2 rounded">
+//                 Logout
+//               </button>
+//             </>
+//           ) : (
+//             <>
+//               <LogInButton
+//                 className="w-full text-center"
+//                 onClick={() => handleOpenModal("login")}
+//               />
+//               <SignUpButton
+//                 className="w-full text-center"
+//                 onClick={() => handleOpenModal("signup")}
+//               />
+//             </>
+//           )}
+//         </div>
+//       </div>
+
+//       <Modal
+//         ref={modalRef}
+//         isOpen={isModalOpen}
+//         onClose={() => setIsModalOpen(false)}
+//         type={modalType}
+//       />
+//     </nav>
+//   );
+// }
+// // "use client";
+
+// // import { useSession } from "next-auth/react";
+// // import { login, logout } from "@/lib/actions/auth";
+// // import { usePathname } from "next/navigation";
+// // import Image from "next/image";
+
+// // export default function Navbar() {
+// //   const { data: session } = useSession();
+
+// //   const pathname = usePathname();
+// //   const isTemplatePage =
+// //     pathname.startsWith("/templates/") ||
+// //     pathname.startsWith("/controltemplate");
+
+// //   if (isTemplatePage) return null;
+
+// //   return (
+// //     <nav className="p-4 bg-gray-900 text-white flex justify-between">
+// //       <h1 className="text-lg font-bold">MyApp</h1>
+// //       {session?.user ? (
+// //         <div className="flex items-center gap-4">
+// //           <Image
+// //             src={session.user.image!}
+// //             alt="Avatar"
+// //             className="w-10 h-10 rounded-full"
+// //             width={48}
+// //             height={48}
+// //           />
+// //           <span>{session.user.name}</span>
+// //           <button onClick={logout} className="bg-red-500 px-4 py-2 rounded">
+// //             Logout
+// //           </button>
+// //         </div>
+// //       ) : (
+// //         <button onClick={login} className="bg-blue-500 px-4 py-2 rounded">
+// //           Login
+// //         </button>
+// //       )}
+// //     </nav>
+// //   );
+// // }
 "use client";
 import React, { useState, useEffect, useRef } from "react";
+
 import SignUpButton from "../auth/SignUpButton";
 import LogInButton from "../auth/LogInButton";
+
 import Logo from "../logo/Logo";
 import NavbarList from "../list/NavbarList";
+
 import Modal from "../auth/Modal";
+
+import { useSession } from "next-auth/react";
+import { login, logout } from "@/lib/actions/auth";
+import { usePathname } from "next/navigation";
+import Image from "next/image";
 
 interface NavbarProps {
   type?: string;
@@ -21,13 +266,21 @@ export default function Navbar({
   const sidebarRef = useRef<HTMLDivElement>(null);
   const modalRef = useRef<HTMLDivElement>(null);
 
+  const { data: session } = useSession();
+  const pathname = usePathname();
+
+  // Calculate isTemplatePage after hooks are called
+  const isTemplatePage =
+    pathname.startsWith("/templates/") ||
+    pathname.startsWith("/controltemplate");
+
   const handleOpenModal = (type: "signup" | "login") => {
     setIsSidebarOpen(false);
     setModalType(type);
     setIsModalOpen(true);
   };
 
-  // إخفاء السايدبار عند النقر خارجها
+  // Hide sidebar when clicking outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
@@ -44,7 +297,7 @@ export default function Navbar({
     };
   }, []);
 
-  // إخفاء المودال عند النقر خارجها
+  // Hide modal when clicking outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
@@ -61,10 +314,12 @@ export default function Navbar({
     };
   }, []);
 
+  // Return null early if on template page
+  if (isTemplatePage) return null;
+
   return (
     <nav className="flex justify-between py-4 px-12 bg-lightGray relative">
       <Logo />
-
       <button
         onClick={() => setIsSidebarOpen(!isSidebarOpen)}
         className="lg:hidden text-primary focus:outline-none"
@@ -88,13 +343,32 @@ export default function Navbar({
       {/* Desktop Navbar */}
       <div className="hidden lg:flex lg:flex-row lg:items-center lg:justify-between lg:w-4/5">
         <NavbarList type="nav" className={className} />
-        <div className="flex gap-4">
-          <LogInButton onClick={() => handleOpenModal("login")} />
-          <SignUpButton onClick={() => handleOpenModal("signup")} />
+
+        <div className="flex gap-4 items-center">
+          {session?.user ? (
+            <>
+              <Image
+                src={session.user.image!}
+                alt="Avatar"
+                className="w-10 h-10 rounded-full"
+                width={48}
+                height={48}
+              />
+              <span>{session.user.name}</span>
+              <button onClick={logout} className="bg-red-500 px-4 py-2 rounded text-white">
+                Logout
+              </button>
+            </>
+          ) : (
+            <>
+              <LogInButton onClick={() => handleOpenModal("login")} />
+              <SignUpButton onClick={() => handleOpenModal("signup")} />
+            </>
+          )}
         </div>
       </div>
 
-      {/* Overlay عند فتح القائمة */}
+      {/* Overlay when menu is open */}
       {isSidebarOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-50 z-40"></div>
       )}
@@ -120,14 +394,32 @@ export default function Navbar({
         />
 
         <div className="flex flex-col gap-4 pb-6">
-          <LogInButton
-            className="w-full text-center"
-            onClick={() => handleOpenModal("login")}
-          />
-          <SignUpButton
-            className="w-full text-center"
-            onClick={() => handleOpenModal("signup")}
-          />
+          {session?.user ? (
+            <>
+              <Image
+                src={session.user.image!}
+                alt="Avatar"
+                className="w-10 h-10 rounded-full"
+                width={48}
+                height={48}
+              />
+              <span>{session.user.name}</span>
+              <button onClick={logout} className="bg-red-500 px-4 py-2 rounded">
+                Logout
+              </button>
+            </>
+          ) : (
+            <>
+              <LogInButton
+                className="w-full text-center"
+                onClick={() => handleOpenModal("login")}
+              />
+              <SignUpButton
+                className="w-full text-center"
+                onClick={() => handleOpenModal("signup")}
+              />
+            </>
+          )}
         </div>
       </div>
 
