@@ -1,9 +1,11 @@
+"use client";
 import React, { forwardRef } from "react";
 import Link from "next/link";
 import Logo from "../logo/Logo";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFacebook, faGoogle } from "@fortawesome/free-brands-svg-icons";
+import { faFacebook, faGithub } from "@fortawesome/free-brands-svg-icons";
 import { faEnvelope, faKey } from "@fortawesome/free-solid-svg-icons";
+import { login } from "@/lib/actions/auth";
 
 interface ModalProps {
   isOpen?: boolean;
@@ -92,18 +94,17 @@ const Modal = forwardRef<HTMLDivElement, ModalProps>(
               </div>
 
               <div className="mt-4 text-center flex flex-col">
-                <Link
-                  href="https://accounts.google.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                {/* Continue With Google */}
+                <button
                   className="w-full p-2 rounded shadow-[0_4px_4px_#D8D8D8] my-2"
+                  onClick={() => login()}
                 >
-                  Continue With Google
+                  Continue With Github
                   <FontAwesomeIcon
-                    icon={faGoogle}
+                    icon={faGithub}
                     className="w-6 h-6 text-charcoalGray float-right"
                   />
-                </Link>
+                </button>
 
                 <Link
                   href="https://facebook.com"
