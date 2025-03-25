@@ -1,25 +1,19 @@
+import React from "react";
 import Modal from "./Modal";
 
 interface LoginModalProps {
   isOpen: boolean;
   onClose: () => void;
-  buttonName?: string;
-  description?: string;
 }
 
-export default function LoginModal({
-  isOpen,
-  onClose,
-  buttonName = "Log In",
-  description = "log in to view your own projects ",
-}: LoginModalProps) {
+export default function LoginModal({ isOpen, onClose }: LoginModalProps) {
   return (
     <Modal
       isOpen={isOpen}
       onClose={onClose}
-      buttonName={buttonName}
-      description={description}
+      buttonName="Log In"
+      description="log in to view your own projects "
+      type="login"
     />
   );
 }
-import React from "react";

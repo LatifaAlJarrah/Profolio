@@ -16,6 +16,11 @@ export default function Footer() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const sidebarRef = useRef<HTMLDivElement>(null);
 
+  // Calculate isTemplatePage after hooks are called
+  const isTemplatePage =
+    pathname.startsWith("/templates/") ||
+    pathname.startsWith("/controltemplate");
+
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
