@@ -12,7 +12,7 @@ import Modal from "../auth/Modal";
 import { useSession } from "next-auth/react";
 // import { login, logout } from "@/lib/actions/auth";
 import { logout } from "@/lib/actions/auth";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import Image from "next/image";
 
 interface NavbarProps {
@@ -23,6 +23,8 @@ interface NavbarProps {
 export default function Navbar({
   className = "flex-row space-x-10",
 }: NavbarProps) {
+    const router = useRouter();
+
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalType, setModalType] = useState<"signup" | "login">("login");
@@ -31,8 +33,8 @@ export default function Navbar({
   const modalRef = useRef<HTMLDivElement>(null);
 
   const { data: session } = useSession();
-  const pathname = usePathname();
 
+  const pathname = usePathname();
   // Calculate isTemplatePage after hooks are called
   const isTemplatePage =
     pathname.startsWith("/templates/") ||
@@ -81,6 +83,21 @@ export default function Navbar({
   // Return null early if on template page
   if (isTemplatePage) return null;
 
+  const handleLogout = async () => {
+    // Show confirmation dialog
+    const confirmLogout = window.confirm("Are you sure you want to log out?");
+
+    if (confirmLogout) {
+      try {
+        await logout();
+        // Optional: Redirect after logout (if not already handled by NextAuth)
+        router.push("/");
+      } catch (error) {
+        console.error("Logout failed:", error);
+      }
+    }
+  };
+
   return (
     <nav className="flex justify-between py-4 px-12 bg-lightGray relative">
       <Logo />
@@ -120,7 +137,7 @@ export default function Navbar({
               />
               <span>{session.user.name}</span>
               <button
-                onClick={logout}
+                onClick={handleLogout}
                 className="bg-red-500 px-4 py-2 rounded text-white"
               >
                 Logout
@@ -174,7 +191,7 @@ export default function Navbar({
                 <span>{session.user.name}</span>
               </div>
               <button
-                onClick={logout}
+                onClick={handleLogout}
                 className="bg-red-500 px-4 py-2 rounded text-white"
               >
                 Logout

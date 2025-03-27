@@ -1,6 +1,6 @@
 "use client";
-
 import { useState, useRef, useEffect } from "react";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faFacebook,
@@ -8,14 +8,19 @@ import {
   faGithub,
   faGoogle,
 } from "@fortawesome/free-brands-svg-icons";
+
 import Logo from "../logo/Logo";
 import NavbarList from "../list/NavbarList";
+
 import Link from "next/link";
+
+import { usePathname } from "next/navigation";
 
 export default function Footer() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const sidebarRef = useRef<HTMLDivElement>(null);
 
+  const pathname = usePathname();
   // Calculate isTemplatePage after hooks are called
   const isTemplatePage =
     pathname.startsWith("/templates/") ||
@@ -37,6 +42,9 @@ export default function Footer() {
     };
   }, []);
 
+  // Return null early if on template page
+  if (isTemplatePage) return null;
+  
   return (
     <footer className="bg-primary text-white py-6 px-12 relative">
       <div className="flex justify-between items-center flex-wrap">

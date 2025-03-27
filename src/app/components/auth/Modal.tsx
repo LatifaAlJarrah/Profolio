@@ -4,7 +4,7 @@ import Logo from "../logo/Logo";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFacebook, faGithub } from "@fortawesome/free-brands-svg-icons";
 import { faEnvelope, faKey } from "@fortawesome/free-solid-svg-icons";
-import { login } from "@/lib/actions/auth";
+import { loginWithGithub, loginWithFacebook } from "@/lib/actions/auth";
 
 interface ModalProps {
   isOpen?: boolean;
@@ -83,7 +83,7 @@ export default function Modal ({ isOpen, onClose, buttonName, description, type 
               <div className="mt-4 text-center flex flex-col">
                 <button
                   className="w-full p-2 rounded shadow-[0_4px_4px_#D8D8D8] my-2"
-                  onClick={() => login()}
+                  onClick={() => loginWithGithub()}
                 >
                   Continue With Github
                   <FontAwesomeIcon
@@ -91,7 +91,8 @@ export default function Modal ({ isOpen, onClose, buttonName, description, type 
                     className="w-6 h-6 text-charcoalGray float-right"
                   />
                 </button>
-                <button className="w-full p-2 rounded shadow-[0_4px_4px_#D8D8D8] my-2">
+                <button className="w-full p-2 rounded shadow-[0_4px_4px_#D8D8D8] my-2"
+                onClick={() => loginWithFacebook()}>
                   Continue With Facebook
                   <FontAwesomeIcon
                     icon={faFacebook}
