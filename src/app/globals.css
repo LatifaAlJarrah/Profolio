@@ -22,7 +22,7 @@ body {
 
 @font-face {
   font-family: "Lora";
-  src: url("/fonts/Lora.ttf") format("truetype");
+  src: url("/fonts/Lora-Regular.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
 }
