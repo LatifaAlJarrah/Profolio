@@ -10,8 +10,6 @@ import NavbarList from "../list/NavbarList";
 import Modal from "../auth/Modal";
 
 import { useSession } from "next-auth/react";
-// import { login, logout } from "@/lib/actions/auth";
-import { logout } from "@/lib/actions/auth";
 import { usePathname, useRouter } from "next/navigation";
 import Image from "next/image";
 
@@ -84,20 +82,32 @@ export default function Navbar({
   if (isTemplatePage) return null;
 
   const handleLogout = async () => {
-    // Show confirmation dialog
     const confirmLogout = window.confirm("Are you sure you want to log out?");
+    if (!confirmLogout) return;
 
-    if (confirmLogout) {
-      try {
-        await logout();
-        // Optional: Redirect after logout (if not already handled by NextAuth)
-        router.push("/");
-      } catch (error) {
-        console.error("Logout failed:", error);
-      }
+    try {
+      await fetch("/api/logout", { method: "GET" });
+      router.refresh();
+      router.push("/");
+    } catch (error) {
+      console.error("Logout error:", error);
     }
   };
 
+  function UserAvatar({ imageUrl }: { imageUrl: string }) {
+    return (
+      <Image
+        src={imageUrl}
+        alt="User profile"
+        width={50}
+        height={50}
+        className="rounded-full"
+        // Optional: Add a placeholder for loading
+        placeholder="blur"
+        blurDataURL="data:image/png;base64,..."
+      />
+    );
+  }
   return (
     <nav className="flex justify-between py-4 px-12 bg-lightGray relative">
       <Logo />
@@ -128,13 +138,14 @@ export default function Navbar({
         <div className="flex gap-4 items-center">
           {session?.user ? (
             <>
-              <Image
+              {/* <Image
                 src={session.user.image!}
                 alt="Avatar"
                 className="w-10 h-10 rounded-full"
                 width={48}
                 height={48}
-              />
+              /> */}
+              <UserAvatar imageUrl={session.user.image!} />
               <span>{session.user.name}</span>
               <button
                 onClick={handleLogout}
@@ -185,8 +196,10 @@ export default function Navbar({
                   src={session.user.image!}
                   alt="Avatar"
                   className="w-10 h-10 rounded-full"
-                  width={48}
-                  height={48}
+                  width={40}
+                  height={40}
+                  unoptimized={true} // Bypass Next.js image optimization
+                  referrerPolicy="no-referrer" // Needed for Facebook images
                 />
                 <span>{session.user.name}</span>
               </div>
@@ -211,12 +224,6 @@ export default function Navbar({
           )}
         </div>
       </div>
-
-      {/* <Modal
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-        type={modalType}
-      /> */}
       <Modal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
