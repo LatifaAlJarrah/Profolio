@@ -8,7 +8,18 @@ const nextConfig: NextConfig = {
   },
 
   images: {
-    domains: ["avatars.githubusercontent.com"],
+    domains: ["avatars.githubusercontent.com", "platform-lookaside.fbsbx.com"],
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "platform-lookaside.fbsbx.com",
+      },
+      {
+        protocol: "https",
+        hostname: "avatars.githubusercontent.com",
+      },
+      // Add other domains as needed
+    ],
   },
 };
 
