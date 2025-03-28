@@ -9,8 +9,9 @@ import NavbarList from "../list/NavbarList";
 
 import Modal from "../auth/Modal";
 
-import { useSession } from "next-auth/react";
-import { usePathname, useRouter } from "next/navigation";
+import { useSession, signOut } from "next-auth/react";
+import { usePathname } from "next/navigation";
+
 import Image from "next/image";
 
 interface NavbarProps {
@@ -21,22 +22,13 @@ interface NavbarProps {
 export default function Navbar({
   className = "flex-row space-x-10",
 }: NavbarProps) {
-    const router = useRouter();
-
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalType, setModalType] = useState<"signup" | "login">("login");
-
   const sidebarRef = useRef<HTMLDivElement>(null);
   const modalRef = useRef<HTMLDivElement>(null);
-
   const { data: session } = useSession();
-
   const pathname = usePathname();
-  // Calculate isTemplatePage after hooks are called
-  const isTemplatePage =
-    pathname.startsWith("/templates/") ||
-    pathname.startsWith("/controltemplate");
 
   const handleOpenModal = (type: "signup" | "login") => {
     setIsSidebarOpen(false);
@@ -44,7 +36,7 @@ export default function Navbar({
     setIsModalOpen(true);
   };
 
-  // Hide sidebar when clicking outside
+  // 1. Sidebar effect
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
@@ -55,13 +47,16 @@ export default function Navbar({
       }
     };
 
-    document.addEventListener("mousedown", handleClickOutside);
+    if (isSidebarOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, []);
+  }, [isSidebarOpen]); // Ensure proper cleanup
 
-  // Hide modal when clicking outside
+  // 2. Modal effect
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
@@ -72,26 +67,27 @@ export default function Navbar({
       }
     };
 
-    document.addEventListener("mousedown", handleClickOutside);
+    if (isModalOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, []);
+  }, [isModalOpen]); // Ensure proper cleanup
 
-  // Return null early if on template page
+  // Calculate after hooks
+  const isTemplatePage =
+    pathname.startsWith("/templates/") ||
+    pathname.startsWith("/controltemplate");
+
   if (isTemplatePage) return null;
 
   const handleLogout = async () => {
     const confirmLogout = window.confirm("Are you sure you want to log out?");
     if (!confirmLogout) return;
 
-    try {
-      await fetch("/api/logout", { method: "GET" });
-      router.refresh();
-      router.push("/");
-    } catch (error) {
-      console.error("Logout error:", error);
-    }
+    await signOut({ callbackUrl: "/" }); // This will handle both logout and redirect
   };
 
   function UserAvatar({ imageUrl }: { imageUrl: string }) {
@@ -102,7 +98,6 @@ export default function Navbar({
         width={50}
         height={50}
         className="rounded-full"
-        // Optional: Add a placeholder for loading
         placeholder="blur"
         blurDataURL="data:image/png;base64,..."
       />
@@ -138,13 +133,6 @@ export default function Navbar({
         <div className="flex gap-4 items-center">
           {session?.user ? (
             <>
-              {/* <Image
-                src={session.user.image!}
-                alt="Avatar"
-                className="w-10 h-10 rounded-full"
-                width={48}
-                height={48}
-              /> */}
               <UserAvatar imageUrl={session.user.image!} />
               <span>{session.user.name}</span>
               <button
