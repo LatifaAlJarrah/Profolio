@@ -1,29 +1,3 @@
-// "use client";
-// import { useState } from "react";
-
-// interface ColorPickerProps {
-//   defaultColor?: string;
-// }
-// const ColorPicker = ({ defaultColor }: ColorPickerProps) => {
-//   const [color, setColor] = useState(defaultColor);
-
-//   return (
-//     <div className="flex items-center justify-evenly bg-transparent gap-2 border rounded-lg px-2">
-//       <input
-//         id="link-input"
-//         type="color"
-//         className="w-6 h-6 cursor-pointer"
-//         value={color}
-//         onChange={(e) => setColor(e.target.value)}
-//       />
-//       <label htmlFor="link-input" className="text-sm text-gray-800">
-//         {color}
-//       </label>
-//     </div>
-//   );
-// };
-
-// export default ColorPicker;
 "use client";
 import { useState } from "react";
 
