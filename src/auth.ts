@@ -15,7 +15,7 @@ export const authConfig: NextAuthConfig = {
       authorization: {
         params: {
           // redirect_uri: `${process.env.NEXTAUTH_URL}/api/auth/callback/github`,
-          scope: "user:email", // Add additional scopes if needed
+          scope: "user:email",
         },
       },
     }),
@@ -24,7 +24,7 @@ export const authConfig: NextAuthConfig = {
       clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
       authorization: {
         params: {
-          scope: "email,public_profile", // Add additional scopes as needed
+          scope: "email,public_profile",
         },
       },
     }),

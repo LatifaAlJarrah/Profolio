@@ -352,7 +352,7 @@ const registerUser = async (userData: {
 };
 
 // Main Component
-const SignUpForm = ({ isOpen, onClose }: SignUpFormProps) => {
+const SignUpForm = ({ isOpen, onClose, type }: SignUpFormProps) => {
   const router = useRouter();
   const [error, setError] = useState<string | null>(null);
 
@@ -412,131 +412,131 @@ const SignUpForm = ({ isOpen, onClose }: SignUpFormProps) => {
   if (!isOpen) return null;
 
   return (
-    <Form {...form}>
-      <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-        <div className="bg-white p-12 rounded-lg shadow-lg w-full max-w-md">
-          <button
-            onClick={onClose}
-            className="float-right text-2xl font-bold text-red-600"
-            aria-label="Close sign up form"
-          >
-            &times;
-          </button>
+    <>
+      {type && (
+        <Form {...form}>
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+            <div className="bg-white p-12 rounded-lg shadow-lg w-full max-w-md">
+              <button
+                onClick={onClose}
+                className="float-right text-2xl font-bold text-red-600"
+                aria-label="Close sign up form"
+              >
+                &times;
+              </button>
 
-          <div className="flex flex-col items-center justify-center">
-            <Logo />
-            <h2 className="text-sm font-normal my-4 text-charcoalGray">
-              Sign up to make your own projects
-            </h2>
-          </div>
-
-          <form onSubmit={form.handleSubmit(onSubmit)} className="w-full">
-            <div className="space-y-4">
-              <FormField
-                control={form.control}
-                name="username"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Username</FormLabel>
-                    <FormControl>
-                      <Input
-                        placeholder="johndoe"
-                        {...field}
-                        autoComplete="username"
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
-              <FormField
-                control={form.control}
-                name="email"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Email</FormLabel>
-                    <FormControl>
-                      <Input
-                        placeholder="mail@example.com"
-                        type="email"
-                        {...field}
-                        onBlur={handleEmailBlur}
-                        autoComplete="email"
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
-              <FormField
-                control={form.control}
-                name="password"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Password</FormLabel>
-                    <FormControl>
-                      <Input
-                        type="password"
-                        placeholder="Enter your password"
-                        {...field}
-                        autoComplete="new-password"
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
-              <FormField
-                control={form.control}
-                name="confirmPassword"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Confirm Password</FormLabel>
-                    <FormControl>
-                      <Input
-                        type="password"
-                        placeholder="Confirm your password"
-                        {...field}
-                        autoComplete="new-password"
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </div>
-
-            {error && (
-              <div className="text-red-500 text-sm mt-2 text-center">
-                {error}
+              <div className="flex flex-col items-center justify-center">
+                <Logo />
+                <h2 className="text-sm font-normal my-4 text-charcoalGray">
+                  Sign up to make your own projects
+                </h2>
               </div>
-            )}
 
-            <SignInButton
-              disabled={form.formState.isSubmitting}
-            >
-              {form.formState.isSubmitting ? "Signing Up..." : "Sign Up"}
-            </SignInButton>
-          </form>
+              <form onSubmit={form.handleSubmit(onSubmit)} className="w-full">
+                <div className="space-y-4">
+                  <FormField
+                    control={form.control}
+                    name="username"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Username</FormLabel>
+                        <FormControl>
+                          <Input
+                            placeholder="johndoe"
+                            {...field}
+                            autoComplete="username"
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
 
-          <div className="mx-auto my-4 flex w-full items-center justify-evenly before:mr-4 before:block before:h-px before:flex-grow before:bg-stone-400 after:ml-4 after:block after:h-px after:flex-grow after:bg-stone-400 text-gray-400">
-            OR
+                  <FormField
+                    control={form.control}
+                    name="email"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Email</FormLabel>
+                        <FormControl>
+                          <Input
+                            placeholder="mail@example.com"
+                            type="email"
+                            {...field}
+                            onBlur={handleEmailBlur}
+                            autoComplete="email"
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
+                  <FormField
+                    control={form.control}
+                    name="password"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Password</FormLabel>
+                        <FormControl>
+                          <Input
+                            type="password"
+                            placeholder="Enter your password"
+                            {...field}
+                            autoComplete="new-password"
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
+                  <FormField
+                    control={form.control}
+                    name="confirmPassword"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Confirm Password</FormLabel>
+                        <FormControl>
+                          <Input
+                            type="password"
+                            placeholder="Confirm your password"
+                            {...field}
+                            autoComplete="new-password"
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
+
+                {error && (
+                  <div className="text-red-500 text-sm mt-2 text-center">
+                    {error}
+                  </div>
+                )}
+
+                <SignInButton disabled={form.formState.isSubmitting}>
+                  {form.formState.isSubmitting ? "Signing Up..." : "Sign Up"}
+                </SignInButton>
+              </form>
+
+              <div className="mx-auto my-4 flex w-full items-center justify-evenly before:mr-4 before:block before:h-px before:flex-grow before:bg-stone-400 after:ml-4 after:block after:h-px after:flex-grow after:bg-stone-400 text-gray-400">
+                OR
+              </div>
+
+              <div className="space-y-3">
+                <GithubSignInButton>Sign up with Github</GithubSignInButton>
+                <FacebookSignInButton>
+                  Sign up with Facebook
+                </FacebookSignInButton>
+              </div>
+            </div>
           </div>
-
-          <div className="space-y-3">
-            <GithubSignInButton >
-              Sign up with Github
-            </GithubSignInButton>
-            <FacebookSignInButton >
-              Sign up with Facebook
-            </FacebookSignInButton>
-          </div>
-        </div>
-      </div>
-    </Form>
+        </Form>
+      )}
+    </>
   );
 };
 
