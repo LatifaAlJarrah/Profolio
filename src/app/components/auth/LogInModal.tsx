@@ -1,5 +1,5 @@
 import React from "react";
-import Modal from "./Modal";
+import SignInForm from "../form/SignInForm";
 
 interface LoginModalProps {
   isOpen: boolean;
@@ -7,15 +7,5 @@ interface LoginModalProps {
 }
 
 export default function LoginModal({ isOpen, onClose }: LoginModalProps) {
-  return (
-    <>
-      <Modal
-        isOpen={isOpen}
-        onClose={onClose}
-        buttonName="Log In"
-        description="log in to view your own projects "
-        type="login"
-      />
-    </>
-  );
+  return <SignInForm type="signin" isOpen={isOpen} onClose={onClose} />;
 }
