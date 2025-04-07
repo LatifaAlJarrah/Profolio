@@ -2,11 +2,11 @@
 import { signIn } from "next-auth/react";
 import { SignOutButton } from "@/app/components/auth/signout";
 import UserInfo from "@/app/components/auth/UserInfo";
-export default function SignInPage() {
+export default function UserProfile() {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen">
-          <h1 className="text-2xl font-bold mb-8">Sign In</h1>
-          <UserInfo />
+      <h1 className="text-2xl font-bold mb-8">Sign In</h1>
+      <UserInfo />
       <div className="flex flex-col gap-4">
         <button
           onClick={() => signIn("github")}

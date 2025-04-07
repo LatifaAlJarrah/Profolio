@@ -52,6 +52,7 @@ export default function Modal ({ isOpen, onClose, buttonName, description, type 
                     />
                   </div>
                 </div>
+                
                 <div className="mb-4">
                   <div className="relative w-full">
                     <input

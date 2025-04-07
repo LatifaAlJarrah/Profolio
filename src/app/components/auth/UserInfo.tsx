@@ -14,8 +14,8 @@ export default function UserInfo() {
             src={session.user?.image || "/default-avatar.png"}
             alt="User avatar"
             width={40}
-                      height={40}
-                      quality={100}
+            height={40}
+            quality={100}
             className="w-20 h-20 rounded-full"
           />
         </div>

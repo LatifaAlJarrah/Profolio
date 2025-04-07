@@ -8,12 +8,14 @@ interface LoginModalProps {
 
 export default function LoginModal({ isOpen, onClose }: LoginModalProps) {
   return (
-    <Modal
-      isOpen={isOpen}
-      onClose={onClose}
-      buttonName="Log In"
-      description="log in to view your own projects "
-      type="login"
-    />
+    <>
+      <Modal
+        isOpen={isOpen}
+        onClose={onClose}
+        buttonName="Log In"
+        description="log in to view your own projects "
+        type="login"
+      />
+    </>
   );
 }
