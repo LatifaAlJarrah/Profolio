@@ -7,12 +7,12 @@ import LogInButton from "../auth/LogInButton";
 import Logo from "../logo/Logo";
 import NavbarList from "../list/NavbarList";
 
-import Modal from "../auth/Modal";
-
 import { useSession, signOut } from "next-auth/react";
 import { usePathname } from "next/navigation";
 
 import Image from "next/image";
+import SignUpForm from "../form/SignUpForm";
+import SignInForm from "../form/SignInForm";
 
 interface NavbarProps {
   type?: string;
@@ -91,9 +91,14 @@ export default function Navbar({
   };
 
   function UserAvatar({ imageUrl }: { imageUrl: string }) {
+    const validImage =
+      imageUrl && imageUrl.trim() !== ""
+        ? imageUrl
+        : "/assets/default-avatar.png";
+
     return (
       <Image
-        src={imageUrl}
+        src={validImage}
         alt="User profile"
         width={50}
         height={50}
@@ -103,6 +108,7 @@ export default function Navbar({
       />
     );
   }
+
   return (
     <nav className="flex justify-between py-4 px-12 bg-lightGray relative">
       <Logo />
@@ -180,15 +186,7 @@ export default function Navbar({
           {session?.user ? (
             <>
               <div className="flex gap-4 items-center">
-                <Image
-                  src={session.user.image!}
-                  alt="Avatar"
-                  className="w-10 h-10 rounded-full"
-                  width={40}
-                  height={40}
-                  unoptimized={true} // Bypass Next.js image optimization
-                  referrerPolicy="no-referrer" // Needed for Facebook images
-                />
+                <UserAvatar imageUrl={session.user.image!} />
                 <span>{session.user.name}</span>
               </div>
               <button
@@ -212,17 +210,19 @@ export default function Navbar({
           )}
         </div>
       </div>
-      <Modal
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-        type={modalType}
-        buttonName={modalType === "login" ? "Log In" : "Sign Up"}
-        description={
-          modalType === "login"
-            ? "Log in to view your own projects"
-            : "Sign up to make your own projects"
-        }
-      />
+      {modalType === "signup" ? (
+        <SignUpForm
+          isOpen={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+          type="signup"
+        />
+      ) : (
+        <SignInForm
+          isOpen={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+          type="signin"
+        />
+      )}
     </nav>
   );
 }
