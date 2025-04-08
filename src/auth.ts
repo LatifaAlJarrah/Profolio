@@ -3,11 +3,17 @@ import GitHub from "next-auth/providers/github";
 import Facebook from "next-auth/providers/facebook";
 import { NextAuthConfig } from "next-auth";
 
+import { PrismaAdapter } from "@auth/prisma-adapter";
+import { PrismaClient } from "generated/prisma";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { db } from "./lib/db";
 import { compare } from "bcrypt";
 
+const prisma = new PrismaClient();
+
 export const authConfig: NextAuthConfig = {
+  adapter: PrismaAdapter(prisma),
+
   providers: [
     GitHub({
       clientId: process.env.GITHUB_CLIENT_ID,
@@ -43,9 +49,9 @@ export const authConfig: NextAuthConfig = {
         }
 
         const user = await db.user.findUnique({ where: { email } });
-         if (!user) {
-           throw new Error("AUTH_ERROR:Email does not exist");
-         }
+        if (!user) {
+          throw new Error("AUTH_ERROR:Email does not exist");
+        }
 
         const isPasswordValid = await compare(password, user.password);
         if (!isPasswordValid) {
@@ -61,8 +67,13 @@ export const authConfig: NextAuthConfig = {
       },
     }),
   ],
+  session: {
+    strategy: "jwt", // or 'database'
+  },
   callbacks: {
     async session({ session, token }) {
+      session.accessToken = token.accessToken;
+
       session.user.id = token.sub ?? "";
       session.user.name = token.name;
       session.user.image = token.picture || null;
@@ -70,7 +81,11 @@ export const authConfig: NextAuthConfig = {
 
       return session;
     },
-    async jwt({ token, user }) {
+    async jwt({ token, account, user }) {
+      // Persist the OAuth access_token and or the user id to the token right after sign in
+      if (account) {
+        token.accessToken = account.access_token;
+      }
       if (user) {
         token.sub = user.id;
         token.name = user.name;
