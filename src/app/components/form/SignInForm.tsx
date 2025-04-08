@@ -129,7 +129,7 @@ const SignInForm = ({ isOpen, onClose, type }: SignInFormProps) => {
                   </div>
                 )}
                 <SignInButton disabled={form.formState.isSubmitting}>
-                  Sign In
+                  {form.formState.isSubmitting ? "Loading..." : "Sign In"}
                 </SignInButton>
               </form>
 
