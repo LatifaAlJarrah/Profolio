@@ -35,20 +35,27 @@ export const authConfig: NextAuthConfig = {
       // },
       authorization: {
         params: {
-          scope: "read:user user:email", // Requesting the email
+          redirect_uri: `${process.env.NEXTAUTH_URL}/api/auth/callback/github`,
+
+          scope: "user user:email",
         },
       },
-      // profile(profile) {
-      //   return {
-      //     id: profile.id.toString(),
-      //     name: profile.name,
-      //     email: profile.email,
-      //     image: profile.avatar_url,
-      //     username:
-      //       profile.login?.replace(/\s+/g, "").toLowerCase() ||
-      //       profile.id.toString(), // أو أي قيمة بديلة
-      //   };
-      // },
+
+      httpOptions: {
+        timeout: 20000, // زيادة وقت الانتظار إلى 10 ثواني
+      },
+      profile(profile) {
+        // Explicitly handle the GitHub profile
+        return {
+          id: profile.id.toString(),
+          name: profile.name,
+          email: profile.email,
+          image: profile.avatar_url,
+          username:
+            profile.login?.replace(/\s+/g, "").toLowerCase() ||
+            profile.id.toString(), // Or any fallback
+        };
+      },
     }),
     Facebook({
       clientId: process.env.FACEBOOK_CLIENT_ID,
@@ -133,62 +140,102 @@ export const authConfig: NextAuthConfig = {
 
   callbacks: {
     async signIn({ user, account }) {
-      if (account?.provider !== "credentials") {
-        const existingUser = await db.user.findUnique({
-          where: { email: user.email || "" },
+      if (!user?.email) {
+        console.error("GitHub email is missing for user:", user);
+        return false; // هنا يرفض تسجيل الدخول إذا كان البريد الإلكتروني مفقوداً
+      }
+
+      console.log("SignIn callback - User:", user);
+      console.log("SignIn callback - Account:", account);
+
+      if (account?.provider === "github" && !user?.email) {
+        // يمكن أن تتعامل مع الحالة بشكل مختلف، مثل إعادة توجيه المستخدم
+        // للحصول على بريده الإلكتروني بطريقة أخرى
+        return true; // يمكنك تغييرها حسب احتياجك
+      }
+
+      const existingUser = await db.user.findUnique({
+        where: { email: user.email },
+      });
+
+      if (existingUser) {
+        const linkedAccount = await db.account.findFirst({
+          where: {
+            userId: existingUser.id,
+            provider: account?.provider || "",
+          },
         });
 
-        // If the email exists but no account is linked to this provider, return false
-        if (existingUser) {
-          const linkedAccount = await db.account.findFirst({
-            where: {
-              userId: existingUser.id,
-              provider: account?.provider || "",
-            },
-          });
-
-          if (!linkedAccount) {
-            // Optional: You can redirect to an error page with a message
-            throw new Error(
-              "OAUTH_ERROR:Email already exists with another provider"
-            );
-          }
-          if (!user?.email) {
-            console.error("GitHub email is missing");
-            return false; // Prevent user creation if email is missing
-          }
+        if (!linkedAccount) {
+          throw new Error(
+            "OAUTH_ERROR: Email already exists with another provider"
+          );
         }
       }
 
-      return true; // Allow sign in
-    },
-    async session({ session, token }) {
-      session.accessToken = token.accessToken as string | undefined;
-
-      session.user.id = token.sub ?? "";
-      session.user.name = token.name;
-      session.user.image = token.picture || null;
-      // session.user.username = token.username as string;
-      session.user.username = token.username as string;
-
-      return session;
-    },
-    async jwt({ token, account, user }) {
-      // Persist the OAuth access_token and or the user id to the token right after sign in
-      if (account) {
-        token.accessToken = account.access_token;
-      }
-      if (user) {
-        token.sub = user.id;
-        token.name = user.name;
-        token.picture = user.image || null;
-        token.username = (user as any).username;
-
-        // token.username = (user as any).username || ""; // You can include any custom fields
-      }
-      return token;
+      return true; // Allow sign-in if everything checks out
     },
   },
+
+  // callbacks: {
+  //   async signIn({ user, account }) {
+  //     if (account?.provider !== "credentials") {
+  //       const existingUser = await db.user.findUnique({
+  //         where: { email: user.email || "" },
+  //       });
+
+  //       // If the email exists but no account is linked to this provider, return false
+  //       if (existingUser) {
+  //         const linkedAccount = await db.account.findFirst({
+  //           where: {
+  //             userId: existingUser.id,
+  //             provider: account?.provider || "",
+  //           },
+  //         });
+
+  //         if (!linkedAccount) {
+  //           // Optional: You can redirect to an error page with a message
+  //           throw new Error(
+  //             "OAUTH_ERROR:Email already exists with another provider"
+  //           );
+  //         }
+  //         console.log("GitHub user profile:", user); // Log to check the returned profile data
+  //         if (account?.provider === "github" && !user?.email) {
+  //           console.error("GitHub email is missing");
+  //           return false; // Prevent user creation if email is missing
+  //         }
+  //       }
+  //     }
+
+  //     return true; // Allow sign in
+  //   },
+  //   async session({ session, token }) {
+  //     session.accessToken = token.accessToken as string | undefined;
+
+  //     session.user.id = token.sub ?? "";
+  //     session.user.name = token.name;
+  //     session.user.image = token.picture || null;
+  //     // session.user.username = token.username as string;
+  //     session.user.username = token.username as string;
+
+  //     return session;
+  //   },
+  //   async jwt({ token, account, user }) {
+  //     // Persist the OAuth access_token and or the user id to the token right after sign in
+  //     if (account) {
+  //       token.accessToken = account.access_token;
+  //     }
+  //     if (user) {
+  //       token.sub = user.id;
+  //       token.name = user.name;
+  //       token.picture = user.image || null;
+  //       token.username = (user as any).username;
+
+  //       // token.username = (user as any).username || ""; // You can include any custom fields
+  //     }
+  //     return token;
+  //   },
+  // },
 };
 
 export const { auth, handlers, signIn, signOut } = NextAuth(authConfig);
