@@ -2,8 +2,8 @@ import { auth } from "@/auth";
 import "./globals.css";
 import Navbar from "@components/navbar/Navbar";
 import Footer from "@components/footer/Footer";
-import SessionProvider from "@components/SessionProvider";
-
+// import SessionProvider from "@components/SessionProvider";
+import { SessionProvider } from "next-auth/react";
 export default async function RootLayout({
   children,
 }: {

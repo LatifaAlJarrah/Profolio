@@ -1,15 +1,24 @@
-import NextAuth from "next-auth";
+import NextAuth, { type NextAuthConfig } from "next-auth";
+
 import GitHub from "next-auth/providers/github";
 import Facebook from "next-auth/providers/facebook";
-import { NextAuthConfig } from "next-auth";
+import CredentialsProvider from "next-auth/providers/credentials";
 
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import { PrismaClient } from "generated/prisma";
-import CredentialsProvider from "next-auth/providers/credentials";
+
 import { db } from "./lib/db";
+import { getUserByEmail } from "./lib/getUserByEmail";
+
 import { compare } from "bcrypt";
 
 const prisma = new PrismaClient();
+
+declare module "next-auth" {
+  interface Session {
+    accessToken?: string;
+  }
+}
 
 export const authConfig: NextAuthConfig = {
   adapter: PrismaAdapter(prisma),
@@ -40,29 +49,51 @@ export const authConfig: NextAuthConfig = {
         email: { label: "Email", type: "email", placeholder: "john@gmail.com" },
         password: { label: "Password", type: "password" },
       },
+      // async authorize(credentials) {
+      //   const email = credentials?.email as string;
+      //   const password = credentials?.password as string;
+
+      //   if (!email || !password) {
+      //     throw new Error("AUTH_ERROR:Missing email or password");
+      //   }
+
+      //   const user = await db.user.findUnique({ where: { email } });
+      //   if (!user) {
+      //     throw new Error("AUTH_ERROR:Email does not exist");
+      //   }
+
+      //   const isPasswordValid = await compare(password, user.password);
+      //   if (!isPasswordValid) {
+      //     throw new Error("AUTH_ERROR:Password is incorrect");
+      //   }
+
+      //   return {
+      //     id: `${user.id}`,
+      //     name: user.username,
+      //     email: user.email,
+      //     username: user.username,
+      //   };
+      // },
       async authorize(credentials) {
-        const email = credentials?.email as string;
-        const password = credentials?.password as string;
+        const user = await getUserByEmail(credentials.email as string);
 
-        if (!email || !password) {
-          throw new Error("AUTH_ERROR:Missing email or password");
-        }
-
-        const user = await db.user.findUnique({ where: { email } });
         if (!user) {
           throw new Error("AUTH_ERROR:Email does not exist");
         }
 
-        const isPasswordValid = await compare(password, user.password);
+        const isPasswordValid = await compare(
+          credentials.password as string,
+          user.password
+        );
+
         if (!isPasswordValid) {
           throw new Error("AUTH_ERROR:Password is incorrect");
         }
 
         return {
-          id: `${user.id}`,
-          name: user.username,
+          id: user.id.toString(),
           email: user.email,
-          username: user.username,
+          name: user.username,
         };
       },
     }),
@@ -70,9 +101,37 @@ export const authConfig: NextAuthConfig = {
   session: {
     strategy: "jwt", // or 'database'
   },
+  secret: process.env.NEXTAUTH_SECRET,
+
   callbacks: {
+    async signIn({ user, account }) {
+      if (account?.provider !== "credentials") {
+        const existingUser = await db.user.findUnique({
+          where: { email: user.email || "" },
+        });
+
+        // If the email exists but no account is linked to this provider, return false
+        if (existingUser) {
+          const linkedAccount = await db.account.findFirst({
+            where: {
+              userId: existingUser.id,
+              provider: account?.provider || "",
+            },
+          });
+
+          if (!linkedAccount) {
+            // Optional: You can redirect to an error page with a message
+            throw new Error(
+              "OAUTH_ERROR:Email already exists with another provider"
+            );
+          }
+        }
+      }
+
+      return true; // Allow sign in
+    },
     async session({ session, token }) {
-      session.accessToken = token.accessToken;
+      session.accessToken = token.accessToken as string | undefined;
 
       session.user.id = token.sub ?? "";
       session.user.name = token.name;
