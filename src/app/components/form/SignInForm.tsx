@@ -137,8 +137,8 @@ const SignInForm = ({ isOpen, onClose, type }: SignInFormProps) => {
                 OR
               </div>
 
-              <GithubSignInButton>Sign up with Github</GithubSignInButton>
-              <FacebookSignInButton>Sign up with Facebook</FacebookSignInButton>
+              <GithubSignInButton>Sign In with Github</GithubSignInButton>
+              <FacebookSignInButton>Sign In with Facebook</FacebookSignInButton>
             </div>
           </div>
         </Form>

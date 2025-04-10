@@ -5,14 +5,13 @@ import Facebook from "next-auth/providers/facebook";
 import CredentialsProvider from "next-auth/providers/credentials";
 
 import { PrismaAdapter } from "@auth/prisma-adapter";
-import { PrismaClient } from "generated/prisma";
 
 import { db } from "./lib/db";
 import { getUserByEmail } from "./lib/getUserByEmail";
 
 import { compare } from "bcrypt";
 
-const prisma = new PrismaClient();
+// const prisma = new PrismaClient();
 
 declare module "next-auth" {
   interface Session {
@@ -20,19 +19,36 @@ declare module "next-auth" {
   }
 }
 
+
 export const authConfig: NextAuthConfig = {
-  adapter: PrismaAdapter(prisma),
+  adapter: PrismaAdapter(db),
 
   providers: [
     GitHub({
       clientId: process.env.GITHUB_CLIENT_ID,
       clientSecret: process.env.GITHUB_CLIENT_SECRET,
+      // authorization: {
+      //   params: {
+      //     redirect_uri: `${process.env.NEXTAUTH_URL}/api/auth/callback/github`,
+      //     scope: "user:email",
+      //   },
+      // },
       authorization: {
         params: {
-          // redirect_uri: `${process.env.NEXTAUTH_URL}/api/auth/callback/github`,
-          scope: "user:email",
+          scope: "read:user user:email", // Requesting the email
         },
       },
+      // profile(profile) {
+      //   return {
+      //     id: profile.id.toString(),
+      //     name: profile.name,
+      //     email: profile.email,
+      //     image: profile.avatar_url,
+      //     username:
+      //       profile.login?.replace(/\s+/g, "").toLowerCase() ||
+      //       profile.id.toString(), // أو أي قيمة بديلة
+      //   };
+      // },
     }),
     Facebook({
       clientId: process.env.FACEBOOK_CLIENT_ID,
@@ -42,6 +58,16 @@ export const authConfig: NextAuthConfig = {
           scope: "email,public_profile",
         },
       },
+      profile(profile) {
+        return {
+          id: profile.id,
+          name: profile.name,
+          email: profile.email,
+          image: profile.picture?.data?.url || null,
+          username:
+            profile.name?.replace(/\s+/g, "").toLowerCase() || profile.id, // أو أي قيمة بديلة
+        };
+      },
     }),
     CredentialsProvider({
       name: "Credentials",
@@ -49,55 +75,57 @@ export const authConfig: NextAuthConfig = {
         email: { label: "Email", type: "email", placeholder: "john@gmail.com" },
         password: { label: "Password", type: "password" },
       },
-      // async authorize(credentials) {
-      //   const email = credentials?.email as string;
-      //   const password = credentials?.password as string;
-
-      //   if (!email || !password) {
-      //     throw new Error("AUTH_ERROR:Missing email or password");
-      //   }
-
-      //   const user = await db.user.findUnique({ where: { email } });
-      //   if (!user) {
-      //     throw new Error("AUTH_ERROR:Email does not exist");
-      //   }
-
-      //   const isPasswordValid = await compare(password, user.password);
-      //   if (!isPasswordValid) {
-      //     throw new Error("AUTH_ERROR:Password is incorrect");
-      //   }
-
-      //   return {
-      //     id: `${user.id}`,
-      //     name: user.username,
-      //     email: user.email,
-      //     username: user.username,
-      //   };
-      // },
       async authorize(credentials) {
-        const user = await getUserByEmail(credentials.email as string);
+        const email = credentials?.email as string;
+        const password = credentials?.password as string;
 
+        if (!email || !password) {
+          throw new Error("AUTH_ERROR:Missing email or password");
+        }
+
+        const user = await db.user.findUnique({ where: { email } });
         if (!user) {
           throw new Error("AUTH_ERROR:Email does not exist");
         }
 
-        const isPasswordValid = await compare(
-          credentials.password as string,
-          user.password
-        );
-
+        const isPasswordValid = await compare(password, user.password);
         if (!isPasswordValid) {
           throw new Error("AUTH_ERROR:Password is incorrect");
         }
 
         return {
-          id: user.id.toString(),
-          email: user.email,
+          id: `${user.id}`,
           name: user.username,
+          email: user.email,
+          username: user.username,
         };
       },
+      //   async authorize(credentials) {
+      //     const user = await getUserByEmail(credentials.email as string);
+
+      //     if (!user) {
+      //       throw new Error("AUTH_ERROR:Email does not exist");
+      //     }
+
+      //     const isPasswordValid = await compare(
+      //       credentials.password as string,
+      //       user.password || ""
+      //     );
+
+      //     if (!isPasswordValid) {
+      //       throw new Error("AUTH_ERROR:Password is incorrect");
+      //     }
+
+      //     return {
+      //       id: user.id.toString(),
+      //       email: user.email,
+      //       name: user.username,
+      //     };
+      //   },
     }),
   ],
+  debug: true,
+
   session: {
     strategy: "jwt", // or 'database'
   },
@@ -125,6 +153,10 @@ export const authConfig: NextAuthConfig = {
               "OAUTH_ERROR:Email already exists with another provider"
             );
           }
+          if (!user?.email) {
+            console.error("GitHub email is missing");
+            return false; // Prevent user creation if email is missing
+          }
         }
       }
 
@@ -137,6 +169,7 @@ export const authConfig: NextAuthConfig = {
       session.user.name = token.name;
       session.user.image = token.picture || null;
       // session.user.username = token.username as string;
+      session.user.username = token.username as string;
 
       return session;
     },
@@ -149,6 +182,8 @@ export const authConfig: NextAuthConfig = {
         token.sub = user.id;
         token.name = user.name;
         token.picture = user.image || null;
+        token.username = (user as any).username;
+
         // token.username = (user as any).username || ""; // You can include any custom fields
       }
       return token;
