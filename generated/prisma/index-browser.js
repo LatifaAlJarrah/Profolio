@@ -122,9 +122,11 @@ exports.Prisma.UserScalarFieldEnum = {
   email: 'email',
   username: 'username',
   password: 'password',
+  name: 'name',
   createdAt: 'createdAt',
   updateUt: 'updateUt',
-  image: 'image'
+  image: 'image',
+  emailVerified: 'emailVerified'
 };
 
 exports.Prisma.AccountScalarFieldEnum = {

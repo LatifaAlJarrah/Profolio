@@ -15,15 +15,17 @@ datasource db {
 }
 
 model User {
-  id        Int       @id @default(autoincrement())
-  email     String    @unique
-  username  String    @unique
-  password  String
-  createdAt DateTime  @default(now())
-  updateUt  DateTime  @updatedAt
-  image     String?
-  accounts  Account[]
-  sessions  Session[]
+  id            Int       @id @default(autoincrement())
+  email         String    @unique
+  username      String    @unique
+  password      String?
+  name          String? // ← هذا الحقل إذا مفقود راح يعطيك الخطأ
+  createdAt     DateTime  @default(now())
+  updateUt      DateTime  @updatedAt
+  image         String?
+  emailVerified String?
+  accounts      Account[]
+  sessions      Session[]
 }
 
 model Account {
