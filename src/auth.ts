@@ -7,18 +7,14 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 
 import { db } from "./lib/db";
-import { getUserByEmail } from "./lib/getUserByEmail";
 
 import { compare } from "bcrypt";
-
-// const prisma = new PrismaClient();
 
 declare module "next-auth" {
   interface Session {
     accessToken?: string;
   }
 }
-
 
 export const authConfig: NextAuthConfig = {
   adapter: PrismaAdapter(db),
@@ -27,33 +23,18 @@ export const authConfig: NextAuthConfig = {
     GitHub({
       clientId: process.env.GITHUB_CLIENT_ID,
       clientSecret: process.env.GITHUB_CLIENT_SECRET,
-      // authorization: {
-      //   params: {
-      //     redirect_uri: `${process.env.NEXTAUTH_URL}/api/auth/callback/github`,
-      //     scope: "user:email",
-      //   },
-      // },
       authorization: {
         params: {
           redirect_uri: `${process.env.NEXTAUTH_URL}/api/auth/callback/github`,
-
           scope: "user user:email",
         },
       },
-
-      httpOptions: {
-        timeout: 20000, // زيادة وقت الانتظار إلى 10 ثواني
-      },
       profile(profile) {
-        // Explicitly handle the GitHub profile
         return {
           id: profile.id.toString(),
-          name: profile.name,
-          email: profile.email,
+          name: profile.name ?? profile.login,
+          email: profile.email, // ← لازم تتأكد من وجوده هنا
           image: profile.avatar_url,
-          username:
-            profile.login?.replace(/\s+/g, "").toLowerCase() ||
-            profile.id.toString(), // Or any fallback
         };
       },
     }),
@@ -99,7 +80,6 @@ export const authConfig: NextAuthConfig = {
         if (!isPasswordValid) {
           throw new Error("AUTH_ERROR:Password is incorrect");
         }
-
         return {
           id: `${user.id}`,
           name: user.username,
@@ -107,31 +87,8 @@ export const authConfig: NextAuthConfig = {
           username: user.username,
         };
       },
-      //   async authorize(credentials) {
-      //     const user = await getUserByEmail(credentials.email as string);
-
-      //     if (!user) {
-      //       throw new Error("AUTH_ERROR:Email does not exist");
-      //     }
-
-      //     const isPasswordValid = await compare(
-      //       credentials.password as string,
-      //       user.password || ""
-      //     );
-
-      //     if (!isPasswordValid) {
-      //       throw new Error("AUTH_ERROR:Password is incorrect");
-      //     }
-
-      //     return {
-      //       id: user.id.toString(),
-      //       email: user.email,
-      //       name: user.username,
-      //     };
-      //   },
     }),
   ],
-  debug: true,
 
   session: {
     strategy: "jwt", // or 'database'
@@ -140,102 +97,60 @@ export const authConfig: NextAuthConfig = {
 
   callbacks: {
     async signIn({ user, account }) {
-      if (!user?.email) {
-        console.error("GitHub email is missing for user:", user);
-        return false; // هنا يرفض تسجيل الدخول إذا كان البريد الإلكتروني مفقوداً
-      }
-
-      console.log("SignIn callback - User:", user);
-      console.log("SignIn callback - Account:", account);
-
-      if (account?.provider === "github" && !user?.email) {
-        // يمكن أن تتعامل مع الحالة بشكل مختلف، مثل إعادة توجيه المستخدم
-        // للحصول على بريده الإلكتروني بطريقة أخرى
-        return true; // يمكنك تغييرها حسب احتياجك
-      }
-
-      const existingUser = await db.user.findUnique({
-        where: { email: user.email },
-      });
-
-      if (existingUser) {
-        const linkedAccount = await db.account.findFirst({
-          where: {
-            userId: existingUser.id,
-            provider: account?.provider || "",
-          },
+      if (account?.provider !== "credentials") {
+        const existingUser = await db.user.findUnique({
+          where: { email: user.email || "" },
         });
 
-        if (!linkedAccount) {
-          throw new Error(
-            "OAUTH_ERROR: Email already exists with another provider"
-          );
+        // If the email exists but no account is linked to this provider, return false
+        if (existingUser) {
+          const linkedAccount = await db.account.findFirst({
+            where: {
+              userId: existingUser.id,
+              provider: account?.provider || "",
+            },
+          });
+
+          if (!linkedAccount) {
+            // Optional: You can redirect to an error page with a message
+            throw new Error(
+              "OAUTH_ERROR:Email already exists with another provider"
+            );
+          }
+          console.log("GitHub user profile:", user); // Log to check the returned profile data
+          if (account?.provider === "github" && !user?.email) {
+            console.error("GitHub email is missing");
+            return false; // Prevent user creation if email is missing
+          }
         }
       }
 
-      return true; // Allow sign-in if everything checks out
+      return true; // Allow sign in
+    },
+    async session({ session, token }) {
+      session.accessToken = token.accessToken as string | undefined;
+
+      session.user.id = token.sub ?? "";
+      session.user.name = token.name;
+      session.user.image = token.picture || null;
+      session.user.username = token.username as string;
+
+      return session;
+    },
+    async jwt({ token, account, user }) {
+      // Persist the OAuth access_token and or the user id to the token right after sign in
+      if (account) {
+        token.accessToken = account.access_token;
+      }
+      if (user) {
+        token.sub = user.id;
+        token.name = user.name;
+        token.picture = user.image || null;
+        token.username = (user as any).username;
+      }
+      return token;
     },
   },
-
-  // callbacks: {
-  //   async signIn({ user, account }) {
-  //     if (account?.provider !== "credentials") {
-  //       const existingUser = await db.user.findUnique({
-  //         where: { email: user.email || "" },
-  //       });
-
-  //       // If the email exists but no account is linked to this provider, return false
-  //       if (existingUser) {
-  //         const linkedAccount = await db.account.findFirst({
-  //           where: {
-  //             userId: existingUser.id,
-  //             provider: account?.provider || "",
-  //           },
-  //         });
-
-  //         if (!linkedAccount) {
-  //           // Optional: You can redirect to an error page with a message
-  //           throw new Error(
-  //             "OAUTH_ERROR:Email already exists with another provider"
-  //           );
-  //         }
-  //         console.log("GitHub user profile:", user); // Log to check the returned profile data
-  //         if (account?.provider === "github" && !user?.email) {
-  //           console.error("GitHub email is missing");
-  //           return false; // Prevent user creation if email is missing
-  //         }
-  //       }
-  //     }
-
-  //     return true; // Allow sign in
-  //   },
-  //   async session({ session, token }) {
-  //     session.accessToken = token.accessToken as string | undefined;
-
-  //     session.user.id = token.sub ?? "";
-  //     session.user.name = token.name;
-  //     session.user.image = token.picture || null;
-  //     // session.user.username = token.username as string;
-  //     session.user.username = token.username as string;
-
-  //     return session;
-  //   },
-  //   async jwt({ token, account, user }) {
-  //     // Persist the OAuth access_token and or the user id to the token right after sign in
-  //     if (account) {
-  //       token.accessToken = account.access_token;
-  //     }
-  //     if (user) {
-  //       token.sub = user.id;
-  //       token.name = user.name;
-  //       token.picture = user.image || null;
-  //       token.username = (user as any).username;
-
-  //       // token.username = (user as any).username || ""; // You can include any custom fields
-  //     }
-  //     return token;
-  //   },
-  // },
 };
 
 export const { auth, handlers, signIn, signOut } = NextAuth(authConfig);

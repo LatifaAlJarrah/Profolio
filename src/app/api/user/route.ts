@@ -50,8 +50,8 @@ export async function POST(request: Request) {
     // Create the user
     const newUser = await db.user.create({
       data: {
-        username,
-        email,
+        username: username,
+        email: email,
         password: hashedPassword,
       },
     });
