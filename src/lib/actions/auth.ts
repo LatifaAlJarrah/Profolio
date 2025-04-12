@@ -1,8 +1,8 @@
 "use server";
 import { signIn, signOut } from "@/auth";
 
-export const loginWithGithub = async () => {
-  await signIn("github", { redirectTo: "/projects" });
+export const loginWithGoogle = async () => {
+  await signIn("google", { redirectTo: "/projects" });
 };
 
 export const loginWithFacebook = async () => {

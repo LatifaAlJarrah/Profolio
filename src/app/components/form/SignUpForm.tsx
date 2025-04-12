@@ -15,9 +15,11 @@ import {
   FormMessage,
 } from "../ui/form";
 import { Input } from "../ui/input";
-import GithubSignInButton from "../GithubSignInButton";
+
+import GoogleSignInButton from "../GoogleSignInButton";
 import FacebookSignInButton from "../FacebookSignInButton";
 import SignInButton from "../SignInButton";
+
 import Logo from "../logo/Logo";
 
 // Types
@@ -43,7 +45,6 @@ const FormSchema = z
     message: "Passwords do not match",
   });
 
-  
 // API Services
 const checkEmailExists = async (email: string): Promise<boolean> => {
   try {
@@ -114,6 +115,9 @@ const SignUpForm = ({ isOpen, onClose, type }: SignUpFormProps) => {
       if (emailExists) {
         setError("Email already exists");
         return;
+      }
+      if (error === "AccessDenied") {
+        return "This email is already used with another sign-in method.";
       }
 
       // Register user
@@ -253,7 +257,7 @@ const SignUpForm = ({ isOpen, onClose, type }: SignUpFormProps) => {
               </div>
 
               <div className="space-y-3">
-                <GithubSignInButton>Sign up with Github</GithubSignInButton>
+                <GoogleSignInButton>Sign up with Google</GoogleSignInButton>
                 <FacebookSignInButton>
                   Sign up with Facebook
                 </FacebookSignInButton>

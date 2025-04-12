@@ -1,7 +1,7 @@
 import NextAuth, { type NextAuthConfig } from "next-auth";
 
-import GitHub from "next-auth/providers/github";
 import Facebook from "next-auth/providers/facebook";
+import Google from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
 
 import { PrismaAdapter } from "@auth/prisma-adapter";
@@ -20,21 +20,34 @@ export const authConfig: NextAuthConfig = {
   adapter: PrismaAdapter(db),
 
   providers: [
-    GitHub({
-      clientId: process.env.GITHUB_CLIENT_ID,
-      clientSecret: process.env.GITHUB_CLIENT_SECRET,
+    Google({
+      clientId: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+      // authorization: {
+      //   params: {
+      //     prompt: "consent",
+      //     access_type: "offline",
+      //     scope: "https://www.googleapis.com/auth/userinfo.email",
+      //   },
+      // },
       authorization: {
         params: {
-          redirect_uri: `${process.env.NEXTAUTH_URL}/api/auth/callback/github`,
-          scope: "user user:email",
+          prompt: "consent",
+          access_type: "offline",
+          scope: "openid email profile",
         },
       },
+
       profile(profile) {
+        console.log("GOOGLE PROFILE", profile); // <- مؤقتاً للتأكد
+
         return {
-          id: profile.id.toString(),
-          name: profile.name ?? profile.login,
-          email: profile.email, // ← لازم تتأكد من وجوده هنا
-          image: profile.avatar_url,
+          id: profile.sub,
+          name: profile.name,
+          email: profile.email,
+          image: profile.picture,
+          username:
+            profile.name?.replace(/\s+/g, "").toLowerCase() || profile.sub, // أو أي قيمة بديلة
         };
       },
     }),
@@ -90,6 +103,21 @@ export const authConfig: NextAuthConfig = {
     }),
   ],
 
+  // Improve cookie settings
+  cookies: {
+    sessionToken: {
+      name: `next-auth.session-token`,
+      options: {
+        httpOnly: true,
+        sameSite: "lax",
+        path: "/",
+        secure: process.env.NODE_ENV === "production",
+      },
+    },
+  },
+  // Debugging can help identify issues
+  debug: process.env.NODE_ENV !== "production",
+
   session: {
     strategy: "jwt", // or 'database'
   },
@@ -101,6 +129,17 @@ export const authConfig: NextAuthConfig = {
         const existingUser = await db.user.findUnique({
           where: { email: user.email || "" },
         });
+
+        if (account?.provider === "google") {
+          const existingUser = await db.user.findUnique({
+            where: { email: user.email || "" },
+          });
+
+          if (existingUser && !existingUser.password) {
+            // إذا كان المستخدم ليس لديه كلمة مرور، قم بتوجيهه إلى صفحة لتعيين الباسوورد
+            return "/set-password";
+          }
+        }
 
         // If the email exists but no account is linked to this provider, return false
         if (existingUser) {
@@ -127,6 +166,7 @@ export const authConfig: NextAuthConfig = {
 
       return true; // Allow sign in
     },
+
     async session({ session, token }) {
       session.accessToken = token.accessToken as string | undefined;
 
@@ -137,6 +177,7 @@ export const authConfig: NextAuthConfig = {
 
       return session;
     },
+
     async jwt({ token, account, user }) {
       // Persist the OAuth access_token and or the user id to the token right after sign in
       if (account) {

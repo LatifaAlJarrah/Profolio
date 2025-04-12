@@ -1,5 +1,6 @@
 "use client";
 import { useForm } from "react-hook-form";
+
 import {
   Form,
   FormControl,
@@ -13,7 +14,7 @@ import { Input } from "../ui/input";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-import GithubSignInButton from "../GithubSignInButton";
+import GoogleSignInButton from "../GoogleSignInButton";
 import FacebookSignInButton from "../FacebookSignInButton";
 import SignInButton from "../SignInButton";
 import Logo from "../logo/Logo";
@@ -38,6 +39,7 @@ const FormSchema = z.object({
 });
 
 const SignInForm = ({ isOpen, onClose, type }: SignInFormProps) => {
+  
   const router = useRouter();
   const [error, setError] = useState<string | null>(null);
   const form = useForm<z.infer<typeof FormSchema>>({
@@ -68,6 +70,8 @@ const SignInForm = ({ isOpen, onClose, type }: SignInFormProps) => {
     onClose?.(); // ✅ Close the modal
     router.push("/projects");
   };
+
+
 
   if (!isOpen) return null;
 
@@ -137,7 +141,7 @@ const SignInForm = ({ isOpen, onClose, type }: SignInFormProps) => {
                 OR
               </div>
 
-              <GithubSignInButton>Sign In with Github</GithubSignInButton>
+              <GoogleSignInButton>Sign In with Google</GoogleSignInButton>
               <FacebookSignInButton>Sign In with Facebook</FacebookSignInButton>
             </div>
           </div>
