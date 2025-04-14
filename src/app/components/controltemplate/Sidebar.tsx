@@ -20,6 +20,7 @@ import { TextVector } from "@/app/assets/icons";
 import ColorPicker from "./ColorPicker";
 import { IconProp } from "@fortawesome/fontawesome-svg-core";
 
+
 const BreakLine = () => {
   return <div className="border border-lightGrayShade2 my-4"></div>;
 };
@@ -38,6 +39,9 @@ const FontAwesome = ({ icon }: FontAwesomeProps) => {
 };
 
 const Sidebar = () => {
+ 
+
+
   return (
     <aside className="w-64 p-4 bg-lightGray">
       {/* Text Section */}
@@ -194,3 +198,134 @@ const Sidebar = () => {
 };
 
 export default Sidebar;
+// "use client";
+// import { useState } from "react";
+// import ColorPicker from "./ColorPicker";
+
+// interface SidebarProps {
+//   templateName: string;
+//   customizations: {
+//     colors: Record<string, string>;
+//     texts: Record<string, string>;
+//     images: Record<string, string>;
+//   };
+//   onColorChange: (key: string, value: string) => void;
+//   onTextChange: (key: string, value: string) => void;
+//   onImageChange: (key: string, value: string) => void;
+//   onSave: () => void;
+// }
+
+// const Sidebar = ({
+//   templateName,
+//   customizations,
+//   onColorChange,
+//   onTextChange,
+//   onImageChange,
+//   onSave,
+// }: SidebarProps) => {
+//   const [activeTab, setActiveTab] = useState<"colors" | "texts" | "images">(
+//     "colors"
+//   );
+
+//   // Helper para generar etiquetas legibles
+//   const formatLabel = (key: string): string => {
+//     return key
+//       .replace(/([A-Z])/g, " $1") // Añadir espacio antes de mayúsculas
+//       .replace(/^./, (str) => str.toUpperCase()) // Primera letra en mayúscula
+//       .replace(/Color$/, " Color") // Añadir espacio antes de "Color"
+//       .trim();
+//   };
+
+//   return (
+//     <div className="sidebar-container">
+//       <div className="sidebar-header">
+//         <h2>{templateName || "Template"} Editor</h2>
+//         <div className="template-tabs">
+//           <button
+//             className={`tab-button ${activeTab === "colors" ? "active" : ""}`}
+//             onClick={() => setActiveTab("colors")}
+//           >
+//             Colors
+//           </button>
+//           <button
+//             className={`tab-button ${activeTab === "texts" ? "active" : ""}`}
+//             onClick={() => setActiveTab("texts")}
+//           >
+//             Texts
+//           </button>
+//           <button
+//             className={`tab-button ${activeTab === "images" ? "active" : ""}`}
+//             onClick={() => setActiveTab("images")}
+//           >
+//             Images
+//           </button>
+//         </div>
+//       </div>
+
+//       <div className="sidebar-content">
+//         {activeTab === "colors" && (
+//           <div className="colors-panel">
+//             {Object.entries(customizations.colors).map(([key, value]) => (
+//               <div key={key} className="color-item">
+//                 <ColorPicker
+//                   label={formatLabel(key)}
+//                   defaultColor={value}
+//                   onChange={(newColor) => onColorChange(key, newColor)}
+//                 />
+//               </div>
+//             ))}
+//           </div>
+//         )}
+
+//         {activeTab === "texts" && (
+//           <div className="texts-panel">
+//             {Object.entries(customizations.texts).map(([key, value]) => (
+//               <div key={key} className="text-item">
+//                 <label className="text-label">{formatLabel(key)}</label>
+//                 <textarea
+//                   value={value}
+//                   onChange={(e) => onTextChange(key, e.target.value)}
+//                   className="text-editor"
+//                   rows={3}
+//                 />
+//               </div>
+//             ))}
+//           </div>
+//         )}
+
+//         {activeTab === "images" && (
+//           <div className="images-panel">
+//             {Object.entries(customizations.images).map(([key, value]) => (
+//               <div key={key} className="image-item">
+//                 <label className="image-label">{formatLabel(key)}</label>
+//                 <div className="image-preview">
+//                   {value && (
+//                     <img src={value} alt={key} className="preview-thumbnail" />
+//                   )}
+//                 </div>
+//                 <input
+//                   type="text"
+//                   value={value}
+//                   onChange={(e) => onImageChange(key, e.target.value)}
+//                   placeholder="Image URL"
+//                   className="image-url-input"
+//                 />
+//                 {/* En un entorno real, aquí añadirías un componente de carga de imágenes */}
+//               </div>
+//             ))}
+//           </div>
+//         )}
+//       </div>
+
+//       <div className="sidebar-footer">
+//         <button className="save-button" onClick={onSave}>
+//           Save Changes
+//         </button>
+//         <button className="preview-button">Preview</button>
+//         <button className="publish-button">Publish</button>
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default Sidebar;

@@ -9,7 +9,6 @@ export default async function RootLayout({
   children: React.ReactNode;
 }) {
   const session = await auth(); // Get the session from NextAuth
-  console.log(session)
   return (
     <html lang="en">
       <body>
