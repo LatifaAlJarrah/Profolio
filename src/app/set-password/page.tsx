@@ -1,55 +1,118 @@
+// "use client";
+
+// import { useState } from "react";
+// import { useRouter } from "next/navigation";
+
+// export default function SetPasswordPage() {
+//   const [password, setPassword] = useState("");
+//   const [loading, setLoading] = useState(false);
+//   const router = useRouter();
+
+//   const handleSubmit = async (e: React.FormEvent) => {
+//     e.preventDefault();
+//     if (password.length < 6) {
+//       alert("Password must be at least 6 characters long");
+//       return;
+//     }
+
+//     setLoading(true);
+//     const res = await fetch("/api/set-password", {
+//       method: "POST",
+//       body: JSON.stringify({ password }),
+//     });
+
+//     setLoading(false);
+//     if (res.ok) {
+//       router.push("/projects");
+//     } else {
+//       alert("An error occurred, try again !");
+//     }
+//   };
+
+//   return (
+//     <div className="flex items-center justify-center h-screen">
+//       <form
+//         onSubmit={handleSubmit}
+//         className="bg-white p-8 rounded-xl shadow-md w-full max-w-sm"
+//       >
+//         <h1 className="text-xl font-bold mb-4">Create a password</h1>
+//         <input
+//           type="password"
+//           placeholder="Enter your password"
+//           value={password}
+//           onChange={(e) => setPassword(e.target.value)}
+//           className="w-full p-2 mb-4 border rounded"
+//         />
+//         <button
+//           type="submit"
+//           className="w-full bg-primary text-white py-2 rounded hover:text-primary hover:bg-white hover:border-[3px] hover:border-primary "
+//           disabled={loading}
+//         >
+//           {loading ? "Saving..." : "Save and continue"}
+//         </button>
+//       </form>
+//     </div>
+//   );
+// }
 "use client";
 
 import { useState } from "react";
-import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
 export default function SetPasswordPage() {
-  const { data: session } = useSession();
-  const router = useRouter();
   const [password, setPassword] = useState("");
-  const [message, setMessage] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(""); // 💡 حالة للخطأ
+  const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setError(""); // تصفير الخطأ مع كل محاولة
 
+    if (password.length < 6) {
+      setError("Password must be at least 6 characters long");
+      return;
+    }
+
+    setLoading(true);
     const res = await fetch("/api/set-password", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ password }),
     });
 
-    const data = await res.json();
+    setLoading(false);
     if (res.ok) {
-      setMessage("تم تعيين كلمة المرور بنجاح!");
-      setTimeout(() => router.push("/"), 2000);
+      router.push("/projects");
     } else {
-      setMessage(data.error || "حدث خطأ");
+      setError("An error occurred, please try again!");
     }
   };
 
-  if (!session) return <p>يجب أن تكون مسجل دخول</p>;
-
   return (
-    <div className="max-w-md mx-auto p-4 mt-10 bg-white shadow rounded">
-      <h1 className="text-xl font-bold mb-4">تعيين كلمة مرور</h1>
-      <form onSubmit={handleSubmit}>
+    <div className="flex items-center justify-center h-screen">
+      <form
+        onSubmit={handleSubmit}
+        className="bg-white p-8 rounded-xl shadow-md w-full max-w-sm"
+      >
+        <h1 className="text-xl font-bold mb-4">Create a password</h1>
         <input
           type="password"
-          className="w-full border p-2 rounded mb-3"
-          placeholder="أدخل كلمة مرور جديدة"
+          placeholder="Enter your password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          required
+          className="w-full p-2 mb-2 border rounded"
         />
+        {error && (
+          <p className="text-red-600 text-sm mb-4">{error}</p> // ✅ عرض الخطأ
+        )}
         <button
           type="submit"
-          className="w-full bg-blue-600 text-white py-2 rounded"
+          className="w-full bg-primary text-white py-2 rounded hover:text-primary hover:bg-white hover:border-[3px] hover:border-primary"
+          disabled={loading}
         >
-          حفظ
+          {loading ? "Saving..." : "Save and continue"}
         </button>
       </form>
-      {message && <p className="mt-4 text-center text-sm">{message}</p>}
     </div>
   );
 }

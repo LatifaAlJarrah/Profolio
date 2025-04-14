@@ -124,22 +124,12 @@ export const authConfig: NextAuthConfig = {
   secret: process.env.NEXTAUTH_SECRET,
 
   callbacks: {
+   
     async signIn({ user, account }) {
       if (account?.provider !== "credentials") {
         const existingUser = await db.user.findUnique({
           where: { email: user.email || "" },
         });
-
-        if (account?.provider === "google") {
-          const existingUser = await db.user.findUnique({
-            where: { email: user.email || "" },
-          });
-
-          if (existingUser && !existingUser.password) {
-            // إذا كان المستخدم ليس لديه كلمة مرور، قم بتوجيهه إلى صفحة لتعيين الباسوورد
-            return "/set-password";
-          }
-        }
 
         // If the email exists but no account is linked to this provider, return false
         if (existingUser) {
@@ -156,14 +146,9 @@ export const authConfig: NextAuthConfig = {
               "OAUTH_ERROR:Email already exists with another provider"
             );
           }
-          console.log("GitHub user profile:", user); // Log to check the returned profile data
-          if (account?.provider === "github" && !user?.email) {
-            console.error("GitHub email is missing");
-            return false; // Prevent user creation if email is missing
-          }
         }
       }
-
+      
       return true; // Allow sign in
     },
 

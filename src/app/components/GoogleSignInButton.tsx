@@ -1,9 +1,7 @@
 import { FC, ReactNode } from "react";
 import { Button } from "./ui/button";
-import { useState, useEffect } from "react";
-import { useRouter } from "next/router";
-import { signIn, useSession } from "next-auth/react";
-import Modal from "@/components/Modal"; // افترض أن لديك مكون مودال جاهز
+// import { signIn } from "next-auth/react";
+import { loginWithGoogle } from "@/lib/actions/auth";
 
 function GoogleIcon() {
   return (
@@ -37,51 +35,12 @@ interface GoogleSignInButtonProps {
 }
 
 const GoogleSignInButton: FC<GoogleSignInButtonProps> = ({ children }) => {
-   const { data: session, status } = useSession();
-   const router = useRouter();
-   const [showPasswordModal, setShowPasswordModal] = useState(false);
-
-   // التحقق من الجلسة
-   useEffect(() => {
-     if (session) {
-       if (!session.user.password) {
-         setShowPasswordModal(true);
-       } else {
-         // توجيه مباشرة إلى صفحة الـ projects إذا كان عنده كلمة مرور
-         router.push("/projects");
-       }
-     }
-   }, [session]);
-
-   // دالة التعامل مع تسجيل الدخول عبر جوجل
-   const handleGoogleLogin = () => {
-     signIn("google");
-   };
-
-   // دالة إرسال كلمة المرور الجديدة بعد إدخالها
-   const handleSetPassword = async (password: string) => {
-     // إرسال كلمة المرور إلى السيرفر وتحديثها
-     const response = await fetch("/api/set-password", {
-       method: "POST",
-       body: JSON.stringify({ password }),
-     });
-     if (response.ok) {
-       // بعد تحديد الباسوورد، توجيه إلى صفحة الـ projects
-       router.push("/projects");
-     }
-   };
   return (
     <Button
       // onClick={() => signIn("google")}
-      onClick={handleGoogleLogin}
+      onClick={() => loginWithGoogle()}
       className="w-full p-2 rounded shadow-[0_4px_4px_#D8D8D8] my-2 text-white  px-6 py-3  flex items-center gap-2 font-mono"
     >
-      {showPasswordModal && (
-        <Modal
-          onClose={() => setShowPasswordModal(false)}
-          onSubmit={handleSetPassword}
-        />
-      )}
       <GoogleIcon />
       {children}
     </Button>
