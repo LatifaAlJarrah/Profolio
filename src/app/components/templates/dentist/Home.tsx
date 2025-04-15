@@ -1,8 +1,236 @@
+// // "use client";
+// // import React from "react";
+
+// // import Navbar from "./Navbar";
+// // import Header from "./Header";
+// // import AboutMe from "./AboutMe";
+// // import Services from "./Services";
+// // import Portfolio from "./Portfolio";
+// // import Blog from "./Blog";
+// // import Footer from "./Footer";
+
+// // const Home = () => {
+// //   return (
+// //     <main>
+// //       <Navbar />
+// //       <Header />
+// //       <AboutMe />
+// //       <Services />
+// //       <Portfolio />
+// //       <Blog />
+// //       <Footer />
+// //     </main>
+// //   );
+// // };
+
+// // export default Home;
+// "use client";
+// import React from "react";
+// import Navbar from "./Navbar";
+// import Header from "./Header";
+// import AboutMe from "./AboutMe";
+// import Services from "./Services";
+// import Portfolio from "./Portfolio";
+// import Blog from "./Blog";
+// import Footer from "./Footer";
+
+// interface HomeProps {
+//   backgroundColor?: string;
+//   navbarColor?: string;
+//   buttonColor?: string;
+//   headerTitle?: string;
+//   headerDescription?: string;
+//   headerImage?: string;
+//   headerTextColor?: string;
+//   aboutTitle?: string;
+//   aboutDoctorName?: string;
+//   aboutDescription?: string;
+//   aboutExtraText?: string;
+//   aboutImage?: string;
+//   aboutButtonColor?: string;
+//   blogTitle?: string;
+//   blogContent?: string;
+//   blogImages?: string[];
+//   blogButtonColor?: string;
+//   contactBookingText?: string;
+//   contactInstagramName?: string;
+//   contactInstagramLink?: string;
+//   contactFacebookName?: string;
+//   contactFacebookLink?: string;
+//   contactPhone?: string;
+//   contactEmail?: string;
+//   contactLocation?: string;
+//   services?: Array<{ title: string; description: string; icon: string }>;
+//   portfolioSlides?: Array<{
+//     title: string;
+//     description: string;
+//     image: string;
+//   }>;
+//   portfolioTestimonials?: Array<{ name: string; quote: string; image: string }>;
+//   portfolioButtonColor?: string;
+//   footerLinks?: Array<{ name: string; link: string }>;
+// }
+
+// const Home = ({
+//   backgroundColor = "#FAFAFA",
+//   navbarColor = "#FFFFFF",
+//   buttonColor = "#58ADEB",
+//   headerTitle = "Because Every Smile Tells A Story, We're Here To Help Yours Shine Brighter Than Ever With Expert Personalized",
+//   headerDescription = "Contact us now to book your appointment and experience our premium service.",
+//   headerImage = "/assets/images/dentist/backgroundDent.png",
+//   headerTextColor = "#FFFFFF",
+//   aboutTitle = "ABOUT ME",
+//   aboutDoctorName = "Dr. Sarah Williams",
+//   aboutDescription = "Dr. Sarah Williams is a specialist in cosmetic dentistry with over 10 years of experience. She is passionate about creating beautiful, natural smiles through teeth whitening, veneers, and smile makeovers. With a patient-centered approach and the latest technology, Dr. Williams ensures comfortable treatments and long-lasting results. She believes that a confident smile can transform lives and is dedicated to helping her patients achieve their dream smiles.",
+//   aboutExtraText = "Beautiful smile is not just about appearance",
+//   aboutImage = "/assets/images/dentist/drSarah.png",
+//   aboutButtonColor = "#58ADEB",
+//   blogTitle = "How to Achieve a Hollywood Smile with Cosmetic Dentistry",
+//   blogContent = "outlines how to attain a Hollywood smile using various cosmetic techniques. These techniques include veneers, which are thin shells that improve the shape and color of the teeth; teeth whitening, a process that brightens the teeth and removes stains; crowns, which cover damaged teeth; clear braces that discreetly align the teeth without altering their appearance; and dental implants that replace missing teeth for a natural look. When combined, these procedures not only enhance the aesthetics of the smile but also boost self-confidence.",
+//   blogImages = [
+//     "/assets/icons/dentist/dentalPractice.jpeg",
+//     "/assets/icons/dentist/perfectSmile.jpeg",
+//     "/assets/icons/dentist/veneersShow.jpeg",
+//     "/assets/icons/dentist/dentalVeneers.jpeg",
+//   ],
+//   blogButtonColor = "#58ADEB",
+//   contactBookingText = "To book an appointment",
+//   contactInstagramName = "Instagram Name",
+//   contactInstagramLink = "https://instagram.com",
+//   contactFacebookName = "Facebook Name",
+//   contactFacebookLink = "https://facebook.com",
+//   contactPhone = "(123) 456-7890",
+//   contactEmail = "dr.williams@brightsmiledental.com",
+//   contactLocation = "BrightSmile Dental Clinic",
+//   services = [
+//     {
+//       title: "Teeth Whitening",
+//       description: "Removes stains and brightens teeth for a radiant smile.",
+//       icon: "/assets/icons/Teeth.png",
+//     },
+//     {
+//       title: "Veneers & Lumineers",
+//       description: "Thin shells placed on teeth to improve color and shape.",
+//       icon: "/assets/icons/Veneers.png",
+//     },
+//     {
+//       title: "Tooth-Colored Fillings",
+//       description: "Restores damaged teeth with natural-looking fillings.",
+//       icon: "/assets/icons/Equipment.png",
+//     },
+//     {
+//       title: "Cosmetic Crowns & Bridges",
+//       description:
+//         "Covers damaged or treated teeth for protection and aesthetics.",
+//       icon: "/assets/icons/Crown.png",
+//     },
+//     {
+//       title: "Tooth Reshaping",
+//       description: "Adjusts tooth size or shape for a more balanced look.",
+//       icon: "/assets/icons/Mouth.png",
+//     },
+//     {
+//       title: "Dental Implants",
+//       description: "Replaces missing teeth with natural-looking implants.",
+//       icon: "/assets/icons/Implant.png",
+//     },
+//     {
+//       title: "Clear Aligners (Invisalign)",
+//       description: "Straightens teeth discreetly without metal braces.",
+//       icon: "/assets/icons/Trainer.png",
+//     },
+//     {
+//       title: "Hollywood Smile",
+//       description:
+//         "A complete smile makeover using a combination of cosmetic treatments.",
+//       icon: "/assets/icons/Orthodontic.png",
+//     },
+//   ],
+//   portfolioSlides = [
+//     {
+//       id: 1,
+//       title: "Hollywood Smile",
+//       description:
+//         "The patient had discoloration and misalignment of the teeth, They were treated with a Hollywood Smile using cosmetic veneers (either veneers or lumineers) to achieve a bright and harmonious smile.",
+//       image: "/assets/images/HollywoodSmile.jpg",
+//     },
+//     {
+//       id: 2,
+//       title: "Teeth Whitening",
+//       description:
+//         "The patient had tooth discoloration and yellowing, which was treated with a professional whitening session to restore their bright smile.",
+//       image: "/assets/images/TeethWhitening.jpg",
+//     },
+//     {
+//       id: 3,
+//       title: "Dental Restoration",
+//       description:
+//         "The Patient Had Severe Decay And Needed Full Restoration...",
+//       image: "/assets/images/Fillings.jpg",
+//     },
+//   ],
+//   portfolioTestimonials = [
+//     {
+//       id: 1,
+//       name: "Ahmed Ali",
+//       image: "/assets/images/Ahmad.jpg",
+//       quote:
+//         "I Used To Suffer From Uneven Tooth Color And Misalignment, But After Getting A Hollywood Smile, My Smile Became Brighter And More Beautiful. The Results Look Very Natural, And I Am Completely Satisfied With The Experience.",
+//     },
+//     {
+//       id: 2,
+//       name: "Emily",
+//       image: "/assets/images/Emilly.jpg",
+//       quote:
+//         "I Had Decay In One Of My Front Teeth, Which Made Me Feel Self-Conscious. After Getting Tooth-Colored Fillings, My Tooth Looks Completely Natural And Blends Perfectly With The Rest Of My Teeth. The Result Is Amazing, And I'm Very Happy With It!",
+//     },
+//   ],
+//   portfolioButtonColor = "#58ADEB",
+//   footerLinks = [
+//     { name: "Home", link: "#home" },
+//     { name: "About Me", link: "#about" },
+//     { name: "Services", link: "#services" },
+//     { name: "Portfolio", link: "#portfolio" },
+//     { name: "Blog", link: "#blog" },
+//   ],
+// }: HomeProps) => {
+//   return (
+//     <main style={{ backgroundColor }}>
+//       <Navbar backgroundColor={navbarColor} />
+//       <Header
+//         title={headerTitle}
+//         description={headerDescription}
+//         image={headerImage}
+//         textColor={headerTextColor}
+//       />
+//       <AboutMe
+//         title={aboutTitle}
+//         doctorName={aboutDoctorName}
+//         description={aboutDescription}
+//         extraText={aboutExtraText}
+//         image={aboutImage}
+//         buttonColor={aboutButtonColor}
+//       />
+//       <Services services={services} />
+//       <Portfolio
+//         slides={portfolioSlides}
+//         testimonials={portfolioTestimonials}
+//         buttonColor={portfolioButtonColor}
+//       />
+//       <Blog
+//         title={blogTitle}
+//         content={blogContent}
+//         images={blogImages}
+//         buttonColor={blogButtonColor}
+//       />
+//       <Footer links={footerLinks} />
+//     </main>
+//   );
+// };
+
+// export default Home;
 "use client";
-import { useEffect } from "react";
-
 import React from "react";
-
 import Navbar from "./Navbar";
 import Header from "./Header";
 import AboutMe from "./AboutMe";
@@ -11,192 +239,198 @@ import Portfolio from "./Portfolio";
 import Blog from "./Blog";
 import Footer from "./Footer";
 
-interface DentistTemplateProps {
-  customizations: {
-    colors: Record<string, string>;
-    texts: Record<string, string>;
-    images: Record<string, string>;
-  };
-  isEditable?: boolean;
+interface HomeProps {
+  backgroundColor?: string;
+  navbarColor?: string;
+  buttonColor?: string;
+  headerTitle?: string;
+  headerDescription?: string;
+  headerImage?: string;
+  headerTextColor?: string;
+  aboutTitle?: string;
+  aboutDoctorName?: string;
+  aboutDescription?: string;
+  aboutExtraText?: string;
+  aboutImage?: string;
+  aboutButtonColor?: string;
+  blogTitle?: string;
+  blogContent?: string;
+  blogImages?: string[];
+  blogButtonColor?: string;
+  contactBookingText?: string;
+  contactInstagramName?: string;
+  contactInstagramLink?: string;
+  contactFacebookName?: string;
+  contactFacebookLink?: string;
+  contactPhone?: string;
+  contactEmail?: string;
+  contactLocation?: string;
+  services?: Array<{ title: string; description: string; icon: string }>;
+  portfolioSlides?: Array<{
+    title: string;
+    description: string;
+    image: string;
+  }>;
+  portfolioTestimonials?: Array<{ name: string; quote: string; image: string }>;
+  portfolioButtonColor?: string;
+  footerLinks?: Array<{ name: string; link: string }>;
 }
 
-const Home = ({ customizations, isEditable = false }: DentistTemplateProps) => {
-  // Aplicar estilos CSS variables para colores
-  useEffect(() => {
-    if (isEditable) {
-      const root = document.documentElement;
-      Object.entries(customizations.colors).forEach(([key, value]) => {
-        root.style.setProperty(`--${key}`, value);
-      });
-    }
-  }, [customizations.colors, isEditable]);
-
-  // Destructuring de los datos de personalización para facilitar el acceso
-  const { colors, texts, images } = customizations;
-
+const Home = ({
+  backgroundColor = "#FAFAFA",
+  navbarColor = "#FFFFFF",
+  // buttonColor = "#58ADEB",
+  headerTitle = "Because Every Smile Tells A Story, We're Here To Help Yours Shine Brighter Than Ever With Expert Personalized",
+  headerDescription = "Contact us now to book your appointment and experience our premium service.",
+  headerImage = "/assets/images/dentist/backgroundDent.png",
+  headerTextColor = "#FFFFFF",
+  aboutTitle = "ABOUT ME",
+  aboutDoctorName = "Dr. Sarah Williams",
+  aboutDescription = "Dr. Sarah Williams is a specialist in cosmetic dentistry with over 10 years of experience. She is passionate about creating beautiful, natural smiles through teeth whitening, veneers, and smile makeovers. With a patient-centered approach and the latest technology, Dr. Williams ensures comfortable treatments and long-lasting results. She believes that a confident smile can transform lives and is dedicated to helping her patients achieve their dream smiles.",
+  aboutExtraText = "Beautiful smile is not just about appearance",
+  aboutImage = "/assets/images/dentist/drSarah.png",
+  aboutButtonColor = "#58ADEB",
+  blogTitle = "How to Achieve a Hollywood Smile with Cosmetic Dentistry",
+  blogContent = "outlines how to attain a Hollywood smile using various cosmetic techniques. These techniques include veneers, which are thin shells that improve the shape and color of the teeth; teeth whitening, a process that brightens the teeth and removes stains; crowns, which cover damaged teeth; clear braces that discreetly align the teeth without altering their appearance; and dental implants that replace missing teeth for a natural look. When combined, these procedures not only enhance the aesthetics of the smile but also boost self-confidence.",
+  blogImages = [
+    "/assets/icons/dentist/dentalPractice.jpeg",
+    "/assets/icons/dentist/perfectSmile.jpeg",
+    "/assets/icons/dentist/veneersShow.jpeg",
+    "/assets/icons/dentist/dentalVeneers.jpeg",
+  ],
+  blogButtonColor = "#58ADEB",
+  // contactBookingText = "To book an appointment",
+  // contactInstagramName = "Instagram Name",
+  // contactInstagramLink = "https://instagram.com",
+  // contactFacebookName = "Facebook Name",
+  // contactFacebookLink = "https://facebook.com",
+  // contactPhone = "(123) 456-7890",
+  // contactEmail = "dr.williams@brightsmiledental.com",
+  // contactLocation = "BrightSmile Dental Clinic",
+  services = [
+    {
+      title: "Teeth Whitening",
+      description: "Removes stains and brightens teeth for a radiant smile.",
+      icon: "/assets/icons/dentist/teeth.png",
+    },
+    {
+      title: "Veneers & Lumineers",
+      description: "Thin shells placed on teeth to improve color and shape.",
+      icon: "/assets/icons/dentist/veneers.png",
+    },
+    {
+      title: "Tooth-Colored Fillings",
+      description: "Restores damaged teeth with natural-looking fillings.",
+      icon: "/assets/icons/dentist/equipment.png",
+    },
+    {
+      title: "Cosmetic Crowns & Bridges",
+      description:
+        "Covers damaged or treated teeth for protection and aesthetics.",
+      icon: "/assets/icons/dentist/crown.png",
+    },
+    {
+      title: "Tooth Reshaping",
+      description: "Adjusts tooth size or shape for a more balanced look.",
+      icon: "/assets/icons/dentist/mouth.png",
+    },
+    {
+      title: "Dental Implants",
+      description: "Replaces missing teeth with natural-looking implants.",
+      icon: "/assets/icons/dentist/implant.png",
+    },
+    {
+      title: "Clear Aligners (Invisalign)",
+      description: "Straightens teeth discreetly without metal braces.",
+      icon: "/assets/icons/dentist/trainer.png",
+    },
+    {
+      title: "Hollywood Smile",
+      description:
+        "A complete smile makeover using a combination of cosmetic treatments.",
+      icon: "/assets/icons/dentist/orthodontic.png",
+    },
+  ],
+  portfolioSlides = [
+    {
+      id: 1,
+      title: "Hollywood Smile",
+      description:
+        "The patient had discoloration and misalignment of the teeth, They were treated with a Hollywood Smile using cosmetic veneers (either veneers or lumineers) to achieve a bright and harmonious smile.",
+      image: "/assets/images/dentist/HollywoodSmile.jpeg",
+    },
+    {
+      id: 2,
+      title: "Teeth Whitening",
+      description:
+        "The patient had tooth discoloration and yellowing, which was treated with a professional whitening session to restore their bright smile.",
+      image: "/assets/images/dentist/teethWhitening.jpeg",
+    },
+    {
+      id: 3,
+      title: "Dental Restoration",
+      description:
+        "The Patient Had Severe Decay And Needed Full Restoration...",
+      image: "/assets/images/dentist/fillings.jpeg",
+    },
+  ],
+  portfolioTestimonials = [
+    {
+      id: 1,
+      name: "Ahmed Ali",
+      image: "/assets/images/dentist/ahmad.jpeg",
+      quote:
+        "I Used To Suffer From Uneven Tooth Color And Misalignment, But After Getting A Hollywood Smile, My Smile Became Brighter And More Beautiful. The Results Look Very Natural, And I Am Completely Satisfied With The Experience.",
+    },
+    {
+      id: 2,
+      name: "Emily",
+      image: "/assets/images/dentist/emilly.jpeg",
+      quote:
+        "I Had Decay In One Of My Front Teeth, Which Made Me Feel Self-Conscious. After Getting Tooth-Colored Fillings, My Tooth Looks Completely Natural And Blends Perfectly With The Rest Of My Teeth. The Result Is Amazing, And I'm Very Happy With It!",
+    },
+  ],
+  portfolioButtonColor = "#58ADEB",
+  footerLinks = [
+    { name: "Home", link: "#home" },
+    { name: "About Me", link: "#about" },
+    { name: "Services", link: "#services" },
+    { name: "Portfolio", link: "#portfolio" },
+    { name: "Blog", link: "#blog" },
+  ],
+}: HomeProps) => {
   return (
-    <main style={{ backgroundColor: colors.background }}>
-      <Navbar backgroundColor={colors.Background} />
+    <main style={{ backgroundColor }}>
+      <Navbar backgroundColor={navbarColor} />
       <Header
-        backgroundColor={colors.heroBackground}
-        source={images.hero}
-        headline={texts.headline}
-        subheading={texts.subheading}
-        contactCta={texts.contactCta}
+        title={headerTitle}
+        description={headerDescription}
+        headerImage={headerImage}
+        textColor={headerTextColor}
       />
       <AboutMe
-        headingColor={colors.headings}
-        source={images.doctorProfile}
-        doctorName={texts.doctorName}
-        doctorTitle={texts.doctorTitle}
-        doctorBio={texts.doctorBio}
+        title={aboutTitle}
+        doctorName={aboutDoctorName}
+        description={aboutDescription}
+        extraText={aboutExtraText}
+        image={aboutImage}
+        buttonColor={aboutButtonColor}
       />
-      <Services />
-      <Portfolio />
-      <Blog />
-      <Footer />
+      <Services services={services} />
+      <Portfolio
+        slides={portfolioSlides}
+        testimonials={portfolioTestimonials}
+        buttonColor={portfolioButtonColor}
+      />
+      <Blog
+        title={blogTitle}
+        content={blogContent}
+        images={blogImages}
+        buttonColor={blogButtonColor}
+      />
+      <Footer links={footerLinks} />
     </main>
   );
 };
 
 export default Home;
-// "use client";
-// import Image from "next/image";
-// import { useEffect } from "react";
-
-// interface DentistTemplateProps {
-//   customizations: {
-//     colors: Record<string, string>;
-//     texts: Record<string, string>;
-//     images: Record<string, string>;
-//   };
-//   isEditable?: boolean;
-// }
-
-// const DentistTemplate = ({
-//   customizations,
-//   isEditable = false,
-// }: DentistTemplateProps) => {
-//   // Aplicar estilos CSS variables para colores
-//   useEffect(() => {
-//     if (isEditable) {
-//       const root = document.documentElement;
-//       Object.entries(customizations.colors).forEach(([key, value]) => {
-//         root.style.setProperty(`--${key}`, value);
-//       });
-//     }
-//   }, [customizations.colors, isEditable]);
-
-//   // Destructuring de los datos de personalización para facilitar el acceso
-//   const { colors, texts, images } = customizations;
-
-//   return (
-//     <div
-//       className="dentist-template"
-//       style={{ backgroundColor: colors.background }}
-//     >
-//       {/* Navbar */}
-//       <nav style={{ backgroundColor: colors.navbar }}>
-//         <div className="logo-container">
-//           <img
-//             src={images.logo || "/placeholder-logo.svg"}
-//             alt="Logo"
-//             className="logo"
-//           />
-//           <span className="site-name">Dentelle</span>
-//         </div>
-//         <ul className="nav-links">
-//           <li>Home</li>
-//           <li>About Me</li>
-//           <li>Services</li>
-//           <li>Portfolio</li>
-//           <li>Blog</li>
-//         </ul>
-//       </nav>
-
-//       {/* Hero Section */}
-//       <header
-//         className="hero-section"
-//         style={{ backgroundColor: colors.heroBackground }}
-//       >
-//         <div className="hero-content">
-//           <div className="hero-text">
-//             <h1 style={{ color: colors.headings }}>
-//               {texts.headline || "Because Every Smile Tells A Story..."}
-//             </h1>
-//             <h2 style={{ color: colors.headings }}>
-//               {texts.subheading || "Dental care!"}
-//             </h2>
-//             <p style={{ color: colors.text }}>
-//               {texts.contactCta ||
-//                 "Contact us now to book your appointment and experience our premium service."}
-//             </p>
-//           </div>
-//           <div className="hero-image">
-//             <img src={images.hero || "/placeholder-hero.jpg"} alt="Hero" />
-//           </div>
-//         </div>
-//       </header>
-
-//       {/* Booking Section */}
-//       <section className="booking-section">
-//         <div className="booking-container">
-//           <h3>To book an appointment</h3>
-//           <div className="contact-info">
-//             <div className="contact-item">
-//               <span className="icon">📱</span>
-//               <span className="contact-text">(123) 456-7890</span>
-//             </div>
-//             <div className="contact-item">
-//               <span className="icon">✉️</span>
-//               <span className="contact-text">
-//                 dr.williams@brightsmileendental.com
-//               </span>
-//             </div>
-//             <div className="contact-item">
-//               <span className="icon">📍</span>
-//               <span className="contact-text">BrightSmile Dental Clinic</span>
-//             </div>
-//           </div>
-//         </div>
-//       </section>
-
-//       {/* About Me Section */}
-//       <section className="about-section" id="about">
-//         <h2 style={{ color: colors.headings }}>ABOUT ME</h2>
-//         <div className="about-content">
-//           <div className="about-image">
-//             <Image
-//               fill
-//               src={images.doctorProfile || "/placeholder-doctor.jpg"}
-//               alt="Doctor"
-//             />
-//           </div>
-//           <div className="about-text">
-//             <h3 style={{ color: colors.headings }}>
-//               {texts.doctorName || "Dr. Sarah Williams"}
-//             </h3>
-//             <h4 style={{ color: colors.text }}>
-//               {texts.doctorTitle || "Specialist in Cosmetic Dentistry"}
-//             </h4>
-//             <p style={{ color: colors.text }}>
-//               {texts.doctorBio ||
-//                 "Dr. Sarah Williams is a specialist in cosmetic dentistry with over 10 years of experience..."}
-//             </p>
-//           </div>
-//         </div>
-//       </section>
-
-//       {/* Editable overlay */}
-//       {isEditable && (
-//         <div className="editable-overlay">
-//           <div className="editable-notice">
-//             Editing Mode - Changes will apply in real-time
-//           </div>
-//         </div>
-//       )}
-//     </div>
-//   );
-// };
-
-// export default DentistTemplate;
