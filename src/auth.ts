@@ -116,7 +116,7 @@ export const authConfig: NextAuthConfig = {
     },
   },
   // Debugging can help identify issues
-  debug: process.env.NODE_ENV !== "production",
+  // debug: process.env.NODE_ENV !== "production",
 
   session: {
     strategy: "jwt", // or 'database'
