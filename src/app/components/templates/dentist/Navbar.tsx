@@ -1,3 +1,4 @@
+// // src/app/components/templates/dentist/Navbar.tsx
 // "use client";
 // import React, { useState, useEffect, useRef } from "react";
 // import NavbarList from "./NavbarList";
@@ -8,16 +9,16 @@
 //   className?: string;
 //   navbarColor?: string;
 //   backgroundColor?: string;
+  
 // }
 
 // export default function Navbar({
 //   className = "flex-row space-x-10",
-//   backgroundColor, // لون افتراضي
+//   backgroundColor = "#FFFFFF",
 // }: NavbarProps) {
 //   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 //   const sidebarRef = useRef<HTMLDivElement>(null);
 
-//   // إخفاء السايدبار عند النقر خارجها
 //   useEffect(() => {
 //     const handleClickOutside = (event: MouseEvent) => {
 //       if (
@@ -36,7 +37,8 @@
 
 //   return (
 //     <nav
-//       className={`${backgroundColor} flex justify-between py-4 relative w-full bg-white items-center z-50 shadow-lg px-16`}
+//       className={`flex justify-between py-4 relative w-full items-center z-50 shadow-lg px-16`}
+//       style={{ backgroundColor }}
 //     >
 //       <DentistLogo />
 
@@ -60,17 +62,14 @@
 //         </svg>
 //       </button>
 
-//       {/* Desktop Navbar */}
 //       <div className="hidden lg:flex lg:flex-row lg:items-center lg:justify-between lg:w-4/5">
 //         <NavbarList className={className} />
 //       </div>
 
-//       {/* Overlay عند فتح القائمة */}
 //       {isSidebarOpen && (
 //         <div className="fixed inset-0 bg-black bg-opacity-50 z-40"></div>
 //       )}
 
-//       {/* Drawer Menu (Sidebar) */}
 //       <div
 //         ref={sidebarRef}
 //         className={`fixed top-0 right-0 h-full w-64 bg-white shadow-lg transition-transform transform z-50 flex flex-col justify-between px-6 py-6 ${
@@ -102,12 +101,28 @@ interface NavbarProps {
   className?: string;
   navbarColor?: string;
   backgroundColor?: string;
-  
+  logoName?: string; // إضافة logoName
+  logoColor?: string; // إضافة logoColor
+  logoIcon?: string;
+  navLinks?: Array<{ name: string; link: string }>; // إضافة navLinks
+  fontFamily?: string; // إضافة fontFamily للـ fonts الافتراضية
+  fontFamilyClass?: string; // إضافة fontFamilyClass للـ fonts المحملة
 }
 
 export default function Navbar({
   className = "flex-row space-x-10",
   backgroundColor = "#FFFFFF",
+  logoName = "Dentelle",
+  logoColor,
+  logoIcon,
+  navLinks = [
+    { name: "Home", link: "#home" },
+    { name: "About Me", link: "#about" },
+    { name: "Services", link: "#services" },
+    { name: "Portfolio", link: "#portfolio" },
+    { name: "Blog", link: "#blog" },
+  ],
+  fontFamilyClass = "",
 }: NavbarProps) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const sidebarRef = useRef<HTMLDivElement>(null);
@@ -133,8 +148,13 @@ export default function Navbar({
       className={`flex justify-between py-4 relative w-full items-center z-50 shadow-lg px-16`}
       style={{ backgroundColor }}
     >
-      <DentistLogo />
-
+      <DentistLogo
+        name={logoName}
+        className={fontFamilyClass}
+        logoColor={logoColor}
+        logoIcon= {logoIcon} // تمرير logoIcon
+      />
+      {/* تمرير logoName */}
       <button
         onClick={() => setIsSidebarOpen(!isSidebarOpen)}
         className="lg:hidden text-primary focus:outline-none"
@@ -154,15 +174,13 @@ export default function Navbar({
           ></path>
         </svg>
       </button>
-
       <div className="hidden lg:flex lg:flex-row lg:items-center lg:justify-between lg:w-4/5">
-        <NavbarList className={className} />
+        <NavbarList className={className} links={navLinks} />{" "}
+        {/* تمرير navLinks */}
       </div>
-
       {isSidebarOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-50 z-40"></div>
       )}
-
       <div
         ref={sidebarRef}
         className={`fixed top-0 right-0 h-full w-64 bg-white shadow-lg transition-transform transform z-50 flex flex-col justify-between px-6 py-6 ${
@@ -179,6 +197,7 @@ export default function Navbar({
         <NavbarList
           className="flex-col space-y-6 mt-12 text-lg"
           onClick={() => setIsSidebarOpen(false)}
+          links={navLinks} // تمرير navLinks للـ Sidebar
         />
       </div>
     </nav>
