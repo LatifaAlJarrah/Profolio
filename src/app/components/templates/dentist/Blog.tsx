@@ -135,17 +135,7 @@ const ImageGrid = ({ images }: { images: string[] }) => {
   );
 };
 
-const Blog = ({
-  title = "How to Achieve a Hollywood Smile with Cosmetic Dentistry",
-  content = "outlines how to attain a Hollywood smile using various cosmetic techniques. These techniques include veneers, which are thin shells that improve the shape and color of the teeth; teeth whitening, a process that brightens the teeth and removes stains; crowns, which cover damaged teeth; clear braces that discreetly align the teeth without altering their appearance; and dental implants that replace missing teeth for a natural look. When combined, these procedures not only enhance the aesthetics of the smile but also boost self-confidence.",
-  images = [
-    "/assets/icons/DentalPractice.png",
-    "/assets/icons/PerfectSmile.png",
-    "/assets/icons/VeneersShow.png",
-    "/assets/icons/DentalVeneers.png",
-  ],
-  buttonColor = "#58ADEB",
-}: BlogProps) => {
+const Blog = ({ title, content, images = [], buttonColor }: BlogProps) => {
   return (
     <section className={`font-roboto bg-[#FAFAFA] py-8`} id="blog">
       <div className="relative mx-auto">
