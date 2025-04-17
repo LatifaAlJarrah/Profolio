@@ -258,6 +258,7 @@ interface HomeProps {
   headerDescription?: string;
   headerImage?: string;
   headerTextColor?: string;
+  descriptionTextColor?: string; // إضافة descriptionTextColor
   aboutTitle?: string;
   aboutDoctorName?: string;
   aboutDescription?: string;
@@ -299,6 +300,7 @@ const Home = ({
   headerDescription = "Contact us now to book your appointment and experience our premium service.",
   headerImage = "/assets/images/dentist/backgroundDent.png",
   headerTextColor = "#FFFFFF",
+  descriptionTextColor = "#828282",
   aboutTitle = "ABOUT ME",
   aboutDoctorName = "Dr. Sarah Williams",
   aboutDescription = "Dr. Sarah Williams is a specialist in cosmetic dentistry with over 10 years of experience. She is passionate about creating beautiful, natural smiles through teeth whitening, veneers, and smile makeovers. With a patient-centered approach and the latest technology, Dr. Williams ensures comfortable treatments and long-lasting results. She believes that a confident smile can transform lives and is dedicated to helping her patients achieve their dream smiles.",
@@ -435,6 +437,7 @@ const Home = ({
         description={headerDescription}
         headerImage={headerImage}
         textColor={headerTextColor}
+        textColorDescription={descriptionTextColor} // تمرير descriptionTextColor لـ Header
         contactBookingText={contactBookingText}
         contactInstagramName={contactInstagramName}
         contactInstagramLink={contactInstagramLink}

@@ -177,6 +177,13 @@ const Sidebar = ({
             onChange={(color) => onChange("headerTextColor", color)}
           />
         </div>
+        <div className="flex justify-between mb-2 gap-2 items-center">
+          <span className="text-sm">Description Text Color</span>
+          <ColorPicker
+            defaultColor={templateData.descriptionTextColor}
+            onChange={(color) => onChange("descriptionTextColor", color)}
+          />
+        </div>
         <label className="block mb-2">
           Header Image:
           <input
