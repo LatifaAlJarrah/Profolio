@@ -655,13 +655,14 @@
 // };
 
 // export default ControlTemplate;
+
 "use client";
 import { useState } from "react";
 import { useSearchParams } from "next/navigation";
 import Sidebar from "./Sidebar";
 import MainEditor from "./MainEditor";
 import { templates } from "../data/templates";
-import { Roboto, Arial, Poppins, Montserrat } from "next/font/google";
+import { Roboto, Poppins, Montserrat } from "next/font/google";
 
 // تحميل الـ Fonts باستخدام next/font/google
 const roboto = Roboto({
@@ -686,7 +687,6 @@ const montserrat = Montserrat({
 
 // Default state للـ templateData
 const defaultTemplateData = {
-  backgroundColor: "#FAFAFA",
   navbarColor: "#FFFFFF",
   buttonColor: "#58ADEB",
   fontFamily: "Roboto",
@@ -706,6 +706,7 @@ const defaultTemplateData = {
     "Contact us now to book your appointment and experience our premium service.",
   headerImage: "/assets/images/dentist/backgroundDent.png",
   headerTextColor: "#FFFFFF",
+  descriptionTextColor: "#828282", // إضافة textColorDescription للقيم الافتراضية
   aboutTitle: "ABOUT ME",
   aboutDoctorName: "Dr. Sarah Williams",
   aboutDescription:

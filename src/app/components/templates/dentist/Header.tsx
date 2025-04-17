@@ -7,6 +7,7 @@ interface HeaderProps {
   description?: string;
   headerImage?: string;
   textColor?: string;
+  textColorDescription?: string;
   contactBookingText?: string;
   contactInstagramName?: string;
   contactInstagramLink?: string;
@@ -22,6 +23,7 @@ const Header = ({
   description,
   headerImage,
   textColor,
+  textColorDescription,
   contactBookingText,
   contactInstagramName,
   contactInstagramLink,
@@ -54,7 +56,12 @@ const Header = ({
         <p className="text-5xl sm:text-6xl text-sky-600 mb-4">
           {title.split(" ").slice(-2).join(" ")}
         </p>
-        <p className="text-lg sm:text-xl text-[#828282]">{description}</p>
+        <p
+          className="text-lg sm:text-xl text-[#828282]"
+          style={{ color: textColorDescription }}
+        >
+          {description}
+        </p>
       </div>
       <ContactUs
         bookingText={contactBookingText}
