@@ -37,7 +37,7 @@ const Sidebar = ({
   onReset,
 }: SidebarProps) => {
   return (
-    <aside className="w-1/3 p-4 bg-lightGray overflow-y-auto">
+    <aside className="w-1/4 p-4 bg-lightGray overflow-y-auto">
       {/* General Styles Section */}
       <div className="flex flex-col bg-lightGrayShade2 p-2 rounded-lg mb-4 mx-8">
         <h3 className="text-lg font-normal text-center">General Styles</h3>
@@ -137,6 +137,13 @@ const Sidebar = ({
             </div>
           )
         )}
+        <div className="flex justify-between mb-2 gap-2 items-center">
+          <span className="text-sm">Nav Links Text Color</span>
+          <ColorPicker
+            defaultColor={templateData.navLinksTextColor}
+            onChange={(color) => onChange("navLinksTextColor", color)}
+          />
+        </div>
       </div>
 
       <BreakLine />

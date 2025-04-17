@@ -18,10 +18,10 @@ interface HeaderProps {
 }
 
 const Header = ({
-  title = "Because Every Smile Tells A Story, We're Here To Help Yours Shine Brighter Than Ever With Expert Personalized",
-  description = "Contact us now to book your appointment and experience our premium service.",
+  title,
+  description,
   headerImage,
-  textColor = "#FFFFFF",
+  textColor,
   contactBookingText,
   contactInstagramName,
   contactInstagramLink,
@@ -29,7 +29,7 @@ const Header = ({
   contactFacebookLink,
   contactPhone,
   contactEmail,
-  contactLocation = "BrightSmile Dental Clinic",
+  contactLocation,
 }: HeaderProps) => {
   return (
     <header
@@ -37,7 +37,7 @@ const Header = ({
       id="home"
     >
       <Image
-        src={headerImage || "/default-image.jpg"}
+        src={headerImage || "/assets/images/dentist/backgroundDent.png"}
         alt="Hero"
         fill
         priority
