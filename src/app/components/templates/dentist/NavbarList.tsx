@@ -1,12 +1,6 @@
-// // src/app/components/templates/dentist/NavbarList.tsx
 // import React from "react";
 // import Link from "next/link";
 
-// interface NavbarList{
-//   className?: string;
-//   onClick?: () => void;
-//   links?: Array<{ name: string; link: string }>;
-// }
 // interface NavbarListProps {
 //   className?: string;
 //   onClick?: () => void;
@@ -27,7 +21,7 @@
 //   return (
 //     <ul className={`flex gap-12 text-black text-xl items-start ${className}`}>
 //       {links.map((item, index) => (
-//         <Link key={index} href={item.link}>
+//         <Link key={`${item.name}-${item.link}-${index}`} href={item.link}>
 //           <li className="hover:text-[#58ADEB]" onClick={onClick}>
 //             {item.name}
 //           </li>
@@ -45,6 +39,7 @@ interface NavbarListProps {
   className?: string;
   onClick?: () => void;
   links?: Array<{ name: string; link: string }>;
+  textColor?: string; // إضافة textColor كـ prop
 }
 
 const NavbarList = ({
@@ -57,9 +52,13 @@ const NavbarList = ({
     { name: "Portfolio", link: "#portfolio" },
     { name: "Blog", link: "#blog" },
   ],
+  textColor = "#000000", // القيمة الافتراضية للون النص
 }: NavbarListProps) => {
   return (
-    <ul className={`flex gap-12 text-black text-xl items-start ${className}`}>
+    <ul
+      className={`flex gap-12 text-xl items-start ${className}`}
+      style={{ color: textColor }} // تطبيق اللون على الـ ul
+    >
       {links.map((item, index) => (
         <Link key={`${item.name}-${item.link}-${index}`} href={item.link}>
           <li className="hover:text-[#58ADEB]" onClick={onClick}>
