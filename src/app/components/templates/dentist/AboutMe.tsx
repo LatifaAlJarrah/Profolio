@@ -29,7 +29,7 @@ export default function AboutMe({
           <Image
             src={image || "/default-image.jpg"}
             alt="Doctor"
-            className="lg:h-[508px] lg:w-[667px] md:h-[520px] md:w-full object-cover"
+            className="lg:h-[508px] lg:w-[667px] md:h-[520px] md:w-full object-cover rounded-2xl"
             width={667}
             height={508}
           />

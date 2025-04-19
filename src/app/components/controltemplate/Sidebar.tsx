@@ -37,7 +37,7 @@ const Sidebar = ({
   onReset,
 }: SidebarProps) => {
   return (
-    <aside className="w-1/4 p-4 bg-lightGray overflow-y-auto">
+    <aside className="p-4 bg-lightGray">
       {/* General Styles Section */}
       <div className="flex flex-col bg-lightGrayShade2 p-2 rounded-lg mb-4 mx-8">
         <h3 className="text-lg font-normal text-center">General Styles</h3>
@@ -108,7 +108,7 @@ const Sidebar = ({
         <div className="flex flex-col bg-lightGrayShade2 p-2 rounded-lg mb-4 mx-24">
           <h4 className="text-lg font-normal text-center">Navigation Links</h4>
         </div>
-        {templateData.navLinks.map(
+        {templateData.navigationLinks.map(
           (link: { name: string; link: string }, index: number) => (
             <div key={index} className="mb-4">
               <h5 className="text-sm font-medium">Link {index + 1}</h5>
@@ -140,8 +140,8 @@ const Sidebar = ({
         <div className="flex justify-between mb-2 gap-2 items-center">
           <span className="text-sm">Nav Links Text Color</span>
           <ColorPicker
-            defaultColor={templateData.navLinksTextColor}
-            onChange={(color) => onChange("navLinksTextColor", color)}
+            defaultColor={templateData.navigationLinksColor}
+            onChange={(color) => onChange("navigationLinksColor", color)}
           />
         </div>
       </div>
@@ -348,7 +348,7 @@ const Sidebar = ({
         <h3 className="text-lg font-normal">Services</h3>
       </div>
       <div>
-        {templateData.services.map((service: any, index: number) => (
+        {templateData.services.map((service: { title: string; description: string; icon: string }, index: number) => (
           <div key={index} className="mb-4">
             <h4 className="text-sm font-medium">Service {index + 1}</h4>
             <label className="block mb-2">
@@ -398,7 +398,7 @@ const Sidebar = ({
         <h3 className="text-lg font-normal">Portfolio</h3>
       </div>
       <div>
-        {templateData.portfolioSlides.map((slide: any, index: number) => (
+        {templateData.portfolioSlides.map((slide: { title: string; description: string; image: string }, index: number) => (
           <div key={index} className="mb-4">
             <h4 className="text-sm font-medium">Slide {index + 1}</h4>
             <label className="block mb-2">
@@ -456,7 +456,7 @@ const Sidebar = ({
       </div>
       <div>
         {templateData.portfolioTestimonials.map(
-          (testimonial: any, index: number) => (
+          (testimonial: { name: string; quote: string; image: string }, index: number) => (
             <div key={index} className="mb-4">
               <h4 className="text-sm font-medium">Testimonial {index + 1}</h4>
               <label className="block mb-2">
@@ -552,6 +552,86 @@ const Sidebar = ({
       </div>
 
       <BreakLine />
+
+      {/* Contact Us Section */}
+      <div className="flex items-center justify-around mb-4 bg-lightGrayShade2 p-2 rounded-lg mx-8">
+        <FontAwesomeIcon icon={faImage} className="w-5 h-5 text-charcoalGray" />
+        <h3 className="text-lg font-normal">Contact Us</h3>
+      </div>
+      <div>
+        <label className="block mb-2">
+          Booking Text:
+          <input
+            type="text"
+            value={templateData.contactBookingText}
+            onChange={(e) => onChange("contactBookingText", e.target.value)}
+            className="p-1 border rounded-md w-full bg-transparent text-charcoalGray"
+          />
+        </label>
+        <label className="block mb-2">
+          Instagram Name:
+          <input
+            type="text"
+            value={templateData.contactInstagramName}
+            onChange={(e) => onChange("contactInstagramName", e.target.value)}
+            className="p-1 border rounded-md w-full bg-transparent text-charcoalGray"
+          />
+        </label>
+        <label className="block mb-2">
+          Instagram Link:
+          <input
+            type="text"
+            value={templateData.contactInstagramLink}
+            onChange={(e) => onChange("contactInstagramLink", e.target.value)}
+            className="p-1 border rounded-md w-full bg-transparent text-charcoalGray"
+          />
+        </label>
+        <label className="block mb-2">
+          Facebook Name:
+          <input
+            type="text"
+            value={templateData.contactFacebookName}
+            onChange={(e) => onChange("contactFacebookName", e.target.value)}
+            className="p-1 border rounded-md w-full bg-transparent text-charcoalGray"
+          />
+        </label>
+        <label className="block mb-2">
+          Facebook Link:
+          <input
+            type="text"
+            value={templateData.contactFacebookLink}
+            onChange={(e) => onChange("contactFacebookLink", e.target.value)}
+            className="p-1 border rounded-md w-full bg-transparent text-charcoalGray"
+          />
+        </label>
+        <label className="block mb-2">
+          Phone:
+          <input
+            type="text"
+            value={templateData.contactPhone}
+            onChange={(e) => onChange("contactPhone", e.target.value)}
+            className="p-1 border rounded-md w-full bg-transparent text-charcoalGray"
+          />
+        </label>
+        <label className="block mb-2">
+          Email:
+          <input
+            type="text"
+            value={templateData.contactEmail}
+            onChange={(e) => onChange("contactEmail", e.target.value)}
+            className="p-1 border rounded-md w-full bg-transparent text-charcoalGray"
+          />
+        </label>
+        <label className="block mb-2">
+          Location:
+          <input
+            type="text"
+            value={templateData.contactLocation}
+            onChange={(e) => onChange("contactLocation", e.target.value)}
+            className="p-1 border rounded-md w-full bg-transparent text-charcoalGray"
+          />
+        </label>
+      </div>
 
       {/* Save, Load, and Reset Buttons */}
       <div className="flex flex-wrap justify-between mb-4 gap-2">
