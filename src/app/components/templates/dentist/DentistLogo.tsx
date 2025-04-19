@@ -45,7 +45,7 @@ const DentistLogo = ({
           src={logoIcon ? logoIcon : "/assets/images/dentist/logo.png"}
           alt="dentist logo"
           fill
-          className=" rounded-full"
+          className="rounded-full"
         />
       </div>
       <div
