@@ -127,11 +127,4 @@ export const defaultTemplateData: TemplateData = {
     },
   ],
   portfolioButtonColor: "#58ADEB",
-  footerLinks: [
-    { name: "Home", link: "#home" },
-    { name: "About Me", link: "#about" },
-    { name: "Services", link: "#services" },
-    { name: "Portfolio", link: "#portfolio" },
-    { name: "Blog", link: "#blog" },
-  ],
 };

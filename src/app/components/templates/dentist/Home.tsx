@@ -7,8 +7,9 @@ import Services from "./Services";
 import Portfolio from "./Portfolio";
 import Blog from "./Blog";
 import Footer from "./Footer";
-
 interface HomeProps {
+  // templateData: TemplateData;
+  
   backgroundColor?: string;
   navbarColor?: string;
   logoName?: string;
@@ -91,50 +92,7 @@ const Home = ({
   contactPhone = "(123) 456-7890",
   contactEmail = "dr.williams@brightsmiledental.com",
   contactLocation = "BrightSmile Dental Clinic",
-  services = [
-    // {
-    //   title: "Teeth Whitening",
-    //   description: "Removes stains and brightens teeth for a radiant smile.",
-    //   icon: "/assets/icons/dentist/teeth.png",
-    // },
-    // {
-    //   title: "Veneers & Lumineers",
-    //   description: "Thin shells placed on teeth to improve color and shape.",
-    //   icon: "/assets/icons/dentist/veneers.png",
-    // },
-    // {
-    //   title: "Tooth-Colored Fillings",
-    //   description: "Restores damaged teeth with natural-looking fillings.",
-    //   icon: "/assets/icons/dentist/equipment.png",
-    // },
-    // {
-    //   title: "Cosmetic Crowns & Bridges",
-    //   description:
-    //     "Covers damaged or treated teeth for protection and aesthetics.",
-    //   icon: "/assets/icons/dentist/crown.png",
-    // },
-    // {
-    //   title: "Tooth Reshaping",
-    //   description: "Adjusts tooth size or shape for a more balanced look.",
-    //   icon: "/assets/icons/dentist/mouth.png",
-    // },
-    // {
-    //   title: "Dental Implants",
-    //   description: "Replaces missing teeth with natural-looking implants.",
-    //   icon: "/assets/icons/dentist/implant.png",
-    // },
-    // {
-    //   title: "Clear Aligners (Invisalign)",
-    //   description: "Straightens teeth discreetly without metal braces.",
-    //   icon: "/assets/icons/dentist/trainer.png",
-    // },
-    // {
-    //   title: "Hollywood Smile",
-    //   description:
-    //     "A complete smile makeover using a combination of cosmetic treatments.",
-    //   icon: "/assets/icons/dentist/orthodontic.png",
-    // },
-  ],
+  services = [],
   portfolioSlides = [
     {
       title: "Hollywood Smile",
