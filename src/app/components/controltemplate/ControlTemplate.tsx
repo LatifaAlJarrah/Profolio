@@ -5,7 +5,6 @@ import Sidebar from "./Sidebar";
 import MainEditor from "./MainEditor";
 import { templates } from "../data/templates";
 import { Roboto, Poppins, Montserrat } from "next/font/google";
-
 // تحميل الـ Fonts باستخدام next/font/google
 const roboto = Roboto({
   weight: "400",
@@ -40,12 +39,14 @@ const defaultTemplateData = {
     { name: "Blog", link: "#blog" },
   ],
   navigationLinksColor: "#000000",
-  headerTitle:
+  headerTitle: "Dental Care !",
+  headerSubtitle:
     "Because Every Smile Tells A Story, We're Here To Help Yours Shine Brighter Than Ever With Expert Personalized",
   headerDescription:
     "Contact us now to book your appointment and experience our premium service.",
   headerImage: "/assets/images/dentist/backgroundDent.png",
-  headerTextColor: "#FFFFFF",
+  titleTextColor: "#58ADEB",
+  subtitleTextColor: "#FFFFFF",
   descriptionTextColor: "#828282",
   aboutTitle: "ABOUT ME",
   aboutDoctorName: "Dr. Sarah Williams",

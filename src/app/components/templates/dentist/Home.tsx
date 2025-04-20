@@ -18,10 +18,12 @@ interface HomeProps {
   fontFamily?: string;
   fontFamilyClass?: string;
   headerTitle?: string;
+  headerSubtitle?: string;
   headerDescription?: string;
   headerImage?: string;
-  headerTextColor?: string;
-  descriptionTextColor?: string; // إضافة descriptionTextColor
+  titleTextColor?: string;
+  subtitleTextColor?: string;
+  descriptionTextColor?: string;
   aboutTitle?: string;
   aboutDoctorName?: string;
   aboutDescription?: string;
@@ -59,11 +61,13 @@ const Home = ({
   logoIcon,
   fontFamily = "Roboto",
   fontFamilyClass = "",
-  headerTitle = "Because Every Smile Tells A Story, We're Here To Help Yours Shine Brighter Than Ever With Expert Personalized",
+  headerTitle = "Dental Care ! ",
+  headerSubtitle = "Because Every Smile Tells A Story, We're Here To Help Yours Shine Brighter Than Ever With Expert Personalized",
   headerDescription = "Contact us now to book your appointment and experience our premium service.",
   headerImage = "/assets/images/dentist/backgroundDent.png",
-  headerTextColor = "#FFFFFF",
+  subtitleTextColor = "#FFFFFF",
   descriptionTextColor = "#828282",
+  titleTextColor = "#58ADEB",
   aboutTitle = "ABOUT ME",
   aboutDoctorName = "Dr. Sarah Williams",
   aboutDescription = "Dr. Sarah Williams is a specialist in cosmetic dentistry with over 10 years of experience. She is passionate about creating beautiful, natural smiles through teeth whitening, veneers, and smile makeovers. With a patient-centered approach and the latest technology, Dr. Williams ensures comfortable treatments and long-lasting results. She believes that a confident smile can transform lives and is dedicated to helping her patients achieve their dream smiles.",
@@ -174,7 +178,7 @@ const Home = ({
     { name: "Portfolio", link: "#portfolio" },
     { name: "Blog", link: "#blog" },
   ],
-  navigationLinksColor = "#000000", // القيمة الافتراضية للون الروابط
+  navigationLinksColor = "#000000",
 }: HomeProps) => {
   return (
     <main className={fontFamilyClass} style={{ fontFamily }}>
@@ -186,14 +190,16 @@ const Home = ({
         navigationLinks={navigationLinks}
         fontFamily={fontFamily}
         fontFamilyClass={fontFamilyClass}
-        navigationLinksColor={navigationLinksColor} // تمرير navLinksTextColor لـ Navbar
+        navigationLinksColor={navigationLinksColor}
       />
       <Header
         title={headerTitle}
+        subtitle={headerSubtitle}
         description={headerDescription}
         headerImage={headerImage}
-        textColor={headerTextColor}
-        textColorDescription={descriptionTextColor} // تمرير descriptionTextColor لـ Header
+        subtitleTextColor={subtitleTextColor}
+        textColorDescription={descriptionTextColor}
+        textColorTitle={titleTextColor}
         contactBookingText={contactBookingText}
         contactInstagramName={contactInstagramName}
         contactInstagramLink={contactInstagramLink}
@@ -230,7 +236,7 @@ const Home = ({
         navigationLinks={navigationLinks}
         fontFamily={fontFamily}
         fontFamilyClass={fontFamilyClass}
-        navigationLinksColor={navigationLinksColor} // تمرير navLinksTextColor لـ Navbar
+        navigationLinksColor={navigationLinksColor}
       />
     </main>
   );

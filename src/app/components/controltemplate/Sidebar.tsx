@@ -4,9 +4,10 @@ import { faImage } from "@fortawesome/free-solid-svg-icons";
 import Image from "next/image";
 import { TextVector } from "@/app/assets/icons";
 import ColorPicker from "./ColorPicker";
+import { TemplateData } from "@/app/types/templateData";
 
 interface SidebarProps {
-  templateData: any;
+  templateData: TemplateData;
   onChange: (key: string, value: string) => void;
   onImageChange: (key: string, file: File | null) => void;
   onServiceChange: (index: number, field: string, value: string) => void;
@@ -163,6 +164,14 @@ const Sidebar = ({
           />
         </label>
         <label className="block mb-2">
+          Header SubTitle:
+          <textarea
+            value={templateData.headerSubtitle}
+            onChange={(e) => onChange("headerSubtitle", e.target.value)}
+            className="p-1 border rounded-md w-full bg-transparent text-charcoalGray resize-none"
+          />
+        </label>
+        <label className="block mb-2">
           Header Description:
           <textarea
             value={templateData.headerDescription}
@@ -171,10 +180,17 @@ const Sidebar = ({
           />
         </label>
         <div className="flex justify-between mb-2 gap-2 items-center">
-          <span className="text-sm">Text Color</span>
+          <span className="text-sm">Title Text Color</span>
           <ColorPicker
-            defaultColor={templateData.headerTextColor}
-            onChange={(color) => onChange("headerTextColor", color)}
+            defaultColor={templateData.titleTextColor}
+            onChange={(color) => onChange("titleTextColor", color)}
+          />
+        </div>
+        <div className="flex justify-between mb-2 gap-2 items-center">
+          <span className="text-sm">Subtitle Text Color</span>
+          <ColorPicker
+            defaultColor={templateData.subtitleTextColor}
+            onChange={(color) => onChange("subtitleTextColor", color)}
           />
         </div>
         <div className="flex justify-between mb-2 gap-2 items-center">
@@ -348,47 +364,52 @@ const Sidebar = ({
         <h3 className="text-lg font-normal">Services</h3>
       </div>
       <div>
-        {templateData.services.map((service: { title: string; description: string; icon: string }, index: number) => (
-          <div key={index} className="mb-4">
-            <h4 className="text-sm font-medium">Service {index + 1}</h4>
-            <label className="block mb-2">
-              Title:
-              <input
-                type="text"
-                value={service.title}
-                onChange={(e) =>
-                  onServiceChange(index, "title", e.target.value)
-                }
-                className="p-1 border rounded-md w-full bg-transparent text-charcoalGray"
-              />
-            </label>
-            <label className="block mb-2">
-              Description:
-              <textarea
-                value={service.description}
-                onChange={(e) =>
-                  onServiceChange(index, "description", e.target.value)
-                }
-                className="p-1 border rounded-md w-full bg-transparent text-charcoalGray resize-none"
-              />
-            </label>
-            <label className="block mb-2">
-              Icon:
-              <input
-                type="file"
-                accept="image/*"
-                onChange={(e) => {
-                  const file = e.target.files?.[0] || null;
-                  if (file) {
-                    const imageUrl = URL.createObjectURL(file);
-                    onServiceChange(index, "icon", imageUrl);
+        {templateData.services.map(
+          (
+            service: { title: string; description: string; icon: string },
+            index: number
+          ) => (
+            <div key={index} className="mb-4">
+              <h4 className="text-sm font-medium">Service {index + 1}</h4>
+              <label className="block mb-2">
+                Title:
+                <input
+                  type="text"
+                  value={service.title}
+                  onChange={(e) =>
+                    onServiceChange(index, "title", e.target.value)
                   }
-                }}
-                className="p-1 border rounded-md w-full"
-              />
-            </label>
-          </div>
-        ))}
+                  className="p-1 border rounded-md w-full bg-transparent text-charcoalGray"
+                />
+              </label>
+              <label className="block mb-2">
+                Description:
+                <textarea
+                  value={service.description}
+                  onChange={(e) =>
+                    onServiceChange(index, "description", e.target.value)
+                  }
+                  className="p-1 border rounded-md w-full bg-transparent text-charcoalGray resize-none"
+                />
+              </label>
+              <label className="block mb-2">
+                Icon:
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={(e) => {
+                    const file = e.target.files?.[0] || null;
+                    if (file) {
+                      const imageUrl = URL.createObjectURL(file);
+                      onServiceChange(index, "icon", imageUrl);
+                    }
+                  }}
+                  className="p-1 border rounded-md w-full"
+                />
+              </label>
+            </div>
+          )
+        )}
       </div>
 
       <BreakLine />
@@ -398,47 +419,52 @@ const Sidebar = ({
         <h3 className="text-lg font-normal">Portfolio</h3>
       </div>
       <div>
-        {templateData.portfolioSlides.map((slide: { title: string; description: string; image: string }, index: number) => (
-          <div key={index} className="mb-4">
-            <h4 className="text-sm font-medium">Slide {index + 1}</h4>
-            <label className="block mb-2">
-              Title:
-              <input
-                type="text"
-                value={slide.title}
-                onChange={(e) =>
-                  onPortfolioSlideChange(index, "title", e.target.value)
-                }
-                className="p-1 border rounded-md w-full bg-transparent text-charcoalGray"
-              />
-            </label>
-            <label className="block mb-2">
-              Description:
-              <textarea
-                value={slide.description}
-                onChange={(e) =>
-                  onPortfolioSlideChange(index, "description", e.target.value)
-                }
-                className="p-1 border rounded-md w-full bg-transparent text-charcoalGray resize-none"
-              />
-            </label>
-            <label className="block mb-2">
-              Image:
-              <input
-                type="file"
-                accept="image/*"
-                onChange={(e) => {
-                  const file = e.target.files?.[0] || null;
-                  if (file) {
-                    const imageUrl = URL.createObjectURL(file);
-                    onPortfolioSlideChange(index, "image", imageUrl);
+        {templateData.portfolioSlides.map(
+          (
+            slide: { title: string; description: string; image: string },
+            index: number
+          ) => (
+            <div key={index} className="mb-4">
+              <h4 className="text-sm font-medium">Slide {index + 1}</h4>
+              <label className="block mb-2">
+                Title:
+                <input
+                  type="text"
+                  value={slide.title}
+                  onChange={(e) =>
+                    onPortfolioSlideChange(index, "title", e.target.value)
                   }
-                }}
-                className="p-1 border rounded-md w-full"
-              />
-            </label>
-          </div>
-        ))}
+                  className="p-1 border rounded-md w-full bg-transparent text-charcoalGray"
+                />
+              </label>
+              <label className="block mb-2">
+                Description:
+                <textarea
+                  value={slide.description}
+                  onChange={(e) =>
+                    onPortfolioSlideChange(index, "description", e.target.value)
+                  }
+                  className="p-1 border rounded-md w-full bg-transparent text-charcoalGray resize-none"
+                />
+              </label>
+              <label className="block mb-2">
+                Image:
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={(e) => {
+                    const file = e.target.files?.[0] || null;
+                    if (file) {
+                      const imageUrl = URL.createObjectURL(file);
+                      onPortfolioSlideChange(index, "image", imageUrl);
+                    }
+                  }}
+                  className="p-1 border rounded-md w-full"
+                />
+              </label>
+            </div>
+          )
+        )}
         <div className="flex justify-between mb-2 gap-2 items-center">
           <span className="text-sm">Button Color</span>
           <ColorPicker
@@ -456,7 +482,10 @@ const Sidebar = ({
       </div>
       <div>
         {templateData.portfolioTestimonials.map(
-          (testimonial: { name: string; quote: string; image: string }, index: number) => (
+          (
+            testimonial: { name: string; quote: string; image: string },
+            index: number
+          ) => (
             <div key={index} className="mb-4">
               <h4 className="text-sm font-medium">Testimonial {index + 1}</h4>
               <label className="block mb-2">

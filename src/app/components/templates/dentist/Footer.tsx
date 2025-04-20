@@ -12,7 +12,7 @@ interface FooterProps {
   navigationLinks?: Array<{ name: string; link: string }>;
   fontFamily?: string;
   fontFamilyClass?: string;
-  navigationLinksColor?: string; // إضافة navLinksTextColor كـ prop
+  navigationLinksColor?: string;
   backgroundColor?: string;
   logoName?: string;
   logoColor?: string;
@@ -42,7 +42,7 @@ const Footer = ({
           <NavbarList
             className={className}
             links={navigationLinks}
-            textColor={navigationLinksColor} // تمرير اللون للـ NavbarList في الـ Sidebar
+            textColor={navigationLinksColor}
           />
           <div className="flex gap-12 lg:gap-4">
             <Link

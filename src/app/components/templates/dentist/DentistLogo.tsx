@@ -1,31 +1,3 @@
-// import React from "react";
-// import Image from "next/image";
-
-// const DentistLogo = ({
-//   name = "Dentelle",
-//   logoIcon,
-//   logoColor,
-// }: {
-//   name?: string;
-//   logoIcon?: string;
-//   logoColor?: string;
-// }) => {
-//   return (
-//     <div className="flex items-center w-1/4">
-//       <Image
-//         src={logoIcon ? logoIcon : "/assets/images/dentist/logo.png"}
-//         alt="dentist logo"
-//         width={70}
-//         height={70}
-//       />
-//       <div className="text-3xl text-black" style={{ color: logoColor }}>
-//         {name}
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default DentistLogo;
 import React from "react";
 import Image from "next/image";
 

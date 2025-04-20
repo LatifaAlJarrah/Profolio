@@ -8,14 +8,12 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import Image from "next/image";
 
 interface Slide {
-  id: number;
   title: string;
   description: string;
   image: string;
 }
 
 interface Testimonial {
-  id: number;
   name: string;
   image: string;
   quote: string;
@@ -61,21 +59,18 @@ function Testimonials({ testimonials }: { testimonials: Testimonial[] }) {
 export default function Portfolio({
   slides = [
     {
-      id: 1,
       title: "Hollywood Smile",
       description:
         "The patient had discoloration and misalignment of the teeth, They were treated with a Hollywood Smile using cosmetic veneers (either veneers or lumineers) to achieve a bright and harmonious smile.",
       image: "/assets/images/HollywoodSmile.jpg",
     },
     {
-      id: 2,
       title: "Teeth Whitening",
       description:
         "The patient had tooth discoloration and yellowing, which was treated with a professional whitening session to restore their bright smile.",
       image: "/assets/images/TeethWhitening.jpg",
     },
     {
-      id: 3,
       title: "Dental Restoration",
       description:
         "The Patient Had Severe Decay And Needed Full Restoration...",
@@ -84,14 +79,12 @@ export default function Portfolio({
   ],
   testimonials = [
     {
-      id: 1,
       name: "Ahmed Ali",
       image: "/assets/images/Ahmad.jpg",
       quote:
         "I Used To Suffer From Uneven Tooth Color And Misalignment, But After Getting A Hollywood Smile, My Smile Became Brighter And More Beautiful. The Results Look Very Natural, And I Am Completely Satisfied With The Experience.",
     },
     {
-      id: 2,
       name: "Emily",
       image: "/assets/images/Emilly.jpg",
       quote:

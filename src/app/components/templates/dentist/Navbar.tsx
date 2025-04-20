@@ -13,7 +13,7 @@ interface NavbarProps {
   navigationLinks?: Array<{ name: string; link: string }>;
   fontFamily?: string;
   fontFamilyClass?: string;
-  navigationLinksColor?: string; // إضافة navLinksTextColor كـ prop
+  navigationLinksColor?: string;
 }
 
 export default function Navbar({
@@ -25,7 +25,7 @@ export default function Navbar({
   navigationLinks = [],
   fontFamily = "Roboto",
   fontFamilyClass,
-  navigationLinksColor, // القيمة الافتراضية للون الروابط
+  navigationLinksColor,
 }: NavbarProps) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const sidebarRef = useRef<HTMLDivElement>(null);
@@ -76,7 +76,7 @@ export default function Navbar({
         <NavbarList
           className={className}
           links={navigationLinks}
-          textColor={navigationLinksColor} // تمرير اللون للـ NavbarList
+          textColor={navigationLinksColor}
         />
       </div>
       {isSidebarOpen && (
@@ -99,7 +99,7 @@ export default function Navbar({
           className="flex-col space-y-6 mt-12 text-lg"
           onClick={() => setIsSidebarOpen(false)}
           links={navigationLinks}
-          textColor={navigationLinksColor} // تمرير اللون للـ NavbarList في الـ Sidebar
+          textColor={navigationLinksColor}
         />
       </div>
     </nav>
