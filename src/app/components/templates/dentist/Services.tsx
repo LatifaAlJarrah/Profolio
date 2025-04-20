@@ -11,52 +11,7 @@ interface ServicesProps {
   services?: Service[];
 }
 
-const Services = ({
-  services = [
-    // {
-    //   title: "Teeth Whitening",
-    //   description: "Removes stains and brightens teeth for a radiant smile.",
-    //   icon: "/assets/icons/Teeth.png",
-    // },
-    // {
-    //   title: "Veneers & Lumineers",
-    //   description: "Thin shells placed on teeth to improve color and shape.",
-    //   icon: "/assets/icons/Veneers.png",
-    // },
-    // {
-    //   title: "Tooth-Colored Fillings",
-    //   description: "Restores damaged teeth with natural-looking fillings.",
-    //   icon: "/assets/icons/Equipment.png",
-    // },
-    // {
-    //   title: "Cosmetic Crowns & Bridges",
-    //   description:
-    //     "Covers damaged or treated teeth for protection and aesthetics.",
-    //   icon: "/assets/icons/Crown.png",
-    // },
-    // {
-    //   title: "Tooth Reshaping",
-    //   description: "Adjusts tooth size or shape for a more balanced look.",
-    //   icon: "/assets/icons/Mouth.png",
-    // },
-    // {
-    //   title: "Dental Implants",
-    //   description: "Replaces missing teeth with natural-looking implants.",
-    //   icon: "/assets/icons/Implant.png",
-    // },
-    // {
-    //   title: "Clear Aligners (Invisalign)",
-    //   description: "Straightens teeth discreetly without metal braces.",
-    //   icon: "/assets/icons/Trainer.png",
-    // },
-    // {
-    //   title: "Hollywood Smile",
-    //   description:
-    //     "A complete smile makeover using a combination of cosmetic treatments.",
-    //   icon: "/assets/icons/Orthodontic.png",
-    // },
-  ],
-}: ServicesProps) => {
+const Services = ({ services = [] }: ServicesProps) => {
   return (
     <section className={`font-roboto bg-white`} id="services">
       <h2 className="text-center mb-8 text-3xl sm:text-4xl tracking-widest">
