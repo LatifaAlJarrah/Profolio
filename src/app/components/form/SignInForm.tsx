@@ -50,27 +50,49 @@ const SignInForm = ({ isOpen, onClose, type }: SignInFormProps) => {
     },
   });
 
-  const onSubmit = async (values: z.infer<typeof FormSchema>) => {
-    setError(null);
+  // const onSubmit = async (values: z.infer<typeof FormSchema>) => {
+  //   setError(null);
 
-    const result = await signIn("credentials", {
-      email: values.email,
-      password: values.password,
-      redirect: false,
-    });
+  //   const result = await signIn("credentials", {
+  //     email: values.email,
+  //     password: values.password,
+  //     redirect: false,
+  //   });
 
-    if (result?.error) {
-      if (result.error.startsWith("AUTH_ERROR:")) {
-        setError(result.error.replace("AUTH_ERROR:", ""));
-      } else {
-        setError("Something went wrong");
-      }
-      return;
+  //   if (result?.error) {
+  //     if (result.error.startsWith("AUTH_ERROR:")) {
+  //       setError(result.error.replace("AUTH_ERROR:", ""));
+  //     } else {
+  //       setError("Something went wrong");
+  //     }
+  //     return;
+  //   }
+  //   onClose?.(); // ✅ Close the modal
+  //   router.push("/projects");
+  // };
+
+const onSubmit = async (values: z.infer<typeof FormSchema>) => {
+  setError(null);
+
+  const result = await signIn("credentials", {
+    email: values.email,
+    password: values.password,
+    redirect: false,
+    callbackUrl: "/projects", // ✅ أضفنا هذا السطر لحل المشكلة
+  });
+
+  if (result?.error) {
+    if (result.error.startsWith("AUTH_ERROR:")) {
+      setError(result.error.replace("AUTH_ERROR:", ""));
+    } else {
+      setError("Something went wrong");
     }
-    onClose?.(); // ✅ Close the modal
-    router.push("/projects");
-  };
+    return;
+  }
 
+  onClose?.(); // ✅ Close the modal
+  router.push("/projects"); // ✅ نوجه المستخدم بعد نجاح الدخول
+};
 
 
   if (!isOpen) return null;
