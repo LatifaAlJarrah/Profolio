@@ -25,7 +25,7 @@ export default async function Page() {
   const session = await auth();
 
   const user = await db.user.findUnique({
-    where: { email: session.user.email },
+    where: { email: session?.user.email ?? "" },
   });
 
   if (user && !user.password) {
