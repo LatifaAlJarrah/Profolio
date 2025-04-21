@@ -89,7 +89,8 @@ export const authConfig: NextAuthConfig = {
           throw new Error("AUTH_ERROR:Email does not exist");
         }
 
-        const isPasswordValid = await compare(password, user.password);
+        // const isPasswordValid = await compare(password, user.password);
+        const isPasswordValid = await compare(password, user.password ?? '');
         if (!isPasswordValid) {
           throw new Error("AUTH_ERROR:Password is incorrect");
         }
@@ -172,7 +173,7 @@ export const authConfig: NextAuthConfig = {
         token.sub = user.id;
         token.name = user.name;
         token.picture = user.image || null;
-        token.username = (user as any).username;
+        token.username = user.username;
       }
       return token;
     },
