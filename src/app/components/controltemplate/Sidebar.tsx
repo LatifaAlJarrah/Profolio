@@ -1,4 +1,4 @@
-// src/components/controltemplate/Sidebar.tsx
+import { useState } from "react";
 import { TemplateData } from "@/app/types/templateData";
 
 import GeneralStylesSection from "./sidebar/GeneralStylesSection";
@@ -19,7 +19,7 @@ interface SidebarProps {
   onPortfolioSlideChange: (index: number, field: string, value: string) => void;
   onTestimonialChange: (index: number, field: string, value: string) => void;
   onBlogImageChange: (index: number, file: File | null) => void;
-  onNavLinkChange: (index: number, field: string, value: string) => void; // إضافة دالة لتعديل الروابط
+  onNavLinkChange: (index: number, field: string, value: string) => void;
   onSave: () => void;
   onLoad: () => void;
   onReset: () => void;
@@ -42,104 +42,133 @@ const Sidebar = ({
   onLoad,
   onReset,
 }: SidebarProps) => {
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  // Array of components in display order
+  const sections = [
+    <GeneralStylesSection
+      key="general"
+      templateData={templateData}
+      onChange={onChange}
+    />,
+    <NavbarSection
+      key="navbar"
+      templateData={templateData}
+      onChange={onChange}
+      onNavLinkChange={onNavLinkChange}
+      onImageChange={onImageChange}
+    />,
+    <HeaderSection
+      key="header"
+      templateData={templateData}
+      onChange={onChange}
+      onImageChange={onImageChange}
+    />,
+    <ContactUsSection
+      key="contact"
+      templateData={templateData}
+      onChange={onChange}
+    />,
+    <AboutMeSection
+      key="about"
+      templateData={templateData}
+      onChange={onChange}
+      onImageChange={onImageChange}
+    />,
+    <ServicesSection
+      key="services"
+      templateData={templateData}
+      onServiceChange={onServiceChange}
+    />,
+    <PortfolioSection
+      key="portfolio"
+      templateData={templateData}
+      onChange={onChange}
+      onPortfolioSlideChange={onPortfolioSlideChange}
+    />,
+    <TestimonialsSection
+      key="testimonials"
+      templateData={templateData}
+      onTestimonialChange={onTestimonialChange}
+    />,
+    <BlogSection
+      key="blog"
+      templateData={templateData}
+      onChange={onChange}
+      onBlogImageChange={onBlogImageChange}
+    />,
+  ];
+
+  const handleNext = () => {
+    if (currentIndex < sections.length - 1) {
+      setCurrentIndex(currentIndex + 1);
+    }
+  };
+
+  const handlePrevious = () => {
+    if (currentIndex > 0) {
+      setCurrentIndex(currentIndex - 1);
+    }
+  };
+
+  const isLastSection = currentIndex === sections.length - 1;
+  const isFirstSection = currentIndex === 0;
+
   return (
     <aside className="p-4 bg-lightGray">
-      {/* General Styles Section */}
-      <GeneralStylesSection templateData={templateData} onChange={onChange} />
+      {/* Render the current section */}
+      {sections[currentIndex]}
 
       <BreakLine />
 
-      {/* Navbar Content Section */}
-      <NavbarSection
-        templateData={templateData}
-        onChange={onChange}
-        onNavLinkChange={onNavLinkChange} // تمرير الدالة لتعديل الروابط
-        onImageChange={onImageChange}
-      />
-
-      <BreakLine />
-
-      {/* Header Section */}
-      <HeaderSection
-        templateData={templateData}
-        onChange={onChange}
-        onImageChange={onImageChange}
-      />
-
-      <BreakLine />
-
-      {/* Contact Us Section */}
-      <ContactUsSection templateData={templateData} onChange={onChange} />
-
-      <BreakLine />
-
-      {/* About Me Section */}
-      <AboutMeSection
-        templateData={templateData}
-        onChange={onChange}
-        onImageChange={onImageChange}
-      />
-
-      <BreakLine />
-
-      {/* Services Section */}
-      <ServicesSection
-        templateData={templateData}
-        onServiceChange={onServiceChange}
-      />
-
-      <BreakLine />
-
-      {/* Portfolio Section */}
-      <PortfolioSection
-        templateData={templateData}
-        onChange={onChange}
-        onPortfolioSlideChange={onPortfolioSlideChange}
-      />
-
-      <BreakLine />
-
-      {/* Testimonials Section */}
-      <TestimonialsSection
-        templateData={templateData}
-        onTestimonialChange={onTestimonialChange}
-      />
-
-      <BreakLine />
-
-      {/* Blog Section */}
-      <BlogSection
-        templateData={templateData}
-        onChange={onChange}
-        onBlogImageChange={onBlogImageChange}
-      />
-
-      <BreakLine />
-
-      {/* Save, Load, and Reset Buttons */}
-      <div className="flex flex-wrap justify-between mb-4 gap-2">
-        <button
-          onClick={onSave}
-          className="text-white bg-green-600 w-full sm:w-1/3 p-2 rounded-lg text-center font-bold"
-        >
-          Save
-        </button>
-        <button
-          onClick={onLoad}
-          className="text-white bg-blue-600 w-full sm:w-1/3 p-2 rounded-lg text-center font-bold"
-        >
-          Load Saved Data
-        </button>
-        <button
-          onClick={onReset}
-          className="text-white bg-orange-600 w-full sm:w-1/3 p-2 rounded-lg text-center font-bold"
-        >
-          Reset
-        </button>
+      {/* Navigation Buttons */}
+      <div className="flex flex-wrap justify-between mb-4 gap-2 font-mono">
+        {!isFirstSection && (
+          <button
+            onClick={handlePrevious}
+            className="text-white bg-charcoalGray w-full sm:w-1/3 p-2 rounded-lg text-center font-bold"
+          >
+            Previous
+          </button>
+        )}
+        {!isLastSection && (
+          <button
+            onClick={handleNext}
+            className="text-white bg-blue-500 w-full sm:w-1/3 p-2 rounded-lg text-center font-bold"
+          >
+            Next
+          </button>
+        )}
       </div>
+
+      {/* Save, Load, and Reset Buttons (only on last section) */}
+      {isLastSection && (
+        <>
+          <BreakLine />
+          <div className="flex flex-col justify-between mb-4 gap-4 font-mono">
+            <button
+              onClick={onSave}
+              className="text-white bg-green-600 w-1/3 md:w-full p-2 rounded-lg text-center font-bold"
+            >
+              Save
+            </button>
+            <button
+              onClick={onLoad}
+              className="text-white bg-blue-500 w-1/3 md:w-full p-2 rounded-lg text-center font-bold"
+            >
+              Load saved data
+            </button>
+            <button
+              onClick={onReset}
+              className="text-white bg-red-600 w-1/3 md:w-full p-2 rounded-lg text-center font-bold"
+            >
+              Reset
+            </button>
+          </div>
+        </>
+      )}
     </aside>
   );
 };
 
 export default Sidebar;
-
