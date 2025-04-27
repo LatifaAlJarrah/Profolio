@@ -1,5 +1,5 @@
 import { TemplateData } from "@/app/types/templateData";
-import ColorPicker from "../ColorPicker";
+import ColorPicker from "../../shared/ColorPicker";
 
 interface BlogSectionProps {
   templateData: TemplateData;

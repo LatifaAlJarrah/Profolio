@@ -1,18 +1,38 @@
+"use client"
 import React from "react";
 import Image from "next/image";
 import { Steak } from "@/app/assets/images";
 import ResturantLogo from "./ResturantLogo";
+import { TemplateData } from "@/app/types/templateData";
 
-export default function AboutResturant() {
+interface AboutResturantProps extends TemplateData {
+  customProperty?: string;
+  anotherProperty?: number;
+}
+
+const AboutResturant: React.FC<AboutResturantProps> = ({
+  aboutTitle,
+  aboutTagline,
+  aboutDescription,
+  visitText,
+  aboutImage,
+  titleTextColor,
+  buttonColor,
+  contactLocation,
+}) => {
   return (
     <section
-      className={`font-roboto text-white py-16 text-center px-10 lg:px-0`}
+      className={`text-white py-16 text-center px-10 lg:px-0`}
       id="about"
     >
-      <h2 className="text-4xl tracking-widest">ABOUT US</h2>
+      <h2
+        className="text-4xl tracking-widest"
+        style={{ color: titleTextColor || "#ffffff" }}
+      >
+        {aboutTitle || "ABOUT US"}
+      </h2>
 
       <div className="mt-8 flex flex-col md:flex-row justify-center items-center gap-8 px-6">
-        {/* Google Maps iframe */}
         <div className="w-[447px] h-[436px] rounded-lg overflow-hidden">
           <iframe
             className="w-full h-full bg-black opacity-50"
@@ -22,29 +42,55 @@ export default function AboutResturant() {
           ></iframe>
         </div>
 
-        {/* Text and Restaurant Logo */}
         <div className="w-[447px] h-[436px] flex flex-col items-center justify-center text-center">
-          <p className="text-3xl">Experience Authentic Flavors</p>
-
-          <div className="text-3xl flex gap-1 justify-center mt-4">
-            <p>At</p>
-            <ResturantLogo />
-            <p>!</p>
-          </div>
-
-          <p className="mt-5 text-3xl">
-            Visit Us At Los Angeles Or Explore Our Menu Online.
+          <p
+            className="text-3xl"
+            style={{ color: titleTextColor || "#ffffff" }}
+          >
+            {aboutTagline || "Experience Authentic Flavors"}
           </p>
 
-          <button className="mt-12 px-6 py-2 text-yellow rounded-lg w-full border border-yellow transition hover:bg-yellow hover:text-black">
+          <div className="text-3xl flex gap-1 justify-center mt-4">
+            <p style={{ color: titleTextColor || "#ffffff" }}>
+              {aboutDescription || "At"}
+            </p>
+            <ResturantLogo />
+            <p style={{ color: titleTextColor || "#ffffff" }}>!</p>
+          </div>
+
+          <p
+            className="mt-5 text-3xl"
+            style={{ color: titleTextColor || "#ffffff" }}
+          >
+            {visitText ||
+              `Visit Us At ${
+                contactLocation || "Los Angeles"
+              } Or Explore Our Menu Online.`}
+          </p>
+
+          <button
+            className="mt-12 px-6 py-2 rounded-lg w-full border transition hover:text-black"
+            style={{
+              borderColor: buttonColor || "#ffcc00",
+              color: buttonColor || "#ffcc00",
+              backgroundColor: "transparent",
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.backgroundColor = buttonColor || "#ffcc00";
+              e.currentTarget.style.color = "#000000";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.backgroundColor = "transparent";
+              e.currentTarget.style.color = buttonColor || "#ffcc00";
+            }}
+          >
             Menu
           </button>
         </div>
 
-        {/* Image Section */}
         <div className="rounded-lg">
           <Image
-            src={Steak}
+            src={aboutImage || Steak}
             alt="lamb-steak-served-with-potato-fries-melted-cheese"
             width={447}
             height={436}
@@ -53,4 +99,6 @@ export default function AboutResturant() {
       </div>
     </section>
   );
-}
+};
+
+export default AboutResturant;
