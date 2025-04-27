@@ -1,5 +1,5 @@
 import { TemplateData } from "@/app/types/templateData";
-import ColorPicker from "../ColorPicker";
+import ColorPicker from "../../shared/ColorPicker";
 import Image from "next/image";
 import { TextVector } from "@/app/assets/icons";
 
