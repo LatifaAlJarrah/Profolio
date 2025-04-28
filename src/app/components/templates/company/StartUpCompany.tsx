@@ -7,11 +7,35 @@ import TeamSection from "./TeamSection";
 import ContactSection from "./ContactSection";
 import Footer from "./Footer";
 
-const StartUpCompany = () => {
+import { TemplateData } from "@/app/types/templateData";
+
+interface StartUpCompanyProps extends TemplateData {
+  fontFamilyClass?: string;
+}
+const StartUpCompany: React.FC<StartUpCompanyProps> = ({
+  fontFamilyClass,
+  navbarColor,
+  fontFamily,
+  logoName,
+  logoColor,
+  navigationLinks,
+  navigationLinksColor,
+  titleTextColor,
+  buttonColor,
+}) => {
   return (
-    <main className="grid grid-cols-12 ">
+    <main className={`grid grid-cols-12 ${fontFamilyClass}`}>
       <div className="col-span-12 ">
-        <Header />
+        <Header
+          navbarColor={navbarColor}
+          fontFamily={navbarColor}
+          logoName={navbarColor}
+          logoColor={navbarColor}
+          navigationLinks={navbarColor}
+          navigationLinksColor={navbarColor}
+          titleTextColor={navbarColor}
+          buttonColor={navbarColor}
+        />
         <AboutUs />
         <Services />
         <Projects />

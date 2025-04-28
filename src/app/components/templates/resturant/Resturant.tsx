@@ -1,5 +1,4 @@
 import React from "react";
-import { TemplateData } from "@/app/types/templateData";
 import ResturantNavbar from "./ResturantNavbar";
 import AboutResturant from "./AboutResturant";
 import ResturantHeader from "./ResturantHeader";
@@ -9,6 +8,8 @@ import ContactUs from "./ContactUs";
 import Footer from "./Footer";
 import Image from "next/image";
 import { ResturantBg } from "@/app/assets/images";
+
+import { TemplateData } from "@/app/types/templateData";
 
 interface ResturantProps extends TemplateData {
   fontFamilyClass?: string;
@@ -48,7 +49,7 @@ const Resturant: React.FC<ResturantProps> = ({
 }) => {
   return (
     <main
-      className={`relative min-h-screen ${fontFamilyClass || ""}`}
+      className={`relative min-h-screen ${fontFamilyClass}`}
       style={{ color: titleTextColor || "#ffffff" }}
     >
       <Image

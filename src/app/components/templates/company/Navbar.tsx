@@ -3,7 +3,22 @@ import React, { useState, useEffect, useRef } from "react";
 import LogoCompany from "./LogoCompany";
 import NavbarList from "./NavbarList";
 
-const Navbar = () => {
+import { TemplateData } from "@/app/types/templateData";
+
+
+interface NavbarProps extends TemplateData {
+  navbarColor?: string;
+  logoName?: string;
+  logoColor?: string;
+}
+
+const Navbar: React.FC<NavbarProps> = ({
+  navbarColor,
+  logoName,
+  logoColor,
+  navigationLinks,
+  navigationLinksColor,
+}) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const sidebarRef = useRef<HTMLDivElement>(null);
 
@@ -25,9 +40,12 @@ const Navbar = () => {
   }, []);
 
   return (
-    <nav className="items-center grid grid-cols-11 bg-[#F3F3EE] px-8 rounded-full shadow-md mt-8">
+    <nav
+      className="items-center grid grid-cols-11 bg-[#F3F3EE] px-8 rounded-full shadow-md mt-8"
+      style={{ backgroundColor: navbarColor }}
+    >
       <div className="col-span-3">
-        <LogoCompany />
+        <LogoCompany logoName={logoName} logoColor={logoColor} />
       </div>
       <div className="col-span-8 flex justify-end lg:hidden">
         <button
@@ -51,13 +69,12 @@ const Navbar = () => {
         </button>
       </div>
 
-      {/* <div className="col-span-8">
-        <NavbarList />
-      </div> */}
-
       {/* Desktop Navbar */}
       <div className="hidden lg:flex col-span-8">
-        <NavbarList />
+        <NavbarList
+          navigationLinks={navigationLinks}
+          navigationLinksColor={navigationLinksColor}
+        />
       </div>
 
       {/* Overlay عند فتح القائمة */}
@@ -82,6 +99,8 @@ const Navbar = () => {
         <NavbarList
           className="flex-col space-y-6 mt-12 text-lg text-left"
           onClick={() => setIsSidebarOpen(false)}
+          navigationLinks={navigationLinks}
+          navigationLinksColor={navigationLinksColor}
         />
       </div>
     </nav>
