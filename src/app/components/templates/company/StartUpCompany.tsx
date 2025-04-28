@@ -28,13 +28,13 @@ const StartUpCompany: React.FC<StartUpCompanyProps> = ({
       <div className="col-span-12 ">
         <Header
           navbarColor={navbarColor}
-          fontFamily={navbarColor}
-          logoName={navbarColor}
-          logoColor={navbarColor}
-          navigationLinks={navbarColor}
-          navigationLinksColor={navbarColor}
-          titleTextColor={navbarColor}
-          buttonColor={navbarColor}
+          fontFamily={fontFamily}
+          logoName={logoName}
+          logoColor={logoColor}
+          navigationLinks={navigationLinks}
+          navigationLinksColor={navigationLinksColor}
+          titleTextColor={titleTextColor}
+          buttonColor={buttonColor}
         />
         <AboutUs />
         <Services />

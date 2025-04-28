@@ -3,19 +3,21 @@ import React, { useState, useEffect, useRef } from "react";
 import LogoCompany from "./LogoCompany";
 import NavbarList from "./NavbarList";
 
-import { TemplateData } from "@/app/types/templateData";
-
-
-interface NavbarProps extends TemplateData {
+interface NavbarProps {
   navbarColor?: string;
   logoName?: string;
   logoColor?: string;
+  logoIcon?: string;
+  navigationLinks?: Array<{ name: string; link: string }>;
+  navigationLinksColor?: string;
 }
 
 const Navbar: React.FC<NavbarProps> = ({
   navbarColor,
   logoName,
   logoColor,
+  logoIcon,
+
   navigationLinks,
   navigationLinksColor,
 }) => {
@@ -45,7 +47,11 @@ const Navbar: React.FC<NavbarProps> = ({
       style={{ backgroundColor: navbarColor }}
     >
       <div className="col-span-3">
-        <LogoCompany logoName={logoName} logoColor={logoColor} />
+        <LogoCompany
+          logoName={logoName}
+          logoColor={logoColor}
+          logoIcon={logoIcon}
+        />
       </div>
       <div className="col-span-8 flex justify-end lg:hidden">
         <button

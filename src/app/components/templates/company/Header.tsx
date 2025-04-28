@@ -9,11 +9,13 @@ interface HeaderProps extends TemplateData {
   navbarColor?: string;
   logoName?: string;
   logoColor?: string;
+  logoIcon?: string;
 }
 const Header: React.FC<HeaderProps> = ({
   navbarColor,
   logoName,
   logoColor,
+  logoIcon,
   navigationLinks,
   navigationLinksColor,
 }) => {
@@ -36,6 +38,7 @@ const Header: React.FC<HeaderProps> = ({
           navbarColor={navbarColor}
           logoName={logoName}
           logoColor={logoColor}
+          logoIcon={logoIcon}
           navigationLinks={navigationLinks}
           navigationLinksColor={navigationLinksColor}
         />
