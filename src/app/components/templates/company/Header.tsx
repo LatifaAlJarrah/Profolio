@@ -3,7 +3,20 @@ import Navbar from "./Navbar";
 import Image from "next/image";
 import { Company } from "@/app/assets/images";
 
-const Header = () => {
+import { TemplateData } from "@/app/types/templateData";
+
+interface HeaderProps extends TemplateData {
+  navbarColor?: string;
+  logoName?: string;
+  logoColor?: string;
+}
+const Header: React.FC<HeaderProps> = ({
+  navbarColor,
+  logoName,
+  logoColor,
+  navigationLinks,
+  navigationLinksColor,
+}) => {
   return (
     <section
       className="relative min-h-screen text-white grid grid-cols-12 text-center"
@@ -19,7 +32,13 @@ const Header = () => {
       <div className="absolute inset-0 bg-black -z-10 opacity-60"></div>
 
       <div className="col-span-12">
-        <Navbar />
+        <Navbar
+          navbarColor={navbarColor}
+          logoName={logoName}
+          logoColor={logoColor}
+          navigationLinks={navigationLinks}
+          navigationLinksColor={navigationLinksColor}
+        />
       </div>
 
       <div

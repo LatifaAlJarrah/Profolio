@@ -17,6 +17,9 @@ import OurMenuSection from "./sidebar/restaurant/OurMenuSection";
 import ResturantContactUsSection from "./sidebar/restaurant/ContactUsSection";
 import RandomlyChefSection from "./sidebar/restaurant/RandomlyChefSection";
 import FooterSection from "./sidebar/restaurant/FooterSection";
+
+import NavbarCompany from "./sidebar/company/NavbarCompany";
+
 import GeneralStylesSection from "./shared/GeneralStylesSection";
 import BreakLine from "./shared/BreakLine";
 import ButtonsSection from "./shared/ButtonsSection";
@@ -126,6 +129,21 @@ const Sidebar: React.FC<SidebarProps> = ({
             key="footer"
             templateData={templateData}
             onChange={onChange}
+          />,
+        ]
+      : templateName === "company"
+      ? [
+          <GeneralStylesSection
+            key="general"
+            templateData={templateData}
+            onChange={onChange}
+          />,
+          <NavbarCompany
+            key="navbar"
+            templateData={templateData}
+            onChange={onChange}
+            onNavLinkChange={onNavLinkChange}
+            onImageChange={onImageChange}
           />,
         ]
       : [

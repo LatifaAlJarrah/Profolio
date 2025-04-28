@@ -13,7 +13,7 @@ const GeneralStylesSection = ({
     <>
       <div className="flex flex-col bg-lightGrayShade2 p-2 rounded-lg mb-4 mx-8">
         <h3 className="text-lg font-normal text-center">
-          General Styles (Restaurant)
+          General Styles
         </h3>
       </div>
       <div className="px-8">
@@ -33,18 +33,6 @@ const GeneralStylesSection = ({
           </select>
         </label>
 
-        {/* Background Overlay Color */}
-        {/* <label className="block mb-2">
-          Background Overlay Color:
-          <input
-            type="color"
-            value={templateData.backgroundOverlayColor || "#000000"}
-            onChange={(e) => onChange("backgroundOverlayColor", e.target.value)}
-            className="p-1 border rounded-md w-full bg-transparent"
-          />
-        </label> */}
-
-        {/* General Text Color */}
         <label className="block mb-2">
           General Text Color:
           <input
