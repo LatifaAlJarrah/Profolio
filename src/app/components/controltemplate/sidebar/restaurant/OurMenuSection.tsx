@@ -1,73 +1,3 @@
-// import { TemplateData } from "@/app/types/templateData";
-
-// interface OurMenuSectionProps {
-//   templateData: TemplateData;
-//   onServiceChange: (index: number, field: string, value: string) => void;
-//   onChange: (key: string, value: string) => void;
-// }
-
-// const OurMenuSection = ({
-//   templateData,
-//   onServiceChange,
-//   onChange,
-// }: OurMenuSectionProps) => {
-//   return (
-//     <>
-//       <div className="flex flex-col bg-lightGrayShade2 p-2 rounded-lg mb-4 mx-8">
-//         <h3 className="text-lg font-normal text-center">Menu Settings</h3>
-//       </div>
-//       <div className="px-8">
-//         <label className="block mb-2">
-//           Menu Title:
-//           <input
-//             type="text"
-//             value={templateData.servicesTitle || ""}
-//             onChange={(e) => onChange("servicesTitle", e.target.value)}
-//             className="p-1 border rounded-md w-full bg-transparent text-charcoalGray"
-//           />
-//         </label>
-//         {templateData.services?.map((service, index) => (
-//           <div key={index} className="mb-4 border p-2 rounded-md">
-//             <h4 className="font-semibold">Menu Item {index + 1}</h4>
-//             <label className="block mb-2">
-//               Title:
-//               <input
-//                 type="text"
-//                 value={service.title}
-//                 onChange={(e) =>
-//                   onServiceChange(index, "title", e.target.value)
-//                 }
-//                 className="p-1 border rounded-md w-full bg-transparent text-charcoalGray"
-//               />
-//             </label>
-//             <label className="block mb-2">
-//               Description:
-//               <textarea
-//                 value={service.description}
-//                 onChange={(e) =>
-//                   onServiceChange(index, "description", e.target.value)
-//                 }
-//                 className="p-1 border rounded-md w-full bg-transparent text-charcoalGray"
-//               />
-//             </label>
-//             <label className="block mb-2">
-//               Icon:
-//               <input
-//                 type="text"
-//                 value={service.icon}
-//                 onChange={(e) => onServiceChange(index, "icon", e.target.value)}
-//                 className="p-1 border rounded-md w-full bg-transparent text-charcoalGray"
-//                 placeholder="Enter icon URL or class"
-//               />
-//             </label>
-//           </div>
-//         ))}
-//       </div>
-//     </>
-//   );
-// };
-
-// export default OurMenuSection;
 import { TemplateData } from "@/app/types/templateData";
 
 interface MenuItem {
@@ -105,7 +35,7 @@ const OurMenuSection: React.FC<OurMenuSectionProps> = ({
       <div className="flex flex-col bg-lightGrayShade2 p-2 rounded-lg mb-4 mx-8">
         <h3 className="text-lg font-normal text-center">Menu Settings</h3>
       </div>
-      <div className="px-8">
+      <div>
         {categories.map((category) => (
           <div key={category} className="mb-6">
             <h4 className="text-xl font-semibold mb-2 capitalize">

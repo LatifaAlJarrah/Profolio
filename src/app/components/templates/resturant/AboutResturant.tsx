@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import React from "react";
 import Image from "next/image";
 import { Steak } from "@/app/assets/images";
@@ -13,65 +13,79 @@ interface AboutResturantProps extends TemplateData {
 const AboutResturant: React.FC<AboutResturantProps> = ({
   aboutTitle,
   aboutTagline,
-  aboutDescription,
-  visitText,
   aboutImage,
   titleTextColor,
   buttonColor,
   contactLocation,
+  logoName,
+  logoColor,
+  aboutDescription,
 }) => {
+  // رابط الخريطة الديناميكي بناءً على contactLocation
+  const mapSrc = contactLocation
+    ? `https://www.google.com/maps/embed/v1/place?key=AIzaSyAgdHoAGIa4DeSwc4tzFr7ADBdAqgMQyU4&q=${encodeURIComponent(
+        contactLocation
+      )}`
+    : "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3401.2987220499135!2d34.45187872454915!3d31.515954474216052!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14fd7f3bb1e40d9d%3A0x27047169d4fe2014!2z2LHYr9mH2Kkg2YXYt9in2LnZhSDZg9in2KjZitiq2KfZhCDZhdmI2YQ!5e0!3m2!1sar!2s!4v1741084987457!5m2!1sar!2s";
+
   return (
     <section
       className={`text-white py-16 text-center px-10 lg:px-0`}
       id="about"
     >
+      {/* العنوان الرئيسي */}
       <h2
-        className="text-4xl tracking-widest"
+        className="text-5xl tracking-wider font-bold mb-10"
         style={{ color: titleTextColor || "#ffffff" }}
       >
-        {aboutTitle || "ABOUT US"}
+        {aboutTitle || "Discover Our Story"}
       </h2>
 
-      <div className="mt-8 flex flex-col md:flex-row justify-center items-center gap-8 px-6">
-        <div className="w-[447px] h-[436px] rounded-lg overflow-hidden">
-          <iframe
-            className="w-full h-full bg-black opacity-50"
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3401.2987220499135!2d34.45187872454915!3d31.515954474216052!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14fd7f3bb1e40d9d%3A0x27047169d4fe2014!2z2LHYr9mH2Kkg2YXYt9in2LnZhSDZg9in2KjZitiq2KfZhCDZhdmI2YQ!5e0!3m2!1sar!2s!4v1741084987457!5m2!1sar!2s"
-            allowFullScreen
-            loading="lazy"
-          ></iframe>
-        </div>
+      {/* الشبكة التي تحتوي على الخريطة، النصوص، والصورة */}
+      <div className="mt-8 flex flex-col lg:flex-row justify-center items-center gap-10 px-4">
+        {/* الخريطة (اختيارية) */}
+        {contactLocation && (
+          <div className="w-full max-w-[400px] h-[400px] rounded-xl overflow-hidden shadow-md">
+            <iframe
+              className="w-full h-full bg-black opacity-80 transition-opacity hover:opacity-100"
+              src={mapSrc}
+              allowFullScreen
+              loading="lazy"
+              title="Restaurant Location"
+            ></iframe>
+          </div>
+        )}
 
-        <div className="w-[447px] h-[436px] flex flex-col items-center justify-center text-center">
+        {/* النصوص والزر */}
+        <div className="w-full max-w-[400px] flex flex-col items-center justify-center text-center">
           <p
-            className="text-3xl"
+            className="text-3xl font-light italic mb-4"
             style={{ color: titleTextColor || "#ffffff" }}
           >
-            {aboutTagline || "Experience Authentic Flavors"}
+            {aboutTagline || "Savor the Art of Culinary Excellence"}
           </p>
 
-          <div className="text-3xl flex gap-1 justify-center mt-4">
-            <p style={{ color: titleTextColor || "#ffffff" }}>
-              {aboutDescription || "At"}
-            </p>
-            <ResturantLogo />
+          <div className="text-4xl flex gap-2 justify-center items-center mb-6">
+            <p style={{ color: titleTextColor || "#ffffff" }}>Welcome to</p>
+            <ResturantLogo logoName={logoName} logoColor={logoColor} />
             <p style={{ color: titleTextColor || "#ffffff" }}>!</p>
           </div>
 
-          <p
-            className="mt-5 text-3xl"
-            style={{ color: titleTextColor || "#ffffff" }}
-          >
-            {visitText ||
-              `Visit Us At ${
-                contactLocation || "Los Angeles"
-              } Or Explore Our Menu Online.`}
-          </p>
+          {/* إضافة aboutDescription */}
+          {aboutDescription && (
+            <p
+              className="text-lg font-light leading-relaxed mb-6"
+              style={{ color: titleTextColor || "#ffffff" }}
+            >
+              {aboutDescription}
+            </p>
+          )}
 
-          <button
-            className="mt-12 px-6 py-2 rounded-lg w-full border transition hover:text-black"
+          <a
+            href="#menu"
+            className="px-8 py-3 font-semibold text-lg transition-all duration-300 shadow-md hover:shadow-lg mt-12 rounded-lg w-full border hover:text-black"
             style={{
-              borderColor: buttonColor || "#ffcc00",
+              border: `2px solid ${buttonColor || "#ffcc00"}`,
               color: buttonColor || "#ffcc00",
               backgroundColor: "transparent",
             }}
@@ -84,16 +98,18 @@ const AboutResturant: React.FC<AboutResturantProps> = ({
               e.currentTarget.style.color = buttonColor || "#ffcc00";
             }}
           >
-            Menu
-          </button>
+            Explore Our Menu
+          </a>
         </div>
 
-        <div className="rounded-lg">
+        {/* الصورة */}
+        <div className="w-full max-w-[400px] h-[400px] rounded-xl overflow-hidden shadow-md">
           <Image
             src={aboutImage || Steak}
-            alt="lamb-steak-served-with-potato-fries-melted-cheese"
-            width={447}
-            height={436}
+            alt="Signature dish - Lamb Steak with Potato Fries and Melted Cheese"
+            width={400}
+            height={400}
+            className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
           />
         </div>
       </div>
