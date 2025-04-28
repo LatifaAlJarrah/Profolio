@@ -79,4 +79,6 @@ export interface TemplateData {
   backgroundImage?: string;
   footerDescription?: string; // جديد لـ Footer
   footerName?: string; // جديد لـ Footer
+  aboutDoctorName?: string;
+  aboutExtraText?: string;
 }
