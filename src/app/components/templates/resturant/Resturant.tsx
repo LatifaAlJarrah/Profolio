@@ -1,3 +1,4 @@
+import React from "react";
 import { TemplateData } from "@/app/types/templateData";
 import ResturantNavbar from "./ResturantNavbar";
 import AboutResturant from "./AboutResturant";
@@ -85,6 +86,8 @@ const Resturant: React.FC<ResturantProps> = ({
         titleTextColor={titleTextColor}
         buttonColor={buttonColor}
         contactLocation={contactLocation}
+        logoName={logoName}
+        logoColor={logoColor}
       />
       <OurMenu
         menuItems={menuItems}

@@ -1,40 +1,3 @@
-// import { TemplateData } from "@/app/types/templateData";
-
-// interface GeneralStylesSectionProps {
-//   templateData: TemplateData;
-//   onChange: (key: string, value: string) => void;
-// }
-
-// const AboutMeSection = ({
-//   templateData,
-//   onChange,
-// }: GeneralStylesSectionProps) => {
-//   return (
-//     <>
-//       <div className="flex flex-col bg-lightGrayShade2 p-2 rounded-lg mb-4 mx-8">
-//         <h3 className="text-lg font-normal text-center">General Styles</h3>
-//       </div>
-//       <div>
-//         <label className="block mb-2">
-//           Font Family:
-//           <select
-//             value={templateData.fontFamily}
-//             onChange={(e) => onChange("fontFamily", e.target.value)}
-//             className="p-1 border rounded-md w-full bg-transparent text-charcoalGray"
-//           >
-//             <option value="Roboto">Roboto</option>
-//             <option value="Arial">Arial</option>
-//             <option value="Times New Roman">Times New Roman</option>
-//             <option value="Poppins">Poppins</option>
-//             <option value="Montserrat">Montserrat</option>
-//           </select>
-//         </label>
-//       </div>
-//     </>
-//   );
-// };
-
-// export default AboutMeSection;
 import { TemplateData } from "@/app/types/templateData";
 
 interface GeneralStylesSectionProps {
@@ -71,7 +34,7 @@ const GeneralStylesSection = ({
         </label>
 
         {/* Background Overlay Color */}
-        <label className="block mb-2">
+        {/* <label className="block mb-2">
           Background Overlay Color:
           <input
             type="color"
@@ -79,7 +42,7 @@ const GeneralStylesSection = ({
             onChange={(e) => onChange("backgroundOverlayColor", e.target.value)}
             className="p-1 border rounded-md w-full bg-transparent"
           />
-        </label>
+        </label> */}
 
         {/* General Text Color */}
         <label className="block mb-2">
@@ -97,7 +60,7 @@ const GeneralStylesSection = ({
           Button Color:
           <input
             type="color"
-            value={templateData.buttonColor || "#ff5733"}
+            value={templateData.buttonColor || "#FFDB58"}
             onChange={(e) => onChange("buttonColor", e.target.value)}
             className="p-1 border rounded-md w-full bg-transparent"
           />

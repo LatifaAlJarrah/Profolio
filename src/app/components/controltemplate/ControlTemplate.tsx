@@ -347,18 +347,42 @@ const ControlTemplate = () => {
     value: string
   ) => {
     setTemplateData((prev) => {
-      const updatedMenuItems = { ...prev.menuItems };
-      const categoryItems =
-        updatedMenuItems[category as keyof typeof updatedMenuItems] || [];
-      categoryItems[index] = { ...categoryItems[index], [field]: value };
-      updatedMenuItems[category as keyof typeof updatedMenuItems] =
-        categoryItems;
+      // التحقق من وجود menuItems، وإذا لم يكن موجودًا، قم بتهيئته بقيم افتراضية
+      const updatedMenuItems = prev.menuItems
+        ? { ...prev.menuItems }
+        : {
+            appetizers: [],
+            soupsSalads: [],
+            mainCourses: [],
+            desserts: [],
+          };
+
+      // التحقق من وجود الفئة (category)، وإذا لم تكن موجودة، قم بتهيئتها كمصفوفة فارغة
+      if (!updatedMenuItems[category as keyof typeof updatedMenuItems]) {
+        updatedMenuItems[category as keyof typeof updatedMenuItems] = [];
+      }
+
+      // التحقق من وجود العنصر في الفئة عند الفهرس المحدد
+      if (!updatedMenuItems[category as keyof typeof updatedMenuItems][index]) {
+        updatedMenuItems[category as keyof typeof updatedMenuItems][index] = {
+          name: "",
+          description: "",
+          price: "",
+          img: "",
+        };
+      }
+
+      // تحديث الحقل المحدد
+      updatedMenuItems[category as keyof typeof updatedMenuItems][index] = {
+        ...updatedMenuItems[category as keyof typeof updatedMenuItems][index],
+        [field]: value,
+      };
+
       return { ...prev, menuItems: updatedMenuItems };
     });
     setRenderKey((prev) => prev + 1);
   };
 
-  /*************  ✨ Windsurf Command 🌟  *************/
   const handleMenuItemImageChange = (
     category: string,
     index: number,
@@ -367,16 +391,81 @@ const ControlTemplate = () => {
     if (file) {
       const imageUrl = URL.createObjectURL(file);
       setTemplateData((prev) => {
-        const updatedMenuItems = { ...prev.menuItems };
+        // التحقق من وجود menuItems، وإذا لم يكن موجودًا، قم بتهيئته بقيم افتراضية
+        const updatedMenuItems = prev.menuItems
+          ? { ...prev.menuItems }
+          : {
+              appetizers: [],
+              soupsSalads: [],
+              mainCourses: [],
+              desserts: [],
+            };
+
+        // التحقق من وجود الفئة (category)، وإذا لم تكن موجودة، قم بتهيئتها كمصفوفة فارغة
+        if (!updatedMenuItems[category as keyof typeof updatedMenuItems]) {
+          updatedMenuItems[category as keyof typeof updatedMenuItems] = [];
+        }
+
+        // التحقق من وجود العنصر في الفئة عند الفهرس المحدد
+        if (
+          !updatedMenuItems[category as keyof typeof updatedMenuItems][index]
+        ) {
+          updatedMenuItems[category as keyof typeof updatedMenuItems][index] = {
+            name: "",
+            description: "",
+            price: "",
+            img: "",
+          };
+        }
+
+        // تحديث الصورة
         updatedMenuItems[category as keyof typeof updatedMenuItems][index] = {
           ...updatedMenuItems[category as keyof typeof updatedMenuItems][index],
           img: imageUrl,
         };
+
         return { ...prev, menuItems: updatedMenuItems };
       });
       setRenderKey((prev) => prev + 1);
     }
   };
+  // const handleMenuItemChange = (
+  //   category: string,
+  //   index: number,
+  //   field: string,
+  //   value: string
+  // ) => {
+  //   setTemplateData((prev) => {
+  //     const updatedMenuItems = { ...prev.menuItems };
+  //     const categoryItems =
+  //       updatedMenuItems[category as keyof typeof updatedMenuItems] || [];
+  //     categoryItems[index] = { ...categoryItems[index], [field]: value };
+  //     updatedMenuItems[category as keyof typeof updatedMenuItems] =
+  //       categoryItems;
+  //     return { ...prev, menuItems: updatedMenuItems };
+  //   });
+  //   setRenderKey((prev) => prev + 1);
+  // };
+
+  /*************  ✨ Windsurf Command 🌟  *************/
+  // const handleMenuItemImageChange = (
+  //   category: string,
+  //   index: number,
+  //   file: File | null
+  // ) => {
+  //   if (file) {
+  //     const imageUrl = URL.createObjectURL(file);
+  //     setTemplateData((prev) => {
+  //       const updatedMenuItems = { ...prev.menuItems };
+  //       updatedMenuItems[category as keyof typeof updatedMenuItems][index] = {
+  //         ...updatedMenuItems[category as keyof typeof updatedMenuItems][index],
+  //         img: imageUrl,
+  //       };
+  //       return { ...prev, menuItems: updatedMenuItems };
+  //     });
+  //     setRenderKey((prev) => prev + 1);
+  //   }
+  // };
 
   const handleChefSpecialChange = (
     index: number,
