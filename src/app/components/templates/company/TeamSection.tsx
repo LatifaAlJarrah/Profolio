@@ -12,62 +12,43 @@ import {
 } from "@fortawesome/free-brands-svg-icons";
 
 import Image from "next/image";
-import {
-  James,
-  Emily,
-  Michael,
-  David,
-  SophiaMiller,
-  Daniel,
-} from "@/app/assets/images";
+import { TemplateData } from "@/app/types/templateData";
 
-const teamMembers = [
-  {
-    name: "James Carter",
-    role: "CEO (Chief Executive Officer)",
-    img: James,
-  },
-  {
-    name: "Emily Johnson",
-    role: "Project Manager",
-    img: Emily,
-  },
-  {
-    name: "Michael Smith",
-    role: "Lead Developer",
-    img: Michael,
-  },
-  {
-    name: "David Brown",
-    role: "Frontend Developer",
-    img: David,
-  },
-  {
-    name: "Sophia Miller",
-    role: "Backend Developer",
-    img: SophiaMiller,
-  },
-  {
-    name: "Daniel Wils",
-    role: "AI Engineer",
-    img: Daniel,
-  },
-];
+interface TeamSectionProps extends TemplateData {
+  teamMembers?: Array<{
+    name: string;
+    role: string;
+    img: string;
+    uploadedImg?: string;
+    instagramLink?: string;
+    behanceLink?: string;
+    githubLink?: string;
+  }>;
+}
 
-export default function TeamSection() {
+const TeamSection: React.FC<TeamSectionProps> = ({ teamMembers }) => {
+  if (!teamMembers || teamMembers.length === 0) {
+    return (
+      <section className="px-20 py-10 bg-[#FAFAFA]" id="team">
+        <h2 className="text-3xl font-bold text-center mb-6">OUR TEAM</h2>
+        <p>No team members available.</p>
+      </section>
+    );
+  }
+
   return (
     <section className="px-20 py-10 bg-[#FAFAFA]" id="team">
       <h2 className="text-3xl font-bold text-center mb-6">OUR TEAM</h2>
       <Swiper
-        slidesPerView={5} // عرض 5 صور في نفس الوقت
+        slidesPerView={5}
         spaceBetween={20}
         navigation
         modules={[Navigation]}
         breakpoints={{
-          320: { slidesPerView: 1, spaceBetween: 10 }, // للجوال
-          640: { slidesPerView: 2, spaceBetween: 15 }, // للأجهزة الصغيرة
-          1024: { slidesPerView: 4, spaceBetween: 20 }, // للمتوسطة
-          1280: { slidesPerView: 5, spaceBetween: 25 }, // للشاشات الكبيرة
+          320: { slidesPerView: 1, spaceBetween: 10 },
+          640: { slidesPerView: 2, spaceBetween: 15 },
+          1024: { slidesPerView: 4, spaceBetween: 20 },
+          1280: { slidesPerView: 5, spaceBetween: 25 },
         }}
         className="px-6"
       >
@@ -76,29 +57,53 @@ export default function TeamSection() {
             <div className="bg-white p-5 rounded-full shadow-lg text-center w-60 h-96 flex flex-col justify-between">
               <div>
                 <Image
-                  src={member.img}
+                  src={member.uploadedImg || member.img}
                   alt={member.name}
-                  width={100}
-                  height={100}
+                  width={150}
+                  height={150}
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                  quality={75}
                   className="w-[150px] h-[150px] mx-auto rounded-full object-cover border-4 border-gray-300"
                 />
-
                 <h3 className="text-2xl font-semibold mt-4">{member.name}</h3>
                 <p className="text-gray-500 text-xl">{member.role}</p>
               </div>
               <div className="flex justify-center gap-3 text-white">
-                <FontAwesomeIcon
-                  icon={faInstagram}
-                  className="w-7 h-7 bg-[#5C5757] rounded-full p-2"
-                />
-                <FontAwesomeIcon
-                  icon={faBehance}
-                  className="w-7 h-7 bg-[#5C5757] rounded-full p-2"
-                />
-                <FontAwesomeIcon
-                  icon={faGithub}
-                  className="w-7 h-7 bg-[#5C5757] rounded-full p-2"
-                />
+                <a
+                  href={member.instagramLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:scale-110 transition-transform"
+                >
+                  <FontAwesomeIcon
+                    icon={faInstagram}
+                    className="w-7 h-7 bg-[#5C5757] rounded-full p-2"
+                  />
+                </a>
+
+                <a
+                  href={member.behanceLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:scale-110 transition-transform"
+                >
+                  <FontAwesomeIcon
+                    icon={faBehance}
+                    className="w-7 h-7 bg-[#5C5757] rounded-full p-2"
+                  />
+                </a>
+
+                <a
+                  href={member.githubLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:scale-110 transition-transform"
+                >
+                  <FontAwesomeIcon
+                    icon={faGithub}
+                    className="w-7 h-7 bg-[#5C5757] rounded-full p-2"
+                  />
+                </a>
               </div>
             </div>
           </SwiperSlide>
@@ -106,4 +111,6 @@ export default function TeamSection() {
       </Swiper>
     </section>
   );
-}
+};
+
+export default TeamSection;

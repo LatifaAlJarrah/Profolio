@@ -10,6 +10,11 @@ interface HeaderProps extends TemplateData {
   logoName?: string;
   logoColor?: string;
   logoIcon?: string;
+  headerTitle?: string;
+  headerTagline?: string;
+  headerImage?: string;
+  titleTextColor?: string;
+  descriptionTextColor?: string;
 }
 const Header: React.FC<HeaderProps> = ({
   navbarColor,
@@ -18,6 +23,12 @@ const Header: React.FC<HeaderProps> = ({
   logoIcon,
   navigationLinks,
   navigationLinksColor,
+  buttonColor,
+  headerTitle,
+  headerTagline,
+  headerImage,
+  titleTextColor,
+  descriptionTextColor,
 }) => {
   return (
     <section
@@ -25,7 +36,7 @@ const Header: React.FC<HeaderProps> = ({
       id="home"
     >
       <Image
-        src={Company}
+        src={headerImage || Company}
         alt="company"
         fill
         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
@@ -47,17 +58,28 @@ const Header: React.FC<HeaderProps> = ({
       <div
         className={`font-roboto col-span-10 col-start-2 flex flex-col items-center text-center`}
       >
-        <p className="text-5xl font-bold max-w-4xl">
-          Innovative Programming and AI for Smarter Marketing
+        <h1
+          className="text-5xl font-bold max-w-4xl"
+          style={{ color: titleTextColor || "#ffffff" }}
+        >
+          {headerTitle}
+        </h1>
+        <p
+          className="text-3xl my-10 max-w-3xl"
+          style={{ color: descriptionTextColor || "#ffffff" }}
+        >
+          {headerTagline}
         </p>
-        <p className="text-3xl my-10 max-w-3xl">
-          We provide tailored solutions to help businesses leverage advanced
-          programming and smart technologies to maximize their marketing
-          potential
-        </p>
-        <button className="text-3xl border-[3px] border-navyBlue text-center rounded-2xl py-2 px-6">
+        <a
+          href="#services"
+          role="button"
+          className="font-semibold transition-all duration-300 shadow-md hover:shadow-lg mt-12 rounded-lg w-1/2 text-3xl text-center py-2 px-6 border-2 hover:bg-white hover:text-navyBlue"
+          style={{
+            borderColor: buttonColor || "#ffcc00",
+          }}
+        >
           Explore Our Services
-        </button>
+        </a>
       </div>
     </section>
   );

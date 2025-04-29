@@ -33,7 +33,12 @@ export interface TemplateData {
   contactPhone2?: string; // لدعم رقم هاتف ثانٍ في ContactUs
   contactEmail?: string;
   contactLocation?: string;
-  services?: Array<{ title: string; description: string; icon: string }>;
+  services?: Array<{
+    title: string;
+    description: string;
+    icon: string;
+    uploadedIcon?: string;
+  }>;
   menuItems?: {
     appetizers: Array<{
       name: string;
@@ -81,4 +86,26 @@ export interface TemplateData {
   footerName?: string; // جديد لـ Footer
   aboutDoctorName?: string;
   aboutExtraText?: string;
+  ourAchievements?: Array<{
+    icon: string;
+    value: string;
+    label: string;
+    uploadedIcon: undefined;
+  }>;
+  projects?: {
+    [key: string]: Array<{
+      name: string;
+      img: string;
+      uploadedImg?: string;
+    }>;
+  };
+  teamMembers?: Array<{
+    name: string;
+    role: string;
+    img: string;
+    uploadedImg?: string;
+    instagramLink?: string;
+    behanceLink?: string;
+    githubLink?: string;
+  }>;
 }
