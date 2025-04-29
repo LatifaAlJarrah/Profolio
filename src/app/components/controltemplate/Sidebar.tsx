@@ -19,10 +19,27 @@ import RandomlyChefSection from "./sidebar/restaurant/RandomlyChefSection";
 import FooterSection from "./sidebar/restaurant/FooterSection";
 
 import NavbarCompany from "./sidebar/company/NavbarCompany";
+import CompanyHeaderSection from "./sidebar/company/HeaderSection";
+import AboutCompanySection from "./sidebar/company/AboutSection";
+import ServicesSectionCompany from "./sidebar/company/ServicesSection";
+import ProjectsSection from "./sidebar/company/ProjectsSection";
+import TeamSectionSettings from "./sidebar/company/TeamSection";
 
 import GeneralStylesSection from "./shared/GeneralStylesSection";
 import BreakLine from "./shared/BreakLine";
 import ButtonsSection from "./shared/ButtonsSection";
+import {
+  FaCog,
+  FaBars,
+  FaHeading,
+  FaInfoCircle,
+  FaServicestack,
+  FaFolder,
+  FaUsers,
+  FaUtensils,
+  FaPhone,
+  FaRandom,
+} from "react-icons/fa";
 
 interface SidebarProps {
   templateData: TemplateData;
@@ -50,6 +67,22 @@ interface SidebarProps {
   ) => void;
   onChefSpecialChange?: (index: number, field: string, value: string) => void;
   onChefSpecialImageChange?: (index: number, file: File | null) => void;
+  onAchievementsChange: (index: number, field: string, value: string) => void;
+  onProjectChange: (
+    category: string,
+    index: number,
+    field: string,
+    value: string
+  ) => void;
+  onProjectImageChange: (
+    category: string,
+    index: number,
+    file: File | null
+  ) => void;
+  onTeamMemberChange: (index: number, field: string, value: string) => void;
+  onTeamMemberImageChange: (index: number, file: File | null) => void;
+  onAddTeamMember: () => void;
+  onRemoveTeamMember: (index: number) => void;
 }
 
 const Sidebar: React.FC<SidebarProps> = ({
@@ -69,135 +102,318 @@ const Sidebar: React.FC<SidebarProps> = ({
   onMenuItemImageChange,
   onChefSpecialChange,
   onChefSpecialImageChange,
+  onAchievementsChange,
+  onProjectChange,
+  onProjectImageChange,
+  onTeamMemberChange,
+  onTeamMemberImageChange,
+  onAddTeamMember,
+  onRemoveTeamMember,
 }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const sections =
     templateName === "restaurant"
       ? [
-          <GeneralStylesSection
-            key="general"
-            templateData={templateData}
-            onChange={onChange}
-          />,
-          <ResturantNavbarSection
-            key="navbar"
-            templateData={templateData}
-            onChange={onChange}
-            onNavLinkChange={onNavLinkChange}
-          />,
-          <ResturantHeaderSection
-            key="header"
-            templateData={templateData}
-            onChange={onChange}
-            onImageChange={onImageChange}
-          />,
-          <AboutResturantSection
-            key="about"
-            templateData={templateData}
-            onChange={onChange}
-            onImageChange={onImageChange}
-          />,
-          <OurMenuSection
-            key="menu"
-            templateData={templateData}
-            onChange={onChange}
-            onMenuItemChange={(category, index, field, value) =>
-              onMenuItemChange?.(category, index, field, value)
-            }
-            onMenuItemImageChange={(category, index, file) =>
-              onMenuItemImageChange?.(category, index, file)
-            }
-          />,
-          <RandomlyChefSection
-            key="chef"
-            templateData={templateData}
-            onChange={onChange}
-            onChefSpecialChange={(index, field, value) =>
-              onChefSpecialChange?.(index, field, value)
-            }
-            onChefSpecialImageChange={(index, file) =>
-              onChefSpecialImageChange?.(index, file)
-            }
-          />,
-          <ResturantContactUsSection
-            key="contact"
-            templateData={templateData}
-            onChange={onChange}
-          />,
-          <FooterSection
-            key="footer"
-            templateData={templateData}
-            onChange={onChange}
-          />,
+          {
+            component: (
+              <GeneralStylesSection
+                key="general"
+                templateData={templateData}
+                onChange={onChange}
+              />
+            ),
+            title: "General Styles",
+            icon: <FaCog />,
+          },
+          {
+            component: (
+              <ResturantNavbarSection
+                key="navbar"
+                templateData={templateData}
+                onChange={onChange}
+                onNavLinkChange={onNavLinkChange}
+              />
+            ),
+            title: "Navbar",
+            icon: <FaBars />,
+          },
+          {
+            component: (
+              <ResturantHeaderSection
+                key="header"
+                templateData={templateData}
+                onChange={onChange}
+                onImageChange={onImageChange}
+              />
+            ),
+            title: "Header",
+            icon: <FaHeading />,
+          },
+          {
+            component: (
+              <AboutResturantSection
+                key="about"
+                templateData={templateData}
+                onChange={onChange}
+                onImageChange={onImageChange}
+              />
+            ),
+            title: "About Us",
+            icon: <FaInfoCircle />,
+          },
+          {
+            component: (
+              <OurMenuSection
+                key="menu"
+                templateData={templateData}
+                onChange={onChange}
+                onMenuItemChange={(category, index, field, value) =>
+                  onMenuItemChange?.(category, index, field, value)
+                }
+                onMenuItemImageChange={(category, index, file) =>
+                  onMenuItemImageChange?.(category, index, file)
+                }
+              />
+            ),
+            title: "Our Menu",
+            icon: <FaUtensils />,
+          },
+          {
+            component: (
+              <RandomlyChefSection
+                key="chef"
+                templateData={templateData}
+                onChange={onChange}
+                onChefSpecialChange={(index, field, value) =>
+                  onChefSpecialChange?.(index, field, value)
+                }
+                onChefSpecialImageChange={(index, file) =>
+                  onChefSpecialImageChange?.(index, file)
+                }
+              />
+            ),
+            title: "Chef Specials",
+            icon: <FaRandom />,
+          },
+          {
+            component: (
+              <ResturantContactUsSection
+                key="contact"
+                templateData={templateData}
+                onChange={onChange}
+              />
+            ),
+            title: "Contact Us",
+            icon: <FaPhone />,
+          },
+          {
+            component: (
+              <FooterSection
+                key="footer"
+                templateData={templateData}
+                onChange={onChange}
+              />
+            ),
+            title: "Footer",
+            icon: <FaInfoCircle />,
+          },
         ]
       : templateName === "company"
       ? [
-          <GeneralStylesSection
-            key="general"
-            templateData={templateData}
-            onChange={onChange}
-          />,
-          <NavbarCompany
-            key="navbar"
-            templateData={templateData}
-            onChange={onChange}
-            onNavLinkChange={onNavLinkChange}
-            onImageChange={onImageChange}
-          />,
+          {
+            component: (
+              <GeneralStylesSection
+                key="general"
+                templateData={templateData}
+                onChange={onChange}
+              />
+            ),
+            title: "General Styles",
+            icon: <FaCog />,
+          },
+          {
+            component: (
+              <NavbarCompany
+                key="navbar"
+                templateData={templateData}
+                onChange={onChange}
+                onNavLinkChange={onNavLinkChange}
+                onImageChange={onImageChange}
+              />
+            ),
+            title: "Navbar",
+            icon: <FaBars />,
+          },
+          {
+            component: (
+              <CompanyHeaderSection
+                key="header"
+                templateData={templateData}
+                onChange={onChange}
+                onImageChange={onImageChange}
+              />
+            ),
+            title: "Header",
+            icon: <FaHeading />,
+          },
+          {
+            component: (
+              <AboutCompanySection
+                key="about"
+                templateData={templateData}
+                onChange={onChange}
+                onImageChange={onImageChange}
+                onAchievementsChange={onAchievementsChange}
+              />
+            ),
+            title: "About Us",
+            icon: <FaInfoCircle />,
+          },
+          {
+            component: (
+              <ServicesSectionCompany
+                key="services"
+                templateData={templateData}
+                onServiceChange={onServiceChange}
+              />
+            ),
+            title: "Services",
+            icon: <FaServicestack />,
+          },
+          {
+            component: (
+              <ProjectsSection
+                key="projects"
+                templateData={templateData}
+                onProjectChange={onProjectChange}
+                onProjectImageChange={onProjectImageChange}
+              />
+            ),
+            title: "Projects",
+            icon: <FaFolder />,
+          },
+          {
+            component: (
+              <TeamSectionSettings
+                key="team"
+                templateData={templateData}
+                onTeamMemberChange={onTeamMemberChange}
+                onTeamMemberImageChange={onTeamMemberImageChange}
+                onAddTeamMember={onAddTeamMember}
+                onRemoveTeamMember={onRemoveTeamMember}
+              />
+            ),
+            title: "Team Section",
+            icon: <FaUsers />,
+          },
         ]
       : [
-          <GeneralStylesSection
-            key="general"
-            templateData={templateData}
-            onChange={onChange}
-          />,
-          <NavbarSection
-            key="navbar"
-            templateData={templateData}
-            onChange={onChange}
-            onNavLinkChange={onNavLinkChange}
-            onImageChange={onImageChange}
-          />,
-          <HeaderSection
-            key="header"
-            templateData={templateData}
-            onChange={onChange}
-            onImageChange={onImageChange}
-          />,
-          <ContactUsSection
-            key="contact"
-            templateData={templateData}
-            onChange={onChange}
-          />,
-          <AboutMeSection
-            key="about"
-            templateData={templateData}
-            onChange={onChange}
-            onImageChange={onImageChange}
-          />,
-          <ServicesSection
-            key="services"
-            templateData={templateData}
-            onServiceChange={onServiceChange}
-          />,
-          <PortfolioSection
-            key="portfolio"
-            templateData={templateData}
-            onChange={onChange}
-            onPortfolioSlideChange={onPortfolioSlideChange}
-          />,
-          <TestimonialsSection
-            key="testimonials"
-            templateData={templateData}
-            onTestimonialChange={onTestimonialChange}
-          />,
-          <BlogSection
-            key="blog"
-            templateData={templateData}
-            onChange={onChange}
-            onBlogImageChange={onBlogImageChange}
-          />,
+          {
+            component: (
+              <GeneralStylesSection
+                key="general"
+                templateData={templateData}
+                onChange={onChange}
+              />
+            ),
+            title: "General Styles",
+            icon: <FaCog />,
+          },
+          {
+            component: (
+              <NavbarSection
+                key="navbar"
+                templateData={templateData}
+                onChange={onChange}
+                onNavLinkChange={onNavLinkChange}
+                onImageChange={onImageChange}
+              />
+            ),
+            title: "Navbar",
+            icon: <FaBars />,
+          },
+          {
+            component: (
+              <HeaderSection
+                key="header"
+                templateData={templateData}
+                onChange={onChange}
+                onImageChange={onImageChange}
+              />
+            ),
+            title: "Header",
+            icon: <FaHeading />,
+          },
+          {
+            component: (
+              <ContactUsSection
+                key="contact"
+                templateData={templateData}
+                onChange={onChange}
+              />
+            ),
+            title: "Contact Us",
+            icon: <FaPhone />,
+          },
+          {
+            component: (
+              <AboutMeSection
+                key="about"
+                templateData={templateData}
+                onChange={onChange}
+                onImageChange={onImageChange}
+              />
+            ),
+            title: "About Me",
+            icon: <FaInfoCircle />,
+          },
+          {
+            component: (
+              <ServicesSection
+                key="services"
+                templateData={templateData}
+                onServiceChange={onServiceChange}
+              />
+            ),
+            title: "Services",
+            icon: <FaServicestack />,
+          },
+          {
+            component: (
+              <PortfolioSection
+                key="portfolio"
+                templateData={templateData}
+                onChange={onChange}
+                onPortfolioSlideChange={onPortfolioSlideChange}
+              />
+            ),
+            title: "Portfolio",
+            icon: <FaFolder />,
+          },
+          {
+            component: (
+              <TestimonialsSection
+                key="testimonials"
+                templateData={templateData}
+                onTestimonialChange={onTestimonialChange}
+              />
+            ),
+            title: "Testimonials",
+            icon: <FaUsers />,
+          },
+          {
+            component: (
+              <BlogSection
+                key="blog"
+                templateData={templateData}
+                onChange={onChange}
+                onBlogImageChange={onBlogImageChange}
+              />
+            ),
+            title: "Blog",
+            icon: <FaInfoCircle />,
+          },
         ];
 
   const handleNext = () => {
@@ -216,16 +432,42 @@ const Sidebar: React.FC<SidebarProps> = ({
   const isFirstSection = currentIndex === 0;
 
   return (
-    <aside className="p-4 bg-lightGray">
-      {sections[currentIndex]}
+    <aside className="p-4 bg-lightGray flex flex-col h-full">
+      {/* قائمة التنقل */}
+      <nav className="mb-6">
+        <h3 className="text-lg font-semibold text-gray-800 mb-3">Sections</h3>
+        <ul className="space-y-2">
+          {sections.map((section, index) => (
+            <li key={index}>
+              <button
+                onClick={() => setCurrentIndex(index)}
+                className={`w-full flex items-center space-x-2 p-2 rounded-md text-left transition-colors duration-200 ${
+                  currentIndex === index
+                    ? "bg-blue-500 text-white"
+                    : "text-gray-700 hover:bg-gray-200"
+                }`}
+              >
+                <span className="text-lg">{section.icon}</span>
+                <span>{section.title}</span>
+              </button>
+            </li>
+          ))}
+        </ul>
+      </nav>
+
+      {/* محتوى القسم */}
+      <div className="flex-1 transition-opacity duration-300 ease-in-out h-69">
+        {sections[currentIndex].component}
+      </div>
 
       <BreakLine />
 
+      {/* أزرار التنقل */}
       <div className="flex flex-wrap justify-between mb-4 gap-2 font-mono">
         {!isFirstSection && (
           <button
             onClick={handlePrevious}
-            className="text-white bg-charcoalGray w-full sm:w-1/3 p-2 rounded-lg text-center font-bold"
+            className="text-white bg-charcoalGray w-full sm:w-1/3 p-2 rounded-lg text-center font-bold hover:bg-gray-600 transition-colors duration-200"
           >
             Previous
           </button>
@@ -233,7 +475,7 @@ const Sidebar: React.FC<SidebarProps> = ({
         {!isLastSection && (
           <button
             onClick={handleNext}
-            className="text-white bg-blue-500 w-full sm:w-1/3 p-2 rounded-lg text-center font-bold"
+            className="text-white bg-blue-500 w-full sm:w-1/3 p-2 rounded-lg text-center font-bold hover:bg-blue-600 transition-colors duration-200"
           >
             Next
           </button>

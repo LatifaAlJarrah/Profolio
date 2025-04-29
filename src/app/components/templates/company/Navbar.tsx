@@ -17,7 +17,6 @@ const Navbar: React.FC<NavbarProps> = ({
   logoName,
   logoColor,
   logoIcon,
-
   navigationLinks,
   navigationLinksColor,
 }) => {
@@ -43,7 +42,7 @@ const Navbar: React.FC<NavbarProps> = ({
 
   return (
     <nav
-      className="items-center grid grid-cols-11 bg-[#F3F3EE] px-8 rounded-full shadow-md mt-8"
+      className="items-center grid grid-cols-11 bg-[#F3F3EE] px-8 rounded-full shadow-md mt-8 py-2"
       style={{ backgroundColor: navbarColor }}
     >
       <div className="col-span-3">

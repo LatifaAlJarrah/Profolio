@@ -27,14 +27,14 @@ import Customer from "@assets/icons/company/customer-satisfication.png";
 import Calender from "@assets/icons/company/calender.png";
 import TeamWork from "@assets/icons/company/team-work.png";
 
-import WebDesign from "@assets/icons/company/web-design.png";
-import UxDesign from "@assets/icons/company/ux.png";
-import Interface from "@assets/icons/company/interface.png";
-import SearchOptimization from "@assets/icons/company/search-optimization.png";
-import CustumizationIcon from "@assets/icons/company/custimization.png";
-import Chatbot from "@assets/icons/company/chatbot.png";
-import Analystic from "@assets/icons/company/analystics.png";
-import ContentCreator from "@assets/icons/company/content-creator.png";
+// import WebDesign from "@assets/icons/company/web-design.png";
+// import UxDesign from "@assets/icons/company/ux-design.png";
+// import Interface from "@assets/icons/company/interface.png";
+// import SearchOptimization from "@assets/icons/company/search-optimization.png";
+// import CustumizationIcon from "@assets/icons/company/custimization.png";
+// import Chatbot from "@assets/icons/company/chatbot.png";
+// import Analystic from "@assets/icons/company/analytics.png";
+// import ContentCreator from "@assets/icons/company/content-creator.png";
 
 import Facbook from "@assets/icons/company/iconfacebook.png";
 import Insta from "@assets/icons/company/iconinsta.png";
@@ -66,14 +66,14 @@ export {
   Customer,
   Calender,
   TeamWork,
-  WebDesign,
-  UxDesign,
-  Interface,
-  SearchOptimization,
-  CustumizationIcon,
-  Chatbot,
-  Analystic,
-  ContentCreator,
+  // WebDesign,
+  // UxDesign,
+  // Interface,
+  // SearchOptimization,
+  // CustumizationIcon,
+  // Chatbot,
+  // Analystic,
+  // ContentCreator,
   Facbook,
   Insta,
   Apple,

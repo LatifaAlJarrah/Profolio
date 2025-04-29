@@ -1,58 +1,37 @@
 "use client";
 import React, { useState } from "react";
-import Image, { StaticImageData } from "next/image";
-import {
-  SwiftCommerce,
-  ContentGenerator,
-  Seo,
-  Influncer,
-  Travel,
-  AdOptimizer,
-  PoweredChatbot,
-  TaskManagement,
-} from "@/app/assets/images";
+import Image from "next/image";
+import { TemplateData } from "@/app/types/templateData";
 
-// 👇 إصلاح أسماء التصنيفات لجعلها متطابقة مع الأزرار
-interface ProjectProps {
-  img: StaticImageData;
-  name: string;
+interface ProjectsProps extends TemplateData {
+  projects?: {
+    [key: string]: Array<{
+      name: string;
+      img: string;
+      uploadedImg?: string;
+    }>;
+  };
 }
 
-const projects: { [key: string]: ProjectProps[] } = {
-  All: [
-    { name: "Swift Commerce", img: SwiftCommerce },
-    { name: "AI Content Generator", img: ContentGenerator },
-    { name: "SEO Genius", img: Seo },
-    { name: "Influencer Connect", img: Influncer },
-    { name: "Travel Agency - Landing Page Design", img: Travel },
-    { name: "AdOptimizer 360", img: AdOptimizer },
-    { name: "AI-Powered Chatbot", img: PoweredChatbot },
-    { name: "Task Management App Design", img: TaskManagement },
-  ],
-  Programming: [
-    { name: "Swift Commerce", img: SwiftCommerce },
-    { name: "Travel Agency - Landing Page Design", img: Travel },
-    { name: "Task Management App Design", img: TaskManagement },
-  ],
-  "Artificial Intelligence (AI)": [
-    { name: "AI Content Generator", img: ContentGenerator },
-    { name: "AI-Powered Chatbot", img: PoweredChatbot },
-  ],
-  Marketing: [
-    { name: "SEO Genius", img: Seo },
-    { name: "Influencer Connect", img: Influncer },
-    { name: "AdOptimizer 360", img: AdOptimizer },
-  ],
-};
-
-export default function Projects() {
+const Projects: React.FC<ProjectsProps> = ({ projects }) => {
   const [activeCategory, setActiveCategory] = useState("All");
+
+  console.log("Projects Data:", projects); // تصحيح للتأكد من البيانات
+
+  if (!projects) {
+    return (
+      <section className="px-20 py-5" id="projects">
+        <h2 className="text-4xl mb-8">PROJECTS</h2>
+        <p>No projects available.</p>
+      </section>
+    );
+  }
 
   return (
     <section className="px-20 py-5" id="projects">
       <h2 className="text-4xl mb-8">PROJECTS</h2>
 
-      {/* 🔹 أزرار التصنيفات */}
+      {/* أزرار التصنيفات */}
       <div className={`font-roboto flex justify-center space-x-4 mb-6`}>
         {Object.keys(projects).map((category) => (
           <button
@@ -61,7 +40,7 @@ export default function Projects() {
             className={`px-10 py-2 rounded-3xl transition ${
               activeCategory === category
                 ? "text-white bg-navyBlue"
-                : " text-[#454545] border-[2px] border-charcoalGray"
+                : "text-[#454545] border-[2px] border-charcoalGray"
             }`}
           >
             {category}
@@ -69,18 +48,18 @@ export default function Projects() {
         ))}
       </div>
 
-      {/* 🔹 عرض المشاريع */}
+      {/* عرض المشاريع */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        {projects[activeCategory].length > 0 ? (
-          projects[activeCategory].map((item: ProjectProps, index: number) => (
+        {projects[activeCategory]?.length > 0 ? (
+          projects[activeCategory].map((item, index) => (
             <div
               key={index}
               className="relative group bg-opacity-10 rounded-lg overflow-hidden shadow-md"
             >
-              {/* 🔹 الصورة بتأثير الـ hover */}
+              {/* الصورة بتأثير الـ hover */}
               <div className="relative w-full h-[250px] overflow-hidden">
                 <Image
-                  src={item.img}
+                  src={item.uploadedImg || item.img}
                   alt={item.name}
                   fill
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
@@ -88,13 +67,10 @@ export default function Projects() {
                 />
               </div>
 
-              {/* 🔹 النص يختفي عند hover */}
+              {/* النص */}
               <div className="p-3 text-left">
                 <h3 className="text-lg">{item.name}</h3>
               </div>
-              {/* <div className="p-3 text-left transition-opacity duration-500 ease-in-out opacity-100 group-hover:opacity-0">
-                <h3 className="text-lg">{item.name}</h3>
-              </div> */}
             </div>
           ))
         ) : (
@@ -105,4 +81,6 @@ export default function Projects() {
       </div>
     </section>
   );
-}
+};
+
+export default Projects;

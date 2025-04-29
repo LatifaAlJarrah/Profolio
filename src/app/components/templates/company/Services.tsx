@@ -1,66 +1,32 @@
 import React from "react";
 import Image from "next/image";
+import { TemplateData } from "@/app/types/templateData";
 
-import {
-  WebDesign,
-  UxDesign,
-  Interface,
-  SearchOptimization,
-  CustumizationIcon,
-  Chatbot,
-  Analystic,
-  ContentCreator,
-} from "@/app/assets/icons";
+interface ServicesProps extends TemplateData {
+  services?: Array<{
+    title: string;
+    description: string;
+    icon: string;
+    uploadedIcon?: string;
+  }>;
+}
 
-const services = [
-  {
-    title: "Website Design & Development",
-    description: "Landing pages, corporate websites, e-commerce stores",
-    icon: WebDesign,
-  },
-  {
-    title: "Simple Web App Development",
-    description: "using technologies like React and Node.js",
-    icon: UxDesign,
-  },
-  {
-    title: "Social Media Management",
-    description: "content creation, posting, engagement tracking",
-    icon: Interface,
-  },
-  {
-    title: "Search Engine Optimization",
-    description: "to improve website ranking on Google",
-    icon: SearchOptimization,
-  },
-  {
-    title: "Managing Digital Ads",
-    description: "on Google and social media platforms",
-    icon: CustumizationIcon,
-  },
-  {
-    title: "Chatbots for Customer Support",
-    description: "on websites or WhatsApp",
-    icon: Chatbot,
-  },
-  {
-    title: "Customer Data Analysis",
-    description: "to gain marketing insights",
-    icon: Analystic,
-  },
-  {
-    title: "Marketing Task Automation",
-    description: "such as post scheduling and email campaigns.",
-    icon: ContentCreator,
-  },
-];
+const Services: React.FC<ServicesProps> = ({ services }) => {
+  console.log("Services Data:", services); // تصحيح للتأكد من البيانات
 
-const Services = () => {
+  if (!services || services.length === 0) {
+    return (
+      <section className={`font-roboto bg-[#F3F3EE] px-20 py-10`} id="services">
+        <h2 className="mb-8 text-3xl uppercase font-medium">
+          <span className="text-navyBlue">n</span>exora services
+        </h2>
+        <p>No services available.</p>
+      </section>
+    );
+  }
+
   return (
-    <section
-      className={`font-roboto bg-[#F3F3EE] px-20 py-10`}
-      id="services"
-    >
+    <section className={`font-roboto bg-[#F3F3EE] px-20 py-10`} id="services">
       <h2 className="mb-8 text-3xl uppercase font-medium">
         <span className="text-navyBlue">n</span>exora services
       </h2>
@@ -73,7 +39,7 @@ const Services = () => {
           >
             <div className="w-24 h-24 mb-4 bg-navyBlue rounded-full flex items-center text-center justify-center border-[15px] border-[#F3F3EE]">
               <Image
-                src={service.icon}
+                src={service.uploadedIcon || service.icon}
                 alt={service.title}
                 width={50}
                 height={50}

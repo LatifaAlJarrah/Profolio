@@ -16,8 +16,238 @@ export const defaultTemplateCompanyData: TemplateData = {
   navigationLinksColor: "#000000",
   titleTextColor: "#ffffff",
   buttonColor: "#27445D",
-  // يمكنك إضافة المزيد من القيم الافتراضية للأقسام الأخرى
   headerTitle: "Innovative Programming and AI for Smarter Marketing",
   headerTagline:
     "We provide tailored solutions to help businesses leverage advanced programming and smart technologies to maximize their marketing potential",
+  headerImage: "/assets/images/company/company.jpeg",
+  descriptionTextColor: "#ffffff",
+  aboutTitle: "ABOUT US",
+  aboutTagline:
+    "Empowering Businesses with technology, AI, and smart marketing",
+  aboutDescription:
+    "We are a team of passionate innovators dedicated to transforming businesses through cutting-edge technology. Our expertise spans software development, artificial intelligence, and digital marketing, helping companies stay ahead in an ever-evolving digital world",
+  aboutImage: "/assets/images/company/officeCulture.jpeg",
+  aboutButtonColor: "#27445D",
+  ourAchievements: [
+    {
+      icon: "/assets/icons/company/done.png",
+      uploadedIcon: undefined,
+      value: "150",
+      label: "Project Done",
+    },
+    {
+      icon: "/assets/icons/company/customer-satisfication.png",
+      uploadedIcon: undefined,
+      value: "200",
+      label: "Happy Customers",
+    },
+    {
+      icon: "/assets/icons/company/calender.png",
+      uploadedIcon: undefined,
+      value: "5",
+      label: "Years",
+    },
+    {
+      icon: "/assets/icons/company/team-work.png",
+      uploadedIcon: undefined,
+      value: "20",
+      label: "Team Members",
+    },
+  ],
+  services: [
+    {
+      title: "Website Design & Development",
+      description: "Landing pages, corporate websites, e-commerce stores",
+      icon: "/assets/icons/company/web-design.png",
+      uploadedIcon: undefined,
+    },
+    {
+      title: "Simple Web App Development",
+      description: "using technologies like React and Node.js",
+      icon: "/assets/icons/company/ux.png",
+      uploadedIcon: undefined,
+    },
+    {
+      title: "Social Media Management",
+      description: "content creation, posting, engagement tracking",
+      icon: "/assets/icons/company/interface.png",
+      uploadedIcon: undefined,
+    },
+    {
+      title: "Search Engine Optimization",
+      description: "to improve website ranking on Google",
+      icon: "/assets/icons/company/search-optimization.png",
+      uploadedIcon: undefined,
+    },
+    {
+      title: "Managing Digital Ads",
+      description: "on Google and social media platforms",
+      icon: "/assets/icons/company/custimization.png",
+      uploadedIcon: undefined,
+    },
+    {
+      title: "Chatbots for Customer Support",
+      description: "on websites or WhatsApp",
+      icon: "/assets/icons/company/chatbot.png",
+      uploadedIcon: undefined,
+    },
+    {
+      title: "Customer Data Analysis",
+      description: "to gain marketing insights",
+      icon: "/assets/icons/company/analystics.png",
+      uploadedIcon: undefined,
+    },
+    {
+      title: "Marketing Task Automation",
+      description: "such as post scheduling and email campaigns.",
+      icon: "/assets/icons/company/content-creator.png",
+      uploadedIcon: undefined,
+    },
+  ],
+  projects: {
+    All: [
+      {
+        name: "Swift Commerce",
+        img: "/assets/images/company/swiftcommerce.jpeg",
+        uploadedImg: undefined,
+      },
+      {
+        name: "AI Content Generator",
+        img: "/assets/images/company/generatecontent.jpeg",
+        uploadedImg: undefined,
+      },
+      {
+        name: "SEO Genius",
+        img: "/assets/images/company/seo.jpeg",
+        uploadedImg: undefined,
+      },
+      {
+        name: "Influencer Connect",
+        img: "/assets/images/company/influncer.jpeg",
+        uploadedImg: undefined,
+      },
+      {
+        name: "Travel Agency - Landing Page Design",
+        img: "/assets/images/company/travel.jpeg",
+        uploadedImg: undefined,
+      },
+      {
+        name: "AdOptimizer 360",
+        img: "/assets/images/company/adoptimizer.jpeg",
+        uploadedImg: undefined,
+      },
+      {
+        name: "AI-Powered Chatbot",
+        img: "/assets/images/company/poweredchatbot.jpeg",
+        uploadedImg: undefined,
+      },
+      {
+        name: "Task Management App Design",
+        img: "/assets/images/company/taskmanagement.jpeg",
+        uploadedImg: undefined,
+      },
+    ],
+    Programming: [
+      {
+        name: "Swift Commerce",
+        img: "/assets/images/company/swiftcommerce.jpeg",
+        uploadedImg: undefined,
+      },
+      {
+        name: "Travel Agency - Landing Page Design",
+        img: "/assets/images/company/travel.jpeg",
+        uploadedImg: undefined,
+      },
+      {
+        name: "Task Management App Design",
+        img: "/assets/images/company/taskmanagement.jpeg",
+        uploadedImg: undefined,
+      },
+    ],
+    "Artificial Intelligence (AI)": [
+      {
+        name: "AI Content Generator",
+        img: "/assets/images/company/generatecontent.jpeg",
+        uploadedImg: undefined,
+      },
+      {
+        name: "AI-Powered Chatbot",
+        img: "/assets/images/company/poweredchatbot.jpeg",
+        uploadedImg: undefined,
+      },
+    ],
+    Marketing: [
+      {
+        name: "SEO Genius",
+        img: "/assets/images/company/seo.jpeg",
+        uploadedImg: undefined,
+      },
+      {
+        name: "Influencer Connect",
+        img: "/assets/images/company/influncer.jpeg",
+        uploadedImg: undefined,
+      },
+      {
+        name: "AdOptimizer 360",
+        img: "/assets/images/company/adoptimizer.jpeg",
+        uploadedImg: undefined,
+      },
+    ],
+  },
+  teamMembers: [
+    {
+      name: "James Carter",
+      role: "CEO (Chief Executive Officer)",
+      img: "/assets/images/company/team/jamescarter.jpeg",
+      uploadedImg: undefined,
+      instagramLink: undefined,
+      behanceLink: undefined,
+      githubLink: undefined,
+    },
+    {
+      name: "Emily Johnson",
+      role: "Project Manager",
+      img: "/assets/images/company/team/emily.jpeg",
+      uploadedImg: undefined,
+      instagramLink: undefined,
+      behanceLink: undefined,
+      githubLink: undefined,
+    },
+    {
+      name: "Michael Smith",
+      role: "Lead Developer",
+      img: "/assets/images/company/team/michael.jpeg",
+      uploadedImg: undefined,
+      instagramLink: undefined,
+      behanceLink: undefined,
+      githubLink: undefined,
+    },
+    {
+      name: "David Brown",
+      role: "Frontend Developer",
+      img: "/assets/images/company/team/david.jpeg",
+      uploadedImg: undefined,
+      instagramLink: undefined,
+      behanceLink: undefined,
+      githubLink: undefined,
+    },
+    {
+      name: "Sophia Miller",
+      role: "Backend Developer",
+      img: "/assets/images/company/team/sophia.png",
+      uploadedImg: undefined,
+      instagramLink: undefined,
+      behanceLink: undefined,
+      githubLink: undefined,
+    },
+    {
+      name: "Daniel Wils",
+      role: "AI Engineer",
+      img: "/assets/images/company/team/daniel.jpeg",
+      uploadedImg: undefined,
+      instagramLink: undefined,
+      behanceLink: undefined,
+      githubLink: undefined,
+    },
+  ],
 };

@@ -7,9 +7,8 @@ import Services from "./Services";
 import Portfolio from "./Portfolio";
 import Blog from "./Blog";
 import Footer from "./Footer";
-interface HomeProps {
-  // templateData: TemplateData;
-  
+
+interface HomeProps {  
   backgroundColor?: string;
   navbarColor?: string;
   logoName?: string;

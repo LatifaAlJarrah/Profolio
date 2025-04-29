@@ -18,28 +18,57 @@ const StartUpCompany: React.FC<StartUpCompanyProps> = ({
   fontFamily,
   logoName,
   logoColor,
+  logoIcon,
   navigationLinks,
   navigationLinksColor,
-  titleTextColor,
   buttonColor,
+  headerTitle,
+  headerTagline,
+  headerImage,
+  titleTextColor,
+  descriptionTextColor,
+  aboutTitle,
+  aboutTagline,
+  aboutDescription,
+  aboutImage,
+  aboutButtonColor,
+  ourAchievements,
+  services,
+  projects,
+  teamMembers
 }) => {
   return (
-    <main className={`grid grid-cols-12 ${fontFamilyClass}`}>
+    <main
+      className={`grid grid-cols-12 ${fontFamilyClass}`}
+      style={{ fontFamily }}
+    >
       <div className="col-span-12 ">
         <Header
           navbarColor={navbarColor}
           fontFamily={fontFamily}
           logoName={logoName}
           logoColor={logoColor}
+          logoIcon={logoIcon}
           navigationLinks={navigationLinks}
           navigationLinksColor={navigationLinksColor}
-          titleTextColor={titleTextColor}
           buttonColor={buttonColor}
+          headerTitle={headerTitle}
+          headerTagline={headerTagline}
+          headerImage={headerImage}
+          titleTextColor={titleTextColor}
+          descriptionTextColor={descriptionTextColor}
         />
-        <AboutUs />
-        <Services />
-        <Projects />
-        <TeamSection />
+        <AboutUs
+          aboutTitle={aboutTitle}
+          aboutTagline={aboutTagline}
+          aboutDescription={aboutDescription}
+          aboutImage={aboutImage}
+          aboutButtonColor={aboutButtonColor}
+          ourAchievements={ourAchievements}
+        />
+        <Services services={services} />
+        <Projects projects={projects} />
+        <TeamSection teamMembers={teamMembers}/>
         <ContactSection />
         <Footer />
       </div>
