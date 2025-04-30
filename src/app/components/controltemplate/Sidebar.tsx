@@ -24,6 +24,7 @@
 // import ServicesSectionCompany from "./sidebar/company/ServicesSection";
 // import ProjectsSection from "./sidebar/company/ProjectsSection";
 // import TeamSectionSettings from "./sidebar/company/TeamSection";
+// import ContactSectionSettings from "./sidebar/company/ContactSectionSettings";
 
 // import GeneralStylesSection from "./shared/GeneralStylesSection";
 // import BreakLine from "./shared/BreakLine";
@@ -307,6 +308,17 @@
 //             title: "Team Section",
 //             icon: <FaUsers />,
 //           },
+//           {
+//             component: (
+//               <ContactSectionSettings
+//                 key="contact"
+//                 templateData={templateData}
+//                 onChange={onChange}
+//               />
+//             ),
+//             title: "Contact Section",
+//             icon: <FaPhone />,
+//           },
 //         ]
 //       : [
 //           {
@@ -456,7 +468,7 @@
 //       </nav>
 
 //       {/* محتوى القسم */}
-//       <div className="flex-1 transition-opacity duration-300 ease-in-out h-69">
+//       <div className="flex-1 transition-opacity duration-300 ease-in-out">
 //         {sections[currentIndex].component}
 //       </div>
 
@@ -521,6 +533,12 @@ import ProjectsSection from "./sidebar/company/ProjectsSection";
 import TeamSectionSettings from "./sidebar/company/TeamSection";
 import ContactSectionSettings from "./sidebar/company/ContactSectionSettings";
 
+import ProgrammerNavbarSection from "./sidebar/programmer/ProgrammerNavbarSection";
+import ProgrammerHeaderSection from "./sidebar/programmer/ProgrammerHeaderSection";
+import ProgrammerAchievementsSection from "./sidebar/programmer/ProgrammerAchievementsSection";
+import ProgrammerAboutSection from "./sidebar/programmer/ProgrammerAboutSection";
+import ProgrammerProjectsSection from "./sidebar/programmer/ProgrammerProjectsSection"; // استيراد المكون الجديد
+
 import GeneralStylesSection from "./shared/GeneralStylesSection";
 import BreakLine from "./shared/BreakLine";
 import ButtonsSection from "./shared/ButtonsSection";
@@ -535,6 +553,7 @@ import {
   FaUtensils,
   FaPhone,
   FaRandom,
+  FaTrophy,
 } from "react-icons/fa";
 
 interface SidebarProps {
@@ -563,22 +582,35 @@ interface SidebarProps {
   ) => void;
   onChefSpecialChange?: (index: number, field: string, value: string) => void;
   onChefSpecialImageChange?: (index: number, file: File | null) => void;
-  onAchievementsChange: (index: number, field: string, value: string) => void;
-  onProjectChange: (
-    category: string,
+  onAchievementsChange: (
     index: number,
     field: string,
-    value: string
+    value: string | number
+  ) => void;
+  onProjectChange: (
+    index: number, // تغيير من category إلى index للتمبليت Programmer
+    field: string,
+    value: string | string[] // دعم تحديث المصفوفات مثل tag
   ) => void;
   onProjectImageChange: (
-    category: string,
-    index: number,
+    index: number, // تغيير من category إلى index
     file: File | null
   ) => void;
   onTeamMemberChange: (index: number, field: string, value: string) => void;
   onTeamMemberImageChange: (index: number, file: File | null) => void;
   onAddTeamMember: () => void;
   onRemoveTeamMember: (index: number) => void;
+  onArrayChange?: (key: string, value: string[]) => void;
+  onAddAchievement?: () => void;
+  onRemoveAchievement?: (index: number) => void;
+  onAddSkill?: () => void;
+  onRemoveSkill?: (index: number) => void;
+  onAddEducation?: () => void;
+  onRemoveEducation?: (index: number) => void;
+  onAddCertification?: () => void;
+  onRemoveCertification?: (index: number) => void;
+  onAddProject?: () => void; // إضافة prop جديد
+  onRemoveProject?: (index: number) => void; // إضافة prop جديد
 }
 
 const Sidebar: React.FC<SidebarProps> = ({
@@ -605,6 +637,17 @@ const Sidebar: React.FC<SidebarProps> = ({
   onTeamMemberImageChange,
   onAddTeamMember,
   onRemoveTeamMember,
+  onArrayChange,
+  onAddAchievement,
+  onRemoveAchievement,
+  onAddSkill,
+  onRemoveSkill,
+  onAddEducation,
+  onRemoveEducation,
+  onAddCertification,
+  onRemoveCertification,
+  onAddProject,
+  onRemoveProject,
 }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -782,8 +825,12 @@ const Sidebar: React.FC<SidebarProps> = ({
               <ProjectsSection
                 key="projects"
                 templateData={templateData}
-                onProjectChange={onProjectChange}
-                onProjectImageChange={onProjectImageChange}
+                onProjectChange={(category, index, field, value) =>
+                  onProjectChange(index, field, value)
+                }
+                onProjectImageChange={(category, index, file) =>
+                  onProjectImageChange(index, file)
+                }
               />
             ),
             title: "Projects",
@@ -815,7 +862,112 @@ const Sidebar: React.FC<SidebarProps> = ({
             icon: <FaPhone />,
           },
         ]
+      : templateName === "programmer"
+      ? [
+          {
+            component: (
+              <GeneralStylesSection
+                key="general"
+                templateData={templateData}
+                onChange={onChange}
+              />
+            ),
+            title: "General Styles",
+            icon: <FaCog />,
+          },
+          {
+            component: (
+              <ProgrammerNavbarSection
+                key="navbar"
+                templateData={templateData}
+                onChange={onChange}
+                onNavLinkChange={onNavLinkChange}
+              />
+            ),
+            title: "Navbar",
+            icon: <FaBars />,
+          },
+          {
+            component: (
+              <ProgrammerHeaderSection
+                key="header"
+                templateData={templateData}
+                onChange={onChange}
+                onImageChange={onImageChange}
+                onArrayChange={onArrayChange}
+              />
+            ),
+            title: "Header",
+            icon: <FaHeading />,
+          },
+          {
+            component: (
+              <ProgrammerAchievementsSection
+                key="achievements"
+                templateData={templateData}
+                onAchievementsChange={onAchievementsChange}
+                onAddAchievement={onAddAchievement ?? (() => {})}
+                onRemoveAchievement={onRemoveAchievement ?? ( () => {})}
+              />
+            ),
+            title: "Achievements",
+            icon: <FaTrophy />,
+          },
+          {
+            component: (
+              <ProgrammerAboutSection
+                key="about"
+                templateData={templateData}
+                onChange={onChange}
+                onImageChange={onImageChange}
+                onArrayChange={onArrayChange}
+                onAddSkill={onAddSkill}
+                onRemoveSkill={onRemoveSkill}
+                onAddEducation={onAddEducation}
+                onRemoveEducation={onRemoveEducation}
+                onAddCertification={onAddCertification}
+                onRemoveCertification={onRemoveCertification}
+              />
+            ),
+            title: "About",
+            icon: <FaInfoCircle />,
+          },
+          {
+            component: (
+              <ProgrammerProjectsSection
+                key="projects"
+                templateData={templateData}
+                onChange={onChange}
+                onProjectChange={onProjectChange}
+                onProjectImageChange={onProjectImageChange}
+                onAddProject={onAddProject ?? (() => {})}
+                onRemoveProject={onRemoveProject ?? (() => {})}
+              />
+            ),
+            title: "Projects",
+            icon: <FaFolder />,
+          },
+        ]
       : [
+          // {
+          //   component: (
+          //     <ProgrammerProjectsSection
+          //       key="projects"
+          //       templateData={templateData}
+          //       onChange={onChange}
+          //       onProjectChange={(index, field, value) =>
+          //         onProjectChange(index, field, value)
+          //       }
+          //       onProjectImageChange={(index, file) =>
+          //         onProjectImageChange(index, file)
+          //       }
+          //       onAddProject={onAddProject}
+          //       onRemoveProject={onRemoveProject}
+          //     />
+          //   ),
+          //   title: "Projects",
+          //   icon: <FaFolder />,
+          // },
           {
             component: (
               <GeneralStylesSection

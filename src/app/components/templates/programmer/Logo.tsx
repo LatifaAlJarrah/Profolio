@@ -1,17 +1,21 @@
 import React from 'react'
-import { Righteous } from 'next/font/google';
 
-const righteous = Righteous({
-    weight: "400",
-    subsets: ["latin"],
-})
-const Logo = () => {
+import Link from 'next/link';
+
+const Logo = ({
+  logoColor,
+  logoName,
+}: {
+  logoColor?: string;
+  logoName?: string;
+}) => {
   return (
-    <div
-      className={`${righteous.className} text-5xl bg-gradient-to-r from-[#497D74] to-[#2F4F4F] text-transparent bg-clip-text`}
+    <Link href="/"
+      className={`font-righteous md:text-5xl font-semibold text-5xl bg-gradient-to-r from-[#497D74] to-[#2F4F4F] text-transparent bg-clip-text`}
+      style={{ color: logoColor  }}
     >
-      LOGO
-    </div>
+      {logoName || "LOGO"}
+    </Link>
   );
 }
 

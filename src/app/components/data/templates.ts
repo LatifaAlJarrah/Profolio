@@ -17,7 +17,7 @@ export const templates = [
     link: "/assets/dental-cover.png",
   },
   {
-    name: "Programmer Website",
+    name: "Programmer",
     Component: Programmer,
     link: "/assets/programmer-cover.png",
   },

@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import { useSearchParams } from "next/navigation";
-import { Roboto, Poppins, Montserrat } from "next/font/google";
+import { Roboto, Poppins, Montserrat, Palanquin_Dark } from "next/font/google";
 
 import Sidebar from "./Sidebar";
 import MainEditor from "./MainEditor";
@@ -11,6 +11,7 @@ import { templates } from "../data/templates";
 import { defaultTemplateData } from "../data/defaultTemplateDentistData";
 import { defaultTemplateRestaurantData } from "../data/defaultTemplateRestaurantData";
 import { defaultTemplateCompanyData } from "../data/defaultTemplateCompanyData";
+import { defaultTemplateProgrammerData } from "../data/defaultTemplateProgrammerData";
 
 const roboto = Roboto({
   weight: "400",
@@ -30,6 +31,12 @@ const montserrat = Montserrat({
   display: "swap",
 });
 
+const palanquinDark = Palanquin_Dark({
+  weight: "400",
+  subsets: ["latin"],
+  display: "swap",
+});
+
 const ControlTemplate = () => {
   const searchParams = useSearchParams();
   const templateName = searchParams.get("template")?.toLowerCase();
@@ -39,6 +46,8 @@ const ControlTemplate = () => {
       ? defaultTemplateRestaurantData
       : templateName === "company"
       ? defaultTemplateCompanyData
+      : templateName === "programmer"
+      ? defaultTemplateProgrammerData
       : defaultTemplateData;
 
   const [templateData, setTemplateData] = useState(initialTemplateData);
@@ -56,6 +65,11 @@ const ControlTemplate = () => {
   }
 
   const handleChange = (key: string, value: string) => {
+    setTemplateData((prev) => ({ ...prev, [key]: value }));
+    setRenderKey((prev) => prev + 1);
+  };
+
+  const handleArrayChange = (key: string, value: string[]) => {
     setTemplateData((prev) => ({ ...prev, [key]: value }));
     setRenderKey((prev) => prev + 1);
   };
@@ -80,7 +94,7 @@ const ControlTemplate = () => {
   const handleAchievementsChange = (
     index: number,
     field: string,
-    value: string
+    value: string | number
   ) => {
     setTemplateData((prev) => {
       const updatedAchievements = prev.ourAchievements
@@ -95,46 +109,156 @@ const ControlTemplate = () => {
     setRenderKey((prev) => prev + 1);
   };
 
-  const handleProjectChange = (
-    category: string,
-    index: number,
-    field: string,
-    value: string
-  ) => {
+  const handleAddAchievement = () => {
     setTemplateData((prev) => {
-      const updatedProjects = prev.projects ? { ...prev.projects } : {};
-      if (!updatedProjects[category]) {
-        updatedProjects[category] = [];
-      }
-      updatedProjects[category][index] = {
-        ...updatedProjects[category][index],
-        [field]: value,
-      };
-      return { ...prev, projects: updatedProjects };
+      const updatedAchievements = prev.ourAchievements
+        ? [...prev.ourAchievements]
+        : [];
+      updatedAchievements.push({ number: 0, text: "New Achievement" });
+      return { ...prev, ourAchievements: updatedAchievements };
     });
     setRenderKey((prev) => prev + 1);
   };
 
-  const handleProjectImageChange = (
-    category: string,
+  const handleRemoveAchievement = (index: number) => {
+    setTemplateData((prev) => {
+      const updatedAchievements = prev.ourAchievements
+        ? [...prev.ourAchievements]
+        : [];
+      updatedAchievements.splice(index, 1);
+      return { ...prev, ourAchievements: updatedAchievements };
+    });
+    setRenderKey((prev) => prev + 1);
+  };
+
+  const handleAddSkill = () => {
+    setTemplateData((prev) => {
+      const updatedSkills = prev.programmerSkills
+        ? [...prev.programmerSkills]
+        : [];
+      updatedSkills.push("New Skill");
+      return { ...prev, programmerSkills: updatedSkills };
+    });
+    setRenderKey((prev) => prev + 1);
+  };
+
+  const handleRemoveSkill = (index: number) => {
+    setTemplateData((prev) => {
+      const updatedSkills = prev.programmerSkills
+        ? [...prev.programmerSkills]
+        : [];
+      updatedSkills.splice(index, 1);
+      return { ...prev, programmerSkills: updatedSkills };
+    });
+    setRenderKey((prev) => prev + 1);
+  };
+
+  const handleAddEducation = () => {
+    setTemplateData((prev) => {
+      const updatedEducation = prev.programmerEducation
+        ? [...prev.programmerEducation]
+        : [];
+      updatedEducation.push("New Education");
+      return { ...prev, programmerEducation: updatedEducation };
+    });
+    setRenderKey((prev) => prev + 1);
+  };
+
+  const handleRemoveEducation = (index: number) => {
+    setTemplateData((prev) => {
+      const updatedEducation = prev.programmerEducation
+        ? [...prev.programmerEducation]
+        : [];
+      updatedEducation.splice(index, 1);
+      return { ...prev, programmerEducation: updatedEducation };
+    });
+    setRenderKey((prev) => prev + 1);
+  };
+
+  const handleAddCertification = () => {
+    setTemplateData((prev) => {
+      const updatedCertifications = prev.programmerCertifications
+        ? [...prev.programmerCertifications]
+        : [];
+      updatedCertifications.push("New Certification");
+      return { ...prev, programmerCertifications: updatedCertifications };
+    });
+    setRenderKey((prev) => prev + 1);
+  };
+
+  const handleRemoveCertification = (index: number) => {
+    setTemplateData((prev) => {
+      const updatedCertifications = prev.programmerCertifications
+        ? [...prev.programmerCertifications]
+        : [];
+      updatedCertifications.splice(index, 1);
+      return { ...prev, programmerCertifications: updatedCertifications };
+    });
+    setRenderKey((prev) => prev + 1);
+  };
+
+  const handleProjectChange = (
     index: number,
-    file: File | null
+    field: string,
+    value: string | string[]
   ) => {
+    setTemplateData((prev) => {
+      const updatedProjects = prev.programmerProjects
+        ? [...prev.programmerProjects]
+        : [];
+      updatedProjects[index] = {
+        ...updatedProjects[index],
+        [field]: value,
+      };
+      return { ...prev, programmerProjects: updatedProjects };
+    });
+    setRenderKey((prev) => prev + 1);
+  };
+
+  const handleProjectImageChange = (index: number, file: File | null) => {
     if (file) {
       const imageUrl = URL.createObjectURL(file);
       setTemplateData((prev) => {
-        const updatedProjects = prev.projects ? { ...prev.projects } : {};
-        if (!updatedProjects[category]) {
-          updatedProjects[category] = [];
-        }
-        updatedProjects[category][index] = {
-          ...updatedProjects[category][index],
-          uploadedImg: imageUrl,
+        const updatedProjects = prev.programmerProjects
+          ? [...prev.programmerProjects]
+          : [];
+        updatedProjects[index] = {
+          ...updatedProjects[index],
+          image: imageUrl,
         };
-        return { ...prev, projects: updatedProjects };
+        return { ...prev, programmerProjects: updatedProjects };
       });
       setRenderKey((prev) => prev + 1);
     }
+  };
+
+  const handleAddProject = () => {
+    setTemplateData((prev) => {
+      const updatedProjects = prev.programmerProjects
+        ? [...prev.programmerProjects]
+        : [];
+      updatedProjects.push({
+        title: "New Project",
+        description: "Project description",
+        image: "/images/projects/default.png",
+        tag: ["All"],
+        gitUrl: "/",
+        previewUrl: "/",
+      });
+      return { ...prev, programmerProjects: updatedProjects };
+    });
+    setRenderKey((prev) => prev + 1);
+  };
+
+  const handleRemoveProject = (index: number) => {
+    setTemplateData((prev) => {
+      const updatedProjects = prev.programmerProjects
+        ? [...prev.programmerProjects]
+        : [];
+      updatedProjects.splice(index, 1);
+      return { ...prev, programmerProjects: updatedProjects };
+    });
+    setRenderKey((prev) => prev + 1);
   };
 
   const handleTeamMemberChange = (
@@ -373,6 +497,8 @@ const ControlTemplate = () => {
         return poppins.className;
       case "Montserrat":
         return montserrat.className;
+      case "Palanquin Dark":
+        return palanquinDark.className;
       case "Arial":
       case "Times New Roman":
         return "";
@@ -395,6 +521,7 @@ const ControlTemplate = () => {
             <Sidebar
               templateData={templateData}
               onChange={handleChange}
+              onArrayChange={handleArrayChange}
               onImageChange={handleImageChange}
               onServiceChange={handleServiceChange}
               onPortfolioSlideChange={handlePortfolioSlideChange}
@@ -416,6 +543,16 @@ const ControlTemplate = () => {
               onTeamMemberImageChange={handleTeamMemberImageChange}
               onAddTeamMember={handleAddTeamMember}
               onRemoveTeamMember={handleRemoveTeamMember}
+              onAddAchievement={handleAddAchievement}
+              onRemoveAchievement={handleRemoveAchievement}
+              onAddSkill={handleAddSkill}
+              onRemoveSkill={handleRemoveSkill}
+              onAddEducation={handleAddEducation}
+              onRemoveEducation={handleRemoveEducation}
+              onAddCertification={handleAddCertification}
+              onRemoveCertification={handleRemoveCertification}
+              onAddProject={handleAddProject}
+              onRemoveProject={handleRemoveProject}
             />
           </div>
         )}
