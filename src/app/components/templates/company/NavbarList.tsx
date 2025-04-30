@@ -24,7 +24,7 @@ const NavbarList: React.FC<NavbarListProps> = ({
     >
       {navigationLinks?.map((item, index) => (
         <Link key={`${item.name}-${item.link}-${index}`} href={item.link}>
-          <li className="hover:text-[#58ADEB]" onClick={onClick}>
+          <li className="hover:text-navyBlue hover:shadow-2xl hover:shadow-slate-700" onClick={onClick}>
             {item.name}
           </li>
         </Link>

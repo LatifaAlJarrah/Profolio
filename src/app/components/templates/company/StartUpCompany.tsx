@@ -35,7 +35,21 @@ const StartUpCompany: React.FC<StartUpCompanyProps> = ({
   ourAchievements,
   services,
   projects,
-  teamMembers
+  teamMembers,
+  contactBookingText,
+  contactInstagramLink,
+  contactFacebookLink,
+  contactPhone,
+  contactEmail,
+  contactLocation,
+  openTime,
+  contactEmailLabel,
+  contactSubjectLabel,
+  contactMessageLabel,
+  contactEmailPlaceholder,
+  contactSubjectPlaceholder,
+  contactMessagePlaceholder,
+  contactSubmitButtonText,
 }) => {
   return (
     <main
@@ -68,9 +82,24 @@ const StartUpCompany: React.FC<StartUpCompanyProps> = ({
         />
         <Services services={services} />
         <Projects projects={projects} />
-        <TeamSection teamMembers={teamMembers}/>
-        <ContactSection />
-        <Footer />
+        <TeamSection teamMembers={teamMembers} />
+        <ContactSection
+          contactBookingText={contactBookingText}
+          contactInstagramLink={contactInstagramLink}
+          contactFacebookLink={contactFacebookLink}
+          contactPhone={contactPhone}
+          contactEmail={contactEmail}
+          contactLocation={contactLocation}
+          openTime={openTime}
+          contactEmailLabel={contactEmailLabel}
+          contactSubjectLabel={contactSubjectLabel}
+          contactMessageLabel={contactMessageLabel}
+          contactEmailPlaceholder={contactEmailPlaceholder}
+          contactSubjectPlaceholder={contactSubjectPlaceholder}
+          contactMessagePlaceholder={contactMessagePlaceholder}
+          contactSubmitButtonText={contactSubmitButtonText}
+        />
+        <Footer logoName={logoName} logoColor={logoColor} logoIcon={logoIcon} />
       </div>
     </main>
   );
