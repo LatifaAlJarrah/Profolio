@@ -8,16 +8,16 @@ export interface TemplateData {
   fontFamilyClass?: string;
   headerTitle?: string;
   headerSubtitle?: string;
-  headerTagline?: string; // جديد لـ ResturantHeader
+  headerTagline?: string;
   headerDescription?: string;
   headerImage?: string;
   titleTextColor?: string;
   subtitleTextColor?: string;
   descriptionTextColor?: string;
   aboutTitle?: string;
-  aboutTagline?: string; // جديد لـ AboutResturant
+  aboutTagline?: string;
   aboutDescription?: string;
-  visitText?: string; // جديد لـ AboutResturant
+  visitText?: string;
   aboutImage?: string;
   aboutButtonColor?: string;
   blogTitle?: string;
@@ -30,9 +30,17 @@ export interface TemplateData {
   contactFacebookName?: string;
   contactFacebookLink?: string;
   contactPhone?: string;
-  contactPhone2?: string; // لدعم رقم هاتف ثانٍ في ContactUs
+  contactPhone2?: string;
   contactEmail?: string;
   contactLocation?: string;
+  openTime?: string;
+  contactEmailLabel?: string;
+  contactSubjectLabel?: string;
+  contactMessageLabel?: string;
+  contactEmailPlaceholder?: string;
+  contactSubjectPlaceholder?: string;
+  contactMessagePlaceholder?: string;
+  contactSubmitButtonText?: string; 
   services?: Array<{
     title: string;
     description: string;
@@ -64,13 +72,13 @@ export interface TemplateData {
       price: string;
       img: string;
     }>;
-  }; // جديد لـ OurMenu
+  };
   chefSpecials?: Array<{
     name: string;
     description: string;
     price: string;
     image: string;
-  }>; // جديد لـ RandomlyChef
+  }>;
   portfolioSlides?: Array<{
     title: string;
     description: string;
@@ -82,15 +90,15 @@ export interface TemplateData {
   navigationLinksColor?: string;
   backgroundOverlayColor?: string;
   backgroundImage?: string;
-  footerDescription?: string; // جديد لـ Footer
-  footerName?: string; // جديد لـ Footer
+  footerDescription?: string;
+  footerName?: string;
   aboutDoctorName?: string;
   aboutExtraText?: string;
   ourAchievements?: Array<{
     icon: string;
     value: string;
     label: string;
-    uploadedIcon: undefined;
+    uploadedIcon?: string;
   }>;
   projects?: {
     [key: string]: Array<{
@@ -108,4 +116,39 @@ export interface TemplateData {
     behanceLink?: string;
     githubLink?: string;
   }>;
+  // حقول جديدة لتمبليت Programmer
+  programmerHeaderGreeting?: string; // "Hello, I'm"
+  programmerHeaderName?: string; // "Zayn Haddad"
+  programmerHeaderRoles?: string[]; // ["Web Developer", "Mobile Developer", "UI/UX Designer"]
+  programmerHeaderDescription?: string; // الوصف في HeroSection
+  programmerHeaderButtonText?: string; // "Hire Me"
+  programmerHeaderImage?: string; // الصورة في HeroSection
+  programmerAchievements?: Array<{ num: number; text: string }>; // الإنجازات (Projects, Users, Awards, Years)
+  programmerAboutTitle?: string; // "About Me"
+  programmerAboutDescription?: string; // الوصف في AboutSection
+  programmerAboutImage?: string; // الصورة في AboutSection
+  programmerSkills?: string[]; // قائمة المهارات
+  programmerEducation?: string[]; // قائمة التعليم
+  programmerCertifications?: string[]; // قائمة الشهادات
+  programmerProjectsTitle?: string; // "My Projects"
+  programmerProjects?: Array<{
+    title: string;
+    description: string;
+    image: string;
+    tag: string[];
+    gitUrl: string;
+    previewUrl: string;
+  }>; // قائمة المشاريع
+  programmerContactTitle?: string; // "Let's Connect"
+  programmerContactDescription?: string; // الوصف في EmailSection
+  programmerGithubLink?: string; // رابط GitHub
+  programmerLinkedinLink?: string; // رابط LinkedIn
+  programmerContactEmailLabel?: string; // "Your email"
+  programmerContactSubjectLabel?: string; // "Subject"
+  programmerContactMessageLabel?: string; // "Message"
+  programmerContactEmailPlaceholder?: string; // "jacob@google.com"
+  programmerContactSubjectPlaceholder?: string; // "Just saying hi"
+  programmerContactMessagePlaceholder?: string; // "Let's talk about..."
+  programmerContactSubmitButtonText?: string; // "Send Message"
+  programmerFooterText?: string; // "© 2025 . All Rights Reserved"
 }
