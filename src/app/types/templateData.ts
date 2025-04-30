@@ -40,7 +40,7 @@ export interface TemplateData {
   contactEmailPlaceholder?: string;
   contactSubjectPlaceholder?: string;
   contactMessagePlaceholder?: string;
-  contactSubmitButtonText?: string; 
+  contactSubmitButtonText?: string;
   services?: Array<{
     title: string;
     description: string;
@@ -95,10 +95,12 @@ export interface TemplateData {
   aboutDoctorName?: string;
   aboutExtraText?: string;
   ourAchievements?: Array<{
-    icon: string;
-    value: string;
-    label: string;
+    icon?: string;
+    value?: string;
+    label?: string;
     uploadedIcon?: string;
+    number?: number;
+    text?: string;
   }>;
   projects?: {
     [key: string]: Array<{

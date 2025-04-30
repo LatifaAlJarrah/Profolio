@@ -2,12 +2,15 @@ import { TemplateData } from "@/app/types/templateData";
 
 export const defaultTemplateProgrammerData: TemplateData = {
   fontFamily: "Palanquin Dark",
+  navbarColor: "#121212",
   logoName: "LOGO",
+  logoColor: "",
   navigationLinks: [
     { name: "About", link: "#about" },
     { name: "Projects", link: "#projects" },
     { name: "Contact", link: "#contact" },
   ],
+  navigationLinksColor: "#ffffff",
   programmerHeaderGreeting: "Hello, I'm",
   programmerHeaderName: "Zayn Haddad",
   programmerHeaderRoles: [
@@ -18,17 +21,17 @@ export const defaultTemplateProgrammerData: TemplateData = {
   programmerHeaderDescription:
     "A full-stack web developer passionate about building interactive and responsive applications, with experience in JavaScript, React, Node.js, PostgreSQL,",
   programmerHeaderButtonText: "Hire Me",
-  programmerHeaderImage: "/assets/images/programmer.png",
-  programmerAchievements: [
-    { num: 100, text: "Projects" },
-    { num: 1000, text: "Users" },
-    { num: 7, text: "Awards" },
-    { num: 5, text: "Years" },
+  programmerHeaderImage: "/assets/images/programmer/programmer.png",
+  ourAchievements: [
+    { number: 100, text: "Projects" },
+    { number: 1000, text: "Users" },
+    { number: 7, text: "Awards" },
+    { number: 5, text: "Years" },
   ],
   programmerAboutTitle: "About Me",
   programmerAboutDescription:
     "I am a full stack web developer with a passion for creating interactive and responsive web applications. I have experience working with JavaScript, React, Redux, Node.js, Express, PostgreSQL, Sequelize, HTML, CSS, and Git. I am a quick learner and I am always looking to expand my knowledge and skill set. I am a team player and I am excited to work with others to create amazing applications.",
-  programmerAboutImage: "/assets/images/programming-bg.jpg",
+  programmerAboutImage: "/assets/images/programmer/programmingBG.jpeg",
   programmerSkills: [
     "Node.js",
     "Express",
