@@ -556,7 +556,7 @@ const ControlTemplate = () => {
             />
           </div>
         )}
-        <div className="w-3/4 overflow-y-auto">
+        <div className={`flex-grow bg-lightGray overflow-y-auto ${showSidebar ? "w-3/4" : "w-full"}`}>
           <MainEditor>
             {selectedTemplate?.Component ? (
               <selectedTemplate.Component

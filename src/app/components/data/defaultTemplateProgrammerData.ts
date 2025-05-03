@@ -53,7 +53,7 @@ export const defaultTemplateProgrammerData: TemplateData = {
     {
       title: "React Portfolio Website",
       description: "Project 1 description",
-      image: "/images/projects/1.png",
+      image: "/assets/images/programmer/react-website.png",
       tag: ["All", "Web"],
       gitUrl: "/",
       previewUrl: "/",
@@ -61,7 +61,7 @@ export const defaultTemplateProgrammerData: TemplateData = {
     {
       title: "Potography Portfolio Website",
       description: "Project 2 description",
-      image: "/images/projects/2.png",
+      image: "/assets/images/programmer/photography-website.png",
       tag: ["All", "Web"],
       gitUrl: "/",
       previewUrl: "/",
@@ -69,7 +69,7 @@ export const defaultTemplateProgrammerData: TemplateData = {
     {
       title: "E-commerce Application",
       description: "Project 3 description",
-      image: "/images/projects/3.png",
+      image: "/assets/images/programmer/e-commerce-website.png",
       tag: ["All", "Web"],
       gitUrl: "/",
       previewUrl: "/",
@@ -77,7 +77,7 @@ export const defaultTemplateProgrammerData: TemplateData = {
     {
       title: "Food Ordering Application",
       description: "Project 4 description",
-      image: "/images/projects/4.png",
+      image: "/assets/images/programmer/food-app.png",
       tag: ["All", "Mobile"],
       gitUrl: "/",
       previewUrl: "/",
@@ -85,7 +85,7 @@ export const defaultTemplateProgrammerData: TemplateData = {
     {
       title: "React Firebase Template",
       description: "Authentication and CRUD operations",
-      image: "/images/projects/5.png",
+      image: "/assets/images/programmer/firebase-template.png",
       tag: ["All", "Web"],
       gitUrl: "/",
       previewUrl: "/",
@@ -93,7 +93,7 @@ export const defaultTemplateProgrammerData: TemplateData = {
     {
       title: "Full-stack Roadmap",
       description: "Project 5 description",
-      image: "/images/projects/6.png",
+      image: "/assets/images/programmer/fullstack-roadmap.png",
       tag: ["All", "Web"],
       gitUrl: "/",
       previewUrl: "/",
