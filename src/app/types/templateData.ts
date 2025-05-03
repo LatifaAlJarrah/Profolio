@@ -152,5 +152,5 @@ export interface TemplateData {
   programmerContactSubjectPlaceholder?: string; // "Just saying hi"
   programmerContactMessagePlaceholder?: string; // "Let's talk about..."
   programmerContactSubmitButtonText?: string; // "Send Message"
-  programmerFooterText?: string; // "© 2025 . All Rights Reserved"
+  programmerFooterText?: string; // "© 2025 . All Rights Reserved" 
 }

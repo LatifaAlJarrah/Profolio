@@ -5,7 +5,6 @@ import AboutSection from "./AboutSection";
 import ProjectsSection from "./ProjectsSection";
 import EmailSection from "./EmailSection";
 import Footer from "./Footer";
-
 import { TemplateData } from "@/app/types/templateData";
 
 interface HomeProps extends TemplateData {
@@ -19,7 +18,6 @@ export default function Home({
   logoColor,
   navigationLinks,
   navigationLinksColor,
-  // ourAchievements,
   ...props
 }: HomeProps) {
   return (
@@ -41,7 +39,7 @@ export default function Home({
         <ProjectsSection {...props} />
         <EmailSection {...props} />
       </div>
-      <Footer {...props} />
+      <Footer logoName={logoName} logoColor={logoColor} />
     </main>
   );
 }
