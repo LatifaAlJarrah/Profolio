@@ -95,12 +95,12 @@ export interface TemplateData {
   aboutDoctorName?: string;
   aboutExtraText?: string;
   ourAchievements?: Array<{
-    icon?: string;
-    value?: string;
-    label?: string;
-    uploadedIcon?: string;
-    number?: number;
-    text?: string;
+    icon?: string | undefined;
+    value?: string | undefined;
+    label?: string | undefined;
+    uploadedIcon?: undefined;
+    number?: number | undefined;
+    text?: string | undefined;
   }>;
   projects?: {
     [key: string]: Array<{
