@@ -8,7 +8,7 @@ import Services from "@/app/templates/developer/services/page";
 import Resume from "@/app/templates/developer/resume/page";
 import Contact from "@/app/templates/developer/contact/page";
 
-const TemplatePreview = ({ templateName }) => {
+const TemplatePreview = () => {
   return (
     <div className="bg-primarydev text-white font-jetBrainsMono leading-loose px-20 y-12">
       <div className="mb-12">
