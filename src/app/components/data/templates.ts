@@ -1,8 +1,58 @@
+// import Resturant from "../templates/resturant/Resturant";
+// import Home from "../templates/dentist/Home";
+// import StartUpCompany from "../templates/company/StartUpCompany";
+// import Programmer from "../templates/programmer/Home";
+// // import Layout from "@/app/templates/developer/layout";
+// import ControlTemplatePage from "../templates/developer-control/page";
+// export const templates = [
+//   {
+//     title: "Restaurant Website",
+//     name: "restaurant",
+//     Component: Resturant,
+//     link: "/assets/resturant-cover.png",
+//   },
+//   {
+//     name: "dentist",
+//     Component: Home,
+//     link: "/assets/dental-cover.png",
+//   },
+//   {
+//     name: "programmer",
+//     Component: Programmer,
+//     link: "/assets/programmer-cover.png",
+//   },
+//   {
+//     name: "company",
+//     Component: StartUpCompany,
+//     link: "/assets/company-cover.png",
+//   },
+//   {
+//     name: "developer",
+//     Component: ControlTemplatePage,
+//     link: "/assets/developer-cover.png",
+//   },
+//   {
+//     name: "developer",
+//     Component: ControlTemplatePage,
+//     link: "/assets/developer-cover.png",
+//   },
+//   {
+//     name: "Software Developer Website",
+//     Component: ControlTemplatePage,
+//     link: "/assets/developer-cover.png",
+//   },
+//   {
+//     name: "software developer website",
+//     Component: ControlTemplatePage,
+//     link: "/assets/developer-cover.png",
+//   },
+// ];
+
 import Resturant from "../templates/resturant/Resturant";
 import Home from "../templates/dentist/Home";
 import StartUpCompany from "../templates/company/StartUpCompany";
 import Programmer from "../templates/programmer/Home";
-import Layout from "@/app/templates/developer/layout";
+import TemplatePreview from "@/app/components/templates/developer-control/page";
 
 export const templates = [
   {
@@ -12,38 +62,27 @@ export const templates = [
     link: "/assets/resturant-cover.png",
   },
   {
+    title: "Dentist Website",
     name: "dentist",
     Component: Home,
     link: "/assets/dental-cover.png",
   },
   {
-    name: "Programmer",
+    title: "Programmer Website",
+    name: "programmer",
     Component: Programmer,
     link: "/assets/programmer-cover.png",
   },
   {
+    title: "Company Website",
     name: "company",
     Component: StartUpCompany,
     link: "/assets/company-cover.png",
   },
   {
-    name: "Software Developer Website",
-    Component: Layout,
-    link: "/assets/developer-cover.png",
-  },
-  {
-    name: "Software Developer Website",
-    Component: Layout,
-    link: "/assets/developer-cover.png",
-  },
-  {
-    name: "Software Developer Website",
-    Component: Layout,
-    link: "/assets/developer-cover.png",
-  },
-  {
-    name: "software developer website",
-    Component: Layout,
+    title: "Software Developer Website",
+    name: "developer",
+    Component: TemplatePreview,
     link: "/assets/developer-cover.png",
   },
 ];

@@ -1,3 +1,4 @@
+// src/app/templates/developer/resume/page.jsx
 "use client";
 import {
   FaHtml5,
