@@ -9,6 +9,14 @@ import { TemplateData } from "@/app/types/templateData";
 
 interface HomeProps extends TemplateData {
   fontFamilyClass?: string;
+  ourAchievements?: {
+    icon?: string | undefined;
+    value?: string | undefined;
+    label?: string | undefined;
+    uploadedIcon?: undefined;
+    number?: number | undefined;
+    text?: string | undefined;
+  }[];
 }
 
 export default function Home({
@@ -18,6 +26,7 @@ export default function Home({
   logoColor,
   navigationLinks,
   navigationLinksColor,
+  ourAchievements,
   ...props
 }: HomeProps) {
   return (
@@ -34,7 +43,7 @@ export default function Home({
       />
       <div className="container mt-24 mx-auto py-4">
         <HeroSection {...props} />
-        <AchievementsSection {...props} />
+        <AchievementsSection ourAchievements={ourAchievements} />
         <AboutSection {...props} />
         <ProjectsSection {...props} />
         <EmailSection {...props} />

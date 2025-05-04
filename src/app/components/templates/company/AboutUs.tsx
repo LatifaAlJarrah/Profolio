@@ -70,7 +70,11 @@ const AboutUs: React.FC<AboutCompanyProps> = ({
               className="flex flex-col items-center justify-center border border-navyBlue rounded-3xl p-6 shadow-md bg-white"
             >
               <Image
-                src={item.uploadedIcon || item.icon} // استخدام uploadedIcon إذا كان موجودًا، وإلا استخدام icon
+                src={
+                  item.uploadedIcon ||
+                  item.icon ||
+                  "/assets/icons/company/done.png"
+                } // استخدام uploadedIcon إذا كان موجودًا، وإلا استخدام icon
                 alt="icon not found"
                 width={50}
                 height={50}

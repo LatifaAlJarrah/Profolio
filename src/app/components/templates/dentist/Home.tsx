@@ -8,7 +8,7 @@ import Portfolio from "./Portfolio";
 import Blog from "./Blog";
 import Footer from "./Footer";
 
-interface HomeProps {  
+interface HomeProps {
   backgroundColor?: string;
   navbarColor?: string;
   logoName?: string;
@@ -53,6 +53,14 @@ interface HomeProps {
   footerLinks?: Array<{ name: string; link: string }>;
   navigationLinks?: Array<{ name: string; link: string }>;
   navigationLinksColor?: string; // إضافة navLinksTextColor
+  ourAchievements?: {
+    number?: number;
+    icon?: string;
+    value?: string;
+    label?: string;
+    uploadedIcon?: string;
+    text?: string;
+  }[];
 }
 
 const Home = ({
