@@ -1,3 +1,4 @@
+// src/app/templates/developer/page.jsx
 import { Button } from "@/components/ui/button";
 import Photo from "@/components/ui/Photo";
 import Social from "@/components/ui/Social";

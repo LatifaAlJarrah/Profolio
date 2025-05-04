@@ -1,8 +1,6 @@
 import React from "react";
 import Navbar from "./Navbar";
 import Image from "next/image";
-import { Company } from "@/app/assets/images";
-
 import { TemplateData } from "@/app/types/templateData";
 
 interface HeaderProps extends TemplateData {
@@ -36,15 +34,15 @@ const Header: React.FC<HeaderProps> = ({
       id="home"
     >
       <Image
-        src={headerImage || Company}
+        src={headerImage || "/assets/images/company/company.jpeg"}
         alt="company"
         fill
         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-        className="absolute top-0 left-0 -z-10 object-cover"
+        className="absolute top-0 left-0 z-10 object-cover"
       />
-      <div className="absolute inset-0 bg-black -z-10 opacity-60"></div>
+      <div className="absolute inset-0 bg-black z-10 opacity-60"></div>
 
-      <div className="col-span-12">
+      <div className="col-span-12 z-40">
         <Navbar
           navbarColor={navbarColor}
           logoName={logoName}
@@ -56,7 +54,7 @@ const Header: React.FC<HeaderProps> = ({
       </div>
 
       <div
-        className={`font-roboto col-span-10 col-start-2 flex flex-col items-center text-center`}
+        className={`font-roboto col-span-10 col-start-2 flex flex-col items-center text-center z-40`}
       >
         <h1
           className="text-5xl font-bold max-w-4xl"
