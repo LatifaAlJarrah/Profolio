@@ -105,7 +105,7 @@ interface SidebarProps {
   onAddCertification?: () => void;
   onRemoveCertification?: (index: number) => void;
   onAddProject?: () => void; // إضافة prop جديد
-  onRemoveProject?: (index: number) => void; // إضافة prop جديد 
+  onRemoveProject?: (index: number) => void; // إضافة prop جديد
 }
 
 const Sidebar: React.FC<SidebarProps> = ({
@@ -452,6 +452,20 @@ const Sidebar: React.FC<SidebarProps> = ({
             ),
             title: "Email",
             icon: <FaEnvelope />,
+          },
+        ]
+      : templateName === "developer"
+      ? [
+          {
+            component: (
+              <GeneralStylesSection
+                key="general"
+                templateData={templateData}
+                onChange={onChange}
+              />
+            ),
+            title: "General Styles",
+            icon: <FaCog />,
           },
         ]
       : [
