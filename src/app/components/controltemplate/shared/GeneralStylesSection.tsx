@@ -36,7 +36,7 @@ const GeneralStylesSection = ({
           </select>
         </label>
 
-        {templateName !== "programmer" && (
+        {templateName !== "programmer" && templateName !== "developer" && (
           <>
             <label className="block mb-2">
               General Text Color:
