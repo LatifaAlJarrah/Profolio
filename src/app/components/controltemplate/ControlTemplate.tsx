@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import React, { useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { Roboto, Poppins, Montserrat, Palanquin_Dark } from "next/font/google";
 
@@ -556,7 +556,7 @@ const ControlTemplate = () => {
             />
           </div>
         )}
-        <div className={`flex-grow bg-lightGray overflow-y-auto ${showSidebar ? "w-3/4" : "w-full"}`}>
+        {/* <div className={`flex-grow bg-lightGray overflow-y-auto ${showSidebar ? "w-3/4" : "w-full"}`}>
           <MainEditor>
             {selectedTemplate?.Component ? (
               <selectedTemplate.Component
@@ -566,6 +566,27 @@ const ControlTemplate = () => {
               >
                 <div></div>
               </selectedTemplate.Component>
+            ) : (
+              <p>Template not found</p>
+            )}
+          </MainEditor>
+        </div> */}
+        <div
+          className={`flex-grow bg-lightGray overflow-y-auto ${
+            showSidebar ? "w-3/4" : "w-full"
+          }`}
+        >
+          <MainEditor>
+            {selectedTemplate?.Component ? (
+              React.cloneElement(
+                <selectedTemplate.Component
+                  key={renderKey}
+                  {...templateData}
+                  fontFamilyClass={getFontClassName()}
+                />,
+                {},
+                null
+              )
             ) : (
               <p>Template not found</p>
             )}
