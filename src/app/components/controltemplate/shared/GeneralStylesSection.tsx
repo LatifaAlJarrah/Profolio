@@ -28,6 +28,7 @@ const GeneralStylesSection = ({
             onChange={(e) => onChange("fontFamily", e.target.value)}
             className="p-1 border rounded-md w-full bg-transparent text-charcoalGray"
           >
+            <option value="JetBrains Mono">JetBrains Mono</option>
             <option value="Roboto">Roboto</option>
             <option value="Arial">Arial</option>
             <option value="Times New Roman">Times New Roman</option>

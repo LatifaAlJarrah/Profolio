@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import { useSearchParams } from "next/navigation";
-import { Roboto, Poppins, Montserrat, Palanquin_Dark } from "next/font/google";
+import { Roboto, Poppins, Montserrat, Palanquin_Dark, JetBrains_Mono } from "next/font/google";
 
 import Sidebar from "./Sidebar";
 import MainEditor from "./MainEditor";
@@ -12,6 +12,7 @@ import { defaultTemplateData } from "../data/defaultTemplateDentistData";
 import { defaultTemplateRestaurantData } from "../data/defaultTemplateRestaurantData";
 import { defaultTemplateCompanyData } from "../data/defaultTemplateCompanyData";
 import { defaultTemplateProgrammerData } from "../data/defaultTemplateProgrammerData";
+import { defaultTemplateDeveloperData } from "../data/defaultTemplateDeveloperData";
 
 const roboto = Roboto({
   weight: "400",
@@ -36,6 +37,11 @@ const palanquinDark = Palanquin_Dark({
   subsets: ["latin"],
   display: "swap",
 });
+const jetBrains_Mono = JetBrains_Mono({
+  weight: "400",
+  subsets: ["latin"],
+  display: "swap",
+});
 
 const ControlTemplate = () => {
   const searchParams = useSearchParams();
@@ -48,6 +54,8 @@ const ControlTemplate = () => {
       ? defaultTemplateCompanyData
       : templateName === "programmer"
       ? defaultTemplateProgrammerData
+      : templateName === "developer"
+      ? defaultTemplateDeveloperData
       : defaultTemplateData;
 
   const [templateData, setTemplateData] = useState(initialTemplateData);
@@ -499,6 +507,8 @@ const ControlTemplate = () => {
         return montserrat.className;
       case "Palanquin Dark":
         return palanquinDark.className;
+      case "JetBrains Mono":
+        return jetBrains_Mono.className;
       case "Arial":
       case "Times New Roman":
         return "";
