@@ -3,7 +3,11 @@ import React from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 
-const Photo = () => {
+interface PhotoProps {
+  imageSrc?: string;
+}
+
+const Photo = ({imageSrc = "/assets/photo.png"}: PhotoProps) => {
   return (
     // <div className="w-full h-full relative">
     <div className="w-full h-full relative flex items-center justify-center">
@@ -25,11 +29,11 @@ const Photo = () => {
           className="w-[298px] h-[298px] xl:w-[498px] xl:h-[498px] absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 mix-blend-lighten"
         >
           <Image
-            src="/assets/photo.png"
+            src={imageSrc}
+            alt="Developer Photo"
+            fill
             priority
             quality={100}
-            fill
-            alt=""
             className="object-contain"
           />
         </motion.div>

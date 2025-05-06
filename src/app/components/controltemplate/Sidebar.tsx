@@ -33,6 +33,8 @@ import ProgrammerAboutSection from "./sidebar/programmer/ProgrammerAboutSection"
 import ProgrammerProjectsSection from "./sidebar/programmer/ProgrammerProjectsSection";
 import ProgrammerEmailSection from "./sidebar/programmer/ProgrammerEmailSection";
 
+import DeveloperNavbarSection from "./sidebar/developer/NavbarSection";
+
 import GeneralStylesSection from "./shared/GeneralStylesSection";
 import BreakLine from "./shared/BreakLine";
 import ButtonsSection from "./shared/ButtonsSection";
@@ -466,6 +468,18 @@ const Sidebar: React.FC<SidebarProps> = ({
             ),
             title: "General Styles",
             icon: <FaCog />,
+          },
+          {
+            component: (
+              <DeveloperNavbarSection
+                key="navbar"
+                templateData={templateData}
+                onChange={onChange}
+                onNavLinkChange={onNavLinkChange}
+              />
+            ),
+            title: "Navbar",
+            icon: <FaBars />,
           },
         ]
       : [

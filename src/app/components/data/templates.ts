@@ -2,7 +2,7 @@ import Resturant from "../templates/resturant/Resturant";
 import Home from "../templates/dentist/Home";
 import StartUpCompany from "../templates/company/StartUpCompany";
 import Programmer from "../templates/programmer/Home";
-import TemplatePreview from "@/app/components/templates/developer-control/page";
+import TemplatePreview from "../templates/developer-control/page";
 
 export const templates = [
   {

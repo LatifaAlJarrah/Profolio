@@ -118,20 +118,19 @@ export interface TemplateData {
     behanceLink?: string;
     githubLink?: string;
   }>;
-  // حقول جديدة لتمبليت Programmer
-  programmerHeaderGreeting?: string; // "Hello, I'm"
-  programmerHeaderName?: string; // "Zayn Haddad"
-  programmerHeaderRoles?: string[]; // ["Web Developer", "Mobile Developer", "UI/UX Designer"]
-  programmerHeaderDescription?: string; // الوصف في HeroSection
-  programmerHeaderButtonText?: string; // "Hire Me"
-  programmerHeaderImage?: string; // الصورة في HeroSection
-  programmerAchievements?: Array<{ num: number; text: string }>; // الإنجازات (Projects, Users, Awards, Years)
+  programmerHeaderGreeting?: string;
+  programmerHeaderName?: string;
+  programmerHeaderRoles?: string[];
+  programmerHeaderDescription?: string;
+  programmerHeaderButtonText?: string;
+  programmerHeaderImage?: string;
+  programmerAchievements?: Array<{ num: number; text: string }>; // (Projects, Users, Awards, Years)
   programmerAboutTitle?: string; // "About Me"
-  programmerAboutDescription?: string; // الوصف في AboutSection
-  programmerAboutImage?: string; // الصورة في AboutSection
-  programmerSkills?: string[]; // قائمة المهارات
-  programmerEducation?: string[]; // قائمة التعليم
-  programmerCertifications?: string[]; // قائمة الشهادات
+  programmerAboutDescription?: string;
+  programmerAboutImage?: string;
+  programmerSkills?: string[];
+  programmerEducation?: string[];
+  programmerCertifications?: string[];
   programmerProjectsTitle?: string; // "My Projects"
   programmerProjects?: Array<{
     title: string;
@@ -140,17 +139,31 @@ export interface TemplateData {
     tag: string[];
     gitUrl: string;
     previewUrl: string;
-  }>; // قائمة المشاريع
-  programmerContactTitle?: string; // "Let's Connect"
-  programmerContactDescription?: string; // الوصف في EmailSection
-  programmerGithubLink?: string; // رابط GitHub
-  programmerLinkedinLink?: string; // رابط LinkedIn
-  programmerContactEmailLabel?: string; // "Your email"
-  programmerContactSubjectLabel?: string; // "Subject"
-  programmerContactMessageLabel?: string; // "Message"
-  programmerContactEmailPlaceholder?: string; // "jacob@google.com"
-  programmerContactSubjectPlaceholder?: string; // "Just saying hi"
-  programmerContactMessagePlaceholder?: string; // "Let's talk about..."
-  programmerContactSubmitButtonText?: string; // "Send Message"
-  programmerFooterText?: string; // "© 2025 . All Rights Reserved" 
+  }>;
+  programmerContactTitle?: string;
+  programmerContactDescription?: string;
+  programmerGithubLink?: string;
+  programmerLinkedinLink?: string;
+  programmerContactEmailLabel?: string;
+  programmerContactSubjectLabel?: string;
+  programmerContactMessageLabel?: string;
+  programmerContactEmailPlaceholder?: string;
+  programmerContactSubjectPlaceholder?: string;
+  programmerContactMessagePlaceholder?: string;
+  programmerContactSubmitButtonText?: string;
+  programmerFooterText?: string;
+
+  hireMeButton?: { text: string; path: string; color: string };
+  developerHeader?: {
+    role?: string;
+    title?: string;
+    name?: string;
+    description?: string;
+    developerImage?: string;
+    downloadCVButtonText?: string;
+    downloadCVButtonPath?: string;
+    downloadCVButtonColor?: string;
+    socialIcons?: Array<{ name: string; link: string }>;
+    socialIconsColor?: string;
+  };
 }
