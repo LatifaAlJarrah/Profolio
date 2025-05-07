@@ -2,7 +2,6 @@
 
 import { useSwiper } from "swiper/react";
 import { PiCaretLeftBold, PiCaretRightBold } from "react-icons/pi";
-import { icons } from "lucide-react";
 
 const WorkSliderBtns = ({ containerStyles, btnStyles, iconsStyles }) => {
   const swiper = useSwiper();

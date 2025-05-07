@@ -30,6 +30,16 @@ interface TemplatePreviewProps extends TemplateData {
     number?: number;
     text?: string;
   }>;
+  developerProjects?: Array<{
+    num: string;
+    category: string;
+    title: string;
+    description: string;
+    stack: Array<{ name: string }>;
+    image: string;
+    live: string;
+    github: string;
+  }>;
 }
 
 const TemplatePreview = ({
@@ -51,9 +61,10 @@ const TemplatePreview = ({
   developerLinkedinLink,
   developerTwitterLink,
   ourAchievements,
+  developerProjects,
 }: TemplatePreviewProps) => {
   return (
-    <div className="bg-primarydev text-white font-jetBrainsMono leading-loose px-20 y-12">
+    <div className="bg-primarydev text-white font-jetBrainsMono leading-loose px-20 py-12">
       <div className="mb-12">
         <Header
           logoName={logoName}
@@ -87,7 +98,7 @@ const TemplatePreview = ({
       </div>
 
       <div className="mb-12">
-        <Work />
+        <Work developerProjects={developerProjects} />
       </div>
 
       <div className="mb-12">

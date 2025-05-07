@@ -36,6 +36,7 @@ import ProgrammerEmailSection from "./sidebar/programmer/ProgrammerEmailSection"
 import DeveloperNavbarSection from "./sidebar/developer/NavbarSection";
 import DeveloperHeaderSection from "./sidebar/developer/HeaderSection";
 import DeveloperAchievementsSection from "./sidebar/developer/AchievementsSection";
+import WorkSection from "./sidebar/developer/WorkSection";
 
 import GeneralStylesSection from "./shared/GeneralStylesSection";
 import BreakLine from "./shared/BreakLine";
@@ -53,6 +54,7 @@ import {
   FaRandom,
   FaTrophy,
   FaEnvelope,
+  FaLaptopCode,
 } from "react-icons/fa";
 
 interface SidebarProps {
@@ -504,6 +506,17 @@ const Sidebar: React.FC<SidebarProps> = ({
             ),
             title: "Achievements",
             icon: <FaTrophy />,
+          },
+          {
+            component: (
+              <WorkSection
+                key="work"
+                templateData={templateData}
+                onChange={onChange}
+              />
+            ),
+            title: "Work",
+            icon: <FaLaptopCode />,
           },
         ]
       : [
