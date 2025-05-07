@@ -34,6 +34,8 @@ import ProgrammerProjectsSection from "./sidebar/programmer/ProgrammerProjectsSe
 import ProgrammerEmailSection from "./sidebar/programmer/ProgrammerEmailSection";
 
 import DeveloperNavbarSection from "./sidebar/developer/NavbarSection";
+import DeveloperHeaderSection from "./sidebar/developer/HeaderSection";
+import DeveloperAchievementsSection from "./sidebar/developer/AchievementsSection";
 
 import GeneralStylesSection from "./shared/GeneralStylesSection";
 import BreakLine from "./shared/BreakLine";
@@ -85,14 +87,11 @@ interface SidebarProps {
     value: string | number
   ) => void;
   onProjectChange: (
-    index: number, // تغيير من category إلى index للتمبليت Programmer
+    index: number,
     field: string,
-    value: string | string[] // دعم تحديث المصفوفات مثل tag
+    value: string | string[]
   ) => void;
-  onProjectImageChange: (
-    index: number, // تغيير من category إلى index
-    file: File | null
-  ) => void;
+  onProjectImageChange: (index: number, file: File | null) => void;
   onTeamMemberChange: (index: number, field: string, value: string) => void;
   onTeamMemberImageChange: (index: number, file: File | null) => void;
   onAddTeamMember: () => void;
@@ -106,8 +105,8 @@ interface SidebarProps {
   onRemoveEducation?: (index: number) => void;
   onAddCertification?: () => void;
   onRemoveCertification?: (index: number) => void;
-  onAddProject?: () => void; // إضافة prop جديد
-  onRemoveProject?: (index: number) => void; // إضافة prop جديد
+  onAddProject?: () => void;
+  onRemoveProject?: (index: number) => void;
 }
 
 const Sidebar: React.FC<SidebarProps> = ({
@@ -481,6 +480,31 @@ const Sidebar: React.FC<SidebarProps> = ({
             title: "Navbar",
             icon: <FaBars />,
           },
+          {
+            component: (
+              <DeveloperHeaderSection
+                key="header"
+                templateData={templateData}
+                onChange={onChange}
+                onImageChange={onImageChange}
+              />
+            ),
+            title: "Header",
+            icon: <FaHeading />,
+          },
+          {
+            component: (
+              <DeveloperAchievementsSection
+                key="achievements"
+                templateData={templateData}
+                onAchievementsChange={onAchievementsChange}
+                onAddAchievement={onAddAchievement ?? (() => {})}
+                onRemoveAchievement={onRemoveAchievement ?? (() => {})}
+              />
+            ),
+            title: "Achievements",
+            icon: <FaTrophy />,
+          },
         ]
       : [
           {
@@ -636,7 +660,6 @@ const Sidebar: React.FC<SidebarProps> = ({
 
       <BreakLine />
 
-      {/* أزرار التنقل */}
       <div className="flex flex-wrap justify-between mb-4 gap-2 font-mono">
         {!isFirstSection && (
           <button

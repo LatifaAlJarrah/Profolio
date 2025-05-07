@@ -29,7 +29,6 @@ const ProgrammerEmailSection: React.FC<ProgrammerEmailSectionProps> = ({
         <h3 className="text-lg font-semibold text-gray-800">Email Settings</h3>
       </div>
 
-      {/* العنوان */}
       <label className="flex items-center space-x-2">
         <span className="text-sm font-medium text-gray-700">Title:</span>
         <input
@@ -41,7 +40,6 @@ const ProgrammerEmailSection: React.FC<ProgrammerEmailSectionProps> = ({
         />
       </label>
 
-      {/* الوصف */}
       <label className="flex items-center space-x-2">
         <span className="text-sm font-medium text-gray-700">Description:</span>
         <textarea
@@ -55,7 +53,6 @@ const ProgrammerEmailSection: React.FC<ProgrammerEmailSectionProps> = ({
         />
       </label>
 
-      {/* الروابط الاجتماعية */}
       <h4 className="text-md font-medium text-gray-800">Social Links</h4>
       <label className="flex items-center space-x-2">
         <FaGithub className="text-gray-500 w-5 h-5" />
@@ -80,9 +77,7 @@ const ProgrammerEmailSection: React.FC<ProgrammerEmailSectionProps> = ({
         />
       </label>
 
-      {/* حقول النموذج */}
       <h4 className="text-md font-medium text-gray-800">Form Fields</h4>
-      {/* Email Field */}
       <div className="border p-3 rounded-md space-y-2">
         <h5 className="text-sm font-medium text-gray-700">Email Field</h5>
         <label className="flex items-center space-x-2">
@@ -112,7 +107,6 @@ const ProgrammerEmailSection: React.FC<ProgrammerEmailSectionProps> = ({
           />
         </label>
       </div>
-      {/* Subject Field */}
       <div className="border p-3 rounded-md space-y-2">
         <h5 className="text-sm font-medium text-gray-700">Subject Field</h5>
         <label className="flex items-center space-x-2">
@@ -142,7 +136,6 @@ const ProgrammerEmailSection: React.FC<ProgrammerEmailSectionProps> = ({
           />
         </label>
       </div>
-      {/* Message Field */}
       <div className="border p-3 rounded-md space-y-2">
         <h5 className="text-sm font-medium text-gray-700">Message Field</h5>
         <label className="flex items-center space-x-2">
@@ -173,7 +166,6 @@ const ProgrammerEmailSection: React.FC<ProgrammerEmailSectionProps> = ({
         </label>
       </div>
 
-      {/* نص زر الإرسال */}
       <label className="flex items-center space-x-2">
         <span className="text-sm font-medium text-gray-700">
           Submit Button Text:

@@ -1,4 +1,5 @@
 export interface TemplateData {
+  backgroundColor?: string;
   navbarColor?: string;
   logoName?: string;
   logoColor?: string;
@@ -154,16 +155,15 @@ export interface TemplateData {
   programmerFooterText?: string;
 
   hireMeButton?: { text: string; path: string; color: string };
-  developerHeader?: {
-    role?: string;
-    title?: string;
-    name?: string;
-    description?: string;
-    developerImage?: string;
-    downloadCVButtonText?: string;
-    downloadCVButtonPath?: string;
-    downloadCVButtonColor?: string;
-    socialIcons?: Array<{ name: string; link: string }>;
-    socialIconsColor?: string;
-  };
+  developerHeaderRole?: string;
+  developerHeadertitle?: string;
+  developerHeadername?: string;
+  developerHeaderdescription?: string;
+  developerHeaderImage?: string;
+  developerHeaderdownloadCVButtonText?: string;
+  developerHeaderdownloadCVButtonColor?: string;
+  developerInstagramLink?: string;
+  developerLinkedinLink?: string;
+  developerTwitterLink?: string;
+  developerSocialIconsColor?: string;
 }
