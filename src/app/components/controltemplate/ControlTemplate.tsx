@@ -1,7 +1,13 @@
 "use client";
 import React, { useState } from "react";
 import { useSearchParams } from "next/navigation";
-import { Roboto, Poppins, Montserrat, Palanquin_Dark, JetBrains_Mono } from "next/font/google";
+import {
+  Roboto,
+  Poppins,
+  Montserrat,
+  Palanquin_Dark,
+  JetBrains_Mono,
+} from "next/font/google";
 
 import Sidebar from "./Sidebar";
 import MainEditor from "./MainEditor";
@@ -566,21 +572,6 @@ const ControlTemplate = () => {
             />
           </div>
         )}
-        {/* <div className={`flex-grow bg-lightGray overflow-y-auto ${showSidebar ? "w-3/4" : "w-full"}`}>
-          <MainEditor>
-            {selectedTemplate?.Component ? (
-              <selectedTemplate.Component
-                key={renderKey}
-                {...templateData}
-                fontFamilyClass={getFontClassName()}
-              >
-                <div></div>
-              </selectedTemplate.Component>
-            ) : (
-              <p>Template not found</p>
-            )}
-          </MainEditor>
-        </div> */}
         <div
           className={`flex-grow bg-lightGray overflow-y-auto ${
             showSidebar ? "w-3/4" : "w-full"

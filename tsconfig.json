@@ -1,8 +1,12 @@
 {
   "compilerOptions": {
-    "jsx": "react-jsx",
+    "jsx": "preserve",
     "target": "ES2017",
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -21,11 +25,21 @@
     ],
     "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*"],
-      "@components/*": ["src/app/components/*"],
-      "@assets/*": ["src/app/assets/*"],
-      "@icons/*": ["src/app/assets/icons/*"],
-      "@images/*": ["src/app/assets/images/*"]
+      "@/*": [
+        "src/*"
+      ],
+      "@components/*": [
+        "src/app/components/*"
+      ],
+      "@assets/*": [
+        "src/app/assets/*"
+      ],
+      "@icons/*": [
+        "src/app/assets/icons/*"
+      ],
+      "@images/*": [
+        "src/app/assets/images/*"
+      ]
     }
   },
   "include": [
@@ -37,5 +51,7 @@
     "middleware.js",
     "types/**/*.d.ts"
   ],
-  "exclude": ["node_modules"]
+  "exclude": [
+    "node_modules"
+  ]
 }

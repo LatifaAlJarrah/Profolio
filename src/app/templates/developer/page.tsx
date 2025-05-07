@@ -1,129 +1,125 @@
-// // src/app/templates/developer/page.jsx
-// import { Button } from "@/components/ui/button";
-// import Photo from "@/components/ui/Photo";
-// import Social from "@/components/ui/Social";
-// import Stats from "@/components/ui/Stats";
-// import { FiDownload } from "react-icons/fi";
-
-// const Home = () => {
-//   return (
-//     <section className="h-full">
-//       <div className="container mx-auto h-full">
-//         <div className="flex flex-col xl:flex-row items-center justify-between xl:pt-8 xl:pb-24">
-//           <div className="text-center xl:text-left order-2 xl:order-none">
-//             <span className="text-xl">Software Developer</span>
-//             <h1 className="h1 mb-6">
-//               Hello I&apos;m <br />{" "}
-//               <span className="text-accent">Luke Coleman</span>
-//             </h1>
-//             <p className="max-w-[500px] mb-9 text-white/80">
-//               I excel at crafting elegant digital experiences and I am
-//               proficient in various programming Languages and technologies.
-//             </p>
-//             <div className="flex flex-col xl:flex-row items-center gap-8">
-//               <Button
-//                 variant="outline"
-//                 size="lg"
-//                 className="uppercase flex items-center gap-2"
-//               >
-//                 <span>Download CV</span>
-//                 <FiDownload className="text-xl" />
-//               </Button>
-//               <div className="mb-8 xl:mb-0">
-//                 <Social
-//                   containerStyles="flex gap-6"
-//                   iconStyles="w-9 h-9 border border-accent rounded-full flex justify-center items-center text-accent text-base hover:bg-accent hover:text-primarydev hover:transition-all duration-500"
-//                 />
-//               </div>
-//             </div>
-//           </div>
-//           <div className="order-1 xl:order-none flex justify-center items-center mb-8 xl:mb-0">
-//             <Photo />
-//           </div>
-//         </div>
-//       </div>
-//       <Stats />
-//     </section>
-//   );
-// };
-
-// export default Home;
 "use client";
 import { Button } from "@/components/ui/button";
 import Photo from "@/components/ui/Photo";
 import Social from "@/components/ui/Social";
 import Stats from "@/components/ui/Stats";
 import { FiDownload } from "react-icons/fi";
-import { TemplateData } from "@/app/types/templateData";
 
 interface HomeProps {
-  data: TemplateData;
+  backgroundColor?: string;
+  developerHeaderRole?: string;
+  developerHeadertitle?: string;
+  developerHeadername?: string;
+  developerHeaderdescription?: string;
+  developerHeaderImage?: string;
+  developerHeaderdownloadCVButtonText?: string;
+  developerHeaderdownloadCVButtonColor?: string;
+  developerInstagramLink?: string;
+  developerLinkedinLink?: string;
+  developerTwitterLink?: string;
+  ourAchievements?: Array<{
+    number?: number;
+    text?: string;
+  }>;
 }
 
-const Home = ({ data }: HomeProps) => {
-  const developerHeader = data.developerHeader;
+const Home = ({
+  backgroundColor,
+  developerHeaderRole,
+  developerHeadertitle,
+  developerHeadername,
+  developerHeaderdescription,
+  developerHeaderImage,
+  developerHeaderdownloadCVButtonText,
+  developerHeaderdownloadCVButtonColor,
+  developerInstagramLink,
+  developerLinkedinLink,
+  developerTwitterLink,
+  ourAchievements,
+}: HomeProps) => {
+  const backgroundStyles = {
+    backgroundColor: backgroundColor || "#1c1c22",
+  };
+  const role = developerHeaderRole || "Software Developer";
+  const title = developerHeadertitle || "Hello, I'm ";
+  const name = developerHeadername || "Luke Coleman";
+  const description =
+    developerHeaderdescription ||
+    "I excel at crafting elegant digital experiences and I am proficient in various programming languages and technologies.";
+  const developerImage = developerHeaderImage || "/assets/photo.png";
+  const downloadCVButtonText =
+    developerHeaderdownloadCVButtonText || "DOWNLOAD CV";
+  const downloadCVButtonColor =
+    developerHeaderdownloadCVButtonColor || "#00ff99";
+  const instagramLink = developerInstagramLink || "https://instagram.com";
+  const linkedinLink = developerLinkedinLink || "https://linkedin.com";
+  const twitterLink = developerTwitterLink || "https://twitter.com";
 
-  // const {
-  //   role,
-  //   title,
-  //   name,
-  //   description,
-  //   developerImage,
-  //   downloadCVButtonText,
-  //   downloadCVButtonPath,
-  //   downloadCVButtonColor,
-  //   socialIcons = [
-  //     { name: "Instagram", link: "https://instagram.com" },
-  //     { name: "Twitter", link: "https://twitter.com" },
-  //     { name: "LinkedIn", link: "https://linkedin.com" },
-  //   ],
-  //   socialIconsColor,
-  // } = developerHeader;
+  const socialIconColors = {
+    Instagram: "#E1306C",
+    Twitter: "#1DA1F2",
+    LinkedIn: "#0077B5",
+  };
+
+  const ourAchievementsData = ourAchievements || [
+    { number: 12, text: "Years of experience" },
+    { number: 26, text: "Projects Completed" },
+    { number: 8, text: "Technologies mastered" },
+    { number: 500, text: "Code commits" },
+  ];
+  type SocialMedia = "Instagram" | "Twitter" | "LinkedIn";
 
   return (
-    <section className="h-full">
+    <section className={`h-full`} style={backgroundStyles}>
       <div className="container mx-auto h-full">
         <div className="flex flex-col xl:flex-row items-center justify-between xl:pt-8 xl:pb-24">
           <div className="text-center xl:text-left order-2 xl:order-none">
-            <span className="text-xl">{developerHeader?.role}</span>
+            <span className="text-xl">{role}</span>
             <h1 className="h1 mb-6">
-              {developerHeader?.title} <br />{" "}
-              <span className="text-accent">{developerHeader?.name}</span>
+              {title} <br /> <span className="text-accent">{name}</span>
             </h1>
-            <p className="max-w-[500px] mb-9 text-white/80">
-              {developerHeader?.description}
-            </p>
+            <p className="max-w-[500px] mb-9 text-white/80">{description}</p>
             <div className="flex flex-col xl:flex-row items-center gap-8">
               <Button
                 variant="outline"
                 size="lg"
                 className="uppercase flex items-center gap-2"
                 style={{
-                  borderColor: developerHeader?.downloadCVButtonColor,
-                  color: developerHeader?.downloadCVButtonColor,
+                  borderColor: downloadCVButtonColor,
+                  color: downloadCVButtonColor,
                 }}
                 asChild
               >
-                <a href={developerHeader?.downloadCVButtonPath}>
-                  <span>{developerHeader?.downloadCVButtonText}</span>
+                <a href="#">
+                  <span>{downloadCVButtonText}</span>
                   <FiDownload className="text-xl" />
                 </a>
               </Button>
               <div className="mb-8 xl:mb-0">
                 <Social
                   containerStyles="flex gap-6"
-                  iconStyles={`w-9 h-9 border rounded-full flex justify-center items-center text-base hover:transition-all duration-500 border-[${developerHeader?.socialIconsColor}] text-[${developerHeader?.socialIconsColor}] hover:bg-[${developerHeader?.socialIconsColor}] hover:text-primarydev`}
-                  socialIcons={developerHeader?.socialIcons}
+                  iconStyles={(iconName) =>
+                    `w-9 h-9 border rounded-full flex justify-center items-center text-base hover:transition-all duration-500 border-[${
+                      socialIconColors[iconName as SocialMedia]
+                    }] text-[${
+                      socialIconColors[iconName as SocialMedia]
+                    }] hover:bg-[${
+                      socialIconColors[iconName as SocialMedia]
+                    }] hover:text-primarydev`
+                  }
+                  instagramLink={instagramLink}
+                  linkedinLink={linkedinLink}
+                  twitterLink={twitterLink}
                 />
               </div>
             </div>
           </div>
           <div className="order-1 xl:order-none flex justify-center items-center mb-8 xl:mb-0">
-            <Photo imageSrc={developerHeader?.developerImage} />
+            <Photo imageSrc={developerImage} />
           </div>
         </div>
       </div>
-      <Stats />
+      <Stats ourAchievements={ourAchievementsData} />
     </section>
   );
 };

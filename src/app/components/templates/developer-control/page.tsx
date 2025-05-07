@@ -1,41 +1,56 @@
 "use client";
 import * as React from "react";
-
 import Header from "../developer/Header";
 import Home from "@/app/templates/developer/page";
 import Work from "@/app/templates/developer/work/page";
 import Services from "@/app/templates/developer/services/page";
 import Resume from "@/app/templates/developer/resume/page";
 import Contact from "@/app/templates/developer/contact/page";
+import { TemplateData } from "@/app/types/templateData";
 
-interface TemplatePreviewProps {
+interface TemplatePreviewProps extends TemplateData {
+  backgroundColor?: string;
   logoName?: string;
   logoColor?: string;
   navigationLinks?: Array<{ name: string; link: string }>;
   navigationLinksColor?: string;
   navbarColor?: string;
   hireMeButton?: { text: string; path: string; color: string };
-  developerHeader?: Array<{
-    role: string;
-    title: string;
-    name: string;
-    description: string;
-    developerImage: string;
-    dounloadCVButtonText: string;
-    dounloadCVButtonPath: string;
-    dounloadCVButtonColor: string;
-    socialIconsPath: string;
-    socialIconsColor: string;
+  developerHeaderRole?: string;
+  developerHeadertitle?: string;
+  developerHeadername?: string;
+  developerHeaderdescription?: string;
+  developerHeaderImage?: string;
+  developerHeaderdownloadCVButtonText?: string;
+  developerHeaderdownloadCVButtonColor?: string;
+  developerInstagramLink?: string;
+  developerLinkedinLink?: string;
+  developerTwitterLink?: string;
+  ourAchievements?: Array<{
+    number?: number;
+    text?: string;
   }>;
 }
+
 const TemplatePreview = ({
+  backgroundColor,
   logoName,
   logoColor,
   navigationLinks,
   navigationLinksColor,
   navbarColor,
   hireMeButton,
-  developerHeader,
+  developerHeaderRole,
+  developerHeadertitle,
+  developerHeadername,
+  developerHeaderdescription,
+  developerHeaderImage,
+  developerHeaderdownloadCVButtonText,
+  developerHeaderdownloadCVButtonColor,
+  developerInstagramLink,
+  developerLinkedinLink,
+  developerTwitterLink,
+  ourAchievements,
 }: TemplatePreviewProps) => {
   return (
     <div className="bg-primarydev text-white font-jetBrainsMono leading-loose px-20 y-12">
@@ -51,7 +66,24 @@ const TemplatePreview = ({
       </div>
 
       <div className="mb-12">
-        <Home data={developerHeader} />
+        <Home
+          backgroundColor={backgroundColor}
+          developerHeaderRole={developerHeaderRole}
+          developerHeadertitle={developerHeadertitle}
+          developerHeadername={developerHeadername}
+          developerHeaderdescription={developerHeaderdescription}
+          developerHeaderImage={developerHeaderImage}
+          developerHeaderdownloadCVButtonText={
+            developerHeaderdownloadCVButtonText
+          }
+          developerHeaderdownloadCVButtonColor={
+            developerHeaderdownloadCVButtonColor
+          }
+          developerInstagramLink={developerInstagramLink}
+          developerLinkedinLink={developerLinkedinLink}
+          developerTwitterLink={developerTwitterLink}
+          ourAchievements={ourAchievements}
+        />
       </div>
 
       <div className="mb-12">
@@ -72,4 +104,5 @@ const TemplatePreview = ({
     </div>
   );
 };
+
 export default TemplatePreview;
