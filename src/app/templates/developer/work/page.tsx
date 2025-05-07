@@ -1,4 +1,3 @@
-// src/app/templates/developer/work/page.jsx
 "use client";
 import { motion } from "framer-motion";
 import React, { useState } from "react";
@@ -19,47 +18,85 @@ import Link from "next/link";
 import Image from "next/image";
 import WorkSliderBtns from "@/components/ui/WorkSliderBtns";
 
-const projects = [
-  {
-    num: "01",
-    category: "frontend",
-    title: "project 1",
-    description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum veniam, nisi tempora dignissimos facilis recusandae architecto quae.",
-    stack: [{ name: "Html 5" }, { name: "Css 3" }, { name: "Javascript" }],
-    image: "/assets/work/thumb1.png",
-    live: "",
-    github: "",
-  },
-  {
-    num: "02",
-    category: "fullstack",
-    title: "project 2",
-    description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum veniam, nisi tempora dignissimos facilis recusandae architecto quae.",
-    stack: [{ name: "Next.js" }, { name: "Tailwind.css" }, { name: "Node.js" }],
-    image: "/assets/work/thumb2.png",
-    live: "",
-    github: "",
-  },
-  {
-    num: "03",
-    category: "frontend",
-    title: "project 3",
-    description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum veniam, nisi tempora dignissimos facilis recusandae architecto quae.",
-    stack: [{ name: "Next.js" }, { name: "Tailwind.css" }],
-    image: "/assets/work/thumb3.png",
-    live: "",
-    github: "",
-  },
-];
-const Work = () => {
-  const [project, setProject] = useState(projects[0]);
+interface Projects {
+  developerProjects?: Array<{
+    num: string;
+    category: string;
+    title: string;
+    description: string;
+    stack: Array<{ name: string }>;
+    image: string;
+    live: string;
+    github: string;
+  }>;
+}
 
-  const handleSlideChange = (swiper) => {
+const Work = ({ developerProjects }: Projects) => {
+  const defaultProjects = [
+    {
+      num: "01",
+      category: "frontend",
+      title: "Project 1",
+      description: "A frontend project built with React and Tailwind CSS.",
+      stack: [{ name: "React" }, { name: "Tailwind CSS" }],
+      image: "/assets/project1.png",
+      live: "https://example.com/project1",
+      github: "https://github.com/example/project1",
+    },
+    {
+      num: "02",
+      category: "backend",
+      title: "Project 2",
+      description: "A backend project built with Node.js and Express.",
+      stack: [{ name: "Node.js" }, { name: "Express" }],
+      image: "/assets/project2.png",
+      live: "https://example.com/project2",
+      github: "https://github.com/example/project2",
+    },
+    {
+      num: "03",
+      category: "frontend",
+      title: "project 3",
+      description:
+        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum veniam, nisi tempora dignissimos facilis recusandae architecto quae.",
+      stack: [{ name: "Next.js" }, { name: "Tailwind.css" }],
+      image: "/assets/work/thumb3.png",
+      live: "",
+      github: "",
+    },
+  ];
+
+  const projects = Array.isArray(developerProjects)
+    ? developerProjects
+    : defaultProjects;
+
+  const [project, setProject] = useState(
+    projects[0] || {
+      num: "",
+      category: "",
+      title: "",
+      description: "",
+      stack: [{ name: "" }],
+      image: "",
+      live: "",
+      github: "",
+    }
+  );
+
+  const handleSlideChange = (swiper: { activeIndex: number }) => {
     const currentIndex = swiper.activeIndex;
-    setProject(projects[currentIndex]);
+    setProject(
+      projects[currentIndex] || {
+        num: "",
+        category: "",
+        title: "",
+        description: "",
+        stack: [{ name: "" }],
+        image: "",
+        live: "",
+        github: "",
+      }
+    );
   };
 
   return (
@@ -75,34 +112,31 @@ const Work = () => {
         <div className="flex flex-col xl:flex-row xl:gap-[30px]">
           <div className="w-full xl:w-[50%] xl:h-[460px] flex flex-col xl:justify-between order-2 xl:order-none">
             <div className="flex flex-col gap-[30px] h-[50%]">
-              {/* outline num */}
               <div className="text-8xl leading-none font-extrabold text-transparent text-outline">
                 {project.num}
               </div>
-              {/* project category */}
               <h2 className="text-[42px] font-bold leading-none text-white group-hover:text-accent transition-all duration-500 capitalize">
-                {project.category} project
+                {project.category}
               </h2>
-              {/* project desc */}
               <p className="text-white/60">{project.description}</p>
-              {/* stack */}
               <ul className="flex gap-4">
-                {project.stack.map((item, index) => {
+                {(project.stack || [{ name: "" }]).map((item, index) => {
                   return (
                     <li key={index} className="text-xl text-accent">
-                      {item.name}
-                      {/* remove the last comma */}
-                      {index !== project.stack.length - 1 && ","}
+                      {item.name || ""}
+                      {index !== (project.stack || [{ name: "" }]).length - 1 &&
+                        ","}
                     </li>
                   );
                 })}
               </ul>
-              {/* border */}
               <div className="border border-white/20"></div>
-              {/* buttons*/}
               <div className="flex items-center gap-4">
-                {/* live project button*/}
-                <Link href={project.live}>
+                <Link
+                  href={project.live || "#"}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   <TooltipProvider delayDuration={100}>
                     <Tooltip>
                       <TooltipTrigger className="w-[70px] h-[70px] rounded-full bg-white/5 flex justify-center items-center group">
@@ -114,8 +148,11 @@ const Work = () => {
                     </Tooltip>
                   </TooltipProvider>
                 </Link>
-                {/* github project button*/}
-                <Link href={project.github}>
+                <Link
+                  href={project.github || "#"}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   <TooltipProvider delayDuration={100}>
                     <Tooltip>
                       <TooltipTrigger className="w-[70px] h-[70px] rounded-full bg-white/5 flex justify-center items-center group">
@@ -141,15 +178,15 @@ const Work = () => {
                 return (
                   <SwiperSlide key={index} className="w-full">
                     <div className="h-[400px] relative group flex justify-center items-center bg-pink-50/20">
-                      {/*overlay */}
+                      {/* overlay */}
                       <div className="absolute top-0 bottom-0 w-full h-full bg-black/10 z-10"></div>
-                      {/*overlay */}
                       <div className="relative w-full h-full">
                         <Image
-                          src={project.image}
+                          src={project.image || "/assets/placeholder.png"}
                           fill
-                          className="object-cover             "
+                          className="object-cover"
                           alt=""
+                          loading="lazy"
                         />
                       </div>
                     </div>
@@ -158,6 +195,7 @@ const Work = () => {
               })}
               {/* slider buttons */}
               <WorkSliderBtns
+                iconsStyles="bg-white/5 text-white text-2xl group-hover:text-accent transition-all duration-500 flex justify-center items-center w-[44px] h-[44px] rounded-full cursor-pointer hover:bg-white/10 hover:shadow-lg"
                 containerStyles="flex gap-2 absolute right-0 bottom-[calc(50%_-_22px)] xl:bottom-0 z-20 w-full justify-between xl:w-max xl:justify-none"
                 btnStyles="bg-accent hover:bg-accent-hover text-primarydev text-[22px] w-[44px] h-[44px] flex justify-center items-center transition-all"
               />

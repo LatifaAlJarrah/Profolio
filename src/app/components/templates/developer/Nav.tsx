@@ -23,7 +23,7 @@ const Nav = ({navigationLinks, navigationLinksColor}: NavProps) => {
             className={`${
               link.link === pathname && "text-accent border-b-2 border-accent"
             } capitalize font-medium hover:text-accent transition-all`}
-            style={{ color: navigationLinksColor }} // تطبيق اللون على الـ ul
+            style={{ color: navigationLinksColor }}
           >
             {link.name}
           </Link>

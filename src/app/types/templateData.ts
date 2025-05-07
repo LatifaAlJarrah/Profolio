@@ -166,4 +166,14 @@ export interface TemplateData {
   developerLinkedinLink?: string;
   developerTwitterLink?: string;
   developerSocialIconsColor?: string;
+  developerProjects?: Array<{
+    num: string;
+    category: string;
+    title: string;
+    description: string;
+    stack: Array<{ name: string }>;
+    image: string;
+    live: string;
+    github: string;
+  }>;
 }
