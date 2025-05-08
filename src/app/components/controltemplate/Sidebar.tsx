@@ -37,6 +37,7 @@ import DeveloperNavbarSection from "./sidebar/developer/NavbarSection";
 import DeveloperHeaderSection from "./sidebar/developer/HeaderSection";
 import DeveloperAchievementsSection from "./sidebar/developer/AchievementsSection";
 import WorkSection from "./sidebar/developer/WorkSection";
+import DeveloperServicesSection from "./sidebar/developer/ServicesSection";
 
 import GeneralStylesSection from "./shared/GeneralStylesSection";
 import BreakLine from "./shared/BreakLine";
@@ -59,7 +60,10 @@ import {
 
 interface SidebarProps {
   templateData: TemplateData;
-  onChange: (key: string, value: string) => void;
+  onChange: (
+    key: string,
+    value: string | TemplateData["developerProjects"] | TemplateData["developerServices"]
+  ) => void;
   onImageChange: (key: string, file: File | null) => void;
   onServiceChange: (index: number, field: string, value: string) => void;
   onPortfolioSlideChange: (index: number, field: string, value: string) => void;
@@ -517,7 +521,19 @@ const Sidebar: React.FC<SidebarProps> = ({
             ),
             title: "Work",
             icon: <FaLaptopCode />,
-          },
+              },
+              {
+                component: (
+                  <DeveloperServicesSection
+                    key="services"
+                    templateData={templateData}
+                    onChange={onChange}
+                  />
+                ),
+                title: "Services",
+                icon: <FaServicestack />,
+              },
+          
         ]
       : [
           {

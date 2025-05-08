@@ -42,7 +42,6 @@ const WorkSection: React.FC<WorkSectionProps> = ({
     const newProject = {
       num: "",
       category: "",
-      // title: "",
       description: "",
       stack: [{ name: "" }],
       image: "",
