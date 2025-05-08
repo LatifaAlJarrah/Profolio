@@ -3,7 +3,6 @@ import { Button } from "@/components/ui/button";
 import Photo from "@/components/ui/Photo";
 import Social from "@/components/ui/Social";
 import Stats from "@/components/ui/Stats";
-import { FiDownload } from "react-icons/fi";
 
 interface HomeProps {
   backgroundColor?: string;
@@ -12,8 +11,8 @@ interface HomeProps {
   developerHeadername?: string;
   developerHeaderdescription?: string;
   developerHeaderImage?: string;
-  developerHeaderdownloadCVButtonText?: string;
-  developerHeaderdownloadCVButtonColor?: string;
+  developerHeaderServicesButtonText?: string;
+  developerHeaderServicesButtonColor?: string;
   developerInstagramLink?: string;
   developerLinkedinLink?: string;
   developerTwitterLink?: string;
@@ -30,8 +29,8 @@ const Home = ({
   developerHeadername,
   developerHeaderdescription,
   developerHeaderImage,
-  developerHeaderdownloadCVButtonText,
-  developerHeaderdownloadCVButtonColor,
+  developerHeaderServicesButtonText,
+  developerHeaderServicesButtonColor,
   developerInstagramLink,
   developerLinkedinLink,
   developerTwitterLink,
@@ -47,10 +46,9 @@ const Home = ({
     developerHeaderdescription ||
     "I excel at crafting elegant digital experiences and I am proficient in various programming languages and technologies.";
   const developerImage = developerHeaderImage || "/assets/photo.png";
-  const downloadCVButtonText =
-    developerHeaderdownloadCVButtonText || "DOWNLOAD CV";
-  const downloadCVButtonColor =
-    developerHeaderdownloadCVButtonColor || "#00ff99";
+  const servicesButtonText =
+    developerHeaderServicesButtonText || "See Sevices";
+  const servicesButtonColor = developerHeaderServicesButtonColor || "#00ff99";
   const instagramLink = developerInstagramLink || "https://instagram.com";
   const linkedinLink = developerLinkedinLink || "https://linkedin.com";
   const twitterLink = developerTwitterLink || "https://twitter.com";
@@ -85,14 +83,13 @@ const Home = ({
                 size="lg"
                 className="uppercase flex items-center gap-2"
                 style={{
-                  borderColor: downloadCVButtonColor,
-                  color: downloadCVButtonColor,
+                  borderColor: servicesButtonColor,
+                  color: servicesButtonColor,
                 }}
                 asChild
               >
                 <a href="#">
-                  <span>{downloadCVButtonText}</span>
-                  <FiDownload className="text-xl" />
+                  <span>{servicesButtonText || "See Services"}</span>
                 </a>
               </Button>
               <div className="mb-8 xl:mb-0">

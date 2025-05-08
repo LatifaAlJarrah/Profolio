@@ -21,8 +21,8 @@ interface TemplatePreviewProps extends TemplateData {
   developerHeadername?: string;
   developerHeaderdescription?: string;
   developerHeaderImage?: string;
-  developerHeaderdownloadCVButtonText?: string;
-  developerHeaderdownloadCVButtonColor?: string;
+  developerHeaderServicesButtonColor?: string;
+  developerHeaderServicesButtonText?: string;
   developerInstagramLink?: string;
   developerLinkedinLink?: string;
   developerTwitterLink?: string;
@@ -55,8 +55,8 @@ const TemplatePreview = ({
   developerHeadername,
   developerHeaderdescription,
   developerHeaderImage,
-  developerHeaderdownloadCVButtonText,
-  developerHeaderdownloadCVButtonColor,
+  developerHeaderServicesButtonText,
+  developerHeaderServicesButtonColor,
   developerInstagramLink,
   developerLinkedinLink,
   developerTwitterLink,
@@ -84,11 +84,11 @@ const TemplatePreview = ({
           developerHeadername={developerHeadername}
           developerHeaderdescription={developerHeaderdescription}
           developerHeaderImage={developerHeaderImage}
-          developerHeaderdownloadCVButtonText={
-            developerHeaderdownloadCVButtonText
+          developerHeaderServicesButtonText={
+            developerHeaderServicesButtonText
           }
-          developerHeaderdownloadCVButtonColor={
-            developerHeaderdownloadCVButtonColor
+          developerHeaderServicesButtonColor={
+            developerHeaderServicesButtonColor
           }
           developerInstagramLink={developerInstagramLink}
           developerLinkedinLink={developerLinkedinLink}

@@ -25,8 +25,8 @@ export const defaultTemplateDeveloperData: TemplateData = {
   developerHeaderdescription:
     "I excel at crafting elegant digital experiences and I am proficient in various programming languages and technologies.",
   developerHeaderImage: "/assets/photo.png",
-  developerHeaderdownloadCVButtonText: "DOWNLOAD CV",
-  developerHeaderdownloadCVButtonColor: "#00ff99",
+  developerHeaderServicesButtonText: "See Sevices",
+  developerHeaderServicesButtonColor: "#00ff99",
   developerInstagramLink: "https://instagram.com",
   developerTwitterLink: "https://twitter.com",
   developerLinkedinLink: "https://linkedin.com",
@@ -43,7 +43,6 @@ export const defaultTemplateDeveloperData: TemplateData = {
     {
       num: "01",
       category: "frontend",
-      title: "project 1",
       description:
         "Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum veniam, nisi tempora dignissimos facilis recusandae architecto quae.",
       stack: [{ name: "Html 5" }, { name: "Css 3" }, { name: "Javascript" }],
@@ -54,7 +53,6 @@ export const defaultTemplateDeveloperData: TemplateData = {
     {
       num: "02",
       category: "fullstack",
-      title: "project 2",
       description:
         "Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum veniam, nisi tempora dignissimos facilis recusandae architecto quae.",
       stack: [
@@ -69,7 +67,6 @@ export const defaultTemplateDeveloperData: TemplateData = {
     {
       num: "03",
       category: "frontend",
-      title: "project 3",
       description:
         "Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum veniam, nisi tempora dignissimos facilis recusandae architecto quae.",
       stack: [{ name: "Next.js" }, { name: "Tailwind.css" }],

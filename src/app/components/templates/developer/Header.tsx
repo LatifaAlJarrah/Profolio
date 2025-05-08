@@ -16,6 +16,14 @@ interface HeaderProps {
   hireMeButton?: { text: string; path: string; color: string };
 }
 
+const defaultNavigationLinks = [
+    { name: "home", link: "/" },
+    { name: "work", link: "/work" },
+    { name: "services", link: "/services" },
+    { name: "resume", link: "/resume" },
+    { name: "contact", link: "/contact" },
+];
+
 const Header = ({logoName, logoColor, navigationLinks, navigationLinksColor, navbarColor, hireMeButton}: HeaderProps) => {
   return (
     <header
@@ -25,18 +33,18 @@ const Header = ({logoName, logoColor, navigationLinks, navigationLinksColor, nav
       <div className="container mx-auto flex justify-between items-center">
         <Link href="/">
           <h1 className="text-4xl font-semibold" style={{ color: logoColor }}>
-            {logoName} <span className="text-accent">.</span>
+            {logoName || "Luke"} <span className="text-accent">.</span>
           </h1>
         </Link>
 
         {/* desktop nav */}
         <div className="hidden xl:flex items-center gap-8">
           <Nav
-            navigationLinks={navigationLinks}
+            navigationLinks={navigationLinks || defaultNavigationLinks}
             navigationLinksColor={navigationLinksColor}
           />
           <Link href={hireMeButton?.path || "#contact"} className={`${hireMeButton?.color}`}>
-            <Button>{ hireMeButton?.text}</Button>
+            <Button>{ hireMeButton?.text || "Hire Me"}</Button>
           </Link>
         </div>
 

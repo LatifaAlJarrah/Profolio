@@ -4,7 +4,10 @@ import { FaPlus, FaTrash, FaLaptopCode} from "react-icons/fa";
 
 interface WorkSectionProps {
   templateData: TemplateData;
-  onChange: (key: string, value: any) => void;
+  onChange: (
+    key: string,
+    value: string | TemplateData["developerProjects"]
+  ) => void;
 }
 
 const WorkSection: React.FC<WorkSectionProps> = ({
@@ -39,7 +42,7 @@ const WorkSection: React.FC<WorkSectionProps> = ({
     const newProject = {
       num: "",
       category: "",
-      title: "",
+      // title: "",
       description: "",
       stack: [{ name: "" }],
       image: "",
@@ -114,18 +117,6 @@ const WorkSection: React.FC<WorkSectionProps> = ({
               }
               className="mt-1 p-2 border border-gray-300 rounded-md w-full bg-white text-gray-900 focus:ring-2 focus:ring-blue-500"
               placeholder="Enter category"
-            />
-          </label>
-          <label className="flex items-center space-x-2">
-            <span className="text-sm font-medium text-gray-700">Title:</span>
-            <input
-              type="text"
-              value={project.title || ""}
-              onChange={(e) =>
-                handleProjectChange(index, "title", e.target.value)
-              }
-              className="mt-1 p-2 border border-gray-300 rounded-md w-full bg-white text-gray-900 focus:ring-2 focus:ring-blue-500"
-              placeholder="Enter title"
             />
           </label>
           <label className="flex items-center space-x-2">
