@@ -175,4 +175,11 @@ export interface TemplateData {
     live: string;
     github: string;
   }>;
+
+  developerServices?: Array<{
+    num?: string;
+    title?: string;
+    description?: string;
+    href?: string;
+  }>;
 }

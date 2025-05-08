@@ -19,6 +19,7 @@ import { defaultTemplateRestaurantData } from "../data/defaultTemplateRestaurant
 import { defaultTemplateCompanyData } from "../data/defaultTemplateCompanyData";
 import { defaultTemplateProgrammerData } from "../data/defaultTemplateProgrammerData";
 import { defaultTemplateDeveloperData } from "../data/defaultTemplateDeveloperData";
+import { TemplateData } from "@/app/types/templateData";
 
 const roboto = Roboto({
   weight: "400",
@@ -78,7 +79,10 @@ const ControlTemplate = () => {
     );
   }
 
-  const handleChange = (key: string, value: string) => {
+  const handleChange = (
+    key: string,
+    value: string | TemplateData["developerProjects"] | TemplateData["developerServices"]
+  ) => {
     setTemplateData((prev) => ({ ...prev, [key]: value }));
     setRenderKey((prev) => prev + 1);
   };

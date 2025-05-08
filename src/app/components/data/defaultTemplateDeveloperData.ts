@@ -75,4 +75,34 @@ export const defaultTemplateDeveloperData: TemplateData = {
       github: "",
     },
   ],
+  developerServices: [
+  {
+    num: "01",
+    title: "Web Development",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit Lorem ipsum dolor sit amet,",
+    href: "",
+  },
+  {
+    num: "02",
+    title: "Ux/Ui Design",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit Lorem ipsum dolor sit amet,",
+    href: "",
+  },
+  {
+    num: "03",
+    title: "Logo Design",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit Lorem ipsum dolor sit amet,",
+    href: "",
+  },
+  {
+    num: "04",
+    title: "SEO",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit Lorem ipsum dolor sit amet,",
+    href: "",
+  },
+],
 };

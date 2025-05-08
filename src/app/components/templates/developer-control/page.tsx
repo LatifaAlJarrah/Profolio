@@ -33,12 +33,17 @@ interface TemplatePreviewProps extends TemplateData {
   developerProjects?: Array<{
     num: string;
     category: string;
-    title: string;
     description: string;
     stack: Array<{ name: string }>;
     image: string;
     live: string;
     github: string;
+  }>;
+  developerServices?: Array<{
+    num?: string;
+    title?: string;
+    description?: string;
+    href?: string;
   }>;
 }
 
@@ -62,6 +67,7 @@ const TemplatePreview = ({
   developerTwitterLink,
   ourAchievements,
   developerProjects,
+  developerServices,
 }: TemplatePreviewProps) => {
   return (
     <div className="bg-primarydev text-white font-jetBrainsMono leading-loose px-20 py-12">
@@ -84,9 +90,7 @@ const TemplatePreview = ({
           developerHeadername={developerHeadername}
           developerHeaderdescription={developerHeaderdescription}
           developerHeaderImage={developerHeaderImage}
-          developerHeaderServicesButtonText={
-            developerHeaderServicesButtonText
-          }
+          developerHeaderServicesButtonText={developerHeaderServicesButtonText}
           developerHeaderServicesButtonColor={
             developerHeaderServicesButtonColor
           }
@@ -102,7 +106,7 @@ const TemplatePreview = ({
       </div>
 
       <div className="mb-12">
-        <Services />
+        <Services developerServices={developerServices } />
       </div>
 
       <div className="mb-12">
