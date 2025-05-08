@@ -22,7 +22,6 @@ interface Projects {
   developerProjects?: Array<{
     num: string;
     category: string;
-    title: string;
     description: string;
     stack: Array<{ name: string }>;
     image: string;
@@ -36,7 +35,6 @@ const Work = ({ developerProjects }: Projects) => {
     {
       num: "01",
       category: "frontend",
-      title: "Project 1",
       description: "A frontend project built with React and Tailwind CSS.",
       stack: [{ name: "React" }, { name: "Tailwind CSS" }],
       image: "/assets/project1.png",
@@ -46,7 +44,6 @@ const Work = ({ developerProjects }: Projects) => {
     {
       num: "02",
       category: "backend",
-      title: "Project 2",
       description: "A backend project built with Node.js and Express.",
       stack: [{ name: "Node.js" }, { name: "Express" }],
       image: "/assets/project2.png",
@@ -56,7 +53,6 @@ const Work = ({ developerProjects }: Projects) => {
     {
       num: "03",
       category: "frontend",
-      title: "project 3",
       description:
         "Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum veniam, nisi tempora dignissimos facilis recusandae architecto quae.",
       stack: [{ name: "Next.js" }, { name: "Tailwind.css" }],
@@ -74,7 +70,6 @@ const Work = ({ developerProjects }: Projects) => {
     projects[0] || {
       num: "",
       category: "",
-      title: "",
       description: "",
       stack: [{ name: "" }],
       image: "",
@@ -89,7 +84,6 @@ const Work = ({ developerProjects }: Projects) => {
       projects[currentIndex] || {
         num: "",
         category: "",
-        title: "",
         description: "",
         stack: [{ name: "" }],
         image: "",

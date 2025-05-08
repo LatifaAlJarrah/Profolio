@@ -1,10 +1,10 @@
 import { NextResponse } from "next/server";
-import { auth } from "@/auth"; // استخدم auth بدل getServerSession
+import { auth } from "@/auth";
 import { db } from "@/lib/db";
 import { hash } from "bcrypt";
 
 export async function POST(req: Request) {
-  const session = await auth(); // هذا هو البديل الصحيح
+  const session = await auth();
   if (!session?.user?.email) {
     return NextResponse.json({ error: "غير مصرح" }, { status: 401 });
   }

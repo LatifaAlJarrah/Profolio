@@ -160,8 +160,8 @@ export interface TemplateData {
   developerHeadername?: string;
   developerHeaderdescription?: string;
   developerHeaderImage?: string;
-  developerHeaderdownloadCVButtonText?: string;
-  developerHeaderdownloadCVButtonColor?: string;
+  developerHeaderServicesButtonText?: string;
+  developerHeaderServicesButtonColor?: string;
   developerInstagramLink?: string;
   developerLinkedinLink?: string;
   developerTwitterLink?: string;
@@ -169,7 +169,6 @@ export interface TemplateData {
   developerProjects?: Array<{
     num: string;
     category: string;
-    title: string;
     description: string;
     stack: Array<{ name: string }>;
     image: string;

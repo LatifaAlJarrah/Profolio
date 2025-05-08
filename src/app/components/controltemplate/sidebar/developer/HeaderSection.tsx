@@ -89,10 +89,10 @@ const DeveloperHeaderSection: React.FC<DeveloperHeaderSectionProps> = ({
         <input
           type="text"
           value={
-            templateData.developerHeaderdownloadCVButtonText || "DOWNLOAD CV"
+            templateData.developerHeaderServicesButtonText || "DOWNLOAD CV"
           }
           onChange={(e) =>
-            onChange("developerHeaderdownloadCVButtonText", e.target.value)
+            onChange("developerHeaderServicesButtonText", e.target.value)
           }
           className="mt-1 p-2 border border-gray-300 rounded-md w-full bg-white text-gray-900 focus:ring-2 focus:ring-blue-500"
           placeholder="Enter button text"
@@ -104,9 +104,9 @@ const DeveloperHeaderSection: React.FC<DeveloperHeaderSectionProps> = ({
         </span>
         <input
           type="color"
-          value={templateData.developerHeaderdownloadCVButtonColor || "#00ff99"}
+          value={templateData.developerHeaderServicesButtonColor || "#00ff99"}
           onChange={(e) =>
-            onChange("developerHeaderdownloadCVButtonColor", e.target.value)
+            onChange("developerHeaderServicesButtonColor", e.target.value)
           }
           className="p-1 border rounded-md w-full bg-transparent"
         />
