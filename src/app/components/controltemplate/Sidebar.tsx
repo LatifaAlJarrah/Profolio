@@ -38,6 +38,8 @@ import DeveloperHeaderSection from "./sidebar/developer/HeaderSection";
 import DeveloperAchievementsSection from "./sidebar/developer/AchievementsSection";
 import WorkSection from "./sidebar/developer/WorkSection";
 import DeveloperServicesSection from "./sidebar/developer/ServicesSection";
+import ResumeSection from "./sidebar/developer/ResumeSection";
+import ContactSection from "./sidebar/developer/ContactSection";
 
 import GeneralStylesSection from "./shared/GeneralStylesSection";
 import BreakLine from "./shared/BreakLine";
@@ -62,7 +64,7 @@ interface SidebarProps {
   templateData: TemplateData;
   onChange: (
     key: string,
-    value: string | TemplateData["developerProjects"] | TemplateData["developerServices"]
+    value: string | TemplateData["developerProjects"] | TemplateData["developerServices"] | TemplateData["developerResume"]
   ) => void;
   onImageChange: (key: string, file: File | null) => void;
   onServiceChange: (index: number, field: string, value: string) => void;
@@ -521,19 +523,37 @@ const Sidebar: React.FC<SidebarProps> = ({
             ),
             title: "Work",
             icon: <FaLaptopCode />,
+          },
+          {
+            component: (
+              <DeveloperServicesSection
+                key="service"
+                templateData={templateData}
+                onChange={onChange}
+              />
+            ),
+            title: "Service",
+            icon: <FaLaptopCode />,
+          },
+
+          {
+            component: (
+              <ResumeSection
+                key="services"
+                templateData={templateData}
+                onChange={onChange}
+              />
+            ),
+            title: "Resume",
+            icon: <FaServicestack />,
               },
               {
                 component: (
-                  <DeveloperServicesSection
-                    key="services"
-                    templateData={templateData}
-                    onChange={onChange}
-                  />
-                ),
-                title: "Services",
-                icon: <FaServicestack />,
-              },
-          
+                  <ContactSection key="contact" templateData={templateData} onChange={onChange} />
+                ), 
+                title: "Contact",
+                icon: <FaPhone />,
+          }
         ]
       : [
           {
@@ -660,7 +680,7 @@ const Sidebar: React.FC<SidebarProps> = ({
 
   return (
     <aside className="p-4 bg-lightGray flex flex-col h-full">
-      {/* قائمة التنقل */}
+      {/* navigation list */}
       <nav className="mb-6">
         <h3 className="text-lg font-semibold text-gray-800 mb-3">Sections</h3>
         <ul className="space-y-2">
@@ -682,7 +702,7 @@ const Sidebar: React.FC<SidebarProps> = ({
         </ul>
       </nav>
 
-      {/* محتوى القسم */}
+      {/* section content */}
       <div className="flex-1 transition-opacity duration-300 ease-in-out">
         {sections[currentIndex].component}
       </div>

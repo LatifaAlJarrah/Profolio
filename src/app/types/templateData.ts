@@ -1,3 +1,6 @@
+import React from "react";
+import { IconType } from "react-icons/lib";
+
 export interface TemplateData {
   backgroundColor?: string;
   navbarColor?: string;
@@ -125,14 +128,14 @@ export interface TemplateData {
   programmerHeaderDescription?: string;
   programmerHeaderButtonText?: string;
   programmerHeaderImage?: string;
-  programmerAchievements?: Array<{ num: number; text: string }>; // (Projects, Users, Awards, Years)
-  programmerAboutTitle?: string; // "About Me"
+  programmerAchievements?: Array<{ num: number; text: string }>;
+  programmerAboutTitle?: string;
   programmerAboutDescription?: string;
   programmerAboutImage?: string;
   programmerSkills?: string[];
   programmerEducation?: string[];
   programmerCertifications?: string[];
-  programmerProjectsTitle?: string; // "My Projects"
+  programmerProjectsTitle?: string;
   programmerProjects?: Array<{
     title: string;
     description: string;
@@ -182,4 +185,61 @@ export interface TemplateData {
     description?: string;
     href?: string;
   }>;
+  developerResume?: {
+    about?: {
+      title?: string;
+      description?: string;
+      info?: Array<{
+        fieldName?: string;
+        fieldValue?: string;
+      }>;
+    };
+    experience?: {
+      icon?: string;
+      title?: string;
+      description?: string;
+      items?: Array<{
+        company?: string;
+        position?: string;
+        duration?: string;
+      }>;
+    };
+    education?: {
+      icon?: string;
+      title?: string;
+      description?: string;
+      items?: Array<{
+        institution?: string;
+        degree?: string;
+        duration?: string;
+      }>;
+    };
+    skills?: {
+      title?: string;
+      description?: string;
+      skillList?: Array<{
+        name?: string;
+        iconType?: "component" | "image";
+        icon?: React.ReactNode;
+        imageUrl?: string;
+      }>;
+    };
+  };
+  developerInfo?: Array<{
+    icon?: IconType;
+    title?: string;
+    description?: string;
+  }>;
+  userData?: {
+    firstname?: string;
+    lastname?: string;
+    email?: string;
+    phone?: string;
+    service?: string;
+    message?: string;
+  };
+  developerContact?: {
+    title?: string;
+    description?: string;
+  };
 }

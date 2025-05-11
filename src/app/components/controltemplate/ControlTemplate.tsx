@@ -81,7 +81,11 @@ const ControlTemplate = () => {
 
   const handleChange = (
     key: string,
-    value: string | TemplateData["developerProjects"] | TemplateData["developerServices"]
+    value:
+      | string
+      | TemplateData["developerProjects"]
+      | TemplateData["developerServices"]
+      | TemplateData["developerResume"]
   ) => {
     setTemplateData((prev) => ({ ...prev, [key]: value }));
     setRenderKey((prev) => prev + 1);
