@@ -8,6 +8,7 @@ import Services from "@/app/templates/developer/services/page";
 import Resume from "@/app/templates/developer/resume/page";
 import Contact from "@/app/templates/developer/contact/page";
 import { TemplateData } from "@/app/types/templateData";
+import { IconType } from "react-icons/lib";
 
 interface TemplatePreviewProps extends TemplateData {
   backgroundColor?: string;
@@ -46,6 +47,56 @@ interface TemplatePreviewProps extends TemplateData {
     description?: string;
     href?: string;
   }>;
+  developerResume?: {
+    about?: {
+      title?: string;
+      description?: string;
+      info?: Array<{
+        fieldName?: string;
+        fieldValue?: string;
+      }>;
+    };
+    experience?: {
+      icon?: string;
+      title?: string;
+      description?: string;
+      items?: Array<{
+        company?: string;
+        position?: string;
+        duration?: string;
+      }>;
+    };
+    education?: {
+      icon?: string;
+      title?: string;
+      description?: string;
+      items?: Array<{
+        institution?: string;
+        degree?: string;
+        duration?: string;
+      }>;
+    };
+    skills?: {
+      title?: string;
+      description?: string;
+      skillList?: Array<{
+        name?: string;
+        iconType?: "component" | "image";
+        icon?: React.ReactNode;
+        imageUrl?: string;
+      }>;
+    };
+  };
+
+  developerInfo?: Array<{
+    icon: IconType;
+    title?: string;
+    description?: string;
+  }>;
+  developerContact?: {
+    title?: string;
+    description?: string;
+  };
 }
 
 const TemplatePreview: React.FC<TemplatePreviewProps> = ({
@@ -69,6 +120,9 @@ const TemplatePreview: React.FC<TemplatePreviewProps> = ({
   ourAchievements,
   developerProjects,
   developerServices,
+  developerResume,
+  developerInfo,
+  developerContact,
 }) => {
   return (
     <div className="bg-primarydev text-white font-jetBrainsMono leading-loose px-20 py-12">
@@ -111,11 +165,11 @@ const TemplatePreview: React.FC<TemplatePreviewProps> = ({
       </div>
 
       <div className="mb-12">
-        <Resume />
+        <Resume developerResume={developerResume} />
       </div>
 
       <div className="mb-12">
-        <Contact />
+        <Contact developerInfo={developerInfo} developerContact={developerContact}/>
       </div>
     </div>
   );
