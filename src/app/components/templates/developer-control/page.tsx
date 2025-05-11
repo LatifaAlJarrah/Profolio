@@ -106,7 +106,7 @@ interface TemplatePreviewProps extends TemplateData {
   developerContact?: DeveloperContact;
 }
 
-const TemplatePreview: React.FC<TemplatePreviewProps> = ({
+const TemplatePreview = ({
   backgroundColor,
   logoName,
   logoColor,
@@ -130,7 +130,7 @@ const TemplatePreview: React.FC<TemplatePreviewProps> = ({
   developerResume,
   developerInfo,
   developerContact,
-}) => {
+}: TemplatePreviewProps) => {
   return (
     <div className="bg-primarydev text-white font-jetBrainsMono leading-loose px-20 py-12">
       <div className="mb-12">
