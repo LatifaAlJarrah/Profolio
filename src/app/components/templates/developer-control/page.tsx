@@ -10,6 +10,17 @@ import Contact from "@/app/templates/developer/contact/page";
 import { TemplateData } from "@/app/types/templateData";
 import { IconType } from "react-icons/lib";
 
+interface InfoItem {
+  icon: IconType;
+  title?: string;
+  description?: string;
+}
+
+interface DeveloperContact {
+  title?: string;
+  description?: string;
+}
+
 interface TemplatePreviewProps extends TemplateData {
   backgroundColor?: string;
   logoName?: string;
@@ -91,16 +102,8 @@ interface TemplatePreviewProps extends TemplateData {
       }>;
     };
   };
-
-  developerInfo?: Array<{
-    icon: IconType;
-    title?: string;
-    description?: string;
-  }>;
-  developerContact?: {
-    title?: string;
-    description?: string;
-  };
+  developerInfo?: InfoItem[];
+  developerContact?: DeveloperContact;
 }
 
 const TemplatePreview: React.FC<TemplatePreviewProps> = ({
@@ -173,7 +176,10 @@ const TemplatePreview: React.FC<TemplatePreviewProps> = ({
       </div>
 
       <div className="mb-12">
-        <Contact developerInfo={developerInfo} developerContact={developerContact}/>
+        <Contact
+          developerInfo={developerInfo}
+          developerContact={developerContact}
+        />
       </div>
     </div>
   );
