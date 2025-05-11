@@ -226,7 +226,7 @@ export interface TemplateData {
     };
   };
   developerInfo?: Array<{
-    icon?: IconType;
+    icon: IconType;
     title?: string;
     description?: string;
   }>;

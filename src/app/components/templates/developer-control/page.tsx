@@ -29,8 +29,12 @@ interface TemplatePreviewProps extends TemplateData {
   developerLinkedinLink?: string;
   developerTwitterLink?: string;
   ourAchievements?: Array<{
-    number?: number;
-    text?: string;
+    icon?: string | undefined;
+    value?: string | undefined;
+    label?: string | undefined;
+    uploadedIcon?: undefined;
+    number?: number | undefined;
+    text?: string | undefined;
   }>;
   developerProjects?: Array<{
     num: string;
