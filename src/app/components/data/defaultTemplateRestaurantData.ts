@@ -3,19 +3,20 @@ import { TemplateData } from "@/app/types/templateData";
 export const defaultTemplateRestaurantData: TemplateData = {
   fontFamily: "Roboto",
   backgroundOverlayColor: "#000000",
+  backgroundImage: "/assets/images/resturantMenu/bgResturant.jpg",
   titleTextColor: "#ffffff",
   buttonColor: "#FFDB58",
-  navbarColor: "#00000080",
+  navbarColor: "rgba(0, 0, 0, 0.2)",
   logoName: "Épicure",
-  headerTitle: "Where Every Tells a Story", // إصلاح النص
-  headerSubtitle: "Meals", // تصحيح ليكون متسقًا
+  headerImage: "/assets/images/resturantHero.png",
+  headerTitle: "Where Every Tells a Story",
+  headerSubtitle: "Meals",
   headerTagline:
     "A Culinary Experience Crafted with Passion and Fresh Ingredients",
   aboutTitle: "ABOUT US",
   aboutTagline: "Experience Authentic Flavors",
-  aboutDescription:
-    "Visit us at los angeles or explore our menu online at",
-  contactLocation: "Los Angeles", // إضافة الموقع الافتراضي
+  aboutDescription: "Visit us at los angeles or explore our menu online at",
+  contactLocation: "Los Angeles",
   menuItems: {
     appetizers: [
       {

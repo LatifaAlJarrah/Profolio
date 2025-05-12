@@ -1,5 +1,9 @@
 "use client";
 import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import * as z from "zod";
+import { useRouter } from "next/navigation";
+import { signIn } from "next-auth/react";
 
 import {
   Form,
@@ -10,19 +14,10 @@ import {
   FormMessage,
 } from "../ui/form";
 import { Input } from "../ui/input";
-
-import * as z from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
-
 import GoogleSignInButton from "../GoogleSignInButton";
 import FacebookSignInButton from "../FacebookSignInButton";
 import SignInButton from "../SignInButton";
 import Logo from "../logo/Logo";
-
-import { useRouter } from "next/navigation";
-import { useState } from "react";
-
-import { signIn } from "next-auth/react";
 
 interface SignInFormProps {
   isOpen?: boolean;
@@ -30,6 +25,7 @@ interface SignInFormProps {
   type: string;
 }
 
+// Validation Schema
 const FormSchema = z.object({
   email: z.string().min(1, "Email is required").email("Invalid email"),
   password: z
@@ -39,9 +35,8 @@ const FormSchema = z.object({
 });
 
 const SignInForm = ({ isOpen, onClose, type }: SignInFormProps) => {
-  
   const router = useRouter();
-  const [error, setError] = useState<string | null>(null);
+
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
@@ -50,50 +45,32 @@ const SignInForm = ({ isOpen, onClose, type }: SignInFormProps) => {
     },
   });
 
-  // const onSubmit = async (values: z.infer<typeof FormSchema>) => {
-  //   setError(null);
+  const onSubmit = async (values: z.infer<typeof FormSchema>) => {
+    const result = await signIn("credentials", {
+      email: values.email,
+      password: values.password,
+      redirect: false,
+      callbackUrl: "/projects",
+    });
 
-  //   const result = await signIn("credentials", {
-  //     email: values.email,
-  //     password: values.password,
-  //     redirect: false,
-  //   });
-
-  //   if (result?.error) {
-  //     if (result.error.startsWith("AUTH_ERROR:")) {
-  //       setError(result.error.replace("AUTH_ERROR:", ""));
-  //     } else {
-  //       setError("Something went wrong");
-  //     }
-  //     return;
-  //   }
-  //   onClose?.(); // ✅ Close the modal
-  //   router.push("/projects");
-  // };
-
-const onSubmit = async (values: z.infer<typeof FormSchema>) => {
-  setError(null);
-
-  const result = await signIn("credentials", {
-    email: values.email,
-    password: values.password,
-    redirect: false,
-    callbackUrl: "/projects", // ✅ أضفنا هذا السطر لحل المشكلة
-  });
-
-  if (result?.error) {
-    if (result.error.startsWith("AUTH_ERROR:")) {
-      setError(result.error.replace("AUTH_ERROR:", ""));
-    } else {
-      setError("Something went wrong");
+    if (result?.error) {
+      if (result.error.startsWith("AUTH_ERROR:")) {
+        router.push("/?error=auth_error");
+      } else {
+        router.push("/?error=general_error"); 
+      }
+      return;
     }
-    return;
-  }
 
-  onClose?.(); // ✅ Close the modal
-  router.push("/projects"); // ✅ نوجه المستخدم بعد نجاح الدخول
-};
+    onClose?.();
+    router.push(result.url || "/projects");
+  };
 
+  const handleSocialSignIn = async (provider: "google" | "facebook") => {
+    await signIn(provider, {
+      callbackUrl: "/projects",
+    });
+  };
 
   if (!isOpen) return null;
 
@@ -107,7 +84,7 @@ const onSubmit = async (values: z.infer<typeof FormSchema>) => {
                 onClick={onClose}
                 className="float-right text-2xl font-bold text-red-600"
               >
-                &times;
+                ×
               </button>
               <div className="justify-center items-center flex flex-col">
                 <Logo />
@@ -149,11 +126,6 @@ const onSubmit = async (values: z.infer<typeof FormSchema>) => {
                   />
                 </div>
 
-                {error && (
-                  <div className="text-red-500 text-sm mt-2 text-center">
-                    {error}
-                  </div>
-                )}
                 <SignInButton disabled={form.formState.isSubmitting}>
                   {form.formState.isSubmitting ? "Loading..." : "Sign In"}
                 </SignInButton>
@@ -163,8 +135,12 @@ const onSubmit = async (values: z.infer<typeof FormSchema>) => {
                 OR
               </div>
 
-              <GoogleSignInButton>Sign In with Google</GoogleSignInButton>
-              <FacebookSignInButton>Sign In with Facebook</FacebookSignInButton>
+              <GoogleSignInButton onClick={() => handleSocialSignIn("google")}>
+                Sign In with Google
+              </GoogleSignInButton>
+              <FacebookSignInButton onClick={() => handleSocialSignIn("facebook")}>
+                Sign In with Facebook
+              </FacebookSignInButton>
             </div>
           </div>
         </Form>

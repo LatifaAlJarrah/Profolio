@@ -1,11 +1,11 @@
+// src/app/components/form/SignUpForm.tsx
 "use client";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { signIn } from "next-auth/react";
 
-// Components
 import {
   Form,
   FormControl,
@@ -15,14 +15,11 @@ import {
   FormMessage,
 } from "../ui/form";
 import { Input } from "../ui/input";
-
 import GoogleSignInButton from "../GoogleSignInButton";
 import FacebookSignInButton from "../FacebookSignInButton";
 import SignInButton from "../SignInButton";
-
 import Logo from "../logo/Logo";
 
-// Types
 interface SignUpFormProps {
   isOpen?: boolean;
   onClose?: () => void;
@@ -81,7 +78,6 @@ const registerUser = async (userData: {
 // Main Component
 const SignUpForm = ({ isOpen, onClose, type }: SignUpFormProps) => {
   const router = useRouter();
-  const [error, setError] = useState<string | null>(null);
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
@@ -101,26 +97,18 @@ const SignUpForm = ({ isOpen, onClose, type }: SignUpFormProps) => {
     if (exists) {
       form.setError("email", {
         type: "manual",
-        message: "Email already exists",
+        message: "الإيميل موجود بالفعل",
       });
     }
   };
 
   const onSubmit = async (values: z.infer<typeof FormSchema>) => {
-    setError(null);
-
     try {
-      // Check email existence
       const emailExists = await checkEmailExists(values.email);
       if (emailExists) {
-        setError("Email already exists");
-        return;
-      }
-      if (error === "AccessDenied") {
-        return "This email is already used with another sign-in method.";
+        return; // الخطأ هيتعرض في الهوم
       }
 
-      // Register user
       const response = await registerUser({
         username: values.username,
         email: values.email,
@@ -128,15 +116,27 @@ const SignUpForm = ({ isOpen, onClose, type }: SignUpFormProps) => {
       });
 
       if (!response.ok) {
-        throw new Error("Registration failed");
+        const errorData = await response.json();
+        if (errorData.error === "Email already exists") {
+          router.push("/?error=email_exists"); // توجيه للهوم مع الخطأ
+          return;
+        } else {
+          throw new Error("فشل التسجيل");
+        }
       }
 
       onClose?.();
       router.push("/");
     } catch (error) {
       console.error("Registration error:", error);
-      setError(error instanceof Error ? error.message : "Registration failed");
+      router.push("/?error=registration_failed"); // توجيه للهوم مع خطأ عام
     }
+  };
+
+  const handleSocialSignIn = async (provider: "google" | "facebook") => {
+    await signIn(provider, {
+      callbackUrl: "/",
+    });
   };
 
   if (!isOpen) return null;
@@ -152,7 +152,7 @@ const SignUpForm = ({ isOpen, onClose, type }: SignUpFormProps) => {
                 className="float-right text-2xl font-bold text-red-600"
                 aria-label="Close sign up form"
               >
-                &times;
+                ×
               </button>
 
               <div className="flex flex-col items-center justify-center">
@@ -241,12 +241,6 @@ const SignUpForm = ({ isOpen, onClose, type }: SignUpFormProps) => {
                   />
                 </div>
 
-                {error && (
-                  <div className="text-red-500 text-sm mt-2 text-center">
-                    {error}
-                  </div>
-                )}
-
                 <SignInButton disabled={form.formState.isSubmitting}>
                   {form.formState.isSubmitting ? "Signing Up..." : "Sign Up"}
                 </SignInButton>
@@ -257,8 +251,10 @@ const SignUpForm = ({ isOpen, onClose, type }: SignUpFormProps) => {
               </div>
 
               <div className="space-y-3">
-                <GoogleSignInButton>Sign up with Google</GoogleSignInButton>
-                <FacebookSignInButton>
+                <GoogleSignInButton onClick={() => handleSocialSignIn("google")}>
+                  Sign up with Google
+                </GoogleSignInButton>
+                <FacebookSignInButton onClick={() => handleSocialSignIn("facebook")}>
                   Sign up with Facebook
                 </FacebookSignInButton>
               </div>

@@ -7,12 +7,16 @@ import RandomlyChef from "./RandomlyChef";
 import ContactUs from "./ContactUs";
 import Footer from "./Footer";
 import Image from "next/image";
-import { ResturantBg } from "@/app/assets/images";
 
 import { TemplateData } from "@/app/types/templateData";
 
 interface ResturantProps extends TemplateData {
   fontFamilyClass?: string;
+  navigationLinks?: Array<{
+    name: string;
+    link: string;
+  }>;
+  backgroundImage?: string;
 }
 
 const Resturant: React.FC<ResturantProps> = ({
@@ -53,14 +57,14 @@ const Resturant: React.FC<ResturantProps> = ({
       style={{ color: titleTextColor || "#ffffff" }}
     >
       <Image
-        src={backgroundImage || ResturantBg}
+        src={backgroundImage || "/assets/images/resturantMenu/bgResturant.jpg"}
         alt="Background"
         fill
-        className="absolute top-0 left-0 -z-10 object-cover"
+        className="absolute top-0 left-0 -z-10"
         style={{
           filter: `brightness(0.5)`,
           background: backgroundOverlayColor
-            ? `${backgroundOverlayColor}50`
+            ? `${backgroundOverlayColor} 50`
             : "rgba(0, 0, 0, 0.5)",
         }}
       />

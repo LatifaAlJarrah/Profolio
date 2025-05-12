@@ -142,7 +142,7 @@ const signInCallback = async ({
   email?: { verificationRequest?: boolean | undefined };
   credentials?: Record<string, string> | undefined;
   isNewUser?: boolean | undefined;
-}): Promise<boolean> => {
+}): Promise<boolean | string> => {
   if (account?.provider !== "credentials") {
     const existingUser = await db.user.findUnique({
       where: { email: user.email ?? "" },
@@ -157,15 +157,46 @@ const signInCallback = async ({
       });
 
       if (!linkedAccount) {
-        throw new Error(
-          "OAUTH_ERROR: Email already exists with another provider"
-        );
+        // Redirect to homepage with error message
+        return "/?error=email_exists";
       }
     }
   }
   return true;
 };
 
+// const signInCallback = async ({
+//   user,
+//   account,
+// }: {
+//   user: User | AdapterUser;
+//   account?: Account | null | undefined;
+//   profile?: Profile | undefined;
+//   email?: { verificationRequest?: boolean | undefined };
+//   credentials?: Record<string, string> | undefined;
+//   isNewUser?: boolean | undefined;
+// }): Promise<boolean | string> => {
+//   if (account?.provider !== "credentials") {
+//     const existingUser = await db.user.findUnique({
+//       where: { email: user.email ?? "" },
+//     });
+
+//     if (existingUser) {
+//       const linkedAccount = await db.account.findFirst({
+//         where: {
+//           userId: existingUser.id,
+//           provider: account?.provider ?? "",
+//         },
+//       });
+
+//       if (!linkedAccount) {
+//         // Redirect to homepage with error message instead of throwing an error
+//         return "/?error=email_exists";
+//       }
+//     }
+//   }
+//   return true;
+// };
 /**
  * Callback to update the session with token data
  */

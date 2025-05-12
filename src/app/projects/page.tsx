@@ -4,8 +4,8 @@ import { TiPlus } from "react-icons/ti";
 
 
 import { auth } from "@/auth";
-import { db } from "@/lib/db";
-import { redirect } from "next/navigation";
+// import { db } from "@/lib/db";
+// import { redirect } from "next/navigation";
 
 
 const projects = [
@@ -24,13 +24,13 @@ const projects = [
 export default async function Page() {
   const session = await auth();
 
-  const user = await db.user.findUnique({
-    where: { email: session?.user.email ?? "" },
-  });
+  // const user = await db.user.findUnique({
+  //   where: { email: session?.user.email ?? "" },
+  // });
 
-  if (user && !user.password) {
-    redirect("/set-password"); // أول مرة بعد تسجيل جوجل
-  }
+  // if (user && !user.password) {
+  //   redirect("/set-password"); // أول مرة بعد تسجيل جوجل
+  // }
 
   return (
     <>
