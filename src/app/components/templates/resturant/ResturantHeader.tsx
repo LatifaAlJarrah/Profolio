@@ -1,6 +1,5 @@
 import React from "react";
 import Image from "next/image";
-import ResturantHero from "@assets/images/resturantHero.png";
 import { TemplateData } from "@/app/types/templateData";
 
 interface ResturantHeaderProps extends TemplateData {
@@ -25,14 +24,14 @@ const ResturantHeader: React.FC<ResturantHeaderProps> = ({
     >
       <div className="absolute inset-0">
         <Image
-          src={headerImage || ResturantHero}
+          src={headerImage || "/assets/images/resturantHero.png"}
           fill
           alt="Hero background"
-          className="-z-10 object-cover"
+          className="z-20 object-cover"
         />
-        <div className="absolute inset-0 bg-black opacity-50"></div>
+        <div className="absolute inset-0 bg-black opacity-50 z-30"></div>
       </div>
-      <div className="flex flex-col items-center justify-center text-center z-10">
+      <div className="flex flex-col items-center justify-center text-center z-20">
         <h1
           className={`font-sedan text-6xl`}
           style={{ color: titleTextColor || "#ffffff" }}
