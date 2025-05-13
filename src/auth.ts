@@ -1,53 +1,38 @@
+// src/auth.ts
 import NextAuth from "next-auth";
-import type { User, Account, Session, Profile } from "next-auth";
-import type { JWT } from "next-auth/jwt";
 import Google from "next-auth/providers/google";
 import Facebook from "next-auth/providers/facebook";
 import Credentials from "next-auth/providers/credentials";
 import { PrismaAdapter } from "@auth/prisma-adapter";
-import { AdapterUser } from "@auth/core/adapters";
 import { compare } from "bcrypt";
 import { db } from "./lib/db";
+import type { NextAuthConfig } from "next-auth";
 
-// Utility function to generate a username from a name or fallback to an ID
-const generateUsername = (
-  name: string | undefined | null,
-  fallback: string
-): string => {
-  return name?.replace(/\s+/g, "").toLowerCase() ?? fallback;
-};
+// Utility function to generate a username
+const generateUsername = (name: string | null | undefined, fallback: string): string =>
+  name?.replace(/\s+/g, "").toLowerCase() ?? fallback;
 
-/**
- * Validates required environment variables for OAuth providers
- * @throws {Error} If required environment variables are missing
- */
+// Validate environment variables
 const validateEnvVariables = (): void => {
   const requiredEnvVars = [
-    { key: "GOOGLE_CLIENT_ID", value: process.env.GOOGLE_CLIENT_ID },
-    { key: "GOOGLE_CLIENT_SECRET", value: process.env.GOOGLE_CLIENT_SECRET },
-    { key: "FACEBOOK_CLIENT_ID", value: process.env.FACEBOOK_CLIENT_ID },
-    {
-      key: "FACEBOOK_CLIENT_SECRET",
-      value: process.env.FACEBOOK_CLIENT_SECRET,
-    },
-    { key: "NEXTAUTH_SECRET", value: process.env.NEXTAUTH_SECRET },
+    "GOOGLE_CLIENT_ID",
+    "GOOGLE_CLIENT_SECRET",
+    "FACEBOOK_CLIENT_ID",
+    "FACEBOOK_CLIENT_SECRET",
+    "NEXTAUTH_SECRET",
   ];
-
-  for (const envVar of requiredEnvVars) {
-    if (!envVar.value) {
-      throw new Error(`Missing required environment variable: ${envVar.key}`);
+  requiredEnvVars.forEach((key) => {
+    if (!process.env[key]) {
+      throw new Error(`Missing required environment variable: ${key}`);
     }
-  }
+  });
 };
 
-/**
- * Configure Google OAuth provider
- * @returns Google provider configuration
- */
-const configureGoogleProvider = () =>
+// Configure Providers
+const providers = [
   Google({
-    clientId: process.env.GOOGLE_CLIENT_ID ?? "",
-    clientSecret: process.env.GOOGLE_CLIENT_SECRET ?? "",
+    clientId: process.env.GOOGLE_CLIENT_ID!,
+    clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
     authorization: {
       params: {
         prompt: "consent",
@@ -62,21 +47,11 @@ const configureGoogleProvider = () =>
       image: profile.picture,
       username: generateUsername(profile.name, profile.sub),
     }),
-  });
-
-/**
- * Configure Facebook OAuth provider
- * @returns Facebook provider configuration
- */
-const configureFacebookProvider = () =>
+  }),
   Facebook({
-    clientId: process.env.FACEBOOK_CLIENT_ID ?? "",
-    clientSecret: process.env.FACEBOOK_CLIENT_SECRET ?? "",
-    authorization: {
-      params: {
-        scope: "email,public_profile",
-      },
-    },
+    clientId: process.env.FACEBOOK_CLIENT_ID!,
+    clientSecret: process.env.FACEBOOK_CLIENT_SECRET!,
+    authorization: { params: { scope: "email,public_profile" } },
     profile: (profile) => ({
       id: profile.id,
       name: profile.name,
@@ -84,39 +59,27 @@ const configureFacebookProvider = () =>
       image: profile.picture?.data?.url ?? null,
       username: generateUsername(profile.name, profile.id),
     }),
-  });
-
-/**
- * Configure Credentials provider for email/password login
- * @returns Credentials provider configuration
- */
-const configureCredentialsProvider = () =>
+  }),
   Credentials({
     name: "Credentials",
     credentials: {
-      email: { label: "Email", type: "email", placeholder: "john@gmail.com" },
+      email: { label: "Email", type: "email" },
       password: { label: "Password", type: "password" },
     },
     async authorize(credentials) {
-      const email = credentials?.email as string | undefined;
-      const password = credentials?.password as string | undefined;
-
+      const { email, password } = credentials as { email?: string; password?: string };
       if (!email || !password) {
-        throw new Error("AUTH_ERROR: Missing email or password");
+        throw new Error("Missing email or password");
       }
 
       const user = await db.user.findUnique({ where: { email } });
-      if (!user) {
-        throw new Error("AUTH_ERROR: Email does not exist");
+      if (!user || !user.password) {
+        throw new Error("Invalid email or password");
       }
 
-      if (!user.password) {
-        throw new Error("AUTH_ERROR: No password set for this user");
-      }
-
-      const isPasswordValid = await compare(password, user.password);
-      if (!isPasswordValid) {
-        throw new Error("AUTH_ERROR: Password is incorrect");
+      const isValid = await compare(password, user.password);
+      if (!isValid) {
+        throw new Error("Invalid email or password");
       }
 
       return {
@@ -124,134 +87,71 @@ const configureCredentialsProvider = () =>
         name: user.username,
         email: user.email,
         username: user.username,
+        image: user.image,
       };
     },
-  });
+  }),
+];
 
-/**
- * Callback to handle sign-in logic
- * Prevents sign-in if the email is already linked to another provider
- */
-const signInCallback = async ({
-  user,
-  account,
-}: {
-  user: User | AdapterUser;
-  account?: Account | null | undefined;
-  profile?: Profile | undefined;
-  email?: { verificationRequest?: boolean | undefined };
-  credentials?: Record<string, string> | undefined;
-  isNewUser?: boolean | undefined;
-}): Promise<boolean | string> => {
-  if (account?.provider !== "credentials") {
-    const existingUser = await db.user.findUnique({
-      where: { email: user.email ?? "" },
-    });
+// Callbacks
+const callbacks: NextAuthConfig["callbacks"] = {
+  async signIn({ user, account }) {
+    if (!user.email) return false;
 
-    if (existingUser) {
-      const linkedAccount = await db.account.findFirst({
-        where: {
-          userId: existingUser.id,
-          provider: account?.provider ?? "",
-        },
+    if (account?.provider !== "credentials") {
+      const existingUser = await db.user.findUnique({
+        where: { email: user.email },
+        include: { accounts: true },
       });
 
-      if (!linkedAccount) {
-        // Redirect to homepage with error message
-        return "/?error=email_exists";
+      if (existingUser) {
+        const isLinked = existingUser.accounts.some((acc) => acc.provider === account?.provider);
+        if (!isLinked && existingUser.accounts.length > 0) {
+          const existingProvider = existingUser.accounts[0].provider;
+          return `/auth/conflict?email=${encodeURIComponent(user.email)}&provider=${account?.provider}&existingProvider=${existingProvider}`;
+        }
       }
     }
-  }
-  return true;
+    return true;
+  },
+  async jwt({ token, user, account }) {
+    if (account) {
+      token.accessToken = account.access_token;
+    }
+    if (user) {
+      token.sub = user.id;
+      token.name = user.name;
+      token.picture = user.image ?? null;
+      token.username = user.username;
+    }
+    return token;
+  },
+  async session({ session, token }) {
+    if (session.user) {
+      session.user.id = token.sub!;
+      session.user.name = token.name;
+      session.user.image = token.picture ?? null;
+      session.user.username = token.username as string;
+      session.accessToken = token.accessToken as string;
+    }
+    return session;
+  },
 };
 
-// const signInCallback = async ({
-//   user,
-//   account,
-// }: {
-//   user: User | AdapterUser;
-//   account?: Account | null | undefined;
-//   profile?: Profile | undefined;
-//   email?: { verificationRequest?: boolean | undefined };
-//   credentials?: Record<string, string> | undefined;
-//   isNewUser?: boolean | undefined;
-// }): Promise<boolean | string> => {
-//   if (account?.provider !== "credentials") {
-//     const existingUser = await db.user.findUnique({
-//       where: { email: user.email ?? "" },
-//     });
-
-//     if (existingUser) {
-//       const linkedAccount = await db.account.findFirst({
-//         where: {
-//           userId: existingUser.id,
-//           provider: account?.provider ?? "",
-//         },
-//       });
-
-//       if (!linkedAccount) {
-//         // Redirect to homepage with error message instead of throwing an error
-//         return "/?error=email_exists";
-//       }
-//     }
-//   }
-//   return true;
-// };
-/**
- * Callback to update the session with token data
- */
-const sessionCallback = async ({
-  session,
-  token,
-}: {
-  session: Session;
-  token: JWT;
-}): Promise<Session> => {
-  session.accessToken = token.accessToken;
-  session.user.id = token.sub ?? "";
-  session.user.name = token.name;
-  session.user.image = token.picture ?? null;
-  session.user.username = token.username;
-  return session;
-};
-
-/**
- * Callback to update the JWT with user and account data
- */
-const jwtCallback = async ({
-  token,
-  account,
-  user,
-}: {
-  token: JWT;
-  user?: User | AdapterUser;
-  account?: Account | null | undefined;
-  profile?: Profile | undefined;
-  isNewUser?: boolean | undefined;
-}): Promise<JWT> => {
-  if (account) {
-    token.accessToken = account.access_token;
-  }
-  if (user) {
-    token.sub = user.id;
-    token.name = user.name;
-    token.picture = user.image ?? null;
-    token.username = user.username;
-  }
-  return token;
-};
-
-// Validate environment variables before initializing NextAuth
+// Validate environment variables
 validateEnvVariables();
 
 // NextAuth configuration
 export const { auth, handlers, signIn, signOut } = NextAuth({
   adapter: PrismaAdapter(db),
-  providers: [
-    configureGoogleProvider(),
-    configureFacebookProvider(),
-    configureCredentialsProvider(),
-  ],
+  providers,
+  callbacks,
+  session: { strategy: "jwt" },
+  secret: process.env.NEXTAUTH_SECRET,
+  pages: {
+    signIn: "/auth/signin",
+    error: "/auth/error",
+  },
   cookies: {
     sessionToken: {
       name: "next-auth.session-token",
@@ -261,21 +161,6 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
         path: "/",
         secure: process.env.NODE_ENV === "production",
       },
-    },
-  },
-  session: {
-    strategy: "jwt",
-  },
-  secret: process.env.NEXTAUTH_SECRET,
-  callbacks: {
-    async signIn({ user, account, profile, email }) {
-      return signInCallback({ user, account, profile, email });
-    },
-    async session({ session, token }) {
-      return sessionCallback({ session, token });
-    },
-    async jwt({ token, account, user }) {
-      return jwtCallback({ token, account, user });
     },
   },
 });

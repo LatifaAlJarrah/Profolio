@@ -6,7 +6,7 @@ import Image from "next/image";
 import { templates } from "../data/templates";
 
 export default function WhyUs() {
-  const router = useRouter(); // Initialize the router
+  const router = useRouter();
 
   return (
     <section className="bg-lightGray py-12 px-4 md:px-12">
@@ -20,7 +20,7 @@ export default function WhyUs() {
             className="text-center relative"
             onClick={() =>
               router.push(`/controltemplate?template=${item.name}`)
-            } // Use router.push
+            }
           >
             <Image
               src={item.link as string}
