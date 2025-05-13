@@ -12,7 +12,7 @@ const features = [
 ];
 
 interface FeatureCardProps {
-  icon: StaticImageData; // تغيير النوع هنا
+  icon: StaticImageData;
   title: string;
 }
 

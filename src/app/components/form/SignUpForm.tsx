@@ -118,7 +118,7 @@ const SignUpForm = ({ isOpen, onClose, type }: SignUpFormProps) => {
       if (!response.ok) {
         const errorData = await response.json();
         if (errorData.error === "Email already exists") {
-          router.push("/?error=email_exists"); // توجيه للهوم مع الخطأ
+          router.push("/?error=email_exists"); 
           return;
         } else {
           throw new Error("فشل التسجيل");
@@ -129,7 +129,7 @@ const SignUpForm = ({ isOpen, onClose, type }: SignUpFormProps) => {
       router.push("/");
     } catch (error) {
       console.error("Registration error:", error);
-      router.push("/?error=registration_failed"); // توجيه للهوم مع خطأ عام
+      router.push("/?error=registration_failed");
     }
   };
 

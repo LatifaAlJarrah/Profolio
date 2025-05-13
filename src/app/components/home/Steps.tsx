@@ -16,7 +16,6 @@ const AnimatedDashedArrow = () => {
         xmlns="http://www.w3.org/2000/svg"
       >
         <defs>
-          {/* رأس السهم */}
           <marker
             id="arrowhead"
             markerWidth="10"
@@ -29,7 +28,6 @@ const AnimatedDashedArrow = () => {
           </marker>
         </defs>
 
-        {/* خط السهم المتقطع مع انحناء للأعلى ودائرة في المنتصف */}
         <motion.path
           d="M20 80 
             C 70 30, 110 30, 130 60 
