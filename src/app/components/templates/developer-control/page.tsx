@@ -8,6 +8,7 @@ import Services from "@/app/templates/developer/services/page";
 import Resume from "@/app/templates/developer/resume/page";
 import Contact from "@/app/templates/developer/contact/page";
 import { TemplateData } from "@/app/types/templateData";
+import { defaultTemplateDeveloperData } from "@/app/components/data/defaultTemplateDeveloperData";
 
 const TemplatePreview = ({
   backgroundColor,
@@ -88,4 +89,6 @@ const TemplatePreview = ({
   );
 };
 
-export default TemplatePreview;
+export default function DeveloperControlPage() {
+  return <TemplatePreview {...defaultTemplateDeveloperData} />;
+}
