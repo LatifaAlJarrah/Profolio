@@ -86,6 +86,8 @@ const ControlTemplate = () => {
       | TemplateData["developerProjects"]
       | TemplateData["developerServices"]
       | TemplateData["developerResume"]
+      | TemplateData["developerInfo"]
+      | TemplateData["developerContact"]
   ) => {
     setTemplateData((prev) => ({ ...prev, [key]: value }));
     setRenderKey((prev) => prev + 1);

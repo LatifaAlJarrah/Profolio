@@ -6,7 +6,7 @@ import { TemplateData } from "@/app/types/templateData";
 import { FaPhoneAlt, FaEnvelope, FaMapMarkedAlt } from "react-icons/fa";
 
 interface InfoItem {
-  icon?: IconType;
+  icon: IconType;
   title?: string;
   description?: string;
 }

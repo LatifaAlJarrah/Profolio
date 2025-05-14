@@ -64,7 +64,13 @@ interface SidebarProps {
   templateData: TemplateData;
   onChange: (
     key: string,
-    value: string | TemplateData["developerProjects"] | TemplateData["developerServices"] | TemplateData["developerResume"]
+    value:
+      | string
+      | TemplateData["developerProjects"]
+      | TemplateData["developerServices"]
+      | TemplateData["developerResume"]
+      | TemplateData["developerInfo"]
+      | TemplateData["developerContact"]
   ) => void;
   onImageChange: (key: string, file: File | null) => void;
   onServiceChange: (index: number, field: string, value: string) => void;
