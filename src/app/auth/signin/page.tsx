@@ -111,6 +111,14 @@ export default function SignInPage() {
             <SignInButton disabled={form.formState.isSubmitting}>
               {form.formState.isSubmitting ? "Loading..." : "Sign In"}
             </SignInButton>
+            <div className="text-center mt-2">
+              <a
+                href="/auth/forgot-password"
+                className="text-blue-500 hover:underline"
+              >
+                Forgot Password?
+              </a>
+            </div>
           </form>
         </Form>
         <div className="my-4 flex items-center justify-evenly before:h-px before:flex-grow before:bg-stone-400 after:h-px after:flex-grow after:bg-stone-400 text-gray-400">
