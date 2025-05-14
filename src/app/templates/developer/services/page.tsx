@@ -191,7 +191,6 @@ const ServicesComponent = ({ developerServices }: Services) => {
   );
 };
 
-// الدالة الافتراضية للصفحة
 export default function ServicesPage() {
   const { developerServices } = defaultTemplateDeveloperData;
 

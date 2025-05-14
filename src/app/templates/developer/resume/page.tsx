@@ -460,7 +460,6 @@ const ResumeComponent: React.FC<DeveloperResume> = ({ developerResume }) => {
   );
 };
 
-// الدالة الافتراضية للصفحة
 export default function ResumePage() {
   const { developerResume } = defaultTemplateDeveloperData;
 

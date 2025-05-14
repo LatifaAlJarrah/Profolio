@@ -245,7 +245,6 @@ const Home = ({
   );
 };
 
-// الدالة الافتراضية للصفحة
 export default function HomePage() {
   const {
     backgroundColor,

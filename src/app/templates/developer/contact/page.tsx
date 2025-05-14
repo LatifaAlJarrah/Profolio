@@ -131,7 +131,6 @@ const Contact = ({ developerInfo, developerContact }: InfoProps) => {
   );
 };
 
-// الدالة الافتراضية للصفحة
 export default function ContactPage() {
   return <Contact />;
 }

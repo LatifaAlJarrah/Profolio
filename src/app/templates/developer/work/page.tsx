@@ -402,7 +402,6 @@ const WorkComponent = ({ developerProjects }: Projects) => {
   );
 };
 
-// الدالة الافتراضية للصفحة
 export default function WorkPage() {
   const { developerProjects } = defaultTemplateDeveloperData;
 
