@@ -54,7 +54,7 @@ const jetBrains_Mono = JetBrains_Mono({
 const ControlTemplate = () => {
   const searchParams = useSearchParams();
   const router = useRouter();
-  const { data: session, status } = useSession();
+  const { status } = useSession();
   const templateName = searchParams.get("template")?.toLowerCase();
 
   const initialTemplateData =
