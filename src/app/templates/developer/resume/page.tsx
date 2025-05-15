@@ -250,7 +250,7 @@ import {
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { motion } from "framer-motion";
 import Image from "next/image";
-// import { defaultTemplateDeveloperData } from "@/app/components/data/defaultTemplateDeveloperData";
+import { defaultTemplateDeveloperData } from "@/app/components/data/defaultTemplateDeveloperData";
 
 interface DeveloperResume {
   developerResume?: {
@@ -460,8 +460,8 @@ const ResumeComponent: React.FC<DeveloperResume> = ({ developerResume }) => {
   );
 };
 
-export default function ResumePage({ developerResume }: DeveloperResume) {
-  // const { developerResume } = defaultTemplateDeveloperData;
+export default function ResumePage() {
+  const { developerResume } = defaultTemplateDeveloperData;
 
   return <ResumeComponent developerResume={developerResume} />;
 }
