@@ -1,6 +1,7 @@
 "use client";
-import React, { useState } from "react";
-import { useSearchParams } from "next/navigation";
+import React, { useState, useEffect } from "react";
+import { useSearchParams, useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
 import {
   Roboto,
   Poppins,
@@ -52,6 +53,8 @@ const jetBrains_Mono = JetBrains_Mono({
 
 const ControlTemplate = () => {
   const searchParams = useSearchParams();
+  const router = useRouter();
+  const { data: session, status } = useSession();
   const templateName = searchParams.get("template")?.toLowerCase();
 
   const initialTemplateData =
@@ -68,6 +71,41 @@ const ControlTemplate = () => {
   const [templateData, setTemplateData] = useState(initialTemplateData);
   const [renderKey, setRenderKey] = useState(0);
   const [showSidebar, setShowSidebar] = useState(true);
+
+  // Check if user is authenticated and redirect if needed
+  useEffect(() => {
+    if (status === "unauthenticated") {
+      router.push(
+        `/auth/signin?callbackUrl=${encodeURIComponent(window.location.href)}`
+      );
+    }
+  }, [status, router]);
+
+  // Show loading state while checking authentication
+  if (status === "loading") {
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <p className="text-lg">Loading...</p>
+      </div>
+    );
+  }
+
+  // If user is not authenticated, show a message (this is a fallback in case the redirect doesn't work)
+  if (status === "unauthenticated") {
+    return (
+      <div className="flex flex-col items-center justify-center h-screen bg-gray-100 p-4">
+        <div className="bg-white p-8 rounded-lg shadow-md max-w-md w-full text-center">
+          <h1 className="text-2xl font-bold text-blue-600 mb-4">
+            Authentication Required
+          </h1>
+          <p className="text-gray-700 mb-6">
+            You need to be logged in to update templates. Redirecting to the
+            login page...
+          </p>
+        </div>
+      </div>
+    );
+  }
 
   const selectedTemplate = templates.find(
     (t) => t.name.toLowerCase() === templateName

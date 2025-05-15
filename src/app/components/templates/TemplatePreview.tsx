@@ -83,14 +83,15 @@ import ServicesPage from "@/app/templates/developer/services/page";
 import ResumePage from "@/app/templates/developer/resume/page";
 import ContactPage from "@/app/templates/developer/contact/page";
 import { defaultTemplateDeveloperData } from "../data/defaultTemplateDeveloperData";
-
+import { TemplateData } from "@/app/types/templateData";
 const TemplatePreview = () => {
+  const templateData: TemplateData = { ...defaultTemplateDeveloperData };
   return (
     <div className="bg-primarydev text-white font-jetBrainsMono leading-loose px-20 py-12">
       <div className="mb-12">
         <Header
           logoName={defaultTemplateDeveloperData.logoName}
-          logoColor={defaultTemplateDeveloperData.logoColor}
+          logoColor={templateData.logoColor}
           navigationLinks={defaultTemplateDeveloperData.navigationLinks}
           navigationLinksColor={
             defaultTemplateDeveloperData.navigationLinksColor
@@ -113,7 +114,9 @@ const TemplatePreview = () => {
       </div>
 
       <div className="mb-12">
-        <ResumePage />
+        <ResumePage
+          developerResume={defaultTemplateDeveloperData.developerResume}
+        />
       </div>
 
       <div className="mb-12">
