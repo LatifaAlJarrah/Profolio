@@ -115,7 +115,7 @@ const TemplatePreview = () => {
 
       <div className="mb-12">
         <ResumePage
-          developerResume={defaultTemplateDeveloperData.developerResume}
+          // developerResume={defaultTemplateDeveloperData.developerResume}
         />
       </div>
 
