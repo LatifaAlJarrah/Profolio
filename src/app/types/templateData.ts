@@ -157,7 +157,7 @@ export interface TemplateData {
   programmerContactSubmitButtonText?: string;
   programmerFooterText?: string;
 
-  hireMeButton?: { text: string; path: string; color: string };
+  hireMeButton?: Array<{ text: string; path: string; color: string }>;
   developerHeaderRole?: string;
   developerHeadertitle?: string;
   developerHeadername?: string;

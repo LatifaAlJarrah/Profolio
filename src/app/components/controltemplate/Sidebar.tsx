@@ -71,6 +71,7 @@ interface SidebarProps {
       | TemplateData["developerResume"]
       | TemplateData["developerInfo"]
       | TemplateData["developerContact"]
+      | TemplateData["hireMeButton"]
   ) => void;
   onImageChange: (key: string, file: File | null) => void;
   onServiceChange: (index: number, field: string, value: string) => void;

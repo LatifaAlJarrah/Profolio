@@ -1,4 +1,3 @@
-// src/app/components/templates/developer/Header.jsx
 import React from "react";
 
 import Link from "next/link";
@@ -13,21 +12,28 @@ interface HeaderProps {
   navigationLinks?: Array<{ name: string; link: string }>;
   navigationLinksColor?: string;
   navbarColor?: string;
-  hireMeButton?: { text: string; path: string; color: string };
+  hireMeButton?: Array<{ text: string; path: string; color: string }>;
 }
 
 const defaultNavigationLinks = [
-    { name: "home", link: "/" },
-    { name: "work", link: "/work" },
-    { name: "services", link: "/services" },
-    { name: "resume", link: "/resume" },
-    { name: "contact", link: "/contact" },
+  { name: "home", link: "/" },
+  { name: "work", link: "/work" },
+  { name: "services", link: "/services" },
+  { name: "resume", link: "/resume" },
+  { name: "contact", link: "/contact" },
 ];
 
-const Header = ({logoName, logoColor, navigationLinks, navigationLinksColor, navbarColor, hireMeButton}: HeaderProps) => {
+const Header = ({
+  logoName,
+  logoColor,
+  navigationLinks,
+  navigationLinksColor,
+  navbarColor,
+  hireMeButton,
+}: HeaderProps) => {
   return (
     <header
-      className="py-8 xl:py-12 text-white"
+      className="py-8 xl:py-12 text-white px-20"
       style={{ backgroundColor: navbarColor }}
     >
       <div className="container mx-auto flex justify-between items-center">
@@ -38,22 +44,23 @@ const Header = ({logoName, logoColor, navigationLinks, navigationLinksColor, nav
         </Link>
 
         {/* desktop nav */}
-        <div className="hidden xl:flex items-center gap-8">
+        <div className="hidden xl:flex items-center gap-4">
           <Nav
             navigationLinks={navigationLinks || defaultNavigationLinks}
             navigationLinksColor={navigationLinksColor}
           />
-          <Link href={hireMeButton?.path || "#contact"} className={`${hireMeButton?.color}`}>
-            <Button>{ hireMeButton?.text || "Hire Me"}</Button>
-          </Link>
+          {(hireMeButton || []).map((button, index) => (
+            <Link key={index} href={button.path}>
+              <Button style={{ backgroundColor: button.color }}>
+                {button.text}
+              </Button>
+            </Link>
+          ))}
         </div>
 
         {/* mobile nav */}
         <div className="xl:hidden">
-          <MobileNav
-            // navigationLinks={navigationLinks}
-            // navigationLinksColor={navigationLinksColor}
-          />
+          <MobileNav />
         </div>
       </div>
     </header>

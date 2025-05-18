@@ -57,7 +57,7 @@ const Resturant: React.FC<ResturantProps> = ({
       style={{ color: titleTextColor || "#ffffff" }}
     >
       <Image
-        src={backgroundImage || "/assets/images/resturantMenu/bgResturant.jpg"}
+        src={backgroundImage ?? "/assets/images/resturantMenu/bgResturant.jpg"}
         alt="Background"
         fill
         className="absolute top-0 left-0 -z-10"

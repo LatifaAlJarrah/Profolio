@@ -3,7 +3,7 @@ import { TemplateData } from "@/app/types/templateData";
 export const defaultTemplateRestaurantData: TemplateData = {
   fontFamily: "Roboto",
   backgroundOverlayColor: "#000000",
-  backgroundImage: "/assets/images/resturantMenu/bgResturant.jpg",
+  backgroundImage: "/assets/images/company/res-background.png",
   titleTextColor: "#ffffff",
   buttonColor: "#FFDB58",
   navbarColor: "rgba(0, 0, 0, 0.2)",
