@@ -32,7 +32,9 @@ const ResturantNavbar: React.FC<ResturantNavbarProps> = ({
       <nav
         className={`w-full py-4 px-6 flex justify-between items-center z-40
         ${isControlPage ? "" : "fixed top-0 left-0 right-0"}`}
-        style={{ backgroundColor: navbarColor || "rgba(0, 0, 0, 0.2)" }}
+        style={{
+          backgroundColor: navbarColor ? navbarColor : "rgba(0, 0, 0, 0.2)",
+        }}
       >
         <ResturantLogo logoName={logoName} logoColor={logoColor} />
 

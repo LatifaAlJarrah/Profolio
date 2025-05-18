@@ -9,7 +9,6 @@ interface RandomlyChefProps extends TemplateData {
     description: string;
     image: string;
   }[];
-  
 }
 
 const RandomlyChef: React.FC<RandomlyChefProps> = ({

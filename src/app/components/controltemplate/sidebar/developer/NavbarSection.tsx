@@ -1,10 +1,10 @@
 import React from "react";
 import { TemplateData } from "@/app/types/templateData";
-import { FaBars, FaLink } from "react-icons/fa";
+import { FaBars, FaLink, FaPlus, FaTrash } from "react-icons/fa";
 
 interface DeveloperNavbarSectionProps {
   templateData: TemplateData;
-  onChange: (key: string, value: string) => void;
+  onChange: (key: string, value: string | TemplateData["hireMeButton"]) => void;
   onNavLinkChange: (index: number, field: string, value: string) => void;
 }
 
@@ -13,6 +13,30 @@ const DeveloperNavbarSection: React.FC<DeveloperNavbarSectionProps> = ({
   onChange,
   onNavLinkChange,
 }) => {
+  // manage the hireMeButton array
+  const addHireMeButton = () => {
+    const newButton = { text: "Hire Me", path: "#contact", color: "#00ff99" };
+    const updatedButtons = [...(templateData.hireMeButton || []), newButton];
+    onChange("hireMeButton", updatedButtons);
+  };
+
+  const removeHireMeButton = (index: number) => {
+    const updatedButtons = (templateData.hireMeButton || []).filter(
+      (_, i) => i !== index
+    );
+    onChange("hireMeButton", updatedButtons);
+  };
+
+  const updateHireMeButton = (
+    index: number,
+    field: "text" | "path" | "color",
+    value: string
+  ) => {
+    const updatedButtons = [...(templateData.hireMeButton || [])];
+    updatedButtons[index] = { ...updatedButtons[index], [field]: value };
+    onChange("hireMeButton", updatedButtons);
+  };
+
   return (
     <div className="space-y-4">
       <div className="flex items-center space-x-2">
@@ -86,36 +110,64 @@ const DeveloperNavbarSection: React.FC<DeveloperNavbarSectionProps> = ({
           </label>
         </div>
       ))}
-      <label className="flex items-center space-x-2">
-        <span className="text-sm font-medium text-gray-700">
-          Hire Me Button
-        </span>
-        <input
-          type="text"
-          value={templateData.hireMeButton?.text || "Hire Me"}
-          onChange={(e) => onChange("hireMeButton.text", e.target.value)}
-          className="p-1 border rounded-md w-full bg-transparent"
-        />
-      </label>
-      <div className="mb-4">
-        <label className="block mb-1">Button Path</label>
-        <input
-          type="text"
-          value={templateData.hireMeButton?.path || "#contact"}
-          onChange={(e) => onChange("hireMeButton.path", e.target.value)}
-          className="w-full p-2 border rounded"
-        />
-      </div>
-      <div className="mb-4">
-        <label className="block mb-1">Button Color</label>
-        <input
-          type="color"
-          value={templateData.hireMeButton?.color || "#00ff99"}
-          onChange={(e) => onChange("hireMeButton.color", e.target.value)}
-          className="w-full p-2 border rounded"
-          placeholder="#00ff99"
-        />
-      </div>
+      <h4 className="text-md font-medium text-gray-800 mt-4">
+        Hire Me Buttons
+      </h4>
+      {(templateData.hireMeButton || []).map((button, index) => (
+        <div key={index} className="space-y-2 mb-4 border p-3 rounded-md">
+          <label className="flex items-center space-x-2">
+            <span className="text-sm font-medium text-gray-700">
+              Button Text:
+            </span>
+            <input
+              type="text"
+              value={button.text}
+              onChange={(e) =>
+                updateHireMeButton(index, "text", e.target.value)
+              }
+              className="p-1 border rounded-md w-full bg-transparent"
+            />
+          </label>
+          <label className="flex items-center space-x-2">
+            <span className="text-sm font-medium text-gray-700">
+              Button Path:
+            </span>
+            <input
+              type="text"
+              value={button.path}
+              onChange={(e) =>
+                updateHireMeButton(index, "path", e.target.value)
+              }
+              className="p-1 border rounded-md w-full bg-transparent"
+            />
+          </label>
+          <label className="flex items-center space-x-2">
+            <span className="text-sm font-medium text-gray-700">
+              Button Color:
+            </span>
+            <input
+              type="color"
+              value={button.color}
+              onChange={(e) =>
+                updateHireMeButton(index, "color", e.target.value)
+              }
+              className="p-1 border rounded-md w-full bg-transparent"
+            />
+          </label>
+          <button
+            onClick={() => removeHireMeButton(index)}
+            className="p-2 bg-red-500 text-white rounded hover:bg-red-600"
+          >
+            <FaTrash />
+          </button>
+        </div>
+      ))}
+      <button
+        onClick={addHireMeButton}
+        className="p-2 bg-green-500 text-white rounded hover:bg-green-600 flex items-center gap-2"
+      >
+        <FaPlus /> Add Hire Me Button
+      </button>
     </div>
   );
 };

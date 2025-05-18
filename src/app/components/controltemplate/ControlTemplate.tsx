@@ -1,7 +1,6 @@
 "use client";
-import React, { useState, useEffect } from "react";
-import { useSearchParams, useRouter } from "next/navigation";
-import { useSession } from "next-auth/react";
+import React, { useState } from "react";
+import { useSearchParams } from "next/navigation";
 import {
   Roboto,
   Poppins,
@@ -13,6 +12,7 @@ import {
 import Sidebar from "./Sidebar";
 import MainEditor from "./MainEditor";
 import Navbar from "./Navbar";
+import ConfirmationModal from "./shared/ConfirmationModal";
 
 import { templates } from "../data/templates";
 import { defaultTemplateData } from "../data/defaultTemplateDentistData";
@@ -45,6 +45,7 @@ const palanquinDark = Palanquin_Dark({
   subsets: ["latin"],
   display: "swap",
 });
+
 const jetBrains_Mono = JetBrains_Mono({
   weight: "400",
   subsets: ["latin"],
@@ -53,8 +54,6 @@ const jetBrains_Mono = JetBrains_Mono({
 
 const ControlTemplate = () => {
   const searchParams = useSearchParams();
-  const router = useRouter();
-  const { status } = useSession();
   const templateName = searchParams.get("template")?.toLowerCase();
 
   const initialTemplateData =
@@ -69,43 +68,41 @@ const ControlTemplate = () => {
       : defaultTemplateData;
 
   const [templateData, setTemplateData] = useState(initialTemplateData);
-  const [renderKey, setRenderKey] = useState(0);
   const [showSidebar, setShowSidebar] = useState(true);
 
-  // Check if user is authenticated and redirect if needed
-  useEffect(() => {
-    if (status === "unauthenticated") {
-      router.push(
-        `/auth/signin?callbackUrl=${encodeURIComponent(window.location.href)}`
-      );
-    }
-  }, [status, router]);
+  // Modal state
+  const [modalState, setModalState] = useState<{
+    isOpen: boolean;
+    message: string;
+    onConfirm: () => void;
+    confirmText?: string;
+    cancelText?: string;
+  }>({
+    isOpen: false,
+    message: "",
+    onConfirm: () => {},
+    confirmText: "Yes, I'm sure",
+    cancelText: "No, cancel",
+  });
 
-  // Show loading state while checking authentication
-  if (status === "loading") {
-    return (
-      <div className="flex items-center justify-center h-screen">
-        <p className="text-lg">Loading...</p>
-      </div>
-    );
-  }
+  const openModal = (
+    message: string,
+    onConfirm: () => void,
+    confirmText?: string,
+    cancelText?: string
+  ) => {
+    setModalState({
+      isOpen: true,
+      message,
+      onConfirm,
+      confirmText,
+      cancelText,
+    });
+  };
 
-  // If user is not authenticated, show a message (this is a fallback in case the redirect doesn't work)
-  if (status === "unauthenticated") {
-    return (
-      <div className="flex flex-col items-center justify-center h-screen bg-gray-100 p-4">
-        <div className="bg-white p-8 rounded-lg shadow-md max-w-md w-full text-center">
-          <h1 className="text-2xl font-bold text-blue-600 mb-4">
-            Authentication Required
-          </h1>
-          <p className="text-gray-700 mb-6">
-            You need to be logged in to update templates. Redirecting to the
-            login page...
-          </p>
-        </div>
-      </div>
-    );
-  }
+  const closeModal = () => {
+    setModalState((prev) => ({ ...prev, isOpen: false }));
+  };
 
   const selectedTemplate = templates.find(
     (t) => t.name.toLowerCase() === templateName
@@ -126,21 +123,19 @@ const ControlTemplate = () => {
       | TemplateData["developerResume"]
       | TemplateData["developerInfo"]
       | TemplateData["developerContact"]
+      | TemplateData["hireMeButton"]
   ) => {
     setTemplateData((prev) => ({ ...prev, [key]: value }));
-    setRenderKey((prev) => prev + 1);
   };
 
   const handleArrayChange = (key: string, value: string[]) => {
     setTemplateData((prev) => ({ ...prev, [key]: value }));
-    setRenderKey((prev) => prev + 1);
   };
 
   const handleImageChange = (key: string, file: File | null) => {
     if (file) {
       const imageUrl = URL.createObjectURL(file);
       setTemplateData((prev) => ({ ...prev, [key]: imageUrl }));
-      setRenderKey((prev) => prev + 1);
     }
   };
 
@@ -150,7 +145,6 @@ const ControlTemplate = () => {
       updatedServices[index] = { ...updatedServices[index], [field]: value };
       return { ...prev, services: updatedServices };
     });
-    setRenderKey((prev) => prev + 1);
   };
 
   const handleAchievementsChange = (
@@ -168,7 +162,6 @@ const ControlTemplate = () => {
       };
       return { ...prev, ourAchievements: updatedAchievements };
     });
-    setRenderKey((prev) => prev + 1);
   };
 
   const handleAddAchievement = () => {
@@ -179,7 +172,6 @@ const ControlTemplate = () => {
       updatedAchievements.push({ number: 0, text: "New Achievement" });
       return { ...prev, ourAchievements: updatedAchievements };
     });
-    setRenderKey((prev) => prev + 1);
   };
 
   const handleRemoveAchievement = (index: number) => {
@@ -190,7 +182,6 @@ const ControlTemplate = () => {
       updatedAchievements.splice(index, 1);
       return { ...prev, ourAchievements: updatedAchievements };
     });
-    setRenderKey((prev) => prev + 1);
   };
 
   const handleAddSkill = () => {
@@ -201,7 +192,6 @@ const ControlTemplate = () => {
       updatedSkills.push("New Skill");
       return { ...prev, programmerSkills: updatedSkills };
     });
-    setRenderKey((prev) => prev + 1);
   };
 
   const handleRemoveSkill = (index: number) => {
@@ -212,7 +202,6 @@ const ControlTemplate = () => {
       updatedSkills.splice(index, 1);
       return { ...prev, programmerSkills: updatedSkills };
     });
-    setRenderKey((prev) => prev + 1);
   };
 
   const handleAddEducation = () => {
@@ -223,7 +212,6 @@ const ControlTemplate = () => {
       updatedEducation.push("New Education");
       return { ...prev, programmerEducation: updatedEducation };
     });
-    setRenderKey((prev) => prev + 1);
   };
 
   const handleRemoveEducation = (index: number) => {
@@ -234,7 +222,6 @@ const ControlTemplate = () => {
       updatedEducation.splice(index, 1);
       return { ...prev, programmerEducation: updatedEducation };
     });
-    setRenderKey((prev) => prev + 1);
   };
 
   const handleAddCertification = () => {
@@ -245,7 +232,6 @@ const ControlTemplate = () => {
       updatedCertifications.push("New Certification");
       return { ...prev, programmerCertifications: updatedCertifications };
     });
-    setRenderKey((prev) => prev + 1);
   };
 
   const handleRemoveCertification = (index: number) => {
@@ -256,7 +242,6 @@ const ControlTemplate = () => {
       updatedCertifications.splice(index, 1);
       return { ...prev, programmerCertifications: updatedCertifications };
     });
-    setRenderKey((prev) => prev + 1);
   };
 
   const handleProjectChange = (
@@ -274,7 +259,6 @@ const ControlTemplate = () => {
       };
       return { ...prev, programmerProjects: updatedProjects };
     });
-    setRenderKey((prev) => prev + 1);
   };
 
   const handleProjectImageChange = (index: number, file: File | null) => {
@@ -290,7 +274,6 @@ const ControlTemplate = () => {
         };
         return { ...prev, programmerProjects: updatedProjects };
       });
-      setRenderKey((prev) => prev + 1);
     }
   };
 
@@ -309,7 +292,6 @@ const ControlTemplate = () => {
       });
       return { ...prev, programmerProjects: updatedProjects };
     });
-    setRenderKey((prev) => prev + 1);
   };
 
   const handleRemoveProject = (index: number) => {
@@ -320,7 +302,6 @@ const ControlTemplate = () => {
       updatedProjects.splice(index, 1);
       return { ...prev, programmerProjects: updatedProjects };
     });
-    setRenderKey((prev) => prev + 1);
   };
 
   const handleTeamMemberChange = (
@@ -336,7 +317,6 @@ const ControlTemplate = () => {
       };
       return { ...prev, teamMembers: updatedTeamMembers };
     });
-    setRenderKey((prev) => prev + 1);
   };
 
   const handleTeamMemberImageChange = (index: number, file: File | null) => {
@@ -352,7 +332,6 @@ const ControlTemplate = () => {
         };
         return { ...prev, teamMembers: updatedTeamMembers };
       });
-      setRenderKey((prev) => prev + 1);
     }
   };
 
@@ -370,7 +349,6 @@ const ControlTemplate = () => {
       });
       return { ...prev, teamMembers: updatedTeamMembers };
     });
-    setRenderKey((prev) => prev + 1);
   };
 
   const handleRemoveTeamMember = (index: number) => {
@@ -379,7 +357,6 @@ const ControlTemplate = () => {
       updatedTeamMembers.splice(index, 1);
       return { ...prev, teamMembers: updatedTeamMembers };
     });
-    setRenderKey((prev) => prev + 1);
   };
 
   const handlePortfolioSlideChange = (
@@ -394,7 +371,6 @@ const ControlTemplate = () => {
       updatedSlides[index] = { ...updatedSlides[index], [field]: value };
       return { ...prev, portfolioSlides: updatedSlides };
     });
-    setRenderKey((prev) => prev + 1);
   };
 
   const handleTestimonialChange = (
@@ -412,7 +388,6 @@ const ControlTemplate = () => {
       };
       return { ...prev, portfolioTestimonials: updatedTestimonials };
     });
-    setRenderKey((prev) => prev + 1);
   };
 
   const handleBlogImageChange = (index: number, file: File | null) => {
@@ -423,7 +398,6 @@ const ControlTemplate = () => {
         updatedImages[index] = imageUrl;
         return { ...prev, blogImages: updatedImages };
       });
-      setRenderKey((prev) => prev + 1);
     }
   };
 
@@ -435,7 +409,6 @@ const ControlTemplate = () => {
       updatedLinks[index] = { ...updatedLinks[index], [field]: value };
       return { ...prev, navigationLinks: updatedLinks };
     });
-    setRenderKey((prev) => prev + 1);
   };
 
   const handleMenuItemChange = (
@@ -462,7 +435,6 @@ const ControlTemplate = () => {
       };
       return { ...prev, menuItems: updatedMenuItems };
     });
-    setRenderKey((prev) => prev + 1);
   };
 
   const handleMenuItemImageChange = (
@@ -490,7 +462,6 @@ const ControlTemplate = () => {
         };
         return { ...prev, menuItems: updatedMenuItems };
       });
-      setRenderKey((prev) => prev + 1);
     }
   };
 
@@ -507,7 +478,6 @@ const ControlTemplate = () => {
       };
       return { ...prev, chefSpecials: updatedSpecials };
     });
-    setRenderKey((prev) => prev + 1);
   };
 
   const handleChefSpecialImageChange = (index: number, file: File | null) => {
@@ -521,34 +491,57 @@ const ControlTemplate = () => {
         };
         return { ...prev, chefSpecials: updatedSpecials };
       });
-      setRenderKey((prev) => prev + 1);
     }
   };
 
   const saveTemplateData = () => {
-    localStorage.setItem("templateData", JSON.stringify(templateData));
-    alert("Template data saved successfully!");
+    openModal(
+      "Are you sure you want to save the template data?",
+      () => {
+        try {
+          localStorage.setItem("templateData", JSON.stringify(templateData));
+          openModal("Template data saved successfully!", () => {}, "OK");
+        } catch (error) {
+          const errorMessage =
+            error instanceof Error
+              ? `Failed to save template data: ${error.message}`
+              : "Failed to save template data. An unexpected error occurred.";
+          openModal(errorMessage, () => {}, "OK");
+        }
+      },
+      "OK",
+      "No"
+    );
   };
 
   const loadTemplateData = () => {
     const savedData = localStorage.getItem("templateData");
     if (savedData) {
-      setTemplateData(JSON.parse(savedData));
-      setRenderKey((prev) => prev + 1);
-      alert("Saved template data loaded successfully!");
+      openModal(
+        "Are you sure you want to load the saved template data?",
+        () => {
+          setTemplateData(JSON.parse(savedData));
+          openModal("Saved template data loaded successfully!", () => {}, "OK");
+        },
+        "OK",
+        "No"
+      );
     } else {
-      alert("No saved data found.");
+      openModal("No saved data found.", () => {}, "OK");
     }
   };
-
   const resetTemplateData = () => {
-    if (
-      confirm("Are you sure you want to reset all changes to default values?")
-    ) {
-      setTemplateData(initialTemplateData);
-      setRenderKey((prev) => prev + 1);
-      alert("Template data has been reset to default values.");
-    }
+    openModal(
+      "Are you sure you want to reset all changes to default values?",
+      () => {
+        setTemplateData(initialTemplateData);
+        openModal(
+          "Template data has been reset to default values.",
+          () => {},
+          "OK"
+        );
+      }
+    );
   };
 
   const getFontClassName = () => {
@@ -629,7 +622,6 @@ const ControlTemplate = () => {
             {selectedTemplate?.Component ? (
               React.cloneElement(
                 <selectedTemplate.Component
-                  key={renderKey}
                   {...templateData}
                   fontFamilyClass={getFontClassName()}
                 />,
@@ -642,6 +634,15 @@ const ControlTemplate = () => {
           </MainEditor>
         </div>
       </div>
+
+      <ConfirmationModal
+        isOpen={modalState.isOpen}
+        onClose={closeModal}
+        onConfirm={modalState.onConfirm}
+        message={modalState.message}
+        confirmText={modalState.confirmText}
+        cancelText={modalState.cancelText}
+      />
     </div>
   );
 };
