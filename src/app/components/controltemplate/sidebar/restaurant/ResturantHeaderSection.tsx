@@ -13,17 +13,6 @@ const ResturantHeaderSection: React.FC<ResturantHeaderSectionProps> = ({
 }) => {
   return (
     <>
-      <label className="block mb-2">
-        background Image:
-        <input
-          type="file"
-          accept="image/*"
-          onChange={(e) =>
-            onImageChange("backgroundImage", e.target.files?.[0] || null)
-          }
-          className="p-1 border rounded-md w-full bg-transparent text-charcoalGray"
-        />
-      </label>
       <div className="flex flex-col bg-lightGrayShade2 p-2 rounded-lg mb-4 mx-8">
         <h3 className="text-lg font-normal text-center">Header Settings</h3>
       </div>
