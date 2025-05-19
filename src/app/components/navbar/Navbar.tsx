@@ -87,7 +87,7 @@ export default function Navbar({
     const confirmLogout = window.confirm("Are you sure you want to log out?");
     if (!confirmLogout) return;
 
-    await signOut({ callbackUrl: "/" }); // This will handle both logout and redirect
+    await signOut({ callbackUrl: "/" }); // handle both logout and redirect
   };
 
   function UserAvatar({ imageUrl }: { imageUrl: string }) {
