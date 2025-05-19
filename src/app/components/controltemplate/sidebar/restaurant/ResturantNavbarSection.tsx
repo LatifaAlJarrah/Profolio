@@ -36,7 +36,7 @@ const ResturantNavbarSection: React.FC<ResturantNavbarSectionProps> = ({
           />
         </label>
         <label className="block mb-2">
-          Navbar Color:
+          Navbar Background:
           <input
             type="color"
             value={templateData.navbarColor || "#000000"}
