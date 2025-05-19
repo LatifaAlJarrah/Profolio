@@ -70,26 +70,28 @@ const ControlTemplate = () => {
   const [templateData, setTemplateData] = useState(initialTemplateData);
   const [showSidebar, setShowSidebar] = useState(true);
 
-  // Modal state
   const [modalState, setModalState] = useState<{
     isOpen: boolean;
     message: string;
     onConfirm: () => void;
     confirmText?: string;
     cancelText?: string;
+    iconType?: "save" | "load" | "reset" | "warning" | "none"; // تحديث نوع الـ modalState
   }>({
     isOpen: false,
     message: "",
     onConfirm: () => {},
     confirmText: "Yes, I'm sure",
     cancelText: "No, cancel",
+    iconType: "warning",
   });
 
   const openModal = (
     message: string,
     onConfirm: () => void,
     confirmText?: string,
-    cancelText?: string
+    cancelText?: string,
+    iconType: "save" | "load" | "reset" | "warning" | "none" = "warning" // إضافة iconType كمعامل
   ) => {
     setModalState({
       isOpen: true,
@@ -97,6 +99,7 @@ const ControlTemplate = () => {
       onConfirm,
       confirmText,
       cancelText,
+      iconType, // تمرير نوع الأيقونة
     });
   };
 
@@ -500,17 +503,24 @@ const ControlTemplate = () => {
       () => {
         try {
           localStorage.setItem("templateData", JSON.stringify(templateData));
-          openModal("Template data saved successfully!", () => {}, "OK");
+          openModal(
+            "Template data saved successfully at 03:09 PM EEST on May 19, 2025!",
+            () => {},
+            "OK",
+            undefined,
+            "save"
+          );
         } catch (error) {
           const errorMessage =
             error instanceof Error
               ? `Failed to save template data: ${error.message}`
               : "Failed to save template data. An unexpected error occurred.";
-          openModal(errorMessage, () => {}, "OK");
+          openModal(errorMessage, () => {}, "OK", undefined, "warning");
         }
       },
       "OK",
-      "No"
+      "No",
+      "save"
     );
   };
 
@@ -520,29 +530,51 @@ const ControlTemplate = () => {
       openModal(
         "Are you sure you want to load the saved template data?",
         () => {
-          setTemplateData(JSON.parse(savedData));
-          openModal("Saved template data loaded successfully!", () => {}, "OK");
+          try {
+            setTemplateData(JSON.parse(savedData));
+            openModal(
+              "Saved template data loaded successfully at 03:09 PM EEST on May 19, 2025!",
+              () => {},
+              "OK",
+              undefined,
+              "load"
+            );
+          } catch (error) {
+            const errorMessage =
+              error instanceof Error
+                ? `Failed to load template data: ${error.message}`
+                : "Failed to load template data. An unexpected error occurred.";
+            openModal(errorMessage, () => {}, "OK", undefined, "warning");
+          }
         },
         "OK",
-        "No"
+        "No",
+        "load"
       );
     } else {
-      openModal("No saved data found.", () => {}, "OK");
+      openModal("No saved data found.", () => {}, "OK", undefined, "warning");
     }
   };
+
   const resetTemplateData = () => {
     openModal(
       "Are you sure you want to reset all changes to default values?",
       () => {
         setTemplateData(initialTemplateData);
         openModal(
-          "Template data has been reset to default values.",
+          "Template data has been reset to default values at 03:09 PM EEST on May 19, 2025.",
           () => {},
-          "OK"
+          "OK",
+          undefined,
+          "reset"
         );
-      }
+      },
+      "OK",
+      "No",
+      "reset"
     );
   };
+
 
   const getFontClassName = () => {
     switch (templateData.fontFamily) {
@@ -642,6 +674,7 @@ const ControlTemplate = () => {
         message={modalState.message}
         confirmText={modalState.confirmText}
         cancelText={modalState.cancelText}
+        iconType={modalState.iconType}
       />
     </div>
   );

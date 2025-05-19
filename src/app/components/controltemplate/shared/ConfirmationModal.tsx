@@ -1,4 +1,12 @@
 import React from "react";
+import {
+  FaSave,
+  FaUpload,
+  FaTrash,
+  FaExclamationTriangle,
+} from "react-icons/fa";
+
+type IconType = "save" | "load" | "reset" | "warning" | "none";
 
 interface ConfirmationModalProps {
   isOpen: boolean;
@@ -7,6 +15,7 @@ interface ConfirmationModalProps {
   message: string;
   confirmText?: string;
   cancelText?: string;
+  iconType?: IconType;
 }
 
 const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
@@ -16,8 +25,48 @@ const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
   message,
   confirmText = "Yes, I'm sure",
   cancelText = "No, cancel",
+  iconType = "warning",
 }) => {
   if (!isOpen) return null;
+
+  const renderIcon = () => {
+    switch (iconType) {
+      case "save":
+        return (
+          <FaSave className="w-11 h-11 mb-3.5 mx-auto text-blue-500 dark:text-blue-400" />
+        );
+      case "load":
+        return (
+          <FaUpload className="w-11 h-11 mb-3.5 mx-auto text-green-500 dark:text-green-400" />
+        );
+      case "reset":
+        return (
+          <FaTrash className="w-11 h-11 mb-3.5 mx-auto text-red-500 dark:text-red-400" />
+        );
+      case "warning":
+        return (
+          <FaExclamationTriangle className="w-11 h-11 mb-3.5 mx-auto text-yellow-500 dark:text-yellow-400" />
+        );
+      case "none":
+        return null;
+      default:
+        return (
+          <svg
+            className="text-gray-400 dark:text-gray-500 w-11 h-11 mb-3.5 mx-auto"
+            aria-hidden="true"
+            fill="currentColor"
+            viewBox="0 0 20 20"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              fillRule="evenodd"
+              d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
+              clipRule="evenodd"
+            />
+          </svg>
+        );
+    }
+  };
 
   return (
     <div
@@ -50,19 +99,7 @@ const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
           </button>
 
           {/* Icon */}
-          <svg
-            className="text-gray-400 dark:text-gray-500 w-11 h-11 mb-3.5 mx-auto"
-            aria-hidden="true"
-            fill="currentColor"
-            viewBox="0 0 20 20"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              fillRule="evenodd"
-              d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
-              clipRule="evenodd"
-            />
-          </svg>
+          {renderIcon()}
 
           {/* Message */}
           <p className="mb-4 text-gray-500 dark:text-gray-300">{message}</p>
