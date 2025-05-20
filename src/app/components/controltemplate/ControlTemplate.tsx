@@ -91,7 +91,7 @@ const ControlTemplate = () => {
     onConfirm: () => void,
     confirmText?: string,
     cancelText?: string,
-    iconType: "save" | "load" | "reset" | "warning" | "none" = "warning" // إضافة iconType كمعامل
+    iconType: "save" | "load" | "reset" | "warning" | "none" = "warning"
   ) => {
     setModalState({
       isOpen: true,
@@ -99,7 +99,7 @@ const ControlTemplate = () => {
       onConfirm,
       confirmText,
       cancelText,
-      iconType, // تمرير نوع الأيقونة
+      iconType,
     });
   };
 
@@ -604,7 +604,7 @@ const ControlTemplate = () => {
         showSidebar={showSidebar}
       />
 
-      <div className="flex flex-grow overflow-hidden">
+      <div className="flex flex-grow">
         {showSidebar && (
           <div className="w-1/4 bg-lightGray border-r border-gray-200 overflow-y-auto">
             <Sidebar

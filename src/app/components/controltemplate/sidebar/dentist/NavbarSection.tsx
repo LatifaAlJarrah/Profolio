@@ -3,7 +3,7 @@ import ColorPicker from "../../shared/ColorPicker";
 
 interface NavbarSectionProps {
   templateData: TemplateData;
-  onNavLinkChange: (index: number, field: string, value: string) => void; // إضافة دالة لتعديل الروابط
+  onNavLinkChange: (index: number, field: string, value: string) => void;
   onChange: (key: string, value: string) => void;
   onImageChange: (key: string, file: File | null) => void;
 }
