@@ -48,7 +48,7 @@ export default function Navbar({
 
   return (
     <nav
-      className={`flex justify-between py-4 relative w-full items-center z-50 shadow-lg px-16 ${fontFamilyClass}`}
+      className={`flex justify-between py-4 relative w-full items-center z-40 shadow-lg px-16 ${fontFamilyClass}`}
       style={{ backgroundColor, fontFamily }}
     >
       <DentistLogo name={logoName} logoColor={logoColor} logoIcon={logoIcon} />

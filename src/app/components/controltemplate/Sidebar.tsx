@@ -1,4 +1,5 @@
 "use client";
+
 import { useState } from "react";
 import { TemplateData } from "@/app/types/templateData";
 import NavbarSection from "./sidebar/dentist/NavbarSection";
@@ -160,7 +161,8 @@ const Sidebar: React.FC<SidebarProps> = ({
   onAddProject,
   onRemoveProject,
 }) => {
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isPanelOpen, setIsPanelOpen] = useState(false);
+  const [currentIndex, setCurrentIndex] = useState<number>(0);
 
   const sections =
     templateName === "restaurant"
@@ -542,25 +544,28 @@ const Sidebar: React.FC<SidebarProps> = ({
             title: "Service",
             icon: <FaLaptopCode />,
           },
-
           {
             component: (
               <ResumeSection
-                key="services"
+                key="resume"
                 templateData={templateData}
                 onChange={onChange}
               />
             ),
             title: "Resume",
             icon: <FaServicestack />,
-              },
-              {
-                component: (
-                  <ContactSection key="contact" templateData={templateData} onChange={onChange} />
-                ), 
-                title: "Contact",
-                icon: <FaPhone />,
-          }
+          },
+          {
+            component: (
+              <ContactSection
+                key="contact"
+                templateData={templateData}
+                onChange={onChange}
+              />
+            ),
+            title: "Contact",
+            icon: <FaPhone />,
+          },
         ]
       : [
           {
@@ -670,6 +675,16 @@ const Sidebar: React.FC<SidebarProps> = ({
           },
         ];
 
+  const openPanel = (index: number) => {
+    setCurrentIndex(index);
+    setIsPanelOpen(true);
+  };
+
+  const closePanel = () => {
+    setIsPanelOpen(false);
+    setCurrentIndex(0);
+  };
+
   const handleNext = () => {
     if (currentIndex < sections.length - 1) {
       setCurrentIndex(currentIndex + 1);
@@ -686,62 +701,126 @@ const Sidebar: React.FC<SidebarProps> = ({
   const isFirstSection = currentIndex === 0;
 
   return (
-    <aside className="p-4 bg-lightGray flex flex-col h-full">
-      {/* navigation list */}
-      <nav className="mb-6">
-        <h3 className="text-lg font-semibold text-gray-800 mb-3">Sections</h3>
-        <ul className="space-y-2">
-          {sections.map((section, index) => (
-            <li key={index}>
-              <button
-                onClick={() => setCurrentIndex(index)}
-                className={`w-full flex items-center space-x-2 p-2 rounded-md text-left transition-colors duration-200 ${
-                  currentIndex === index
-                    ? "bg-blue-500 text-white"
-                    : "text-gray-700 hover:bg-gray-200"
-                }`}
-              >
-                <span className="text-lg">{section.icon}</span>
-                <span>{section.title}</span>
-              </button>
-            </li>
-          ))}
-        </ul>
-      </nav>
+    <div className="bg-gray-100 relative">
+      <aside className="hidden md:block w-1/4 bg-lightGray p-4 flex-col h-screen fixed shadow-lg z-10 overflow-y-auto  pb-16">
+        <nav className="mb-6">
+          <h3 className="text-lg font-semibold text-gray-800 mb-3">Sections</h3>
+          <ul className="space-y-2">
+            {sections.map((section, index) => (
+              <li key={index}>
+                <button
+                  onClick={() => setCurrentIndex(index)}
+                  className={`w-full flex items-center space-x-2 p-2 rounded-md text-left transition-colors duration-200 ${
+                    currentIndex === index
+                      ? "bg-blue-500 text-white"
+                      : "text-gray-700 hover:bg-gray-200"
+                  }`}
+                >
+                  <span className="text-lg">{section.icon}</span>
+                  <span>{section.title}</span>
+                </button>
+              </li>
+            ))}
+          </ul>
+        </nav>
 
-      {/* section content */}
-      <div className="flex-1 transition-opacity duration-300 ease-in-out">
-        {sections[currentIndex].component}
-      </div>
+        <div className="flex-1 transition-opacity duration-300 ease-in-out">
+          {sections[currentIndex].component}
+        </div>
 
-      <BreakLine />
+        <BreakLine />
 
-      <div className="flex flex-wrap justify-between mb-4 gap-2 font-mono">
-        {!isFirstSection && (
-          <button
-            onClick={handlePrevious}
-            className="text-white bg-charcoalGray w-full sm:w-1/3 p-2 rounded-lg text-center font-bold hover:bg-gray-600 transition-colors duration-200"
-          >
-            Previous
-          </button>
+        <div className="flex flex-wrap justify-between mb-4 gap-2 font-mono">
+          {!isFirstSection && (
+            <button
+              onClick={handlePrevious}
+              className="text-white bg-charcoalGray w-full sm:w-1/3 p-2 rounded-lg text-center font-bold hover:bg-gray-600 transition-colors duration-200"
+            >
+              Previous
+            </button>
+          )}
+          {!isLastSection && (
+            <button
+              onClick={handleNext}
+              className="text-white bg-blue-500 w-full sm:w-1/3 p-2 rounded-lg text-center font-bold hover:bg-blue-600 transition-colors duration-200"
+            >
+              Next
+            </button>
+          )}
+        </div>
+
+        {isLastSection && (
+          <>
+            <BreakLine />
+            <ButtonsSection onSave={onSave} onLoad={onLoad} onReset={onReset} />
+          </>
         )}
-        {!isLastSection && (
-          <button
-            onClick={handleNext}
-            className="text-white bg-blue-500 w-full sm:w-1/3 p-2 rounded-lg text-center font-bold hover:bg-blue-600 transition-colors duration-200"
-          >
-            Next
-          </button>
-        )}
-      </div>
+      </aside>
 
-      {isLastSection && (
-        <>
-          <BreakLine />
-          <ButtonsSection onSave={onSave} onLoad={onLoad} onReset={onReset} />
-        </>
+      <aside className="md:hidden w-16 bg-lightGray p-2 flex flex-col items-center fixed h-full shadow-lg z-50">
+        <nav className="flex-1 mt-4">
+          <ul className="space-y-4">
+            {sections.map((section, index) => (
+              <li key={index}>
+                <button
+                  onClick={() => openPanel(index)}
+                  className={`w-10 h-10 flex items-center justify-center rounded-full text-gray-700 hover:bg-gray-200 transition-colors duration-200 ${
+                    currentIndex === index ? "bg-blue-500 text-white" : ""
+                  }`}
+                >
+                  <span className="text-lg">{section.icon}</span>
+                </button>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      </aside>
+
+      {isPanelOpen && (
+        <div className="md:hidden fixed inset-0 bg-black bg-opacity-50 flex justify-start z-50">
+          <div className="bg-white w-3/4 min-w-[300px] h-full shadow-lg p-4 overflow-y-auto transition-transform duration-300 transform translate-x-0">
+            <button
+              onClick={closePanel}
+              className="absolute top-2 right-2 text-gray-500 hover:text-gray-700 text-2xl"
+            >
+              ×
+            </button>
+            <h2 className="text-lg font-semibold mb-2">
+              {sections[currentIndex].title}
+            </h2>
+            {sections[currentIndex].component}
+            <div className="mt-4 flex justify-between gap-2">
+              {!isFirstSection && (
+                <button
+                  onClick={handlePrevious}
+                  className="text-white bg-charcoalGray w-1/2 p-2 rounded-lg text-center font-bold hover:bg-gray-600 transition-colors duration-200"
+                >
+                  Previous
+                </button>
+              )}
+              {!isLastSection && (
+                <button
+                  onClick={handleNext}
+                  className="text-white bg-blue-500 w-1/2 p-2 rounded-lg text-center font-bold hover:bg-blue-600 transition-colors duration-200"
+                >
+                  Next
+                </button>
+              )}
+            </div>
+            {isLastSection && (
+              <div className="mt-4">
+                <BreakLine />
+                <ButtonsSection
+                  onSave={onSave}
+                  onLoad={onLoad}
+                  onReset={onReset}
+                />
+              </div>
+            )}
+          </div>
+        </div>
       )}
-    </aside>
+    </div>
   );
 };
 
