@@ -29,7 +29,6 @@ const ContactUs = ({
   email = "dr.williams@brightsmiledental.com",
   location = "BrightSmile Dental Clinic",
 }: ContactUsProps) => {
-  // إضافة console.log للتأكد من تحديث الـ props
   useEffect(() => {
     console.log("ContactUs Props Updated:", {
       bookingText,
@@ -92,7 +91,7 @@ const ContactUs = ({
         <div className="block lg:hidden border border-lightGrayShade2 my-4 w-full"></div>
         <div className="hidden lg:block h-36 w-[1px] bg-lightGrayShade2"></div>
 
-        <div className="flex lg:flex-col gap-8">
+        <div className="flex flex-col gap- items-center">
           <div className="flex items-center space-x-2">
             <Link
               href={`tel:${phone}`}

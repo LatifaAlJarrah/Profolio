@@ -13,16 +13,12 @@ const AboutResturantSection: React.FC<AboutResturantSectionProps> = ({
 }) => {
   return (
     <>
-      <div className="flex flex-col bg-lightGrayShade2 p-4 rounded-lg mb-6 mx-6 shadow-sm">
-        <h3 className="text-xl font-semibold text-center text-gray-800">
-          About Restaurant Settings
-        </h3>
+      <div className="flex flex-col bg-lightGrayShade2 p-4 rounded-lg mb-6 sm:mx-1 mx-6 shadow-sm">
+        <h3 className="text-lg font-normal text-center">About Us</h3>
       </div>
       <div className="px-6 space-y-4">
         <label className="block">
-          <span className="text-sm font-medium text-gray-700">
-            About Title:
-          </span>
+          <span className="text-sm font-medium text-gray-700 uppercase">About Title</span>
           <input
             type="text"
             value={templateData.aboutTitle || ""}
@@ -33,7 +29,7 @@ const AboutResturantSection: React.FC<AboutResturantSectionProps> = ({
         </label>
         <label className="block">
           <span className="text-sm font-medium text-gray-700">
-            About Tagline:
+            About Tagline
           </span>
           <input
             type="text"
@@ -45,7 +41,7 @@ const AboutResturantSection: React.FC<AboutResturantSectionProps> = ({
         </label>
         <label className="block">
           <span className="text-sm font-medium text-gray-700">
-            About Description:
+            About Description
           </span>
           <textarea
             value={templateData.aboutDescription || ""}
@@ -57,7 +53,7 @@ const AboutResturantSection: React.FC<AboutResturantSectionProps> = ({
         </label>
         <label className="block">
           <span className="text-sm font-medium text-gray-700">
-            Restaurant Location:
+            Restaurant Location
           </span>
           <input
             type="text"
@@ -68,9 +64,7 @@ const AboutResturantSection: React.FC<AboutResturantSectionProps> = ({
           />
         </label>
         <label className="block">
-          <span className="text-sm font-medium text-gray-700">
-            About Image:
-          </span>
+          <span className="text-sm font-medium text-gray-700">About Image</span>
           <input
             type="file"
             accept="image/*"

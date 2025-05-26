@@ -128,3 +128,34 @@ export const defaultTemplateData: TemplateData = {
   ],
   portfolioButtonColor: "#58ADEB",
 };
+
+
+
+
+
+// {
+//   "projects": [],
+
+//   "menuItems": [],
+
+//   "teamMembers": [],
+//   "chefSpecials": [],
+
+
+
+
+//   "ourAchievements": [],
+
+//   "programmerSkills": [],
+//   "developerProjects": [],
+//   "developerServices": [],
+//   "headerDescription": "Contact us now to book your appointment and experience our premium service.",
+//   "subtitleTextColor": "#FFFFFF",
+//   "programmerProjects": [],
+
+//   "programmerEducation": [],
+
+//   "programmerHeaderRoles": [],
+//   "programmerAchievements": [],
+//   "programmerCertifications": []
+// }

@@ -2,11 +2,12 @@
 import React from "react";
 
 import Header from "./developer/Header";
-import HomePage from "@/app/templates/developer/Home";
-import WorkPage from "@/app/templates/developer/work/Work";
-import ServicesPage from "@/app/templates/developer/services/Services";
-import ResumePage from "@/app/templates/developer/resume/Resume";
-import Contact from "@/app/templates/developer/contact/Contact";
+import HomePage from "@/app/templates/developer/page";
+import WorkPage from "@/app/templates/developer/work/page";
+import ServicesPage from "@/app/templates/developer/services/page";
+import ResumePage from "@/app/templates/developer/resume/page";
+import ContactPage from "@/app/templates/developer/contact/page";
+
 import { TemplateData } from "@/app/types/templateData";
 
 import { IconType } from "react-icons/lib";
@@ -19,7 +20,7 @@ interface TemplatePreviewProps extends TemplateData {
   fontFamily?: string;
   navigationLinks?: Array<{ name: string; link: string }>;
   navigationLinksColor?: string;
-  hireMeButton?: Array<{ text: string; path: string; color: string }>;
+  hireMeButton?: { text: string; path: string; color: string };
   developerHeaderRole?: string;
   developerHeadertitle?: string;
   developerHeadername?: string;
@@ -132,50 +133,39 @@ const TemplatePreview = ({
   developerContact,
 }: TemplatePreviewProps) => {
   return (
-    <div className="bg-primarydev text-white font-jetBrainsMono leading-loose py-12">
-        <Header
-          logoName={logoName}
-          logoColor={logoColor}
-          navigationLinks={navigationLinks}
-          navigationLinksColor={navigationLinksColor}
-          navbarColor={navbarColor}
-          hireMeButton={hireMeButton}
-        />
+    <div className="bg-primarydev text-white font-jetBrainsMono leading-loose px-20 py-12">
+      <Header
+        logoName={logoName}
+        logoColor={logoColor}
+        navigationLinks={navigationLinks}
+        navigationLinksColor={navigationLinksColor}
+        navbarColor={navbarColor}
+        hireMeButton={hireMeButton}
+      />
 
-      <section id="#home">
-        <HomePage
-          backgroundColor={backgroundColor}
-          developerHeaderRole={developerHeaderRole}
-          developerHeadertitle={developerHeadertitle}
-          developerHeadername={developerHeadername}
-          developerHeaderdescription={developerHeaderdescription}
-          developerHeaderImage={developerHeaderImage}
-          developerHeaderServicesButtonText={developerHeaderServicesButtonText}
-          developerHeaderServicesButtonColor={
-            developerHeaderServicesButtonColor
-          }
-          developerInstagramLink={developerInstagramLink}
-          developerLinkedinLink={developerLinkedinLink}
-          developerTwitterLink={developerTwitterLink}
-          ourAchievements={ourAchievements}
-        />
-      </section>
-      <section id="work">
-        <WorkPage developerProjects={developerProjects} />
-      </section>
-      <section id="services">
-        <ServicesPage developerServices={developerServices} />
-      </section>
+      <HomePage
+        backgroundColor={backgroundColor}
+        developerHeaderRole={developerHeaderRole}
+        developerHeadertitle={developerHeadertitle}
+        developerHeadername={developerHeadername}
+        developerHeaderdescription={developerHeaderdescription}
+        developerHeaderImage={developerHeaderImage}
+        developerHeaderServicesButtonText={developerHeaderServicesButtonText}
+        developerHeaderServicesButtonColor={developerHeaderServicesButtonColor}
+        developerInstagramLink={developerInstagramLink}
+        developerLinkedinLink={developerLinkedinLink}
+        developerTwitterLink={developerTwitterLink}
+        ourAchievements={ourAchievements}
+      />
+      <WorkPage developerProjects={developerProjects} />
 
-      <section id="resume">
-        <ResumePage developerResume={developerResume} />
-      </section>
-      <section id="contact">
-        <Contact
-          developerInfo={developerInfo}
-          developerContact={developerContact}
-        />
-      </section>
+      <ServicesPage developerServices={developerServices} />
+
+      <ResumePage developerResume={developerResume} />
+      <ContactPage
+        developerInfo={developerInfo}
+        developerContact={developerContact}
+      />
     </div>
   );
 };

@@ -14,59 +14,59 @@ const ResturantContactUsSection: React.FC<ResturantContactUsSectionProps> = ({
       <div className="flex flex-col bg-lightGrayShade2 p-2 rounded-lg mb-4 mx-8">
         <h3 className="text-lg font-normal text-center">Contact Us Settings</h3>
       </div>
-      <div className="px-8">
-        <label className="block mb-2">
-          Instagram Name:
+      <div className="px-2">
+        <label className="block mb-2 text-charcoalGray">
+          Instagram Name
           <input
             type="text"
             value={templateData.contactInstagramName || ""}
             onChange={(e) => onChange("contactInstagramName", e.target.value)}
-            className="p-1 border rounded-md w-full bg-transparent text-charcoalGray"
+            className="p-1 border rounded-md w-full bg-transparent text-black"
           />
         </label>
-        <label className="block mb-2">
-          Instagram Link:
+        <label className="block mb-2 text-charcoalGray">
+          Instagram Link
           <input
             type="text"
             value={templateData.contactInstagramLink || ""}
             onChange={(e) => onChange("contactInstagramLink", e.target.value)}
-            className="p-1 border rounded-md w-full bg-transparent text-charcoalGray"
+            className="p-1 border rounded-md w-full bg-transparent text-black"
           />
         </label>
-        <label className="block mb-2">
-          Facebook Name:
+        <label className="block mb-2 text-charcoalGray">
+          Facebook Name
           <input
             type="text"
             value={templateData.contactFacebookName || ""}
             onChange={(e) => onChange("contactFacebookName", e.target.value)}
-            className="p-1 border rounded-md w-full bg-transparent text-charcoalGray"
+            className="p-1 border rounded-md w-full bg-transparent text-black"
           />
         </label>
-        <label className="block mb-2">
-          Facebook Link:
+        <label className="block mb-2 text-charcoalGray">
+          Facebook Link
           <input
             type="text"
             value={templateData.contactFacebookLink || ""}
             onChange={(e) => onChange("contactFacebookLink", e.target.value)}
-            className="p-1 border rounded-md w-full bg-transparent text-charcoalGray"
+            className="p-1 border rounded-md w-full bg-transparent text-black"
           />
         </label>
-        <label className="block mb-2">
-          Phone 1:
+        <label className="block mb-2 text-charcoalGray">
+          Phone 1
           <input
             type="text"
             value={templateData.contactPhone || ""}
             onChange={(e) => onChange("contactPhone", e.target.value)}
-            className="p-1 border rounded-md w-full bg-transparent text-charcoalGray"
+            className="p-1 border rounded-md w-full bg-transparent text-black"
           />
         </label>
-        <label className="block mb-2">
-          Phone 2:
+        <label className="block mb-2 text-charcoalGray">
+          Phone 2
           <input
             type="text"
             value={templateData.contactPhone2 || ""}
             onChange={(e) => onChange("contactPhone2", e.target.value)}
-            className="p-1 border rounded-md w-full bg-transparent text-charcoalGray"
+            className="p-1 border rounded-md w-full bg-transparent text-black"
           />
         </label>
       </div>

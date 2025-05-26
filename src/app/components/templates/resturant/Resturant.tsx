@@ -53,7 +53,7 @@ const Resturant: React.FC<ResturantProps> = ({
 }) => {
   return (
     <main
-      className={`relative min-h-screen ${fontFamilyClass} bg-black`}
+      className={`relative min-h-screen ${fontFamilyClass}`}
       style={{ color: titleTextColor || "#ffffff" }}
     >
       <Image

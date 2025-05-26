@@ -1,12 +1,7 @@
-import Image from "next/image";
 import Link from "next/link";
 import { TiPlus } from "react-icons/ti";
-
-
 import { auth } from "@/auth";
-// import { db } from "@/lib/db";
-// import { redirect } from "next/navigation";
-
+import UserTemplates from "@/app/components/UserTemplates";
 
 const projects = [
   {
@@ -24,17 +19,9 @@ const projects = [
 export default async function Page() {
   const session = await auth();
 
-  // const user = await db.user.findUnique({
-  //   where: { email: session?.user.email ?? "" },
-  // });
-
-  // if (user && !user.password) {
-  //   redirect("/set-password"); // أول مرة بعد تسجيل جوجل
-  // }
-
   return (
     <>
-      {session && (
+      {session ? (
         <section className="container mx-auto p-6">
           {/* New Project */}
           <div className="p-6 rounded-lg">
@@ -51,33 +38,14 @@ export default async function Page() {
 
           <div className="border border-gray-300"></div>
 
-          {/* Your Projects */}
-          <div className="mt-6">
-            <h3 className="text-[32px] font-medium mb-4 font-roboto">
-              Your Projects
-            </h3>
-            <div className="grid grid-col-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-              {projects.map((project, index) => {
-                return (
-                  <div key={index} className="">
-                    <div className="bg-gray-100 rounded-lg shadow-md relative w-[350px] h-[250px]">
-                      <Image
-                        src={project.source}
-                        alt={project.alt}
-                        fill
-                        className="object-cover rounded-lg"
-                      />
-                    </div>
-                    <h4 className="mt-2 text-lg font-roboto">{project.name}</h4>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
+          {/* User Templates Component */}
+          <UserTemplates fallbackProjects={projects} />
         </section>
+      ) : (
+        <p className="text-center text-lg">
+          Please log in to view your templates.
+        </p>
       )}
     </>
   );
-};
-
-// export default Page;
+}
