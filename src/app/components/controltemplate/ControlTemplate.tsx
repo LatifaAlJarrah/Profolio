@@ -575,7 +575,6 @@ const ControlTemplate = () => {
     );
   };
 
-
   const getFontClassName = () => {
     switch (templateData.fontFamily) {
       case "Roboto":
