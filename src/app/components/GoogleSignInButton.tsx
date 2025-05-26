@@ -32,13 +32,15 @@ function GoogleIcon() {
 interface GoogleSignInButtonProps {
   children: ReactNode;
   onClick?: () => void;
+  disabled?: boolean;
 }
 
-const GoogleSignInButton: FC<GoogleSignInButtonProps> = ({ children, onClick }) => {
+const GoogleSignInButton: FC<GoogleSignInButtonProps> = ({ children, onClick, disabled }) => {
   return (
     <Button
       onClick={onClick}
       className="w-full p-2 rounded shadow-[0_4px_4px_#D8D8D8] my-2 text-white px-6 py-3 flex items-center gap-2 font-mono"
+      disabled={disabled}
     >
       <GoogleIcon />
       {children}

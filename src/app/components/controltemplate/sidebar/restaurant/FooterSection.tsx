@@ -15,21 +15,21 @@ const FooterSection: React.FC<FooterSectionProps> = ({
         <h3 className="text-lg font-normal text-center">Footer Settings</h3>
       </div>
       <div className="px-8">
-        <label className="block mb-2">
-          Restaurant Name:
+        <label className="block mb-2 text-charcoalGray">
+          Restaurant Name
           <input
             type="text"
             value={templateData.footerName || ""}
             onChange={(e) => onChange("footerName", e.target.value)}
-            className="p-1 border rounded-md w-full bg-transparent text-charcoalGray"
+            className="p-1 border rounded-md w-full bg-transparent text-black"
           />
         </label>
-        <label className="block mb-2">
-          Footer Description:
+        <label className="block mb-2 text-charcoalGray">
+          Footer Description
           <textarea
             value={templateData.footerDescription || ""}
             onChange={(e) => onChange("footerDescription", e.target.value)}
-            className="p-1 border rounded-md w-full bg-transparent text-charcoalGray"
+            className="p-1 border rounded-md w-full bg-transparent text-black"
           />
         </label>
       </div>

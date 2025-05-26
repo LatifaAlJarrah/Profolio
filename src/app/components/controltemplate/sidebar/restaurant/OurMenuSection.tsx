@@ -33,7 +33,7 @@ const OurMenuSection: React.FC<OurMenuSectionProps> = ({
   return (
     <>
       <div className="flex flex-col bg-lightGrayShade2 p-2 rounded-lg mb-4 mx-8">
-        <h3 className="text-lg font-normal text-center">Menu Settings</h3>
+        <h3 className="text-lg font-normal text-center">Menu</h3>
       </div>
       <div>
         {categories.map((category) => (
@@ -44,9 +44,12 @@ const OurMenuSection: React.FC<OurMenuSectionProps> = ({
             {templateData.menuItems?.[
               category as keyof typeof templateData.menuItems
             ]?.map((item: MenuItem, index: number) => (
-              <div key={index} className="mb-4 border p-2 rounded-md">
+              <div
+                key={index}
+                className="mb-4 border border-[#989898] p-2 rounded-md"
+              >
                 <h5 className="font-semibold">Menu Item {index + 1}</h5>
-                <label className="block mb-2">
+                <label className="block mb-2 text-charcoalGray">
                   Name:
                   <input
                     type="text"
@@ -54,10 +57,10 @@ const OurMenuSection: React.FC<OurMenuSectionProps> = ({
                     onChange={(e) =>
                       onMenuItemChange(category, index, "name", e.target.value)
                     }
-                    className="p-1 border rounded-md w-full bg-transparent text-charcoalGray"
+                    className="p-1 border border-[#989898] rounded-md w-full bg-transparent text-black"
                   />
                 </label>
-                <label className="block mb-2">
+                <label className="block mb-2 text-charcoalGray">
                   Description:
                   <textarea
                     value={item.description}
@@ -69,10 +72,10 @@ const OurMenuSection: React.FC<OurMenuSectionProps> = ({
                         e.target.value
                       )
                     }
-                    className="p-1 border rounded-md w-full bg-transparent text-charcoalGray"
+                    className="p-1 border border-[#989898] rounded-md w-full bg-transparent text-black"
                   />
                 </label>
-                <label className="block mb-2">
+                <label className="block mb-2 text-charcoalGray">
                   Price:
                   <input
                     type="text"
@@ -80,10 +83,10 @@ const OurMenuSection: React.FC<OurMenuSectionProps> = ({
                     onChange={(e) =>
                       onMenuItemChange(category, index, "price", e.target.value)
                     }
-                    className="p-1 border rounded-md w-full bg-transparent text-charcoalGray"
+                    className="p-1 border border-[#989898] rounded-md w-full bg-transparent text-black"
                   />
                 </label>
-                <label className="block mb-2">
+                <label className="block mb-2 text-charcoalGray">
                   Image:
                   <input
                     type="file"
@@ -95,7 +98,7 @@ const OurMenuSection: React.FC<OurMenuSectionProps> = ({
                         e.target.files?.[0] || null
                       )
                     }
-                    className="p-1 border rounded-md w-full bg-transparent text-charcoalGray"
+                    className="p-1 border border-[#989898] rounded-md w-full bg-transparent text-black"
                   />
                 </label>
               </div>

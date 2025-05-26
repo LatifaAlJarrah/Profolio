@@ -80,6 +80,7 @@ interface SidebarProps {
   onTestimonialChange: (index: number, field: string, value: string) => void;
   onBlogImageChange: (index: number, file: File | null) => void;
   onNavLinkChange: (index: number, field: string, value: string) => void;
+  onNavLinkDelete: (index: number) => void;
   onSave: () => void;
   onLoad: () => void;
   onReset: () => void;
@@ -134,6 +135,7 @@ const Sidebar: React.FC<SidebarProps> = ({
   onTestimonialChange,
   onBlogImageChange,
   onNavLinkChange,
+  onNavLinkDelete,
   onSave,
   onLoad,
   onReset,
@@ -185,6 +187,7 @@ const Sidebar: React.FC<SidebarProps> = ({
                 templateData={templateData}
                 onChange={onChange}
                 onNavLinkChange={onNavLinkChange}
+                onNavLinkDelete={onNavLinkDelete}
               />
             ),
             title: "Navbar",
@@ -712,7 +715,7 @@ const Sidebar: React.FC<SidebarProps> = ({
                   onClick={() => setCurrentIndex(index)}
                   className={`w-full flex items-center space-x-2 p-2 rounded-md text-left transition-colors duration-200 ${
                     currentIndex === index
-                      ? "bg-blue-500 text-white"
+                      ? "bg-[#4E85B5] text-white"
                       : "text-gray-700 hover:bg-gray-200"
                   }`}
                 >
@@ -742,7 +745,7 @@ const Sidebar: React.FC<SidebarProps> = ({
           {!isLastSection && (
             <button
               onClick={handleNext}
-              className="text-white bg-blue-500 w-full sm:w-1/3 p-2 rounded-lg text-center font-bold hover:bg-blue-600 transition-colors duration-200"
+              className="text-white bg-[#4E85B5] w-full sm:w-1/3 p-2 rounded-lg text-center font-bold hover:bg-[#4E85B5] hover:bg-opacity-50 transition-colors duration-200"
             >
               Next
             </button>
@@ -765,7 +768,7 @@ const Sidebar: React.FC<SidebarProps> = ({
                 <button
                   onClick={() => openPanel(index)}
                   className={`w-10 h-10 flex items-center justify-center rounded-full text-gray-700 hover:bg-gray-200 transition-colors duration-200 ${
-                    currentIndex === index ? "bg-blue-500 text-white" : ""
+                    currentIndex === index ? "bg-[#4E85B5] text-white" : ""
                   }`}
                 >
                   <span className="text-lg">{section.icon}</span>
@@ -801,7 +804,7 @@ const Sidebar: React.FC<SidebarProps> = ({
               {!isLastSection && (
                 <button
                   onClick={handleNext}
-                  className="text-white bg-blue-500 w-1/2 p-2 rounded-lg text-center font-bold hover:bg-blue-600 transition-colors duration-200"
+                  className="text-white bg-[#4E85B5] w-1/2 p-2 rounded-lg text-center font-bold hover:bg-[#4E85B5] transition-colors duration-200"
                 >
                   Next
                 </button>

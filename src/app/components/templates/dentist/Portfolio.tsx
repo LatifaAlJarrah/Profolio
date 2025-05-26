@@ -117,7 +117,7 @@ export default function Portfolio({
             {slides.map((item, index) => (
               <SwiperSlide key={index}>
                 <div
-                  className={`rounded-lg shadow-md flex items-center justify-between h-[450px] p-2 ${
+                  className={`rounded-lg shadow-md flex flex-col lg:flex-row items-center justify-between h-[450px] p-2 ${
                     index === activeIndex ? "border-2 border-[#58ADEB]" : ""
                   }`}
                 >
@@ -128,7 +128,7 @@ export default function Portfolio({
                     width={300}
                     height={450}
                   />
-                  <div className="p-6 w-1/2 flex flex-col">
+                  <div className="p-0 lg:p-6 w-1/2 flex flex-col">
                     <h3 className="lg:text-2xl md:text-lg sm:text-lg">
                       {item.title}
                     </h3>
