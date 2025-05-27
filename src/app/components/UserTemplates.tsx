@@ -55,7 +55,7 @@ async function getUserInfo() {
 
 async function fetchUserTemplates(userId: string, token?: string) {
   try {
-    console.log("جاري جلب التمبليتات للمستخدم:", userId);
+    console.log("Fetching templates for user:", userId);
     const headers: HeadersInit = {
       "Content-Type": "application/json",
     };
@@ -75,27 +75,27 @@ async function fetchUserTemplates(userId: string, token?: string) {
 
     if (!response.ok) {
       const errorText = await response.text();
-      console.error("استجابة الـ API:", errorText);
+      console.error("API response:", errorText);
       throw new Error(
         `HTTP error! status: ${response.status}, message: ${errorText}`
       );
     }
 
     const templates = await response.json();
-    console.log("تم جلب التمبليتات بنجاح:", templates);
+    console.log("Templates fetched successfully:", templates);
 
     return templates.map((template: any) => ({
       id: template.id,
       name: template.name,
       description: template.description || "",
       templateType: template.templateType || "GENERAL",
-      thumbnail: template.media?.[0]?.url || "/assets/default-cover.png",
+      thumbnail: template.media?.[0]?.url || "/assets/default-resturant.jpg",
       createdAt: template.createdAt,
       updatedAt: template.updatedAt,
       templateData: template.templateData,
     }));
   } catch (error) {
-    console.error("خطأ في استدعاء API:", error);
+    console.error("Error fetching API:", error);
     throw error;
   }
 }
@@ -114,23 +114,23 @@ export default function UserTemplates({
         setError(null);
 
         const { user, token } = await getUserInfo();
-        console.log("معلومات المستخدم:", user, "التوكن:", token);
+        console.log("User info:", user, "Token:", token);
 
         if (!user?.id) {
-          console.log("المستخدم غير مسجل دخول");
-          setError("يجب تسجيل الدخول لعرض التمبليتات");
+          console.log("User not logged in");
+          setError("You must be logged in to view templates");
           setLoading(false);
           return;
         }
 
         const templatesData = await fetchUserTemplates(user.id, token);
         setTemplates(templatesData);
-        console.log("تم تحديث التمبليتات:", templatesData);
+        console.log("Templates updated:", templatesData);
       } catch (err) {
         const errorMessage =
-          err instanceof Error ? err.message : "فشل في جلب التمبليتات";
+          err instanceof Error ? err.message : "Failed to fetch templates";
         setError(errorMessage);
-        console.error("خطأ في جلب التمبليتات:", errorMessage);
+        console.error("Error fetching templates:", errorMessage);
       } finally {
         setLoading(false);
       }
@@ -142,7 +142,9 @@ export default function UserTemplates({
   if (loading) {
     return (
       <div className="mt-6">
-        <h3 className="text-[32px] font-medium mb-4 font-roboto">مشاريعك</h3>
+        <h3 className="text-[32px] font-medium mb-4 font-roboto">
+          Your Projects
+        </h3>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
           {[1, 2, 3, 4].map((i) => (
             <div key={i} className="animate-pulse">
@@ -159,15 +161,17 @@ export default function UserTemplates({
   if (error) {
     return (
       <div className="mt-6">
-        <h3 className="text-[32px] font-medium mb-4 font-roboto">مشاريعك</h3>
+        <h3 className="text-[32px] font-medium mb-4 font-roboto">
+          Your Projects
+        </h3>
         <div className="text-center py-12">
-          <p className="text-red-500 text-lg mb-4">خطأ في تحميل التمبليتات</p>
+          <p className="text-red-500 text-lg mb-4">Error loading templates</p>
           <p className="text-gray-400 mb-4">{error}</p>
           <button
             onClick={() => window.location.reload()}
             className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
           >
-            إعادة المحاولة
+            Retry
           </button>
         </div>
       </div>
@@ -176,15 +180,15 @@ export default function UserTemplates({
 
   return (
     <div className="mt-6">
-      <h3 className="text-[32px] font-medium mb-4 font-roboto">مشاريعك</h3>
+      <h3 className="text-[32px] font-medium mb-4 font-roboto">
+        Your Projects
+      </h3>
       {templates.length > 0 ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
           {templates.map((template) => (
             <div key={template.id} className="group">
               <Link
-                href={`/controltemplate?template=${template.templateType.toLowerCase()}&id=${
-                  template.id
-                }`}
+                href={`/controltemplate?template=${template.name}&templateId=${template.id}`}
               >
                 <div className="bg-white rounded-lg shadow-md relative w-[350px] h-[250px] hover:shadow-lg transition-all duration-300 cursor-pointer border border-gray-200 group-hover:border-blue-300">
                   {template.thumbnail ? (
@@ -193,6 +197,7 @@ export default function UserTemplates({
                       alt={template.name}
                       fill
                       className="object-cover rounded-lg"
+                      loading="lazy"
                     />
                   ) : (
                     <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-blue-100 to-purple-100 rounded-lg">
@@ -203,7 +208,7 @@ export default function UserTemplates({
                   )}
                   <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-300 rounded-lg flex items-center justify-center">
                     <div className="text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-center">
-                      <p className="text-lg font-semibold">عرض التمبليت</p>
+                      <p className="text-lg font-semibold">View Template</p>
                     </div>
                   </div>
                 </div>
@@ -220,8 +225,8 @@ export default function UserTemplates({
                     </p>
                   )}
                   <p className="text-xs text-gray-400 mt-2">
-                    آخر تحديث:{" "}
-                    {new Date(template.updatedAt).toLocaleDateString("ar-SA")}
+                    Last Updated:{" "}
+                    {new Date(template.updatedAt).toLocaleDateString("en-US")}
                   </p>
                 </div>
               </Link>
@@ -231,16 +236,16 @@ export default function UserTemplates({
       ) : (
         <div className="text-center py-12">
           <div className="text-gray-400 text-6xl mb-4">📄</div>
-          <p className="text-gray-500 text-lg mb-4">لا توجد تمبليتات محفوظة</p>
+          <p className="text-gray-500 text-lg mb-4">No templates saved</p>
           <p className="text-gray-400">
-            قم بإنشاء أول تمبليت لك بالضغط على زر + أعلاه
+            Create your first template by clicking the + button above
           </p>
         </div>
       )}
       {fallbackProjects.length > 0 && (
         <>
           <h3 className="text-[24px] font-medium mb-4 font-roboto mt-8">
-            مشاريع تجريبية
+            Sample Projects
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             {fallbackProjects.map((project, index) => (
@@ -251,6 +256,7 @@ export default function UserTemplates({
                     alt={project.alt}
                     fill
                     className="object-cover rounded-lg"
+                    loading="lazy"
                   />
                 </div>
                 <h4 className="mt-2 text-lg font-roboto">{project.name}</h4>
