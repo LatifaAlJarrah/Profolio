@@ -1,11 +1,47 @@
-// صفحة عرض التمبليت المنشور
-// pages/public/[publishUrl].tsx أو app/public/[publishUrl]/page.tsx
-
 "use client";
 
 import { useState, useEffect } from "react";
-import Image from "next/image";
 import { useRouter } from "next/navigation";
+import * as React from "react";
+import { templates } from "@/app/components/data/templates";
+import MainEditor from "@/app/components/controltemplate/MainEditor";
+import {
+  Roboto,
+  Poppins,
+  Montserrat,
+  Palanquin_Dark,
+  JetBrains_Mono,
+} from "next/font/google";
+
+const roboto = Roboto({
+  weight: "400",
+  subsets: ["latin"],
+  display: "swap",
+});
+
+const poppins = Poppins({
+  weight: "400",
+  subsets: ["latin"],
+  display: "swap",
+});
+
+const montserrat = Montserrat({
+  weight: "400",
+  subsets: ["latin"],
+  display: "swap",
+});
+
+const palanquinDark = Palanquin_Dark({
+  weight: "400",
+  subsets: ["latin"],
+  display: "swap",
+});
+
+const jetBrains_Mono = JetBrains_Mono({
+  weight: "400",
+  subsets: ["latin"],
+  display: "swap",
+});
 
 interface PublicTemplate {
   id: string;
@@ -17,35 +53,85 @@ interface PublicTemplate {
   publishedAt: string;
   views: number;
   author: string;
+  isPublic: boolean;
+  publishUrl: string;
 }
 
 interface PublicTemplatePageProps {
-  params: {
+  params: Promise<{
     publishUrl: string;
-  };
+  }>;
 }
+
+const getFontClassName = (fontFamily?: string) => {
+  switch (fontFamily) {
+    case "Roboto":
+      return roboto.className;
+    case "Poppins":
+      return poppins.className;
+    case "Montserrat":
+      return montserrat.className;
+    case "Palanquin Dark":
+      return palanquinDark.className;
+    case "JetBrains Mono":
+      return jetBrains_Mono.className;
+    case "Arial":
+    case "Times New Roman":
+      return "";
+    default:
+      return roboto.className;
+  }
+};
 
 async function fetchPublicTemplate(
   publishUrl: string
 ): Promise<PublicTemplate | null> {
   try {
+    console.log("Fetching template with publishUrl:", publishUrl);
+
     const response = await fetch(
       `http://localhost:3001/api/templates/public/${publishUrl}`,
       {
         method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
         cache: "no-store",
       }
     );
 
+    console.log("Response status:", response.status);
+
     if (!response.ok) {
       if (response.status === 404) {
+        console.log("Template not found (404)");
         return null;
       }
       throw new Error(`HTTP error! status: ${response.status}`);
     }
 
     const data = await response.json();
-    return data.template;
+    console.log("Raw API response:", data);
+
+    const template: PublicTemplate = {
+      id: data.id,
+      name: data.name,
+      description: data.description,
+      templateType: data.templateType,
+      templateData: data.templateData,
+      publishUrl: data.publishUrl,
+      isPublic: data.isPublic,
+      publishedAt: data.publishedAt || data.createdAt,
+      views: data.views || 0,
+      author: data.user?.name || data.author || "Unknown",
+      thumbnail:
+        data.templateData?.headerImage ||
+        data.templateData?.backgroundImage ||
+        null,
+    };
+
+    console.log("Processed template data:", template);
+    return template;
   } catch (error) {
     console.error("Error fetching public template:", error);
     throw error;
@@ -60,72 +146,54 @@ export default function PublicTemplatePage({
   const [error, setError] = useState<string | null>(null);
   const router = useRouter();
 
+  const { publishUrl } = React.use(params);
+
   useEffect(() => {
     const loadTemplate = async () => {
       try {
+        console.log("Starting to load template...");
         setLoading(true);
         setError(null);
 
-        const templateData = await fetchPublicTemplate(params.publishUrl);
+        if (!publishUrl) {
+          console.error("No publishUrl provided");
+          setError("Invalid template URL");
+          return;
+        }
+
+        console.log("PublishUrl:", publishUrl);
+        const templateData = await fetchPublicTemplate(publishUrl);
 
         if (!templateData) {
+          console.log("No template data returned");
           setError("Template not found or no longer published");
           return;
         }
 
+        console.log("Template loaded successfully:", templateData);
         setTemplate(templateData);
       } catch (err) {
         const errorMessage =
           err instanceof Error ? err.message : "Failed to load template";
+        console.error("Error in loadTemplate:", err);
         setError(errorMessage);
-        console.error("Error loading template:", errorMessage);
       } finally {
         setLoading(false);
       }
     };
 
-    if (params.publishUrl) {
+    if (publishUrl) {
       loadTemplate();
     }
-  }, [params.publishUrl]);
-
-  //   const handleUseTemplate = () => {
-  //     // توجيه المستخدم لصفحة التسجيل أو استخدام التمبليت
-  //     router.push(`/signup?template=${params.publishUrl}`);
-  //   };
-
-  const handleCloneTemplate = async () => {
-    // إذا كان المستخدم مسجل دخول، يمكن نسخ التمبليت
-    try {
-      const response = await fetch(
-        `http://localhost:3000/api/templates/${template?.id}`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
-
-      if (response.ok) {
-        alert("Template cloned successfully!");
-        router.push("/dashboard");
-      } else {
-        alert("Please sign in to clone this template");
-        router.push("/signin");
-      }
-    } catch (error) {
-      console.error("Error cloning template:", error);
-      alert("Error occurred while cloning template");
-    }
-  };
+  }, [publishUrl]);
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="min-h-screen bg-gray-50">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
           <p className="text-gray-600">Loading template...</p>
+          <p className="text-xs text-gray-400 mt-2">PublishUrl: {publishUrl}</p>
         </div>
       </div>
     );
@@ -133,15 +201,49 @@ export default function PublicTemplatePage({
 
   if (error || !template) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="min-h-screen bg-gray-50 ">
         <div className="text-center max-w-md mx-auto px-4">
           <div className="text-6xl mb-4">😞</div>
           <h1 className="text-2xl font-bold text-gray-800 mb-2">
             Template Not Found
           </h1>
-          <p className="text-gray-600 mb-6">
+          <p className="text-gray-600 mb-4">
             {error ||
               "This template may have been removed or is no longer published."}
+          </p>
+          <div className="bg-gray-100 p-3 rounded mb-4 text-xs text-left">
+            <p>
+              <strong>Debug Info:</strong>
+            </p>
+            <p>PublishUrl: {publishUrl}</p>
+            <p>Error: {error}</p>
+          </div>
+          <button
+            onClick={() => router.push("/")}
+            className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+          >
+            Go Home
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  // جلب الـ Component بناءً على templateType
+  const selectedTemplate = templates.find(
+    (t) => t.name.toLowerCase() === template.templateType.toLowerCase()
+  );
+
+  if (!selectedTemplate) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center max-w-md mx-auto px-4">
+          <div className="text-6xl mb-4">😞</div>
+          <h1 className="text-2xl font-bold text-gray-800 mb-2">
+            Template Type Not Supported
+          </h1>
+          <p className="text-gray-600 mb-4">
+            The template type `{template.templateType}` is not supported.
           </p>
           <button
             onClick={() => router.push("/")}
@@ -155,149 +257,25 @@ export default function PublicTemplatePage({
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Header */}
-      <header className="bg-white shadow-sm border-b">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <div className="flex items-center">
-              <button
-                onClick={() => router.push("/")}
-                className="text-xl font-bold text-blue-600 hover:text-blue-700"
-              >
-                YourApp
-              </button>
-            </div>
-          </div>
-        </div>
-      </header>
-
-      {/* Template Content */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="bg-white rounded-lg shadow-lg overflow-hidden">
-          {/* Template Header */}
-          <div className="p-6 border-b border-gray-200">
-            <div className="flex items-start justify-between">
-              <div className="flex-1">
-                <h1 className="text-3xl font-bold text-gray-900 mb-2">
-                  {template.name}
-                </h1>
-                <p className="text-lg text-gray-600 mb-4">
-                  {template.description || "No description provided"}
-                </p>
-                <div className="flex items-center gap-6 text-sm text-gray-500">
-                  <span className="flex items-center gap-1">
-                    <svg
-                      className="w-4 h-4"
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                    >
-                      <path d="M10 12a2 2 0 100-4 2 2 0 000 4z" />
-                      <path
-                        fillRule="evenodd"
-                        d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z"
-                        clipRule="evenodd"
-                      />
-                    </svg>
-                    {template.views} views
-                  </span>
-                  <span className="flex items-center gap-1">
-                    <svg
-                      className="w-4 h-4"
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                    >
-                      <path
-                        fillRule="evenodd"
-                        d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
-                        clipRule="evenodd"
-                      />
-                    </svg>
-                    By {template.author}
-                  </span>
-                  <span className="flex items-center gap-1">
-                    <svg
-                      className="w-4 h-4"
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                    >
-                      <path
-                        fillRule="evenodd"
-                        d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z"
-                        clipRule="evenodd"
-                      />
-                    </svg>
-                    Published{" "}
-                    {new Date(template.publishedAt).toLocaleDateString()}
-                  </span>
-                </div>
-              </div>
-              <div className="ml-6">
-                <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-blue-100 text-blue-800">
-                  {template.templateType} Template
-                </span>
-              </div>
-            </div>
-          </div>
-
-          {/* Template Preview */}
-          <div className="p-6">
-            {template.thumbnail && (
-              <div className="mb-6">
-                <h3 className="text-lg font-semibold text-gray-900 mb-3">
-                  Preview
-                </h3>
-                <div className="relative w-full h-96 bg-gray-100 rounded-lg overflow-hidden">
-                  <Image
-                    src={template.thumbnail}
-                    alt={template.name}
-                    fill
-                    className="object-cover"
-                  />
-                </div>
-              </div>
-            )}
-
-            {/* Template Data Preview */}
-            {template.templateData && (
-              <div className="mb-6">
-                <h3 className="text-lg font-semibold text-gray-900 mb-3">
-                  Template Details
-                </h3>
-                <div className="bg-gray-50 rounded-lg p-4">
-                  <pre className="text-sm text-gray-700 overflow-x-auto">
-                    {JSON.stringify(template.templateData, null, 2)}
-                  </pre>
-                </div>
-              </div>
-            )}
-
-            {/* Call to Action */}
-            <div className="text-center py-8 bg-gray-50 rounded-lg">
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">
-                Ready to use this template?
-              </h3>
-              <p className="text-gray-600 mb-6">
-                Sign up now and start customizing this template for your needs
-              </p>
-              <div className="flex justify-center gap-4">
-                <button
-                  onClick={handleUseTemplate}
-                  className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium"
-                >
-                  Get Started Now
-                </button>
-                <button
-                  onClick={handleCloneTemplate}
-                  className="px-6 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors font-medium"
-                >
-                  Clone to My Account
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </main>
-    </div>
+    <main className="mx-auto min-h-screen">
+      <MainEditor>
+        {selectedTemplate.Component ? (
+          React.cloneElement(
+            <selectedTemplate.Component
+              {...template.templateData}
+              fontFamilyClass={getFontClassName(
+                template.templateData?.fontFamily
+              )}
+            />,
+            {},
+            null
+          )
+        ) : (
+          <p className="text-center text-gray-600">
+            Template component not found
+          </p>
+        )}
+      </MainEditor>
+    </main>
   );
 }
