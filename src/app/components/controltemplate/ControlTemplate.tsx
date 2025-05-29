@@ -9,6 +9,8 @@ import {
   JetBrains_Mono,
 } from "next/font/google";
 
+import { useRouter } from "next/navigation";
+
 import Sidebar from "./Sidebar";
 import MainEditor from "./MainEditor";
 import Navbar from "./Navbar";
@@ -78,7 +80,8 @@ const ControlTemplate = () => {
   const [templateData, setTemplateData] = useState(getInitialTemplateData());
   const [showSidebar, setShowSidebar] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
-  const [loadError, setLoadError] = useState(null);
+  const [loadError, setLoadError] = useState<string | null>(null);
+  const router = useRouter();
 
   const [modalState, setModalState] = useState<{
     isOpen: boolean;
@@ -95,6 +98,13 @@ const ControlTemplate = () => {
     cancelText: "No, cancel",
     iconType: "warning",
   });
+
+  // دالة توليد معرف فريد لكل قالب
+  const generateUniqueId = () => {
+    const timestamp = Date.now().toString(36); // تحويل الوقت الحالي إلى base36
+    const randomStr = Math.random().toString(36).substring(2, 8); // 6 أحرف عشوائية
+    return `${timestamp}-${randomStr}`;
+  };
 
   // Auto-load template data if templateId exists
   useEffect(() => {
@@ -154,16 +164,18 @@ const ControlTemplate = () => {
         } else {
           const errorText = await response.text();
           console.error("Failed to load template:", response.status, errorText);
+          setLoadError(`Failed to load template: ${response.status}`);
         }
       } catch (error) {
         console.error("Error loading template:", error);
+        setLoadError(error instanceof Error ? error.message : "Unknown error");
       } finally {
         setIsLoading(false);
       }
     };
 
     loadTemplateFromServer();
-  }, [templateId]); // Re-run when templateId changes
+  }, [templateId]);
 
   const openModal = (
     message: string,
@@ -671,11 +683,8 @@ const ControlTemplate = () => {
     }
   };
 
-  async function prepareTemplateData () {
-
+  const prepareTemplateData = async () => {
     return {
-      // publishUrl: templateData.publishUrl,
-      publishUrl:templateData.publishUrl,
       // Basic styling
       backgroundColor: templateData.backgroundColor,
       navbarColor: templateData.navbarColor,
@@ -818,7 +827,7 @@ const ControlTemplate = () => {
 
     const isUpdate = templateId && templateId.trim() !== "";
     const actionText = isUpdate ? "update" : "save";
-    const modalMessage = `Are you sure you want to ${actionText} the template data?`;
+    const modalMessage = ` Are you sure you want to ${actionText} the template data?`;
 
     openModal(
       modalMessage,
@@ -841,7 +850,17 @@ const ControlTemplate = () => {
             throw new Error("User ID not found. Please refresh and try again.");
           }
 
-          const preparedData = prepareTemplateData();
+          if (!user?.name) {
+            throw new Error(
+              "User name not found. Please refresh and try again."
+            );
+          }
+
+          const preparedData = await prepareTemplateData();
+
+          // توليد معرف فريد لكل قالب جديد
+          const uniqueId = generateUniqueId();
+          console.log("Generated unique ID:", uniqueId);
 
           const templatePayload = {
             name: templateName || "Untitled Template",
@@ -851,8 +870,14 @@ const ControlTemplate = () => {
             templateType: templateName?.toUpperCase() || "DENTIST",
             isPublic: true,
             templateData: preparedData,
-            publishUrl:`${user?.name}`.toLowerCase().replace(/[^a-z0-9]/g, "") +
-                `-${user.id}`,
+            // فقط إرسال publishUrl للقوالب الجديدة مع المعرف الفريد
+            ...(isUpdate
+              ? {}
+              : {
+                  publishUrl: `${user.name
+                    .toLowerCase()
+                    .replace(/[^a-z0-9]/g, "")}-${uniqueId}`,
+                }),
           };
 
           console.log("Sending template payload:", templatePayload);
@@ -864,7 +889,7 @@ const ControlTemplate = () => {
 
           const httpMethod = isUpdate ? "PUT" : "POST";
 
-          console.log(`Making ${httpMethod} request to:, apiUrl`);
+          console.log(`Making ${httpMethod} request to:`, apiUrl);
 
           const response = await fetch(apiUrl, {
             method: httpMethod,
@@ -888,7 +913,7 @@ const ControlTemplate = () => {
               errorMessage =
                 errorData.message || errorData.error || errorMessage;
             } catch (e) {
-              console.log(e);
+              console.log("Error parsing response:", e);
               errorMessage = responseText || errorMessage;
             }
 
@@ -931,7 +956,15 @@ const ControlTemplate = () => {
             ? `✅ Template "${templateName}" updated successfully at ${formattedTime} on ${formattedDate}!`
             : `✅ Template "${templateName}" saved successfully at ${formattedTime} on ${formattedDate}!`;
 
-          openModal(successMessage, () => {}, "OK", undefined, "save");
+          openModal(
+            successMessage,
+            () => {
+              router.push("/projects");
+            },
+            "OK",
+            undefined,
+            "save"
+          );
 
           if (!isUpdate && result.id) {
             const newUrl = new URL(window.location);
@@ -951,6 +984,9 @@ const ControlTemplate = () => {
             } else if (error.message.includes("User ID")) {
               errorMessage =
                 "User session invalid. Please refresh the page and login again.";
+            } else if (error.message.includes("User name")) {
+              errorMessage =
+                "User name not found. Please refresh the page and login again.";
             } else if (error.message.includes("Network")) {
               errorMessage = "Network error. Please check your connection.";
             } else if (error.message.includes("Server error: 401")) {
@@ -1100,7 +1136,7 @@ const ControlTemplate = () => {
             } else if (error.message.includes("401")) {
               errorMessage = "Authentication expired. Please login again.";
             } else {
-              errorMessage = ` Failed to load template: ${error.message}`;
+              errorMessage = `Failed to load template: ${error.message}`;
             }
           }
 
@@ -1171,23 +1207,6 @@ const ControlTemplate = () => {
         onPreview={() => setShowSidebar(!showSidebar)}
         showSidebar={showSidebar}
       />
-
-      {/* Status indicator
-      {templateId && !loadError && (
-        <div className="bg-green-50 border-b border-green-200 px-4 py-2">
-          <p className="text-sm text-green-700">
-            ✅ Template loaded successfully from server
-          </p>
-        </div>
-      )}
-
-      {loadError && (
-        <div className="bg-yellow-50 border-b border-yellow-200 px-4 py-2">
-          <p className="text-sm text-yellow-700">
-            ⚠ Using default data due to load error: {loadError}
-          </p>
-        </div>
-      )} */}
 
       <div className="flex flex-grow">
         {showSidebar && (
