@@ -109,21 +109,24 @@ const ControlTemplate = () => {
 
       try {
         console.log("Auto-loading template with ID:", templateId);
-        
+
         const { token } = await getUserInfo();
-        
+
         if (!token) {
           console.warn("No authentication token available for auto-load");
           return;
         }
 
-        const response = await fetch(`http://localhost:3001/api/templates/${templateId}`, {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        });
+        const response = await fetch(
+          `http://localhost:3001/api/templates/${templateId}`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
 
         if (response.ok) {
           const result = await response.json();
@@ -131,14 +134,14 @@ const ControlTemplate = () => {
 
           // Extract template data from different possible response structures
           let loadedTemplateData = null;
-          
+
           if (result.templateData) {
             loadedTemplateData = result.templateData;
           } else if (result.data && result.data.templateData) {
             loadedTemplateData = result.data.templateData;
           } else if (result.template && result.template.templateData) {
             loadedTemplateData = result.template.templateData;
-          } else if (typeof result === 'object' && result.name) {
+          } else if (typeof result === "object" && result.name) {
             loadedTemplateData = result;
           }
 
@@ -151,8 +154,6 @@ const ControlTemplate = () => {
         } else {
           const errorText = await response.text();
           console.error("Failed to load template:", response.status, errorText);
-          
-          
         }
       } catch (error) {
         console.error("Error loading template:", error);
@@ -221,7 +222,9 @@ const ControlTemplate = () => {
   if (!selectedTemplate) {
     return (
       <div className="flex items-center justify-center h-screen">
-        <p className="text-lg text-red-600">Template not found. Please check the template name in the URL.</p>
+        <p className="text-lg text-red-600">
+          Template not found. Please check the template name in the URL.
+        </p>
       </div>
     );
   }
@@ -244,10 +247,20 @@ const ControlTemplate = () => {
       <div className="flex items-center justify-center h-screen">
         <div className="text-center max-w-md p-6 bg-red-50 rounded-lg border border-red-200">
           <div className="text-red-600 mb-4">
-            <svg className="w-12 h-12 mx-auto mb-2" fill="currentColor" viewBox="0 0 20 20">
-              <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+            <svg
+              className="w-12 h-12 mx-auto mb-2"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+            >
+              <path
+                fillRule="evenodd"
+                d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
+                clipRule="evenodd"
+              />
             </svg>
-            <h2 className="text-xl font-semibold mb-2">Failed to Load Template</h2>
+            <h2 className="text-xl font-semibold mb-2">
+              Failed to Load Template
+            </h2>
             <p className="text-red-700 mb-4">{loadError}</p>
           </div>
           <div className="space-y-2">
@@ -658,8 +671,11 @@ const ControlTemplate = () => {
     }
   };
 
-  const prepareTemplateData = () => {
+  async function prepareTemplateData () {
+
     return {
+      // publishUrl: templateData.publishUrl,
+      publishUrl:templateData.publishUrl,
       // Basic styling
       backgroundColor: templateData.backgroundColor,
       navbarColor: templateData.navbarColor,
@@ -799,11 +815,11 @@ const ControlTemplate = () => {
   const saveTemplateData = async () => {
     console.log("Starting template save process");
     console.log("Template ID from URL:", templateId);
-    
-    const isUpdate = templateId && templateId.trim() !== '';
+
+    const isUpdate = templateId && templateId.trim() !== "";
     const actionText = isUpdate ? "update" : "save";
     const modalMessage = `Are you sure you want to ${actionText} the template data?`;
-    
+
     openModal(
       modalMessage,
       async () => {
@@ -829,19 +845,23 @@ const ControlTemplate = () => {
 
           const templatePayload = {
             name: templateName || "Untitled Template",
-            description: `Template ${isUpdate ? 'updated' : 'created'} for ${user.email}`,
+            description: `Template ${isUpdate ? "updated" : "created"} for ${
+              user.email
+            }`,
             templateType: templateName?.toUpperCase() || "DENTIST",
-            isPublic: false,
+            isPublic: true,
             templateData: preparedData,
+            publishUrl:`${user?.name}`.toLowerCase().replace(/[^a-z0-9]/g, "") +
+                `-${user.id}`,
           };
 
           console.log("Sending template payload:", templatePayload);
           console.log("Using token:", token.substring(0, 30) + "...");
 
-          const apiUrl = isUpdate 
+          const apiUrl = isUpdate
             ? `http://localhost:3001/api/templates/${templateId}`
             : "http://localhost:3001/api/templates";
-          
+
           const httpMethod = isUpdate ? "PUT" : "POST";
 
           console.log(`Making ${httpMethod} request to:, apiUrl`);
@@ -885,7 +905,7 @@ const ControlTemplate = () => {
               userId: user.id,
               templateId: templateId || result.id,
               backendResponse: result,
-              action: isUpdate ? 'update' : 'create'
+              action: isUpdate ? "update" : "create",
             };
             localStorage.setItem(
               "templateDataBackup",
@@ -911,21 +931,14 @@ const ControlTemplate = () => {
             ? `✅ Template "${templateName}" updated successfully at ${formattedTime} on ${formattedDate}!`
             : `✅ Template "${templateName}" saved successfully at ${formattedTime} on ${formattedDate}!`;
 
-          openModal(
-            successMessage,
-            () => {},
-            "OK",
-            undefined,
-            "save"
-          );
+          openModal(successMessage, () => {}, "OK", undefined, "save");
 
           if (!isUpdate && result.id) {
             const newUrl = new URL(window.location);
-            newUrl.searchParams.set('templateId', result.id);
-            window.history.replaceState({}, '', newUrl);
+            newUrl.searchParams.set("templateId", result.id);
+            window.history.replaceState({}, "", newUrl);
             console.log("URL updated with new template ID:", result.id);
           }
-
         } catch (error) {
           console.error(`Template ${actionText} error:`, error);
 
@@ -944,12 +957,17 @@ const ControlTemplate = () => {
               errorMessage = "Authentication expired. Please login again.";
             } else if (error.message.includes("Server error: 403")) {
               errorMessage = "Access denied. Please check your permissions.";
-            } else if (error.message.includes("Server error: 404") && isUpdate) {
+            } else if (
+              error.message.includes("Server error: 404") &&
+              isUpdate
+            ) {
               errorMessage = "Template not found. It may have been deleted.";
             } else if (error.message.includes("Server error: 500")) {
               errorMessage = "Server error. Please try again later.";
             } else {
-              errorMessage = `${actionText.charAt(0).toUpperCase() + actionText.slice(1)} failed: ${error.message}`;
+              errorMessage = `${
+                actionText.charAt(0).toUpperCase() + actionText.slice(1)
+              } failed: ${error.message}`;
             }
           }
 
@@ -1017,24 +1035,24 @@ const ControlTemplate = () => {
             console.log("Server response:", result);
 
             let loadedTemplateData = null;
-            
+
             if (result.templateData) {
               loadedTemplateData = result.templateData;
             } else if (result.data && result.data.templateData) {
               loadedTemplateData = result.data.templateData;
             } else if (result.template && result.template.templateData) {
               loadedTemplateData = result.template.templateData;
-            } else if (typeof result === 'object' && result.name) {
+            } else if (typeof result === "object" && result.name) {
               loadedTemplateData = result;
             }
 
             if (loadedTemplateData) {
               setTemplateData(loadedTemplateData);
-              
+
               if (result.id && !templateId) {
                 const newUrl = new URL(window.location);
-                newUrl.searchParams.set('templateId', result.id);
-                window.history.replaceState({}, '', newUrl);
+                newUrl.searchParams.set("templateId", result.id);
+                window.history.replaceState({}, "", newUrl);
               }
 
               openModal(
@@ -1060,44 +1078,33 @@ const ControlTemplate = () => {
               "load"
             );
           } else {
-            const errorMsg = templateId 
+            const errorMsg = templateId
               ? "Template not found or access denied."
               : "No saved data found on server or locally.";
-            
-            openModal(
-              errorMsg,
-              () => {},
-              "OK",
-              undefined,
-              "warning"
-            );
+
+            openModal(errorMsg, () => {}, "OK", undefined, "warning");
           }
         } catch (error) {
           console.error("Load template error:", error);
-          
+
           let errorMessage = "Failed to load template.";
-          
+
           if (error instanceof Error) {
             if (error.message.includes("404")) {
-              errorMessage = templateId 
+              errorMessage = templateId
                 ? "Template not found. It may have been deleted."
                 : "No templates found for this type.";
             } else if (error.message.includes("403")) {
-              errorMessage = "Access denied. You don't have permission to view this template.";
+              errorMessage =
+                "Access denied. You don't have permission to view this template.";
             } else if (error.message.includes("401")) {
               errorMessage = "Authentication expired. Please login again.";
             } else {
-              errorMessage =` Failed to load template: ${error.message}`;
+              errorMessage = ` Failed to load template: ${error.message}`;
             }
           }
 
-          openModal(
-            errorMessage,
-            () => {},
-            "OK",
-            undefined,
-            "warning"
-          );
+          openModal(errorMessage, () => {}, "OK", undefined, "warning");
         }
       },
       "Reload Template",
@@ -1158,7 +1165,9 @@ const ControlTemplate = () => {
   return (
     <div className="flex flex-col h-screen">
       <Navbar
-        projectName={`${templateName || "Default Project"}${templateId ? ` (ID: ${templateId.substring(0, 8)}...)` : " (New)"}${loadError ? " - Error Loading" : ""}`}
+        projectName={`${templateName || "Default Project"}${
+          templateId ? ` (ID: ${templateId.substring(0, 8)}...)` : " (New)"
+        }${loadError ? " - Error Loading" : ""}`}
         onPreview={() => setShowSidebar(!showSidebar)}
         showSidebar={showSidebar}
       />

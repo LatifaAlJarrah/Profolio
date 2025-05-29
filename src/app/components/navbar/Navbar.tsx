@@ -8,7 +8,6 @@ import Logo from "../logo/Logo";
 import NavbarList from "../list/NavbarList";
 
 import { useSession, signOut } from "next-auth/react";
-import { usePathname } from "next/navigation";
 
 import Image from "next/image";
 import SignUpForm from "../form/SignUpForm";
@@ -28,7 +27,6 @@ export default function Navbar({
   const sidebarRef = useRef<HTMLDivElement>(null);
   const modalRef = useRef<HTMLDivElement>(null);
   const { data: session } = useSession();
-  const pathname = usePathname();
 
   const handleOpenModal = (type: "signup" | "login") => {
     setIsSidebarOpen(false);
@@ -54,7 +52,7 @@ export default function Navbar({
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [isSidebarOpen]); // Ensure proper cleanup
+  }, [isSidebarOpen]); // proper cleanup
 
   // 2. Modal effect
   useEffect(() => {
@@ -74,14 +72,7 @@ export default function Navbar({
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [isModalOpen]); // Ensure proper cleanup
-
-  // Calculate after hooks
-  const isTemplatePage =
-    pathname.startsWith("/templates/") ||
-    pathname.startsWith("/controltemplate");
-
-  if (isTemplatePage) return null;
+  }, [isModalOpen]); // proper cleanup
 
   const handleLogout = async () => {
     const confirmLogout = window.confirm("Are you sure you want to log out?");
