@@ -15,8 +15,8 @@ import {
   FormMessage,
 } from "../ui/form";
 import { Input } from "../ui/input";
-import GoogleSignInButton from "../GoogleSignInButton";
-import FacebookSignInButton from "../FacebookSignInButton";
+// import GoogleSignInButton from "../GoogleSignInButton";
+// import FacebookSignInButton from "../FacebookSignInButton";
 import SignInButton from "../SignInButton";
 import Logo from "../logo/Logo";
 
@@ -133,11 +133,11 @@ const SignUpForm = ({ isOpen, onClose, type }: SignUpFormProps) => {
     }
   };
 
-  const handleSocialSignIn = async (provider: "google" | "facebook") => {
-    await signIn(provider, {
-      callbackUrl: "/",
-    });
-  };
+  // const handleSocialSignIn = async (provider: "google" | "facebook") => {
+  //   await signIn(provider, {
+  //     callbackUrl: "/",
+  //   });
+  // };
 
   if (!isOpen) return null;
 
@@ -250,14 +250,14 @@ const SignUpForm = ({ isOpen, onClose, type }: SignUpFormProps) => {
                 OR
               </div>
 
-              <div className="space-y-3">
+              {/* <div className="space-y-3">
                 <GoogleSignInButton onClick={() => handleSocialSignIn("google")}>
                   Sign up with Google
                 </GoogleSignInButton>
                 <FacebookSignInButton onClick={() => handleSocialSignIn("facebook")}>
                   Sign up with Facebook
                 </FacebookSignInButton>
-              </div>
+              </div> */}
             </div>
           </div>
         </Form>
