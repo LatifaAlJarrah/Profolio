@@ -2,6 +2,7 @@ import React from "react";
 import { IconType } from "react-icons/lib";
 
 export interface TemplateData {
+  publishUrl?: string;
   backgroundColor?: string;
   navbarColor?: string;
   logoName?: string;

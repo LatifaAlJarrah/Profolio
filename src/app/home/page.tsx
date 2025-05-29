@@ -1,8 +1,8 @@
 import React from "react";
-import Home from "@components/home/Home";
+import Link from "next/link";
 
 const page = () => {
-  return <Home />;
+  return <Link href="/" />;
 };
 
 export default page;
