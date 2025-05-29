@@ -168,20 +168,6 @@ export default function PublicTemplatePage({
                 YourApp
               </button>
             </div>
-            <div className="flex items-center gap-4">
-              <button
-                onClick={handleUseTemplate}
-                className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
-              >
-                Use This Template
-              </button>
-              <button
-                onClick={handleCloneTemplate}
-                className="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
-              >
-                Clone Template
-              </button>
-            </div>
           </div>
         </div>
       </header>

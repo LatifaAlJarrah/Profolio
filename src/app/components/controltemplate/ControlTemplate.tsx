@@ -1172,7 +1172,7 @@ const ControlTemplate = () => {
         showSidebar={showSidebar}
       />
 
-      {/* Status indicator */}
+      {/* Status indicator
       {templateId && !loadError && (
         <div className="bg-green-50 border-b border-green-200 px-4 py-2">
           <p className="text-sm text-green-700">
@@ -1187,7 +1187,7 @@ const ControlTemplate = () => {
             ⚠ Using default data due to load error: {loadError}
           </p>
         </div>
-      )}
+      )} */}
 
       <div className="flex flex-grow">
         {showSidebar && (
