@@ -17,8 +17,8 @@ import {
   FormMessage,
 } from "@/app/components/ui/form";
 import { Input } from "@/app/components/ui/input";
-import GoogleSignInButton from "@/app/components/GoogleSignInButton";
-import FacebookSignInButton from "@/app/components/FacebookSignInButton";
+// import GoogleSignInButton from "@/app/components/GoogleSignInButton";
+// import FacebookSignInButton from "@/app/components/FacebookSignInButton";
 import SignInButton from "@/app/components/SignInButton";
 import Logo from "@/app/components/logo/Logo";
 
@@ -127,23 +127,23 @@ export default function SignInPage() {
     }
   };
 
-  const handleSocialSignIn = async (provider: "google" | "facebook") => {
-    try {
-      console.log(`Attempting ${provider} sign in`);
-      setIsLoading(true);
+  // const handleSocialSignIn = async (provider: "google" | "facebook") => {
+  //   try {
+  //     console.log(`Attempting ${provider} sign in`);
+  //     setIsLoading(true);
 
-      // const result = await signIn(provider, {
-      //   callbackUrl: "/projects",
-      //   redirect: true,
-      // }
+  //     // const result = await signIn(provider, {
+  //     //   callbackUrl: "/projects",
+  //     //   redirect: true,
+  //     // }
 
-      // );
-    } catch (error) {
-      console.error(`${provider} signin error:`, error);
-      setErrorMessage(`Failed to sign in with ${provider}`);
-      setIsLoading(false);
-    }
-  };
+  //     // );
+  //   } catch (error) {
+  //     console.error(`${provider} signin error:`, error);
+  //     setErrorMessage(`Failed to sign in with ${provider}`);
+  //     setIsLoading(false);
+  //   }
+  // };
 
   return (
     <div className="flex justify-center items-center min-h-screen bg-gray-100">
@@ -212,7 +212,7 @@ export default function SignInPage() {
           OR
         </div>
 
-        <div className="space-y-3">
+        {/* <div className="space-y-3">
           <GoogleSignInButton
             onClick={() => handleSocialSignIn("google")}
             disabled={isLoading}
@@ -225,7 +225,7 @@ export default function SignInPage() {
           >
             {isLoading ? "Loading..." : "Sign in with Facebook"}
           </FacebookSignInButton>
-        </div>
+        </div> */}
 
         <div className="text-center mt-4">
           <p className="text-sm text-gray-600">
