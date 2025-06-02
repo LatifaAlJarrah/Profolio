@@ -5,7 +5,7 @@ interface NavbarListProps {
   className?: string;
   onClick?: () => void;
   links?: Array<{ name: string; link: string }>;
-  textColor?: string; // إضافة textColor كـ prop
+  textColor?: string;
 }
 
 const NavbarList = ({
@@ -18,12 +18,12 @@ const NavbarList = ({
     { name: "Portfolio", link: "#portfolio" },
     { name: "Blog", link: "#blog" },
   ],
-  textColor = "#000000", // القيمة الافتراضية للون النص
+  textColor = "#000000",
 }: NavbarListProps) => {
   return (
     <ul
       className={`flex gap-12 text-xl items-start ${className}`}
-      style={{ color: textColor }} // تطبيق اللون على الـ ul
+      style={{ color: textColor }}
     >
       {links.map((item, index) => (
         <Link key={`${item.name}-${item.link}-${index}`} href={item.link}>

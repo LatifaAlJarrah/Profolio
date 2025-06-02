@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback  } from "react";
 import { useSearchParams } from "next/navigation";
 import {
   Roboto,
@@ -60,6 +60,9 @@ const ControlTemplate = () => {
   const templateName = searchParams.get("template")?.toLowerCase();
   const templateId = searchParams.get("templateId");
 
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [authLoading, setAuthLoading] = useState(true);
+
   const getInitialTemplateData = () => {
     switch (templateName) {
       case "restaurant":
@@ -99,12 +102,89 @@ const ControlTemplate = () => {
     iconType: "warning",
   });
 
-  // دالة توليد معرف فريد لكل قالب
+  useEffect(() => {
+    const checkAuthentication = async () => {
+      try {
+        setAuthLoading(true);
+        const session = await getSession();
+
+        if (!session || !session.user) {
+          console.log("No session found, redirecting to login");
+          router.push("/auth/signin");
+          return;
+        }
+
+        // check if token exists
+        const token =
+          (session as unknown as { apiAccessToken: string | undefined })
+            .apiAccessToken ||
+          (session as unknown as { accessToken: string | undefined })
+            .accessToken ||
+          (session.user as unknown as { accessToken: string | undefined })
+            ?.accessToken;
+
+        if (!token) {
+          console.log("No token found, redirecting to login");
+          router.push("/auth/signin");
+          return;
+        }
+
+        console.log("User authenticated successfully:", session.user.email);
+        setIsAuthenticated(true);
+      } catch (error) {
+        console.error("Authentication check failed:", error);
+        router.push("/login");
+      } finally {
+        setAuthLoading(false);
+      }
+    };
+
+    checkAuthentication();
+  }, [router]);
+
+  // Function to generate a unique identifier for each template
   const generateUniqueId = () => {
-    const timestamp = Date.now().toString(36); // تحويل الوقت الحالي إلى base36
-    const randomStr = Math.random().toString(36).substring(2, 8); // 6 أحرف عشوائية
+    const timestamp = Date.now().toString(36); // Convert the current time to base36
+    const randomStr = Math.random().toString(36).substring(2, 8); // 6 random characters
     return `${timestamp}-${randomStr}`;
   };
+
+  const getUserInfo = useCallback(async () => {
+    try {
+      const session = await getSession();
+
+      if (!session) {
+        return { user: null, token: null };
+      }
+
+      const token =
+        (session as unknown as { apiAccessToken: string | undefined })
+          .apiAccessToken ||
+        (session as unknown as { accessToken: string | undefined })
+          .accessToken ||
+        (session.user as unknown as { accessToken: string | undefined })
+          ?.accessToken;
+
+    
+      if (!token) {
+        router.push("/auth/signin");
+        return { user: null, token: null };
+      }
+
+      return {
+        user: {
+          id: session.user?.id,
+          email: session.user?.email,
+          name: session.user?.name,
+        },
+        token: token,
+        session: session,
+      };
+    } catch (error) {
+      console.error("Error getting user info:", error);
+      return { user: null, token: null };
+    }
+  }, [router]);
 
   // Auto-load template data if templateId exists
   useEffect(() => {
@@ -175,7 +255,7 @@ const ControlTemplate = () => {
     };
 
     loadTemplateFromServer();
-  }, [templateId]);
+  }, [templateId, getUserInfo]);
 
   const openModal = (
     message: string,
@@ -198,34 +278,19 @@ const ControlTemplate = () => {
     setModalState((prev) => ({ ...prev, isOpen: false }));
   };
 
-  const getUserInfo = async () => {
-    try {
-      const session = await getSession();
-
-      if (!session) {
-        return { user: null, token: null };
-      }
-
-      const token =
-        (session as any).apiAccessToken ||
-        (session as any).accessToken ||
-        (session.user as any)?.accessToken;
-
-      return {
-        user: {
-          id: session.user?.id,
-          email: session.user?.email,
-          name: session.user?.name,
-          role: (session.user as any)?.role,
-        },
-        token: token,
-        session: session,
-      };
-    } catch (error) {
-      console.error("Error getting user info:", error);
-      return { user: null, token: null };
-    }
-  };
+  if (authLoading) {
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+          <p className="text-lg text-gray-600">Checking authentication...</p>
+        </div>
+      </div>
+    );
+  }
+  if (!isAuthenticated) {
+    return null;
+  }
 
   const selectedTemplate = templates.find(
     (t) => t.name.toLowerCase() === templateName
@@ -858,7 +923,7 @@ const ControlTemplate = () => {
 
           const preparedData = await prepareTemplateData();
 
-          // توليد معرف فريد لكل قالب جديد
+          // Generate a unique ID for each new template
           const uniqueId = generateUniqueId();
           console.log("Generated unique ID:", uniqueId);
 
@@ -870,7 +935,7 @@ const ControlTemplate = () => {
             templateType: templateName?.toUpperCase() || "DENTIST",
             isPublic: true,
             templateData: preparedData,
-            // فقط إرسال publishUrl للقوالب الجديدة مع المعرف الفريد
+            // Only send publishUrl for new templates with unique id
             ...(isUpdate
               ? {}
               : {
@@ -967,7 +1032,7 @@ const ControlTemplate = () => {
           );
 
           if (!isUpdate && result.id) {
-            const newUrl = new URL(window.location);
+            const newUrl = new URL(window.location.href);
             newUrl.searchParams.set("templateId", result.id);
             window.history.replaceState({}, "", newUrl);
             console.log("URL updated with new template ID:", result.id);
@@ -1086,7 +1151,7 @@ const ControlTemplate = () => {
               setTemplateData(loadedTemplateData);
 
               if (result.id && !templateId) {
-                const newUrl = new URL(window.location);
+                const newUrl = new URL(window.location.href);
                 newUrl.searchParams.set("templateId", result.id);
                 window.history.replaceState({}, "", newUrl);
               }

@@ -8,7 +8,7 @@ interface NavbarListProps extends TemplateData  {
   className?: string;
   onClick?: () => void;
   links?: Array<{ name: string; link: string }>;
-  textColor?: string; // إضافة textColor كـ prop
+  textColor?: string;
 }
 
 const NavbarList: React.FC<NavbarListProps> = ({
@@ -20,7 +20,7 @@ const NavbarList: React.FC<NavbarListProps> = ({
   return (
     <ul
       className={`flex gap-12 text-xl items-start ${className}`}
-      style={{ color: navigationLinksColor }} // تطبيق اللون على الـ ul
+      style={{ color: navigationLinksColor }}
     >
       {navigationLinks?.map((item, index) => (
         <Link key={`${item.name}-${item.link}-${index}`} href={item.link}>

@@ -10,8 +10,6 @@ import NavbarList from "../list/NavbarList";
 import { useSession, signOut } from "next-auth/react";
 
 import Image from "next/image";
-import SignUpForm from "../form/SignUpForm";
-import SignInForm from "../form/SignInForm";
 
 interface NavbarProps {
   type?: string;
@@ -23,7 +21,7 @@ export default function Navbar({
 }: NavbarProps) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [modalType, setModalType] = useState<"signup" | "login">("login");
+  const [, setModalType] = useState<"signup" | "login">("login");
   const sidebarRef = useRef<HTMLDivElement>(null);
   const modalRef = useRef<HTMLDivElement>(null);
   const { data: session } = useSession();
@@ -201,19 +199,7 @@ export default function Navbar({
           )}
         </div>
       </div>
-      {modalType === "signup" ? (
-        <SignUpForm
-          isOpen={isModalOpen}
-          onClose={() => setIsModalOpen(false)}
-          type="signup"
-        />
-      ) : (
-        <SignInForm
-          isOpen={isModalOpen}
-          onClose={() => setIsModalOpen(false)}
-          type="signin"
-        />
-      )}
+     
     </nav>
   );
 }

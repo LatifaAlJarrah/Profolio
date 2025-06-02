@@ -33,7 +33,20 @@ interface UserInfo {
     name?: string | null;
     role?: string;
   } | null;
-  token: string | null;
+  token: string | null | undefined;
+}
+
+interface Template {
+  id: string;
+  name: string;
+  description: string;
+  templateType: string;
+  media?: { url: string }[];
+  createdAt: string;
+  updatedAt: string;
+  templateData: template.templateData,
+  publishUrl: string,
+  isPublic: boolean
 }
 
 async function getUserInfo(): Promise<UserInfo> {
@@ -42,16 +55,17 @@ async function getUserInfo(): Promise<UserInfo> {
     if (!session) return { user: null, token: null };
 
     const token =
-      (session as any).apiAccessToken ||
-      (session as any).accessToken ||
-      (session.user as any)?.accessToken;
+      (session as unknown as { apiAccessToken: string | undefined })
+        .apiAccessToken ||
+      (session as unknown as { accessToken: string | undefined }).accessToken ||
+      (session.user as unknown as { accessToken: string | undefined })
+        ?.accessToken;
 
     return {
       user: {
         id: session.user?.id,
         email: session.user?.email,
         name: session.user?.name,
-        role: (session.user as any)?.role,
       },
       token,
     };
@@ -96,7 +110,7 @@ async function fetchUserTemplates(userId: string, token?: string) {
       GENERAL: "/assets/default-restaurant.jpg",
     };
 
-    return templates.map((template: any) => ({
+    return templates.map((template: Template) => ({
       id: template.id,
       name: template.name,
       description: template.description || "",
@@ -123,11 +137,11 @@ export default function UserTemplates({
   const [templates, setTemplates] = useState<UserTemplate[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [userInfo, setUserInfo] = useState<UserInfo>({
+  const [, setUserInfo] = useState<UserInfo>({
     user: null,
     token: null,
   });
-  
+
   // حالة للتحكم في عرض/إخفاء الروابط فقط (لا تؤثر على قاعدة البيانات)
   const [visibleLinks, setVisibleLinks] = useState<Set<string>>(new Set());
 
@@ -153,13 +167,13 @@ export default function UserTemplates({
           info.token || undefined
         );
         setTemplates(templatesData);
-        
-        // إظهار الروابط للقوالب التي لها publishUrl بشكل افتراضي
+
+        // Show links to templates that have publishUrl by default
         const templatesWithUrls = templatesData
-          .filter(t => t.publishUrl)
-          .map(t => t.id);
+          .filter((t: UserTemplate) => t.publishUrl)
+          .map((t: UserTemplate) => t.id);
         setVisibleLinks(new Set(templatesWithUrls));
-        
+
         console.log("Templates updated:", templatesData);
       } catch (err) {
         const errorMessage =
@@ -174,7 +188,7 @@ export default function UserTemplates({
     loadUserTemplates();
   }, []);
 
-  // دالة لتبديل عرض/إخفاء الرابط فقط (لا تؤثر على قاعدة البيانات)
+  // function to toggle display/hide link only (does not affect database)
   const handleLinkVisibilityToggle = (templateId: string) => {
     setVisibleLinks((prev) => {
       const newSet = new Set(prev);
@@ -288,7 +302,7 @@ export default function UserTemplates({
                   {new Date(template.updatedAt).toLocaleDateString("en-US")}
                 </p>
                 <div className="mt-3 flex flex-col gap-2">
-                  {/* زر للتحكم في عرض/إخفاء الرابط فقط إذا كان publishUrl موجود */}
+                  {/* A button to control whether the link is shown/hide only if publishUrl exists */}
                   {template.publishUrl && (
                     <button
                       onClick={() => handleLinkVisibilityToggle(template.id)}
@@ -304,7 +318,7 @@ export default function UserTemplates({
                     </button>
                   )}
 
-                  {/* عرض الرابط إذا كان مرئي */}
+                  {/* Show the link if it is visible */}
                   {template.publishUrl && visibleLinks.has(template.id) && (
                     <div className="flex items-center gap-2">
                       <input
@@ -326,7 +340,7 @@ export default function UserTemplates({
                     </div>
                   )}
 
-                  {/* رسالة توضيحية للحالة */}
+                  {/* A message explaining the situation */}
                   {template.publishUrl && visibleLinks.has(template.id) && (
                     <p
                       className={`text-xs italic ${
@@ -339,7 +353,7 @@ export default function UserTemplates({
                     </p>
                   )}
 
-                  {/* رسالة إذا لم يكن هناك publishUrl */}
+                  {/* Message if there is no PublishUrl */}
                   {!template.publishUrl && (
                     <p className="text-xs text-gray-500 italic">
                       No publish URL available

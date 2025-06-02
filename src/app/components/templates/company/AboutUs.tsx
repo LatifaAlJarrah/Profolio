@@ -1,7 +1,6 @@
 "use client";
 import React from "react";
 import Image from "next/image";
-import { OfficeCulture } from "@/app/assets/images";
 import { TemplateData } from "@/app/types/templateData";
 
 interface AboutCompanyProps extends TemplateData {
@@ -54,7 +53,7 @@ const AboutUs: React.FC<AboutCompanyProps> = ({
 
             {/* Image */}
             <Image
-              src={aboutImage || OfficeCulture}
+              src={aboutImage || "/assets/images/company/officeCulture.jpeg"}
               alt="Team Working"
               width={200}
               height={200}
@@ -75,7 +74,7 @@ const AboutUs: React.FC<AboutCompanyProps> = ({
                   item.uploadedIcon ||
                   item.icon ||
                   "/assets/icons/company/done.png"
-                } // استخدام uploadedIcon إذا كان موجودًا، وإلا استخدام icon
+                } // Use the loading icon if it exists, otherwise use an icon
                 alt="icon not found"
                 width={50}
                 height={50}

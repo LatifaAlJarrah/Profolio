@@ -16,7 +16,7 @@ interface ProjectsProps extends TemplateData {
 const Projects: React.FC<ProjectsProps> = ({ projects }) => {
   const [activeCategory, setActiveCategory] = useState("All");
 
-  console.log("Projects Data:", projects); // تصحيح للتأكد من البيانات
+  console.log("Projects Data:", projects);
 
   if (!projects) {
     return (
@@ -31,7 +31,7 @@ const Projects: React.FC<ProjectsProps> = ({ projects }) => {
     <section className="px-20 py-5" id="projects">
       <h2 className="text-4xl mb-8">PROJECTS</h2>
 
-      {/* أزرار التصنيفات */}
+      {/*Button labels */}
       <div className={`font-roboto flex justify-center space-x-4 mb-6`}>
         {Object.keys(projects).map((category) => (
           <button
@@ -48,7 +48,7 @@ const Projects: React.FC<ProjectsProps> = ({ projects }) => {
         ))}
       </div>
 
-      {/* عرض المشاريع */}
+      {/* Show projects */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         {projects[activeCategory]?.length > 0 ? (
           projects[activeCategory].map((item, index) => (
@@ -56,7 +56,7 @@ const Projects: React.FC<ProjectsProps> = ({ projects }) => {
               key={index}
               className="relative group bg-opacity-10 rounded-lg overflow-hidden shadow-md"
             >
-              {/* الصورة بتأثير الـ hover */}
+              {/* Image with hover effect */}
               <div className="relative w-full h-[250px] overflow-hidden">
                 <Image
                   src={item.uploadedImg || item.img}
@@ -66,8 +66,6 @@ const Projects: React.FC<ProjectsProps> = ({ projects }) => {
                   className="object-cover rounded-t-lg object-[70%top] transition-all duration-500 ease-in-out scale-100 group-hover:scale-110"
                 />
               </div>
-
-              {/* النص */}
               <div className="p-3 text-left">
                 <h3 className="text-lg">{item.name}</h3>
               </div>

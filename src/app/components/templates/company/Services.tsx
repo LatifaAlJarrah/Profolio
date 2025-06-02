@@ -12,7 +12,6 @@ interface ServicesProps extends TemplateData {
 }
 
 const Services: React.FC<ServicesProps> = ({ services }) => {
-  console.log("Services Data:", services); // تصحيح للتأكد من البيانات
 
   if (!services || services.length === 0) {
     return (
