@@ -1,7 +1,6 @@
 import { TemplateData } from "@/app/types/templateData";
 import ColorPicker from "../../shared/ColorPicker";
 import Image from "next/image";
-import { TextVector } from "@/app/assets/icons";
 
 interface HeaderSectionProps {
   templateData: TemplateData;
@@ -17,7 +16,13 @@ const HeaderSection = ({
   return (
     <>
       <div className="flex items-center justify-around mb-4 bg-lightGrayShade2 p-2 rounded-lg mx-8">
-        <Image src={TextVector} alt="text vector" className="w-4 h-4" />
+        <Image
+          src="/assets/icons/textVector.png"
+          alt="text vector"
+          width={16}
+          height={16}
+          className="w-4 h-4"
+        />
         <h3 className="text-lg font-normal">Header</h3>
       </div>
       <div>

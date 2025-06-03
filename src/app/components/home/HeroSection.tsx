@@ -1,7 +1,6 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import HeroImage from "@assets/images/hero-image.png";
 
 export default function HeroSection() {
   return (
@@ -28,7 +27,7 @@ export default function HeroSection() {
         </Link>
       </div>
       <Image
-        src={HeroImage}
+        src="/assets/images/hero-image.png"
         alt="Hero"
         className="w-full md:w-1/3 mt-8 md:mt-0"
         width={621}

@@ -48,7 +48,7 @@ interface PublicTemplate {
   name: string;
   description?: string;
   templateType: string;
-  templateData?: any;
+  templateData?: Record<string, unknown>; // Use a safer type than any for templateData
   thumbnail?: string;
   publishedAt: string;
   views: number;
@@ -264,7 +264,7 @@ export default function PublicTemplatePage({
             <selectedTemplate.Component
               {...template.templateData}
               fontFamilyClass={getFontClassName(
-                template.templateData?.fontFamily
+                template.templateData?.fontFamily as string | undefined
               )}
             />,
             {},

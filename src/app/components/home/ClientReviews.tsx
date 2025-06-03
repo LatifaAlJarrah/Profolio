@@ -1,6 +1,5 @@
 import React from "react";
 import Image from "next/image";
-import { Sophia, John } from "@/app/assets/images";
 
 const clients = [
   {
@@ -8,14 +7,14 @@ const clients = [
     role: "Business Man",
     feedback:
       "As a businessman, time is my most valuable asset. Your website has greatly helped me save the time and effort I would have needed to create designs from scratch. Thanks to the ready-made templates, I was able to complete many marketing and advertising tasks quickly and efficiently.",
-    image: John,
+    image: "/assets/images/john.png",
   },
   {
     name: "Sophia Garcia",
     role: "Content Creator",
     feedback:
       "These templates have been a game-changer! I built my makeup website in no time, despite having no programming background. It's been a major source of income for me, and I couldn't be happier with this website. Thank you!",
-    image: Sophia,
+    image: "/assets/images/sophia.png",
   },
 ];
 

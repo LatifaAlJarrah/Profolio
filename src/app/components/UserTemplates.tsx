@@ -5,6 +5,34 @@ import { getSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 
+// Define proper types for template data
+interface TemplateData {
+  title?: string;
+  subtitle?: string;
+  content?: string;
+  image?: string;
+  sections?: Array<{
+    type: string;
+    text?: string;
+    image?: string;
+    items?: string[];
+  }>;
+  [key: string]: unknown; // For any additional properties
+}
+
+// Define session with extended properties
+interface ExtendedSession {
+  user?: {
+    id?: string;
+    email?: string | null;
+    name?: string | null;
+    image?: string | null;
+  };
+  apiAccessToken?: string;
+  accessToken?: string;
+  expires?: string;
+}
+
 interface UserTemplate {
   id: string;
   name: string;
@@ -13,7 +41,7 @@ interface UserTemplate {
   thumbnail?: string;
   createdAt: string;
   updatedAt: string;
-  templateData?: any;
+  templateData?: TemplateData;
   publishUrl?: string;
   isPublic: boolean;
 }
@@ -36,30 +64,31 @@ interface UserInfo {
   token: string | null | undefined;
 }
 
-interface Template {
+interface APITemplate {
   id: string;
   name: string;
   description: string;
   templateType: string;
-  media?: { url: string }[];
+  media?: Array<{ url: string }>;
   createdAt: string;
   updatedAt: string;
-  templateData: template.templateData,
-  publishUrl: string,
-  isPublic: boolean
+  templateData: TemplateData;
+  publishUrl: string;
+  isPublic: boolean;
+}
+
+interface DefaultImagesMap {
+  [key: string]: string;
 }
 
 async function getUserInfo(): Promise<UserInfo> {
   try {
-    const session = await getSession();
+    const session = await getSession() as ExtendedSession | null;
     if (!session) return { user: null, token: null };
 
-    const token =
-      (session as unknown as { apiAccessToken: string | undefined })
-        .apiAccessToken ||
-      (session as unknown as { accessToken: string | undefined }).accessToken ||
-      (session.user as unknown as { accessToken: string | undefined })
-        ?.accessToken;
+    const token = session.apiAccessToken || 
+                 session.accessToken || 
+                 (session.user as ExtendedSession['user'] & { accessToken?: string })?.accessToken;
 
     return {
       user: {
@@ -75,14 +104,14 @@ async function getUserInfo(): Promise<UserInfo> {
   }
 }
 
-async function fetchUserTemplates(userId: string, token?: string) {
+async function fetchUserTemplates(userId: string, token?: string): Promise<UserTemplate[]> {
   try {
     console.log("Fetching templates for user:", userId);
     const headers: HeadersInit = { "Content-Type": "application/json" };
     if (token) headers["Authorization"] = `Bearer ${token}`;
 
     const response = await fetch(
-      `http://localhost:3001/api/templates/user/${userId}`,
+     ` http://localhost:3001/api/templates/user/${userId}`,
       {
         method: "GET",
         headers,
@@ -94,14 +123,14 @@ async function fetchUserTemplates(userId: string, token?: string) {
       const errorText = await response.text();
       console.error("API response:", errorText);
       throw new Error(
-        `HTTP error! status: ${response.status}, message: ${errorText}`
+      `  HTTP error! status: ${response.status}, message: ${errorText}`
       );
     }
 
-    const templates = await response.json();
+    const templates: APITemplate[] = await response.json();
     console.log("Templates fetched successfully:", templates);
 
-    const defaultImagesMap: { [key: string]: string } = {
+    const defaultImagesMap: DefaultImagesMap = {
       RESTAURANT: "/assets/default-resturant.jpg",
       DENTIST: "/assets/default-dentist.jpg",
       DEVELOPER: "/assets/default-developer.jpg",
@@ -110,7 +139,7 @@ async function fetchUserTemplates(userId: string, token?: string) {
       GENERAL: "/assets/default-restaurant.jpg",
     };
 
-    return templates.map((template: Template) => ({
+    return templates.map((template: APITemplate): UserTemplate => ({
       id: template.id,
       name: template.name,
       description: template.description || "",
@@ -135,18 +164,17 @@ export default function UserTemplates({
   fallbackProjects = [],
 }: UserTemplatesProps) {
   const [templates, setTemplates] = useState<UserTemplate[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [, setUserInfo] = useState<UserInfo>({
     user: null,
     token: null,
   });
 
-  // حالة للتحكم في عرض/إخفاء الروابط فقط (لا تؤثر على قاعدة البيانات)
   const [visibleLinks, setVisibleLinks] = useState<Set<string>>(new Set());
 
   useEffect(() => {
-    const loadUserTemplates = async () => {
+    const loadUserTemplates = async (): Promise<void> => {
       try {
         setLoading(true);
         setError(null);
@@ -189,7 +217,7 @@ export default function UserTemplates({
   }, []);
 
   // function to toggle display/hide link only (does not affect database)
-  const handleLinkVisibilityToggle = (templateId: string) => {
+  const handleLinkVisibilityToggle = (templateId: string): void => {
     setVisibleLinks((prev) => {
       const newSet = new Set(prev);
       if (newSet.has(templateId)) {
@@ -201,17 +229,19 @@ export default function UserTemplates({
     });
   };
 
-  const copyPublishUrl = (publishUrl: string) => {
+  const copyPublishUrl = async (publishUrl: string): Promise<void> => {
     const fullUrl = `http://localhost:3000/public/${publishUrl}`;
-    navigator.clipboard
-      .writeText(fullUrl)
-      .then(() => {
-        alert("Publish URL copied to clipboard!");
-      })
-      .catch((err) => {
-        console.error("Error copying URL:", err);
-        alert("Failed to copy URL.");
-      });
+    try {
+      await navigator.clipboard.writeText(fullUrl);
+      alert("Publish URL copied to clipboard!");
+    } catch (err) {
+      console.error("Error copying URL:", err);
+      alert("Failed to copy URL.");
+    }
+  };
+
+  const handleRetry = (): void => {
+    window.location.reload();
   };
 
   if (loading) {
@@ -243,7 +273,7 @@ export default function UserTemplates({
           <p className="text-red-500 text-lg mb-4">Error loading templates</p>
           <p className="text-gray-400 mb-4">{error}</p>
           <button
-            onClick={() => window.location.reload()}
+            onClick={handleRetry}
             className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
           >
             Retry
@@ -263,7 +293,7 @@ export default function UserTemplates({
           {templates.map((template) => (
             <div key={template.id} className="group">
               <Link
-                href={`/controltemplate?template=${template.name}&templateId=${template.id}`}
+                href={`/controltemplate?template=${encodeURIComponent(template.name)}&templateId=${template.id}`}
               >
                 <div className="bg-white rounded-lg shadow-md relative w-[350px] h-[250px] mx-auto hover:shadow-lg transition-all duration-300 cursor-pointer border border-gray-200 group-hover:border-blue-300">
                   <Image

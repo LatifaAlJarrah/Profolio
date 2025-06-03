@@ -1,18 +1,18 @@
 import React from "react";
 import Image from "next/image";
-import { Website, WebsiteBuilder, ContentCreator } from "@assets/images";
 import Steps from "./Steps";
 
-import { StaticImageData } from "next/image";
-
 const features = [
-  { icon: Website, title: "Choose A Template" },
-  { icon: ContentCreator, title: "Customize The Template" },
-  { icon: WebsiteBuilder, title: "Launch Your Website" },
+  { icon: "/assets/images/WebsiteImage.gif", title: "Choose A Template" },
+  {
+    icon: "/assets/images/contentCreator.gif",
+    title: "Customize The Template",
+  },
+  { icon: "/assets/images/WebsiteBuilder.gif", title: "Launch Your Website" },
 ];
 
 interface FeatureCardProps {
-  icon: StaticImageData;
+  icon: string;
   title: string;
 }
 

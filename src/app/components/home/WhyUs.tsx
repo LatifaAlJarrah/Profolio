@@ -1,18 +1,11 @@
-import {
-  Error,
-  Growth,
-  Support,
-  Publishing,
-  Professional,
-} from "@assets/icons";
 import Image from "next/image";
 
 const features = [
-  { icon: Professional, title: "Professional & Ready-Made Templates" },
-  { icon: Error, title: "Easy Customization With No Coding Required" },
-  { icon: Publishing, title: "One-Click Export & Publishing" },
-  { icon: Growth, title: "Scalability & Growth" },
-  { icon: Support, title: "Continuous Technical Support" },
+  { icon: "/assets/icons/professional.png", title: "Professional & Ready-Made Templates" },
+  { icon: "/assets/icons/error.png", title: "Easy Customization With No Coding Required" },
+  { icon: "/assets/icons/publishing.png", title: "One-Click Export & Publishing" },
+  { icon: "/assets/icons/growth.png", title: "Scalability & Growth" },
+  { icon:  "/assets/icons/support.png", title: "Continuous Technical Support" },
 ];
 
 export default function WhyUs() {
