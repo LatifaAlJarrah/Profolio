@@ -1,5 +1,4 @@
 import Contact from "./Contact";
-<<<<<<< HEAD
 import { IconType } from "react-icons/lib";
 
 interface ContactPageProps {
@@ -22,9 +21,4 @@ export default function Page({ developerInfo, developerContact }: ContactPagePro
       developerContact={developerContact}
     />
   );
-=======
-
-export default function Page() {
-  return <Contact />;
->>>>>>> 458d433c80df4797d81f2ca8607e794ff77ae393
 }

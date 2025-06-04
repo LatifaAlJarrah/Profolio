@@ -1,10 +1,6 @@
 "use client";
 import React from "react";
 import Image from "next/image";
-<<<<<<< HEAD
-=======
-import { Steak } from "@/app/assets/images";
->>>>>>> 458d433c80df4797d81f2ca8607e794ff77ae393
 import ResturantLogo from "./ResturantLogo";
 import { TemplateData } from "@/app/types/templateData";
 
@@ -108,11 +104,7 @@ const AboutResturant: React.FC<AboutResturantProps> = ({
         {/* الصورة */}
         <div className="w-full max-w-[400px] h-[400px] rounded-xl overflow-hidden shadow-md">
           <Image
-<<<<<<< HEAD
             src={aboutImage || "/assets/images/Steak.png"}
-=======
-            src={aboutImage || Steak}
->>>>>>> 458d433c80df4797d81f2ca8607e794ff77ae393
             alt="Signature dish - Lamb Steak with Potato Fries and Melted Cheese"
             width={400}
             height={400}

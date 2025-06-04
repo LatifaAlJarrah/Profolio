@@ -25,6 +25,7 @@ const FeatureCard: React.FC<FeatureCardProps> = ({ icon, title }) => (
     <p className="mt-8 text-lg md:text-xl text-black font-normal">{title}</p>
   </div>
 );
+
 // Main Component
 export default function HowItWorks() {
   return (
@@ -33,10 +34,25 @@ export default function HowItWorks() {
         <h2 className="text-2xl font-semibold mb-4">How It Works?</h2>
         <div className="flex justify-center my-5">
           <div className="bg-[#F3F3F3] w-full lg:w-1/2 h-[150px] lg:h-[300px] flex items-center justify-center rounded-md mb-10">
-            <video className="w-full rounded-md" controls width="100%" height="100%">
+            <video
+              className="w-full rounded-md"
+              controls
+              width="100%"
+              height="100%"
+            >
               <source src="" type="video/mp4" />
               Your browser does not support the video tag.
             </video>
+          </div>
+        </div>
+      </div>
+      <div className="mt-10 px-20 lg:px-0 max-w-7xl mx-auto">
+        <h2 className="text-2xl font-semibold mb-4">How It Works?</h2>
+        <div className="flex justify-center">
+          <div className="bg-[#F3F3F3] w-full lg:w-1/2 h-[150px] lg:h-[500px] flex items-center justify-center rounded-md mb-10">
+            <button className="text-[#828282] border-[10px] border-[#828282] p-3 text-3xl">
+              ▶
+            </button>
           </div>
         </div>
       </div>

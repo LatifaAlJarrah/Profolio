@@ -48,11 +48,7 @@ interface PublicTemplate {
   name: string;
   description?: string;
   templateType: string;
-<<<<<<< HEAD
   templateData?: Record<string, unknown>; // Use a safer type than any for templateData
-=======
-  templateData?: any;
->>>>>>> 458d433c80df4797d81f2ca8607e794ff77ae393
   thumbnail?: string;
   publishedAt: string;
   views: number;
@@ -268,11 +264,7 @@ export default function PublicTemplatePage({
             <selectedTemplate.Component
               {...template.templateData}
               fontFamilyClass={getFontClassName(
-<<<<<<< HEAD
                 template.templateData?.fontFamily as string | undefined
-=======
-                template.templateData?.fontFamily
->>>>>>> 458d433c80df4797d81f2ca8607e794ff77ae393
               )}
             />,
             {},

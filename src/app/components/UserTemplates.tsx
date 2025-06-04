@@ -5,7 +5,6 @@ import { getSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 
-<<<<<<< HEAD
 // Define proper types for template data
 interface TemplateData {
   title?: string;
@@ -34,8 +33,6 @@ interface ExtendedSession {
   expires?: string;
 }
 
-=======
->>>>>>> 458d433c80df4797d81f2ca8607e794ff77ae393
 interface UserTemplate {
   id: string;
   name: string;
@@ -44,11 +41,7 @@ interface UserTemplate {
   thumbnail?: string;
   createdAt: string;
   updatedAt: string;
-<<<<<<< HEAD
   templateData?: TemplateData;
-=======
-  templateData?: any;
->>>>>>> 458d433c80df4797d81f2ca8607e794ff77ae393
   publishUrl?: string;
   isPublic: boolean;
 }
@@ -68,7 +61,6 @@ interface UserInfo {
     name?: string | null;
     role?: string;
   } | null;
-<<<<<<< HEAD
   token: string | null | undefined;
 }
 
@@ -87,39 +79,22 @@ interface APITemplate {
 
 interface DefaultImagesMap {
   [key: string]: string;
-=======
-  token: string | null;
->>>>>>> 458d433c80df4797d81f2ca8607e794ff77ae393
 }
 
 async function getUserInfo(): Promise<UserInfo> {
   try {
-<<<<<<< HEAD
     const session = await getSession() as ExtendedSession | null;
     if (!session) return { user: null, token: null };
 
     const token = session.apiAccessToken || 
                  session.accessToken || 
                  (session.user as ExtendedSession['user'] & { accessToken?: string })?.accessToken;
-=======
-    const session = await getSession();
-    if (!session) return { user: null, token: null };
-
-    const token =
-      (session as any).apiAccessToken ||
-      (session as any).accessToken ||
-      (session.user as any)?.accessToken;
->>>>>>> 458d433c80df4797d81f2ca8607e794ff77ae393
 
     return {
       user: {
         id: session.user?.id,
         email: session.user?.email,
         name: session.user?.name,
-<<<<<<< HEAD
-=======
-        role: (session.user as any)?.role,
->>>>>>> 458d433c80df4797d81f2ca8607e794ff77ae393
       },
       token,
     };
@@ -129,22 +104,14 @@ async function getUserInfo(): Promise<UserInfo> {
   }
 }
 
-<<<<<<< HEAD
 async function fetchUserTemplates(userId: string, token?: string): Promise<UserTemplate[]> {
-=======
-async function fetchUserTemplates(userId: string, token?: string) {
->>>>>>> 458d433c80df4797d81f2ca8607e794ff77ae393
   try {
     console.log("Fetching templates for user:", userId);
     const headers: HeadersInit = { "Content-Type": "application/json" };
     if (token) headers["Authorization"] = `Bearer ${token}`;
 
     const response = await fetch(
-<<<<<<< HEAD
      ` http://localhost:3001/api/templates/user/${userId}`,
-=======
-      `http://localhost:3001/api/templates/user/${userId}`,
->>>>>>> 458d433c80df4797d81f2ca8607e794ff77ae393
       {
         method: "GET",
         headers,
@@ -156,7 +123,6 @@ async function fetchUserTemplates(userId: string, token?: string) {
       const errorText = await response.text();
       console.error("API response:", errorText);
       throw new Error(
-<<<<<<< HEAD
       `  HTTP error! status: ${response.status}, message: ${errorText}`
       );
     }
@@ -165,16 +131,6 @@ async function fetchUserTemplates(userId: string, token?: string) {
     console.log("Templates fetched successfully:", templates);
 
     const defaultImagesMap: DefaultImagesMap = {
-=======
-        `HTTP error! status: ${response.status}, message: ${errorText}`
-      );
-    }
-
-    const templates = await response.json();
-    console.log("Templates fetched successfully:", templates);
-
-    const defaultImagesMap: { [key: string]: string } = {
->>>>>>> 458d433c80df4797d81f2ca8607e794ff77ae393
       RESTAURANT: "/assets/default-resturant.jpg",
       DENTIST: "/assets/default-dentist.jpg",
       DEVELOPER: "/assets/default-developer.jpg",
@@ -183,11 +139,7 @@ async function fetchUserTemplates(userId: string, token?: string) {
       GENERAL: "/assets/default-restaurant.jpg",
     };
 
-<<<<<<< HEAD
     return templates.map((template: APITemplate): UserTemplate => ({
-=======
-    return templates.map((template: any) => ({
->>>>>>> 458d433c80df4797d81f2ca8607e794ff77ae393
       id: template.id,
       name: template.name,
       description: template.description || "",
@@ -212,7 +164,6 @@ export default function UserTemplates({
   fallbackProjects = [],
 }: UserTemplatesProps) {
   const [templates, setTemplates] = useState<UserTemplate[]>([]);
-<<<<<<< HEAD
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [, setUserInfo] = useState<UserInfo>({
@@ -224,20 +175,6 @@ export default function UserTemplates({
 
   useEffect(() => {
     const loadUserTemplates = async (): Promise<void> => {
-=======
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-  const [userInfo, setUserInfo] = useState<UserInfo>({
-    user: null,
-    token: null,
-  });
-  
-  // حالة للتحكم في عرض/إخفاء الروابط فقط (لا تؤثر على قاعدة البيانات)
-  const [visibleLinks, setVisibleLinks] = useState<Set<string>>(new Set());
-
-  useEffect(() => {
-    const loadUserTemplates = async () => {
->>>>>>> 458d433c80df4797d81f2ca8607e794ff77ae393
       try {
         setLoading(true);
         setError(null);
@@ -258,7 +195,6 @@ export default function UserTemplates({
           info.token || undefined
         );
         setTemplates(templatesData);
-<<<<<<< HEAD
 
         // Show links to templates that have publishUrl by default
         const templatesWithUrls = templatesData
@@ -266,15 +202,6 @@ export default function UserTemplates({
           .map((t: UserTemplate) => t.id);
         setVisibleLinks(new Set(templatesWithUrls));
 
-=======
-        
-        // إظهار الروابط للقوالب التي لها publishUrl بشكل افتراضي
-        const templatesWithUrls = templatesData
-          .filter(t => t.publishUrl)
-          .map(t => t.id);
-        setVisibleLinks(new Set(templatesWithUrls));
-        
->>>>>>> 458d433c80df4797d81f2ca8607e794ff77ae393
         console.log("Templates updated:", templatesData);
       } catch (err) {
         const errorMessage =
@@ -289,13 +216,8 @@ export default function UserTemplates({
     loadUserTemplates();
   }, []);
 
-<<<<<<< HEAD
   // function to toggle display/hide link only (does not affect database)
   const handleLinkVisibilityToggle = (templateId: string): void => {
-=======
-  // دالة لتبديل عرض/إخفاء الرابط فقط (لا تؤثر على قاعدة البيانات)
-  const handleLinkVisibilityToggle = (templateId: string) => {
->>>>>>> 458d433c80df4797d81f2ca8607e794ff77ae393
     setVisibleLinks((prev) => {
       const newSet = new Set(prev);
       if (newSet.has(templateId)) {
@@ -307,7 +229,6 @@ export default function UserTemplates({
     });
   };
 
-<<<<<<< HEAD
   const copyPublishUrl = async (publishUrl: string): Promise<void> => {
     const fullUrl = `http://localhost:3000/public/${publishUrl}`;
     try {
@@ -321,19 +242,6 @@ export default function UserTemplates({
 
   const handleRetry = (): void => {
     window.location.reload();
-=======
-  const copyPublishUrl = (publishUrl: string) => {
-    const fullUrl = `http://localhost:3000/public/${publishUrl}`;
-    navigator.clipboard
-      .writeText(fullUrl)
-      .then(() => {
-        alert("Publish URL copied to clipboard!");
-      })
-      .catch((err) => {
-        console.error("Error copying URL:", err);
-        alert("Failed to copy URL.");
-      });
->>>>>>> 458d433c80df4797d81f2ca8607e794ff77ae393
   };
 
   if (loading) {
@@ -365,11 +273,7 @@ export default function UserTemplates({
           <p className="text-red-500 text-lg mb-4">Error loading templates</p>
           <p className="text-gray-400 mb-4">{error}</p>
           <button
-<<<<<<< HEAD
             onClick={handleRetry}
-=======
-            onClick={() => window.location.reload()}
->>>>>>> 458d433c80df4797d81f2ca8607e794ff77ae393
             className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
           >
             Retry
@@ -389,11 +293,7 @@ export default function UserTemplates({
           {templates.map((template) => (
             <div key={template.id} className="group">
               <Link
-<<<<<<< HEAD
                 href={`/controltemplate?template=${encodeURIComponent(template.name)}&templateId=${template.id}`}
-=======
-                href={`/controltemplate?template=${template.name}&templateId=${template.id}`}
->>>>>>> 458d433c80df4797d81f2ca8607e794ff77ae393
               >
                 <div className="bg-white rounded-lg shadow-md relative w-[350px] h-[250px] mx-auto hover:shadow-lg transition-all duration-300 cursor-pointer border border-gray-200 group-hover:border-blue-300">
                   <Image
@@ -432,11 +332,7 @@ export default function UserTemplates({
                   {new Date(template.updatedAt).toLocaleDateString("en-US")}
                 </p>
                 <div className="mt-3 flex flex-col gap-2">
-<<<<<<< HEAD
                   {/* A button to control whether the link is shown/hide only if publishUrl exists */}
-=======
-                  {/* زر للتحكم في عرض/إخفاء الرابط فقط إذا كان publishUrl موجود */}
->>>>>>> 458d433c80df4797d81f2ca8607e794ff77ae393
                   {template.publishUrl && (
                     <button
                       onClick={() => handleLinkVisibilityToggle(template.id)}
@@ -452,11 +348,7 @@ export default function UserTemplates({
                     </button>
                   )}
 
-<<<<<<< HEAD
                   {/* Show the link if it is visible */}
-=======
-                  {/* عرض الرابط إذا كان مرئي */}
->>>>>>> 458d433c80df4797d81f2ca8607e794ff77ae393
                   {template.publishUrl && visibleLinks.has(template.id) && (
                     <div className="flex items-center gap-2">
                       <input
@@ -478,11 +370,7 @@ export default function UserTemplates({
                     </div>
                   )}
 
-<<<<<<< HEAD
                   {/* A message explaining the situation */}
-=======
-                  {/* رسالة توضيحية للحالة */}
->>>>>>> 458d433c80df4797d81f2ca8607e794ff77ae393
                   {template.publishUrl && visibleLinks.has(template.id) && (
                     <p
                       className={`text-xs italic ${
@@ -495,11 +383,7 @@ export default function UserTemplates({
                     </p>
                   )}
 
-<<<<<<< HEAD
                   {/* Message if there is no PublishUrl */}
-=======
-                  {/* رسالة إذا لم يكن هناك publishUrl */}
->>>>>>> 458d433c80df4797d81f2ca8607e794ff77ae393
                   {!template.publishUrl && (
                     <p className="text-xs text-gray-500 italic">
                       No publish URL available
