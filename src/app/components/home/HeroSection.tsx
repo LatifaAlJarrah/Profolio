@@ -1,6 +1,10 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
+<<<<<<< HEAD
+=======
+import HeroImage from "@assets/images/hero-image.png";
+>>>>>>> 458d433c80df4797d81f2ca8607e794ff77ae393
 
 export default function HeroSection() {
   return (

@@ -1,6 +1,10 @@
 "use client";
 import React from "react";
 import Image from "next/image";
+<<<<<<< HEAD
+=======
+import { OfficeCulture } from "@/app/assets/images";
+>>>>>>> 458d433c80df4797d81f2ca8607e794ff77ae393
 import { TemplateData } from "@/app/types/templateData";
 
 interface AboutCompanyProps extends TemplateData {
@@ -53,7 +57,11 @@ const AboutUs: React.FC<AboutCompanyProps> = ({
 
             {/* Image */}
             <Image
+<<<<<<< HEAD
               src={aboutImage || "/assets/images/company/officeCulture.jpeg"}
+=======
+              src={aboutImage || OfficeCulture}
+>>>>>>> 458d433c80df4797d81f2ca8607e794ff77ae393
               alt="Team Working"
               width={200}
               height={200}
@@ -74,7 +82,11 @@ const AboutUs: React.FC<AboutCompanyProps> = ({
                   item.uploadedIcon ||
                   item.icon ||
                   "/assets/icons/company/done.png"
+<<<<<<< HEAD
                 } // Use the loading icon if it exists, otherwise use an icon
+=======
+                } // استخدام uploadedIcon إذا كان موجودًا، وإلا استخدام icon
+>>>>>>> 458d433c80df4797d81f2ca8607e794ff77ae393
                 alt="icon not found"
                 width={50}
                 height={50}
@@ -94,4 +106,8 @@ const AboutUs: React.FC<AboutCompanyProps> = ({
   );
 };
 
+<<<<<<< HEAD
 export default AboutUs;
+=======
+export default AboutUs;
+>>>>>>> 458d433c80df4797d81f2ca8607e794ff77ae393

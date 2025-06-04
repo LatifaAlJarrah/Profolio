@@ -1,5 +1,9 @@
 "use client";
+<<<<<<< HEAD
 import React, { useState, useEffect, useCallback  } from "react";
+=======
+import React, { useState, useEffect } from "react";
+>>>>>>> 458d433c80df4797d81f2ca8607e794ff77ae393
 import { useSearchParams } from "next/navigation";
 import {
   Roboto,
@@ -60,9 +64,12 @@ const ControlTemplate = () => {
   const templateName = searchParams.get("template")?.toLowerCase();
   const templateId = searchParams.get("templateId");
 
+<<<<<<< HEAD
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [authLoading, setAuthLoading] = useState(true);
 
+=======
+>>>>>>> 458d433c80df4797d81f2ca8607e794ff77ae393
   const getInitialTemplateData = () => {
     switch (templateName) {
       case "restaurant":
@@ -102,6 +109,7 @@ const ControlTemplate = () => {
     iconType: "warning",
   });
 
+<<<<<<< HEAD
   useEffect(() => {
     const checkAuthentication = async () => {
       try {
@@ -186,6 +194,15 @@ const ControlTemplate = () => {
     }
   }, [router]);
 
+=======
+  // دالة توليد معرف فريد لكل قالب
+  const generateUniqueId = () => {
+    const timestamp = Date.now().toString(36); // تحويل الوقت الحالي إلى base36
+    const randomStr = Math.random().toString(36).substring(2, 8); // 6 أحرف عشوائية
+    return `${timestamp}-${randomStr}`;
+  };
+
+>>>>>>> 458d433c80df4797d81f2ca8607e794ff77ae393
   // Auto-load template data if templateId exists
   useEffect(() => {
     const loadTemplateFromServer = async () => {
@@ -255,7 +272,11 @@ const ControlTemplate = () => {
     };
 
     loadTemplateFromServer();
+<<<<<<< HEAD
   }, [templateId, getUserInfo]);
+=======
+  }, [templateId]);
+>>>>>>> 458d433c80df4797d81f2ca8607e794ff77ae393
 
   const openModal = (
     message: string,
@@ -278,6 +299,7 @@ const ControlTemplate = () => {
     setModalState((prev) => ({ ...prev, isOpen: false }));
   };
 
+<<<<<<< HEAD
   if (authLoading) {
     return (
       <div className="flex items-center justify-center h-screen">
@@ -291,6 +313,36 @@ const ControlTemplate = () => {
   if (!isAuthenticated) {
     return null;
   }
+=======
+  const getUserInfo = async () => {
+    try {
+      const session = await getSession();
+
+      if (!session) {
+        return { user: null, token: null };
+      }
+
+      const token =
+        (session as any).apiAccessToken ||
+        (session as any).accessToken ||
+        (session.user as any)?.accessToken;
+
+      return {
+        user: {
+          id: session.user?.id,
+          email: session.user?.email,
+          name: session.user?.name,
+          role: (session.user as any)?.role,
+        },
+        token: token,
+        session: session,
+      };
+    } catch (error) {
+      console.error("Error getting user info:", error);
+      return { user: null, token: null };
+    }
+  };
+>>>>>>> 458d433c80df4797d81f2ca8607e794ff77ae393
 
   const selectedTemplate = templates.find(
     (t) => t.name.toLowerCase() === templateName
@@ -923,7 +975,11 @@ const ControlTemplate = () => {
 
           const preparedData = await prepareTemplateData();
 
+<<<<<<< HEAD
           // Generate a unique ID for each new template
+=======
+          // توليد معرف فريد لكل قالب جديد
+>>>>>>> 458d433c80df4797d81f2ca8607e794ff77ae393
           const uniqueId = generateUniqueId();
           console.log("Generated unique ID:", uniqueId);
 
@@ -935,7 +991,11 @@ const ControlTemplate = () => {
             templateType: templateName?.toUpperCase() || "DENTIST",
             isPublic: true,
             templateData: preparedData,
+<<<<<<< HEAD
             // Only send publishUrl for new templates with unique id
+=======
+            // فقط إرسال publishUrl للقوالب الجديدة مع المعرف الفريد
+>>>>>>> 458d433c80df4797d81f2ca8607e794ff77ae393
             ...(isUpdate
               ? {}
               : {
@@ -1032,7 +1092,11 @@ const ControlTemplate = () => {
           );
 
           if (!isUpdate && result.id) {
+<<<<<<< HEAD
             const newUrl = new URL(window.location.href);
+=======
+            const newUrl = new URL(window.location);
+>>>>>>> 458d433c80df4797d81f2ca8607e794ff77ae393
             newUrl.searchParams.set("templateId", result.id);
             window.history.replaceState({}, "", newUrl);
             console.log("URL updated with new template ID:", result.id);
@@ -1151,7 +1215,11 @@ const ControlTemplate = () => {
               setTemplateData(loadedTemplateData);
 
               if (result.id && !templateId) {
+<<<<<<< HEAD
                 const newUrl = new URL(window.location.href);
+=======
+                const newUrl = new URL(window.location);
+>>>>>>> 458d433c80df4797d81f2ca8607e794ff77ae393
                 newUrl.searchParams.set("templateId", result.id);
                 window.history.replaceState({}, "", newUrl);
               }

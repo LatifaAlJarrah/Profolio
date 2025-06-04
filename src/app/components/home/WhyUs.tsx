@@ -1,3 +1,13 @@
+<<<<<<< HEAD
+=======
+import {
+  Error,
+  Growth,
+  Support,
+  Publishing,
+  Professional,
+} from "@assets/icons";
+>>>>>>> 458d433c80df4797d81f2ca8607e794ff77ae393
 import Image from "next/image";
 
 const features = [

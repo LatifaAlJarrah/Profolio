@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 // // src/auth.ts - Updated NextAuth configuration (استخدام API الموجود)
 // import NextAuth from "next-auth";
 // import Google from "next-auth/providers/google";
@@ -236,6 +237,9 @@
 // });
 
 // src/auth.ts - Updated NextAuth configuration with proper TypeScript types
+=======
+// src/auth.ts - Updated NextAuth configuration (استخدام API الموجود)
+>>>>>>> 458d433c80df4797d81f2ca8607e794ff77ae393
 import NextAuth from "next-auth";
 import Google from "next-auth/providers/google";
 import Facebook from "next-auth/providers/facebook";
@@ -243,6 +247,7 @@ import Credentials from "next-auth/providers/credentials";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import { db } from "./lib/db";
 import type { NextAuthConfig } from "next-auth";
+<<<<<<< HEAD
 import type { JWT } from "next-auth/jwt";
 
 // Extended types for NextAuth
@@ -321,6 +326,8 @@ interface ExtendedUser {
   accessToken?: string;
   refreshToken?: string;
 }
+=======
+>>>>>>> 458d433c80df4797d81f2ca8607e794ff77ae393
 
 // Utility function to generate a username
 const generateUsername = (
@@ -351,7 +358,11 @@ const providers = [
         scope: "openid email profile",
       },
     },
+<<<<<<< HEAD
     profile: (profile: GoogleProfile) => ({
+=======
+    profile: (profile) => ({
+>>>>>>> 458d433c80df4797d81f2ca8607e794ff77ae393
       id: profile.sub,
       name: profile.name,
       email: profile.email,
@@ -363,7 +374,11 @@ const providers = [
     clientId: process.env.FACEBOOK_CLIENT_ID || "dummy",
     clientSecret: process.env.FACEBOOK_CLIENT_SECRET || "dummy",
     authorization: { params: { scope: "email,public_profile" } },
+<<<<<<< HEAD
     profile: (profile: FacebookProfile) => ({
+=======
+    profile: (profile) => ({
+>>>>>>> 458d433c80df4797d81f2ca8607e794ff77ae393
       id: profile.id,
       name: profile.name,
       email: profile.email,
@@ -377,7 +392,11 @@ const providers = [
       email: { label: "Email", type: "email" },
       password: { label: "Password", type: "password" },
     },
+<<<<<<< HEAD
     async authorize(credentials): Promise<ExtendedUser | null> {
+=======
+    async authorize(credentials) {
+>>>>>>> 458d433c80df4797d81f2ca8607e794ff77ae393
       try {
         console.log("Credentials authorize called");
 
@@ -386,10 +405,14 @@ const providers = [
           return null;
         }
 
+<<<<<<< HEAD
         const { email, password } = credentials as {
           email: string;
           password: string;
         };
+=======
+        const { email, password } = credentials;
+>>>>>>> 458d433c80df4797d81f2ca8607e794ff77ae393
 
         // استدعاء API endpoint الموجود بالفعل
         console.log("Calling existing login API endpoint");
@@ -403,7 +426,11 @@ const providers = [
         });
 
         console.log("API response status:", response.status);
+<<<<<<< HEAD
         const result: LoginAPIResponse = await response.json();
+=======
+        const result = await response.json();
+>>>>>>> 458d433c80df4797d81f2ca8607e794ff77ae393
         console.log("API response data:", result);
 
         // تحقق من نجاح الاستجابة
@@ -435,7 +462,11 @@ const providers = [
 
 // Callbacks
 const callbacks: NextAuthConfig["callbacks"] = {
+<<<<<<< HEAD
   async signIn({ user, account }) {
+=======
+  async signIn({ user, account, profile }) {
+>>>>>>> 458d433c80df4797d81f2ca8607e794ff77ae393
     console.log("SignIn callback called", {
       user: user?.email,
       provider: account?.provider,
@@ -477,6 +508,7 @@ const callbacks: NextAuthConfig["callbacks"] = {
     return true;
   },
 
+<<<<<<< HEAD
   async jwt({ token, user, account }): Promise<JWT> {
     console.log("JWT callback called");
 
@@ -497,6 +529,26 @@ const callbacks: NextAuthConfig["callbacks"] = {
       }
       if (extendedUser.refreshToken) {
         token.apiRefreshToken = extendedUser.refreshToken;
+=======
+  async jwt({ token, user, account }) {
+    console.log("JWT callback called");
+
+    if (account) {
+      token.accessToken = account.access_token;
+    }
+    if (user) {
+      token.sub = user.id;
+      token.name = user.name;
+      token.picture = user.image ?? null;
+      token.username = (user as any).username;
+      token.role = (user as any).role;
+      // حفظ الـ tokens من API
+      if ((user as any).accessToken) {
+        token.apiAccessToken = (user as any).accessToken;
+      }
+      if ((user as any).refreshToken) {
+        token.apiRefreshToken = (user as any).refreshToken;
+>>>>>>> 458d433c80df4797d81f2ca8607e794ff77ae393
       }
     }
     return token;
@@ -509,12 +561,21 @@ const callbacks: NextAuthConfig["callbacks"] = {
       session.user.id = token.sub!;
       session.user.name = token.name;
       session.user.image = token.picture ?? null;
+<<<<<<< HEAD
       session.user.username = token.username;
       session.user.role = token.role;
       session.accessToken = token.accessToken;
       // إضافة الـ API tokens للجلسة
       session.apiAccessToken = token.apiAccessToken;
       session.apiRefreshToken = token.apiRefreshToken;
+=======
+      (session.user as any).username = token.username as string;
+      (session.user as any).role = token.role as string;
+      (session as any).accessToken = token.accessToken as string;
+      // إضافة الـ API tokens للجلسة
+      (session as any).apiAccessToken = token.apiAccessToken as string;
+      (session as any).apiRefreshToken = token.apiRefreshToken as string;
+>>>>>>> 458d433c80df4797d81f2ca8607e794ff77ae393
     }
     return session;
   },
@@ -553,4 +614,47 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
     },
   },
   debug: process.env.NODE_ENV === "development",
+<<<<<<< HEAD
 });
+=======
+});
+
+// تأكد من أن API endpoint الموجود يرجع البيانات بالشكل التالي
+// Expected API response format:
+/*
+{
+  "user": {
+    "id": "d2c2014d-0522-4e96-826c-5fb803544d1f",
+    "email": "ww@gmail.com",
+    "name": null,
+    "role": "USER",
+    "provider": null,
+    "providerId": null,
+    "avatar": null,
+    "createdAt": "2025-05-25T09:06:28.441Z",
+    "updatedAt": "2025-05-25T09:06:28.479Z"
+  },
+  "accessToken": "jwt_access_token",
+  "refreshToken": "jwt_refresh_token"
+}
+*/
+
+// Example of accessing session data in components:
+/*
+import { useSession } from 'next-auth/react';
+
+function MyComponent() {
+  const { data: session } = useSession();
+  
+  if (session) {
+    console.log('User ID:', session.user.id);
+    console.log('User Email:', session.user.email);
+    console.log('User Role:', session.user.role);
+    console.log('API Access Token:', session.apiAccessToken);
+    console.log('API Refresh Token:', session.apiRefreshToken);
+  }
+  
+  return <div>...</div>;
+}
+*/
+>>>>>>> 458d433c80df4797d81f2ca8607e794ff77ae393

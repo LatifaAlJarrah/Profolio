@@ -20,7 +20,11 @@ interface TemplatePreviewProps extends TemplateData {
   fontFamily?: string;
   navigationLinks?: Array<{ name: string; link: string }>;
   navigationLinksColor?: string;
+<<<<<<< HEAD
   hireMeButton?: Array<{ text: string; path: string; color: string }>;
+=======
+  hireMeButton?: { text: string; path: string; color: string };
+>>>>>>> 458d433c80df4797d81f2ca8607e794ff77ae393
   developerHeaderRole?: string;
   developerHeadertitle?: string;
   developerHeadername?: string;

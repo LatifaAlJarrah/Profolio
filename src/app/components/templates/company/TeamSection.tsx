@@ -1,7 +1,10 @@
 "use client";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
+<<<<<<< HEAD
 
+=======
+>>>>>>> 458d433c80df4797d81f2ca8607e794ff77ae393
 import "swiper/css";
 import "swiper/css/navigation";
 
