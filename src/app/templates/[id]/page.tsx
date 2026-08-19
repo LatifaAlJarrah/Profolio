@@ -6,7 +6,12 @@ interface Template {
   name: string;
   templateType: string;
   description?: string;
-  media?: Array<{ url: string; fileName: string; fileType: string; fileSize: number }>;
+  media?: Array<{
+    url: string;
+    fileName: string;
+    fileType: string;
+    fileSize: number;
+  }>;
   createdAt: string;
   updatedAt: string;
   templateData?: {
@@ -14,7 +19,12 @@ interface Template {
     subtitle?: string;
     content?: string;
     image?: string;
-    sections?: Array<{ type: string; text?: string; image?: string; items?: string[] }>;
+    sections?: Array<{
+      type: string;
+      text?: string;
+      image?: string;
+      items?: string[];
+    }>;
   };
 }
 
@@ -43,7 +53,9 @@ function TemplateRenderer({ templateData }: TemplateRendererProps) {
             />
           )}
           {templateData.title && (
-            <h2 className="text-4xl font-bold text-gray-800 mb-4">{templateData.title}</h2>
+            <h2 className="text-4xl font-bold text-gray-800 mb-4">
+              {templateData.title}
+            </h2>
           )}
           {templateData.subtitle && (
             <p className="text-xl text-gray-600">{templateData.subtitle}</p>
@@ -76,16 +88,22 @@ function TemplateRenderer({ templateData }: TemplateRendererProps) {
                     />
                   )}
                   {section.text && (
-                    <h3 className="text-2xl font-semibold text-gray-800">{section.text}</h3>
+                    <h3 className="text-2xl font-semibold text-gray-800">
+                      {section.text}
+                    </h3>
                   )}
                 </div>
               )}
               {section.type === "menu" && section.items && (
                 <div>
-                  <h3 className="text-2xl font-semibold text-gray-800 mb-4">Menu</h3>
+                  <h3 className="text-2xl font-semibold text-gray-800 mb-4">
+                    Menu
+                  </h3>
                   <ul className="list-disc list-inside">
                     {section.items.map((item, i) => (
-                      <li key={i} className="text-gray-700">{item}</li>
+                      <li key={i} className="text-gray-700">
+                        {item}
+                      </li>
                     ))}
                   </ul>
                 </div>
@@ -104,7 +122,12 @@ async function fetchTemplate(id: string, token?: string): Promise<Template> {
     if (token) {
       headers["Authorization"] = `Bearer ${token}`;
     }
-    console.log("Fetching template with ID:", id, "Token:", token || "No token provided");
+    console.log(
+      "Fetching template with ID:",
+      id,
+      "Token:",
+      token || "No token provided",
+    );
     const response = await fetch(`http://localhost:3001/api/templates/${id}`, {
       method: "GET",
       headers,
@@ -112,8 +135,15 @@ async function fetchTemplate(id: string, token?: string): Promise<Template> {
     });
     if (!response.ok) {
       const errorText = await response.text();
-      console.error("API response error:", errorText, "Status:", response.status);
-      throw new Error(`HTTP error! status: ${response.status}, message: ${errorText}`);
+      console.error(
+        "API response error:",
+        errorText,
+        "Status:",
+        response.status,
+      );
+      throw new Error(
+        `HTTP error! status: ${response.status}, message: ${errorText}`,
+      );
     }
     const data = await response.json();
     console.log("Template fetched successfully:", data);
@@ -124,26 +154,36 @@ async function fetchTemplate(id: string, token?: string): Promise<Template> {
   }
 }
 
-export default async function TemplatePage({ params }: { params: { id: string } }) {
+export default async function TemplatePage({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
+  const { id } = await params;
   const session = await auth();
   console.log("Session data:", session);
 
   if (!session || !session.user) {
     return (
       <div className="container mx-auto p-6 text-center">
-        <p className="text-lg text-red-500">Please log in to view this template.</p>
-        <a href="/login" className="text-blue-500 underline">Go to Login</a>
+        <p className="text-lg text-red-500">
+          Please log in to view this template.
+        </p>
+        <a href="/login" className="text-blue-500 underline">
+          Go to Login
+        </a>
       </div>
     );
   }
 
   let template: Template;
   try {
-    const token = (session as any).accessToken || (session as any).apiAccessToken;
+    const token =
+      (session as any).accessToken || (session as any).apiAccessToken;
     if (!token) {
       console.warn("No token found in session");
     }
-    template = await fetchTemplate(params.id, token);
+    template = await fetchTemplate(id, token);
   } catch (error) {
     return (
       <div className="container mx-auto p-6 text-center">
@@ -184,7 +224,8 @@ export default async function TemplatePage({ params }: { params: { id: string } 
         </div>
       )}
       <p className="text-sm text-gray-500">
-        Type: <span className="capitalize">{template.templateType}</span> Template
+        Type: <span className="capitalize">{template.templateType}</span>{" "}
+        Template
       </p>
       <p className="text-sm text-gray-500 mt-2">
         Created: {new Date(template.createdAt).toLocaleDateString("en-US")}
